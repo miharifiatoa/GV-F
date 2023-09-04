@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="dashboard" prefHeight="334.0" prefWidth="557.0" styleClass="dashboard" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.dashboard.DashboardLayoutController">
+   <top>
+      <AnchorPane prefHeight="14.0" prefWidth="547.0" styleClass="title" BorderPane.alignment="CENTER">
+         <Label alignment="CENTER_RIGHT" prefHeight="39.2" prefWidth="547.2" styleClass="title-l" text="Tableau de bord" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <font>
+               <Font name="Arial Black" size="20.0" />
+            </font>
+            <padding>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+         </Label>
+         <BorderPane.margin>
+            <Insets bottom="7.0" />
+         </BorderPane.margin>
+      </AnchorPane>
+   </top>
+   <center>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets left="7.0" />
+         </BorderPane.margin>
+      </BorderPane>
+   </center>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</BorderPane>
