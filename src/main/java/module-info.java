@@ -2,6 +2,7 @@ module com.sales_management_javafx {
     requires javafx.controls;
     requires javafx.fxml;
     requires Sales.management;
+    requires org.jetbrains.annotations;
 
     exports com.sales_management_javafx;
     opens com.sales_management_javafx to javafx.fxml;
@@ -26,4 +27,8 @@ module com.sales_management_javafx {
 
     exports com.sales_management_javafx.controller.account;
     opens com.sales_management_javafx.controller.account to javafx.fxml;
+
+    exports com.sales_management_javafx.controller.inventory;
+    opens com.sales_management_javafx.controller.inventory to javafx.fxml;
+
 }

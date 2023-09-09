@@ -1,15 +1,18 @@
 package com.sales_management_javafx.controller.account;
 
 import com.sales_management_javafx.SalesApplication;
+import com.sales_management_javafx.classes.ActionTableCell;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import org.jetbrains.annotations.NotNull;
 import org.sales_management.entity.AccountEntity;
 import org.sales_management.service.AccountService;
 
@@ -17,12 +20,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.URL;
-import java.util.Collection;
 import java.util.ResourceBundle;
 
 public class AccountTableController implements Initializable {
     @FXML
-    private BorderPane table_borderpane;
+    private BorderPane account_table_borderpane;
     @FXML
     private TableView<AccountEntity> account_tableview;
     @FXML
@@ -30,10 +32,7 @@ public class AccountTableController implements Initializable {
     @FXML
     private TableColumn<AccountEntity,String> username_column;
     @FXML
-    private TableColumn<AccountEntity,String> delete_column;
-    @FXML
-    private TableColumn<AccountEntity,String> info_column;
-
+    private TableColumn<AccountEntity,Void> action_column;
     private final AccountService accountService;
 
     public AccountTableController() {
@@ -49,44 +48,65 @@ public class AccountTableController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountInformation.fxml"));
             GridPane account_information = fxmlLoader.load();
             VBox.setVgrow(account_information, Priority.ALWAYS);
-            BorderPane parent = (BorderPane) table_borderpane.getParent();
+            BorderPane parent = (BorderPane) account_table_borderpane.getParent();
             parent.setBottom(account_information);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
     public void showAccounts(){
+        this.setAccountColumnValue();
+        account_tableview.setFocusTraversable(false);
+        account_tableview.setFixedCellSize(40.5);
+        account_tableview.getItems().addAll(this.accountService.getAll());
+    }
+    public void setAccountColumnValue(){
         id_column.setCellValueFactory(new PropertyValueFactory<>("id"));
         username_column.setCellValueFactory(new PropertyValueFactory<>("username"));
-        username_column.setCellFactory(col -> new TableCell<>() {
+        action_column.setCellFactory(param->new TableCell<>(){
             @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
+            protected void updateItem(Void unused, boolean empty) {
+                super.updateItem(unused, empty);
+                if (empty){
                     setText(null);
                     setGraphic(null);
-                } else {
-                    Label label = new Label(item);
-                    label.setOnMouseClicked(event -> {
-                        if (!isEmpty()){
-                            TableRow<AccountEntity> tableRow = getTableRow();
-                            AccountEntity account = tableRow.getItem();
-                            try(FileOutputStream fileOutputStream = new FileOutputStream(String.valueOf(SalesApplication.class.getResource("/file/data.json")))) {
-                                ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-                                objectOutputStream.writeObject(account);
-                                getAccountInformation();
-                                objectOutputStream.close();
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                    });
-                    setGraphic(label);
+                }
+                else {
+                    GridPane action_pane = new ActionTableCell(()-> {
+                        onDeleteAccount(getTableRow());
+                    },
+                    ()-> {
+                        TableRow<AccountEntity> tableRow = getTableRow();
+                        onShowInformation(tableRow);
+                    }).createActionPane();
+                    setGraphic(action_pane);
                 }
             }
         });
-        Collection<AccountEntity> collection = this.accountService.getAll();
-        account_tableview.getItems().addAll(collection);
-        account_tableview.setFixedCellSize(37);
+        action_column.setCellValueFactory(param->new SimpleObjectProperty<>());
+    }
+    public void onDeleteAccount(TableRow<AccountEntity> tableRow){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Suppression!");
+        alert.setHeaderText("Voulez vous supprimer");
+        alert.showAndWait().ifPresent(rs -> {
+            if (rs == ButtonType.OK) {
+                AccountEntity account = tableRow.getItem();
+                if (this.accountService.deleteById(account.getId()) != null){
+                    account_tableview.setItems(FXCollections.observableArrayList(new AccountService().getAll()));
+                }
+            }
+        });
+    }
+    public void onShowInformation(@NotNull TableRow<AccountEntity> tableRow){
+        AccountEntity account = tableRow.getItem();
+        try(FileOutputStream fileOutputStream = new FileOutputStream(String.valueOf(SalesApplication.class.getResource("/file/data.json")))) {
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(account);
+            objectOutputStream.close();
+            getAccountInformation();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

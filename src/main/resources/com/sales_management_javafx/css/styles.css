@@ -10,7 +10,10 @@
     -fx-background-color: #ffffff;
 }
 .dashboard .menus{
-    -fx-background-color: #dedede;
+    -fx-background-color: #ffffff;
+    -fx-padding: 1px;   
+    -fx-border-width: 1px;
+    -fx-border-color: rgb(201, 201, 201);
 }
 .dashboard .title{
     -fx-background-color: #ffffff;
@@ -27,42 +30,74 @@
     -fx-padding: 5px;
     -fx-background-color: rgb(234, 234, 234);
 }
-.dashboard .table {
-    -fx-border: none;
+.dashboard .inventory-button{
     -fx-border-width: 0;
-    -fx-border-color: transparent;
+    -fx-border-color: rgb(234, 234, 234);
+    -fx-background-color: rgb(0, 0, 0);
+    -fx-padding: 7px;
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-font-weight: bold;
 }
-.dashboard .table .table-columns{
+.dashboard .exit-inventory-button{
+    -fx-background-color: rgb(255, 0, 0);
+    -fx-padding: 7px;
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-font-weight: bold;
+}
+.dashboard .article-box{
+    -fx-border-width: 1px;
+    -fx-border-color: rgb(234, 234, 234);
+    -fx-margin: 1em;
+}
+.table-view{
+    -fx-border-width: 1px;
+    -fx-border-color: rgb(226, 226, 226);
+}
+.table-view .title-column{
+    -fx-padding :0.96em;
+    
+}
+.column-header{
+    -fx-text-fill: rgb(122, 122, 122);
+
+}
+.table-view .table-column{
     -fx-alignment: center-left;
 }
-.dashboard .table.table:focused{
-    background: #000;
+.table-view .action-column{
+    -fx-alignment: center;
 }
-
-.dashboard .table .table-column{
+.table-view .action-btn{
+    -fx-padding :3px;
 }
-
+.table-row-cell {
+    -fx-text-fill: rgb(0, 0, 0);
+}
+.table-view .table-row-cell:focused {
+    -fx-text-fill: rgb(0, 0, 0);
+}
+.table-view:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
 .dashboard .menus .no-active{
     -fx-text-fill: rgb(255, 255, 255);
 }
 .dashboard .menus .no-active:hover{
     -fx-background-color: #44444440;
     -fx-text-weight: bold;
-
 }
 .dashboard .menus .active{
-    -fx-background-color: #033032;
+    -fx-background-color: #a0a0a0;
 }
-.table-view .table-row-cell {
-    -fx-min-height: 100px;
-}
+
 .dashboard .menus .active:hover{
-    -fx-background-color: #033032;
+    -fx-background-color: #a0a0a0;
 }
 .dashboard .menus .no-active .item-label{
     -fx-font-weight: bold;
-    -fx-padding :16px;
-    -fx-text-fill: rgb(0, 0, 0);
+    -fx-padding :11px;
+    -fx-text-fill: rgb(110, 110, 110);
 }
 .dashboard .menus .active .item-label{
     -fx-text-fill: rgb(255, 255, 255);
@@ -76,7 +111,7 @@
     -fx-padding :5px;
 }
 .dashboard .form .textfield{
-    -fx-text-fill: rgb(148, 148, 148);
+    -fx-text-fill: rgb(105, 105, 105);
 }
 .dashboard .information{
     -fx-border-width: 1px;

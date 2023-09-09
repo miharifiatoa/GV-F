@@ -30,7 +30,7 @@ public class MenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         FXMLLoader accountLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountLayout.fxml"));
-        FXMLLoader shopLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/shop/shop.fxml"));
+        FXMLLoader shopLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/shop/shopLayout.fxml"));
         FXMLLoader articleLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article/article.fxml"));
         FXMLLoader productLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/product.fxml"));
         FXMLLoader saleLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/sale/sale.fxml"));
@@ -81,15 +81,14 @@ public class MenuController implements Initializable {
     }
     public void handleClickMenuItems(MouseEvent event,Node node){
         BorderPane dashboard = (BorderPane) menu.getParent();
-        BorderPane borderPane = (BorderPane) dashboard.getCenter();
         switch (node.getId()) {
-            case "Comptes" -> borderPane.setCenter(this.account);
-            case "Boutiques" -> borderPane.setCenter(this.shop);
-            case "Articles" -> borderPane.setCenter(this.article);
-            case "Produits" -> borderPane.setCenter(this.product);
-            case "Ventes" -> borderPane.setCenter(this.sale);
+            case "Comptes" -> dashboard.setCenter(this.account);
+            case "Boutiques" -> dashboard.setCenter(this.shop);
+            case "Articles" -> dashboard.setCenter(this.article);
+            case "Produits" -> dashboard.setCenter(this.product);
+            case "Ventes" -> dashboard.setCenter(this.sale);
         }
-        BorderPane.setAlignment(borderPane, Pos.CENTER);
+        BorderPane.setAlignment(dashboard, Pos.CENTER);
         event.consume();
     }
 }

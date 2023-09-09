@@ -43,7 +43,6 @@ public class UserFormController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.next_button.setDisable(true);
         this.closeForm();
         this.dataValidator();
         this.next();
@@ -51,6 +50,9 @@ public class UserFormController implements Initializable {
         this.requireNumberOnly(user_cin);
     }
     public void dataValidator(){
+        if (user_lastname.getText().isEmpty()){
+            this.next_button.setDisable(true);
+        }
         user_lastname.textProperty().addListener((observable, oldValue, newValue) -> next_button.setDisable(user_lastname.getText().isEmpty() || user_cin.getText().isEmpty()));
         user_cin.textProperty().addListener((observable, oldValue, newValue) -> next_button.setDisable(user_lastname.getText().isEmpty() || user_cin.getText().isEmpty()));
     }
@@ -81,9 +83,7 @@ public class UserFormController implements Initializable {
         if (!user_cin.getText().isEmpty()){
             user.setCin(Long.valueOf(user_cin.getText()));
         }
-        if (!user_cin.getText().isEmpty()){
-            user.setEmail(user_email.getText());
-        }
+        user.setEmail(user_email.getText());
         user.setRole("USER");
         user.setPerson(this.createPerson());
         return user;
@@ -95,7 +95,7 @@ public class UserFormController implements Initializable {
             objectOutputStream.close();
         }
         catch (Exception e){
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
     public void next(){
@@ -107,7 +107,7 @@ public class UserFormController implements Initializable {
                 this.writeObjectOnFile();
                 parent.setBottom(accountForm);
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         });
     }

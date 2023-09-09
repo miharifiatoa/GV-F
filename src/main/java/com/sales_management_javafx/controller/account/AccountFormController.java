@@ -3,11 +3,13 @@ package com.sales_management_javafx.controller.account;
 import com.sales_management_javafx.SalesApplication;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -21,7 +23,6 @@ import org.sales_management.service.PersonService;
 import org.sales_management.service.UserService;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.URL;
@@ -96,6 +97,11 @@ public class AccountFormController implements Initializable {
                         account.setPassword(password.getText());
                         account.setUser(user);
                         if (this.accountService.create(account)!=null){
+                            BorderPane account_layout = (BorderPane) this.account_form.getParent();
+                            BorderPane account_table_borderpane = (BorderPane) account_layout.getCenter();
+                            @SuppressWarnings("unchecked")
+                            TableView<AccountEntity> account_tableview = (TableView<AccountEntity>) account_table_borderpane.getCenter();
+                            account_tableview.setItems(FXCollections.observableArrayList(this.accountService.getAll()));
                             this.putToolbarInBorderpane();
                         }
                     }
@@ -103,9 +109,7 @@ public class AccountFormController implements Initializable {
             }
             else {
                 error.setText("Nom d'utilisateur deja existe");
-                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2),action -> {
-                    error.setText("");
-                }));
+                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2),action -> error.setText("")));
                 timeline.play();
             }
         });
@@ -116,7 +120,6 @@ public class AccountFormController implements Initializable {
             try {
                 VBox user_form = fxmlLoader.load();
                 BorderPane parent = (BorderPane) account_form.getParent();
-
                 parent.setBottom(user_form);
             } catch (IOException e) {
                 System.out.println("Error while getting toolbar.fxml");

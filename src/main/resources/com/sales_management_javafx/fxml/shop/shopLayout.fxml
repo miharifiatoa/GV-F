@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<BorderPane fx:id="shop_layout" prefHeight="200.0" prefWidth="288.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.shop.ShopLayoutController">
+   <padding>
+      <Insets left="5.0" />
+   </padding>
+</BorderPane>
