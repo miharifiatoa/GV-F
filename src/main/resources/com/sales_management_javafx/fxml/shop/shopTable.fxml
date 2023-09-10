@@ -12,7 +12,10 @@
         <columns>
             <TableColumn fx:id="shopIdTableColumn" maxWidth="70.0" minWidth="70.0" prefWidth="70.0">
                <graphic>
-                  <Label styleClass="title-column" text="iD" />
+                  <Label text="iD">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding></Label>
                </graphic></TableColumn>
           <TableColumn fx:id="shopNameTableColumn" prefWidth="420.0" text="Nom du magasin" />
             <TableColumn fx:id="shopActionTableColumn" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" text="Actions" />

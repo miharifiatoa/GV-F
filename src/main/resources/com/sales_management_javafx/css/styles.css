@@ -33,7 +33,7 @@
 .dashboard .inventory-button{
     -fx-border-width: 0;
     -fx-border-color: rgb(234, 234, 234);
-    -fx-background-color: rgb(0, 0, 0);
+    -fx-background-color: rgba(0, 0, 0, 0.256);
     -fx-padding: 7px;
     -fx-text-fill: rgb(255, 255, 255);
     -fx-font-weight: bold;
@@ -52,10 +52,6 @@
 .table-view{
     -fx-border-width: 1px;
     -fx-border-color: rgb(226, 226, 226);
-}
-.table-view .title-column{
-    -fx-padding :0.96em;
-    
 }
 .column-header{
     -fx-text-fill: rgb(122, 122, 122);
@@ -95,8 +91,7 @@
     -fx-background-color: #a0a0a0;
 }
 .dashboard .menus .no-active .item-label{
-    -fx-font-weight: bold;
-    -fx-padding :11px;
+    -fx-padding :10px 5px;
     -fx-text-fill: rgb(110, 110, 110);
 }
 .dashboard .menus .active .item-label{
@@ -104,7 +99,7 @@
     -fx-font-weight: bold;
 }
 .dashboard .menus .no-active .item-label:hover{
-    -fx-font-weight: bold;
+    
 }
 .dashboard .form{
     -fx-background-color: #dedede;

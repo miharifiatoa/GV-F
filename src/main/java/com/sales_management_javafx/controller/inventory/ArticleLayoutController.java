@@ -1,5 +1,6 @@
 package com.sales_management_javafx.controller.inventory;
 
+import com.sales_management_javafx.composent.GridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -14,9 +15,11 @@ public class ArticleLayoutController implements Initializable {
     @FXML
     private BorderPane articleLayout;
     private final ArticleService articleService;
+    private GridPane articlePane;
 
     public ArticleLayoutController() {
         this.articleService = new ArticleService();
+        this.articlePane = new GridPane();
     }
 
     @Override

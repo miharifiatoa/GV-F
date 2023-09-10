@@ -44,9 +44,9 @@ public class ShopTableController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.showAccounts();
+        this.showShops();
     }
-    public void getAccountInformation(){
+    public void getShopInformation(){
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/shop/shopInformation.fxml"));
             GridPane ShopInformationGridpane = fxmlLoader.load();
@@ -57,13 +57,13 @@ public class ShopTableController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-    public void showAccounts(){
-        this.setAccountColumnValue();
+    public void showShops(){
+        this.setShopColumnValue();
         shopTableView.setFocusTraversable(false);
-        shopTableView.setFixedCellSize(40.5);
+        shopTableView.setFixedCellSize(39);
         shopTableView.getItems().addAll(this.shopService.getAll());
     }
-    public void setAccountColumnValue(){
+    public void setShopColumnValue(){
         shopIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         shopNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         shopActionTableColumn.setCellFactory(param->new TableCell<>(){
@@ -76,7 +76,7 @@ public class ShopTableController implements Initializable {
                 }
                 else {
                     GridPane action_pane = new ActionTableCell(()-> {
-                        onDeleteAccount(getTableRow());
+                        onDeleteShop(getTableRow());
                     },
                             ()-> {
                                 TableRow<ShopEntity> shopTableRow = getTableRow();
@@ -88,7 +88,7 @@ public class ShopTableController implements Initializable {
         });
         this.shopActionTableColumn.setCellValueFactory(param->new SimpleObjectProperty<>());
     }
-    public void onDeleteAccount(TableRow<ShopEntity> tableRow){
+    public void onDeleteShop(TableRow<ShopEntity> tableRow){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Suppression!");
         alert.setHeaderText("Voulez vous supprimer");
@@ -107,7 +107,7 @@ public class ShopTableController implements Initializable {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(shop);
             objectOutputStream.close();
-            getAccountInformation();
+            this.getShopInformation();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

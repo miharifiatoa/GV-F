@@ -31,4 +31,7 @@ module com.sales_management_javafx {
     exports com.sales_management_javafx.controller.inventory;
     opens com.sales_management_javafx.controller.inventory to javafx.fxml;
 
+    exports com.sales_management_javafx.controller.article;
+    opens com.sales_management_javafx.controller.article to javafx.fxml;
+
 }

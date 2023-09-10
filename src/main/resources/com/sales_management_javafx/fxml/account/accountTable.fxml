@@ -6,13 +6,18 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="account_table_borderpane" prefHeight="307.0" prefWidth="357.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.account.AccountTableController">
+
+<BorderPane fx:id="account_table_borderpane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.account.AccountTableController">
    <center>
-      <TableView fx:id="account_tableview" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="account_tableview" prefHeight="200.0" prefWidth="200.0">
         <columns>
           <TableColumn fx:id="id_column" maxWidth="70.0" minWidth="70.0" prefWidth="70.0">
                <graphic>
-                  <Label styleClass="title-column" text="iD" />
+                  <Label text="iD">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Label>
                </graphic>
             </TableColumn>
           <TableColumn fx:id="username_column" prefWidth="393.60003662109375" text="Nom d'utilisateur" />
@@ -23,7 +28,4 @@
          </columnResizePolicy>
       </TableView>
    </center>
-   <padding>
-      <Insets bottom="5.0" />
-   </padding>
 </BorderPane>
