@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox fx:id="shopFormVBox" prefHeight="165.0" prefWidth="600.0" spacing="10.0" style="-fx-background-color: #dedede;" styleClass="form" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.shop.ShopFormController">
    <children>
       <AnchorPane prefHeight="232.0" prefWidth="591.0">
@@ -42,8 +41,8 @@
                   </AnchorPane>
                   <GridPane>
                      <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="40.0" prefWidth="96.8" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.9999656677246" minWidth="10.0" prefWidth="193.59999999999997" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" />
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />

@@ -60,7 +60,7 @@ public class ShopTableController implements Initializable {
     public void showShops(){
         this.setShopColumnValue();
         shopTableView.setFocusTraversable(false);
-        shopTableView.setFixedCellSize(39);
+        shopTableView.setFixedCellSize(37);
         shopTableView.getItems().addAll(this.shopService.getAll());
     }
     public void setShopColumnValue(){

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<BorderPane fx:id="menuBorderpane" prefHeight="240.0" prefWidth="215.0" styleClass="menu-pane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.dashboard.MenuController">
+   <bottom>
+      <AnchorPane maxHeight="40.0" minHeight="40.0" style="-fx-background-color: rgb(201, 201, 201);">
+         <children>
+            <Button fx:id="inventory_button" alignment="BASELINE_LEFT" maxWidth="35.0" minHeight="35.0" mnemonicParsing="false" prefHeight="25.6" prefWidth="215.2" styleClass="inventory-button" text="Visiter l'inventaire" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+   </bottom>
+   <center>
+      <VBox fx:id="menuBox" prefHeight="200.0" prefWidth="370.0" styleClass="menus" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

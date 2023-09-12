@@ -23,7 +23,7 @@
          <rowConstraints>
             <RowConstraints maxHeight="15.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
             <TextField fx:id="username" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" GridPane.rowIndex="1" />
@@ -90,6 +90,9 @@
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
                   </Label>
                </children>
             </AnchorPane>

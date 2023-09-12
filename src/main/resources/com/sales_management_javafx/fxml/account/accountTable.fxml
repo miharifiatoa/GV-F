@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 
 
-<BorderPane fx:id="account_table_borderpane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.account.AccountTableController">
+<BorderPane fx:id="account_table_borderpane" prefHeight="243.0" prefWidth="485.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.account.AccountTableController">
    <center>
       <TableView fx:id="account_tableview" prefHeight="200.0" prefWidth="200.0">
         <columns>
@@ -15,17 +15,20 @@
                <graphic>
                   <Label text="iD">
                      <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="9.0" left="9.0" right="9.0" top="9.0" />
                      </padding>
                   </Label>
                </graphic>
             </TableColumn>
-          <TableColumn fx:id="username_column" prefWidth="393.60003662109375" text="Nom d'utilisateur" />
-            <TableColumn fx:id="action_column" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" text="Actions" />
+          <TableColumn fx:id="username_column" prefWidth="326.4001007080078" text="Nom d'utilisateur" />
+            <TableColumn fx:id="action_column" maxWidth="80.0" minWidth="80.0" text="Actions" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
    </center>
+   <padding>
+      <Insets bottom="5.0" />
+   </padding>
 </BorderPane>

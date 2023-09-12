@@ -10,10 +10,7 @@
     -fx-background-color: #ffffff;
 }
 .dashboard .menus{
-    -fx-background-color: #ffffff;
-    -fx-padding: 1px;   
-    -fx-border-width: 1px;
-    -fx-border-color: rgb(201, 201, 201);
+
 }
 .dashboard .title{
     -fx-background-color: #ffffff;
@@ -31,11 +28,9 @@
     -fx-background-color: rgb(234, 234, 234);
 }
 .dashboard .inventory-button{
-    -fx-border-width: 0;
-    -fx-border-color: rgb(234, 234, 234);
-    -fx-background-color: rgba(0, 0, 0, 0.256);
-    -fx-padding: 7px;
-    -fx-text-fill: rgb(255, 255, 255);
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-padding: 5px;
+    -fx-text-fill: rgb(10, 119, 134);
     -fx-font-weight: bold;
 }
 .dashboard .exit-inventory-button{
@@ -50,8 +45,10 @@
     -fx-margin: 1em;
 }
 .table-view{
-    -fx-border-width: 1px;
-    -fx-border-color: rgb(226, 226, 226);
+    -fx-border: none;
+    -fx-border-style: none;
+    -fx-border-width: 0 0 0 0;
+    -fx-border-color: rgba(255, 255, 255, 0);
 }
 .column-header{
     -fx-text-fill: rgb(122, 122, 122);
@@ -76,26 +73,29 @@
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
 }
+.dashboard .menu-pane{
+    -fx-background-color:rgb(234, 234, 234);
+}
 .dashboard .menus .no-active{
     -fx-text-fill: rgb(255, 255, 255);
 }
 .dashboard .menus .no-active:hover{
-    -fx-background-color: #44444440;
+    -fx-background-color: #cacacaa5;
     -fx-text-weight: bold;
 }
 .dashboard .menus .active{
-    -fx-background-color: #a0a0a0;
+    -fx-background-color: #b7b7b7c7;
 }
 
 .dashboard .menus .active:hover{
-    -fx-background-color: #a0a0a0;
+    -fx-background-color: #b7b7b7c7;
 }
 .dashboard .menus .no-active .item-label{
-    -fx-padding :10px 5px;
+    -fx-padding :.8em 5px;
     -fx-text-fill: rgb(110, 110, 110);
 }
 .dashboard .menus .active .item-label{
-    -fx-text-fill: rgb(255, 255, 255);
+    -fx-text-fill: rgb(0, 0, 0);
     -fx-font-weight: bold;
 }
 .dashboard .menus .no-active .item-label:hover{
@@ -113,5 +113,25 @@
     -fx-border-color: rgb(234, 234, 234);
     -fx-background-color: #dedede
 }
+.dashboard .product-box{
+    -fx-border-width: 1px;
+    -fx-border-color: rgb(228, 228, 228);
+    /* -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.705), 8, 0, 3, 3); */
+
+}
+.dashboard .product-box .name-label{
+    -fx-background-color: #dedede;
+}
+.dashboard .product-box-scrollpane{
+    -fx-border-width: 1px;
+    -fx-border-color: rgb(228, 228, 228);
+}
+.color{
+    -fx-background-color: #484848;
+}
+.textfield{
+
+}
+
 
 

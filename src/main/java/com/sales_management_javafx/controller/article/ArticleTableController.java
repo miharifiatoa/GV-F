@@ -43,7 +43,7 @@ public class ArticleTableController implements Initializable {
     public void showArticles(){
         this.setArticleColumnValue();
         articleTableView.setFocusTraversable(false);
-        articleTableView.setFixedCellSize(39);
+        articleTableView.setFixedCellSize(37);
         articleTableView.getItems().addAll(this.articleService.getAll());
     }
     public void setArticleColumnValue(){

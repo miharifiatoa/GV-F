@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -20,9 +21,12 @@ import java.util.ResourceBundle;
 
 public class MenuController implements Initializable {
     @FXML
-    private VBox menu;
+    private BorderPane menuBorderpane;
+    @FXML
+    private VBox menuBox;
+    @FXML
+    private Button inventory_button;
     private BorderPane account;
-
     private BorderPane shop;
     private BorderPane article;
     private BorderPane product;
@@ -44,6 +48,7 @@ public class MenuController implements Initializable {
             System.out.println("error");
             e.printStackTrace();
         }
+        this.onGoToInventory();
         this.createMenuItems();
         this.onClickMenuItems();
     }
@@ -53,7 +58,7 @@ public class MenuController implements Initializable {
             Label menuItemLabel = new Label(menu.getValue());
             menuItemsConfiguration(anchorPane, menuItemLabel, menu);
             anchorPane.getChildren().add(menuItemLabel);
-            this.menu.getChildren().add(anchorPane);
+            this.menuBox.getChildren().add(anchorPane);
         }
     }
     private void menuItemsConfiguration(AnchorPane anchorPane, Label menuItem, Menu menu) {
@@ -67,10 +72,10 @@ public class MenuController implements Initializable {
     }
 
     public void onClickMenuItems() {
-        for (Node node : menu.getChildren()){
+        for (Node node : menuBox.getChildren()){
             node.setOnMouseClicked(event -> {
                 if (Objects.equals(node.getStyleClass().toString(), "no-active")){
-                    for (Node node1 :menu.getChildren()){
+                    for (Node node1 :menuBox.getChildren()){
                         node1.getStyleClass().remove("active");
                     }
                     node.getStyleClass().add("active");
@@ -80,7 +85,7 @@ public class MenuController implements Initializable {
         }
     }
     public void handleClickMenuItems(MouseEvent event,Node node){
-        BorderPane dashboard = (BorderPane) menu.getParent();
+        BorderPane dashboard = (BorderPane) menuBorderpane.getParent();
         switch (node.getId()) {
             case "Comptes" -> dashboard.setCenter(this.account);
             case "Boutiques" -> dashboard.setCenter(this.shop);
@@ -90,5 +95,28 @@ public class MenuController implements Initializable {
         }
         BorderPane.setAlignment(dashboard, Pos.CENTER);
         event.consume();
+    }
+    public void onGoToInventory(){
+        inventory_button.setOnAction(actionEvent -> {
+            BorderPane dashboard = (BorderPane) menuBorderpane.getParent();
+            FXMLLoader loadInventory = new FXMLLoader(SalesApplication.class.getResource("fxml/inventory/inventoryLayout.fxml"));
+            try {
+                BorderPane inventoryLayout = loadInventory.load();
+                dashboard.setLeft(null);
+                dashboard.setCenter(inventoryLayout);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+    public BorderPane getMenuBar(){
+        FXMLLoader fxmlLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/dashboard/dashboardMenu.fxml"));
+        BorderPane menuBar;
+        try {
+            menuBar = fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return menuBar;
     }
 }
