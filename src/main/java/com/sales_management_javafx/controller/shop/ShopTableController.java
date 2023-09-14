@@ -14,9 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
-import org.sales_management.entity.AccountEntity;
 import org.sales_management.entity.ShopEntity;
-import org.sales_management.service.AccountService;
 import org.sales_management.service.ShopService;
 
 import java.io.FileOutputStream;
@@ -60,7 +58,7 @@ public class ShopTableController implements Initializable {
     public void showShops(){
         this.setShopColumnValue();
         shopTableView.setFocusTraversable(false);
-        shopTableView.setFixedCellSize(37);
+        shopTableView.setFixedCellSize(38.5);
         shopTableView.getItems().addAll(this.shopService.getAll());
     }
     public void setShopColumnValue(){

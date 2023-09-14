@@ -1,6 +1,7 @@
 package com.sales_management_javafx.controller.user;
 
 import com.sales_management_javafx.SalesApplication;
+import com.sales_management_javafx.classes.NumberField;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -46,8 +47,8 @@ public class UserFormController implements Initializable {
         this.closeForm();
         this.dataValidator();
         this.next();
-        this.requireNumberOnly(user_phone);
-        this.requireNumberOnly(user_cin);
+        NumberField.requireIntegerOnly(user_phone);
+        NumberField.requireIntegerOnly(user_cin);
     }
     public void dataValidator(){
         if (user_lastname.getText().isEmpty()){
@@ -108,13 +109,6 @@ public class UserFormController implements Initializable {
                 parent.setBottom(accountForm);
             } catch (IOException e) {
                 System.out.println(e.getMessage());
-            }
-        });
-    }
-    public void requireNumberOnly(TextField textField){
-        textField.textProperty().addListener((observableValue, old, newValue) -> {
-            if (!newValue.matches("\\d*")){
-                textField.setText(newValue.replaceAll("\\D",""));
             }
         });
     }

@@ -6,7 +6,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 
-
 <BorderPane fx:id="account_table_borderpane" prefHeight="243.0" prefWidth="485.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.account.AccountTableController">
    <center>
       <TableView fx:id="account_tableview" prefHeight="200.0" prefWidth="200.0">
@@ -15,7 +14,7 @@
                <graphic>
                   <Label text="iD">
                      <padding>
-                        <Insets bottom="9.0" left="9.0" right="9.0" top="9.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Label>
                </graphic>

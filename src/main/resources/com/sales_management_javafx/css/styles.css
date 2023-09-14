@@ -70,8 +70,8 @@
     -fx-text-fill: rgb(0, 0, 0);
 }
 .table-view:focused {
-    -fx-focus-color: transparent;
-    -fx-faint-focus-color: transparent;
+    -fx-focus-color: #9b9b9b;
+    -fx-faint-focus-color: #a2282800;
 }
 .dashboard .menu-pane{
     -fx-background-color:rgb(234, 234, 234);
@@ -91,7 +91,7 @@
     -fx-background-color: #b7b7b7c7;
 }
 .dashboard .menus .no-active .item-label{
-    -fx-padding :.8em 5px;
+    -fx-padding :.85em 5px;
     -fx-text-fill: rgb(110, 110, 110);
 }
 .dashboard .menus .active .item-label{
@@ -105,7 +105,7 @@
     -fx-background-color: #dedede;
     -fx-padding :5px;
 }
-.dashboard .form .textfield{
+.dashboard .textfield{
     -fx-text-fill: rgb(105, 105, 105);
 }
 .dashboard .information{
@@ -131,6 +131,10 @@
 }
 .textfield{
 
+}
+.dashboard .product-box-toolbar{
+    -fx-border-width: 1px;
+    -fx-border-color: rgb(228, 228, 228);
 }
 
 

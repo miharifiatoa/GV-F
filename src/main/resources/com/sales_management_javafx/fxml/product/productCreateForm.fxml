@@ -135,15 +135,15 @@
                               <Insets top="5.0" />
                            </padding>
                         </GridPane>
-                        <TextField fx:id="productBrandTextfield" GridPane.rowIndex="9" />
+                        <TextField fx:id="productBrandTextfield" styleClass="textfield" GridPane.rowIndex="9" />
                         <AnchorPane GridPane.rowIndex="6">
                            <children>
                               <Label alignment="BOTTOM_LEFT" prefHeight="20.0" prefWidth="391.2" text="Qualité" textFill="#818181" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
-                        <TextField fx:id="productQualityTextfield" GridPane.rowIndex="7" />
-                        <TextField fx:id="productReferenceTextfield" layoutX="10.0" layoutY="239.0" GridPane.rowIndex="11" />
-                        <TextField fx:id="productColorTextfield" layoutX="10.0" layoutY="322.0" GridPane.rowIndex="13" />
+                        <TextField fx:id="productQualityTextfield" styleClass="textfield" GridPane.rowIndex="7" />
+                        <TextField fx:id="productReferenceTextfield" layoutX="10.0" layoutY="239.0" styleClass="textfield" GridPane.rowIndex="11" />
+                        <TextField fx:id="productColorTextfield" layoutX="10.0" layoutY="322.0" styleClass="textfield" GridPane.rowIndex="13" />
                         <AnchorPane GridPane.rowIndex="10">
                            <children>
                               <Label alignment="BOTTOM_LEFT" prefHeight="33.6" prefWidth="416.0" text="Référence" textFill="#818181" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -160,7 +160,7 @@
                            </children>
                         </AnchorPane>
                         <Label alignment="BOTTOM_LEFT" prefHeight="20.0" prefWidth="391.2" text="Taille" textFill="#818181" GridPane.rowIndex="4" />
-                        <TextField fx:id="productSizeTextfield" maxHeight="25.0" minHeight="25.0" prefHeight="25.0" GridPane.rowIndex="5" />
+                        <TextField fx:id="productSizeTextfield" maxHeight="25.0" minHeight="25.0" prefHeight="25.0" styleClass="textfield" GridPane.rowIndex="5" />
                      </children>
                   </GridPane>
                </content>
@@ -201,7 +201,7 @@
       </VBox>
       <BorderPane fx:id="productCreatePane" styleClass="product-box" visible="false">
          <center>
-            <Button fx:id="createProductButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Creer un nouveau produit" textFill="#0600ff">
+            <Button fx:id="createProductButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="+" textFill="#0600ff">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

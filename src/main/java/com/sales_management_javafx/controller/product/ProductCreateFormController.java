@@ -1,9 +1,11 @@
 package com.sales_management_javafx.controller.product;
 
+import com.sales_management_javafx.classes.NumberField;
 import com.sales_management_javafx.composent.ProductGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -20,13 +22,13 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
-public class ProductFormController implements Initializable {
+public class ProductCreateFormController implements Initializable {
     @FXML
     private TextField productNameTextfield;
     @FXML
     private TextField productPriceTextfield;
     @FXML
-    private TextField productQuantityTextfield;
+    private TextField productSizeTextfield;
     @FXML
     private TextField productQualityTextfield;
     @FXML
@@ -49,12 +51,14 @@ public class ProductFormController implements Initializable {
     private VBox productFormBox;
     @FXML
     private BorderPane productCreatePane;
+    @FXML
+    private Label titleLabel;
     private final ArticleService articleService;
     private final InventoryService inventoryService;
     private final ProductService productService;
     private final ProductGridPane productGridPane;
 
-    public ProductFormController() {
+    public ProductCreateFormController() {
         this.articleService = new ArticleService();
         this.inventoryService = new InventoryService();
         this.productService = new ProductService();
@@ -71,19 +75,21 @@ public class ProductFormController implements Initializable {
         this.onCreateProduct();
         this.onCancelCreateProduct();
         this.onConfirmCreateProduct();
+        this.onClickOutOfProductStackPane();
+        NumberField.requireDecimal(this.productPriceTextfield);
     }
     private void formValidation(){
-        if (this.productNameTextfield.getText().isEmpty() || this.productPriceTextfield.getText().isEmpty() && this.productQuantityTextfield.getText().isEmpty()){
+        if (this.productNameTextfield.getText().isEmpty() || this.productPriceTextfield.getText().isEmpty()){
             this.confirmCreateProductButton.setDisable(true);
         }
-        this.productNameTextfield.textProperty().addListener(((observableValue, s, t1) -> confirmCreateProductButton.setDisable(this.productNameTextfield.getText().isEmpty() || this.productPriceTextfield.getText().isEmpty() || this.productQuantityTextfield.getText().isEmpty())));
-        this.productPriceTextfield.textProperty().addListener(((observableValue, s, t1) -> confirmCreateProductButton.setDisable(this.productNameTextfield.getText().isEmpty() || this.productPriceTextfield.getText().isEmpty() || this.productQuantityTextfield.getText().isEmpty())));
-        this.productQuantityTextfield.textProperty().addListener(((observableValue, s, t1) -> confirmCreateProductButton.setDisable(this.productNameTextfield.getText().isEmpty() || this.productPriceTextfield.getText().isEmpty() || this.productQuantityTextfield.getText().isEmpty())));
+        this.productNameTextfield.textProperty().addListener(((observableValue, s, t1) -> confirmCreateProductButton.setDisable(this.productNameTextfield.getText().isEmpty() || this.productPriceTextfield.getText().isEmpty())));
+        this.productPriceTextfield.textProperty().addListener(((observableValue, s, t1) -> confirmCreateProductButton.setDisable(this.productNameTextfield.getText().isEmpty() || this.productPriceTextfield.getText().isEmpty())));
     }
     private void onCreateProduct(){
         createProductButton.setOnAction(actionEvent -> {
             productFormBox.setVisible(true);
             productCreatePane.setVisible(false);
+            actionEvent.consume();
         });
     }
     private void onCancelCreateProduct(){
@@ -108,21 +114,20 @@ public class ProductFormController implements Initializable {
         InventoryEntity inventory = this.inventoryService.getById(1L);
         product.setName(this.productNameTextfield.getText());
         product.setPrice(Double.valueOf(this.productPriceTextfield.getText()));
-        product.setQuantity(Integer.parseInt(this.productQuantityTextfield.getText()));
+        product.setSizes(this.productSizeTextfield.getText());
+        product.setQuantity(0);
         product.setQuality(this.productQualityTextfield.getText());
         product.setBrand(this.productBrandTextfield.getText());
         product.setReference(this.productReferenceTextfield.getText());
         product.setColor(this.productColorTextfield.getText());
-        product.setArrival(LocalDateTime.now());
-        if (article != null){
-            product.setArticle(article);
-        }
-        if (inventory != null){
-            product.setInventory(inventory);
-        }
-        if (!this.productNameTextfield.getText().isEmpty() && !this.productPriceTextfield.getText().isEmpty() && !this.productQuantityTextfield.getText().isEmpty()){
+        product.setArticle(article);
+        product.setInventory(inventory);
+        if (article!=null && inventory!=null && !this.productNameTextfield.getText().isEmpty() && !this.productPriceTextfield.getText().isEmpty()){
             this.productService.create(product);
         }
         return product;
+    }
+    public void onClickOutOfProductStackPane(){
+
     }
 }

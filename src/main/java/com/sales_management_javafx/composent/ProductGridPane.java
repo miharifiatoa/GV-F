@@ -2,6 +2,7 @@ package com.sales_management_javafx.composent;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.controller.product.ProductBoxController;
+import com.sales_management_javafx.controller.product.ProductEditFormController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -36,23 +37,26 @@ public class ProductGridPane extends GridPane {
                 row++;
             }
         }
-        gridPane.add(this.getProductFormBox(), col, row);
+        gridPane.add(this.getProductCreateFormBox(), col, row);
         return gridPane;
     }
     public StackPane getProductBox(ProductEntity product){
         FXMLLoader productBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productBox.fxml"));
-        StackPane productBox;
+        StackPane productBoxStackpane;
         try {
-            productBox = productBoxLoader.load();
+            productBoxStackpane = productBoxLoader.load();
             ProductBoxController productBoxController = productBoxLoader.getController();
             productBoxController.initializeProductData(product);
+            productBoxController.onConfirmDeleteProduct(product.getId());
+            productBoxController.onConfirmAddProduct(product);
+            productBoxStackpane.getChildren().add(this.getProductEditBox(product));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return productBox;
+        return productBoxStackpane;
     }
-    public StackPane getProductFormBox(){
-        FXMLLoader productFormLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productForm.fxml"));
+    public StackPane getProductCreateFormBox(){
+        FXMLLoader productFormLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productCreateForm.fxml"));
         StackPane productFormBox;
         try {
             productFormBox = productFormLoader.load();
@@ -60,5 +64,19 @@ public class ProductGridPane extends GridPane {
             throw new RuntimeException(e);
         }
         return productFormBox;
+    }
+    public VBox getProductEditBox(ProductEntity product){
+        FXMLLoader productEditFormLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productEditForm.fxml"));
+        VBox productEditForm;
+        try {
+            productEditForm = productEditFormLoader.load();
+            ProductEditFormController productEditFormController = productEditFormLoader.getController();
+            productEditFormController.initializeForm(product);
+            productEditFormController.onConfirmEditProduct(product.getId());
+            productEditForm.setVisible(false);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return productEditForm;
     }
 }

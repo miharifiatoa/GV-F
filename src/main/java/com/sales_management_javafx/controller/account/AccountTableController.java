@@ -57,7 +57,7 @@ public class AccountTableController implements Initializable {
     public void showAccounts(){
         this.setAccountColumnValue();
         account_tableview.setFocusTraversable(false);
-        account_tableview.setFixedCellSize(37);
+        account_tableview.setFixedCellSize(38.5);
         account_tableview.getItems().addAll(this.accountService.getAll());
     }
     public void setAccountColumnValue(){
