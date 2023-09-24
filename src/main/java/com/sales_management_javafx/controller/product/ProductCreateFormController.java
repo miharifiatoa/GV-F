@@ -1,6 +1,6 @@
 package com.sales_management_javafx.controller.product;
 
-import com.sales_management_javafx.classes.NumberField;
+import com.sales_management_javafx.classes.NumberTextField;
 import com.sales_management_javafx.composent.ProductGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.sales_management.entity.ArticleEntity;
@@ -19,7 +20,7 @@ import org.sales_management.service.InventoryService;
 import org.sales_management.service.ProductService;
 
 import java.net.URL;
-import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.ResourceBundle;
 
 public class ProductCreateFormController implements Initializable {
@@ -46,7 +47,7 @@ public class ProductCreateFormController implements Initializable {
     @FXML
     private Button createProductButton;
     @FXML
-    private StackPane productFormStackPane;
+    private StackPane productCreateFormStackPane;
     @FXML
     private VBox productFormBox;
     @FXML
@@ -56,19 +57,16 @@ public class ProductCreateFormController implements Initializable {
     private final ArticleService articleService;
     private final InventoryService inventoryService;
     private final ProductService productService;
-    private final ProductGridPane productGridPane;
+//    private final ProductGridPane productGridPane;
 
     public ProductCreateFormController() {
         this.articleService = new ArticleService();
         this.inventoryService = new InventoryService();
         this.productService = new ProductService();
-        this.productGridPane = new ProductGridPane();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        productFormScrollpane.setMinHeight(130);
-        productFormScrollpane.setMaxHeight(130);
         this.productFormBox.setVisible(false);
         this.productCreatePane.setVisible(true);
         this.formValidation();
@@ -76,7 +74,7 @@ public class ProductCreateFormController implements Initializable {
         this.onCancelCreateProduct();
         this.onConfirmCreateProduct();
         this.onClickOutOfProductStackPane();
-        NumberField.requireDecimal(this.productPriceTextfield);
+        NumberTextField.requireDouble(this.productPriceTextfield);
     }
     private void formValidation(){
         if (this.productNameTextfield.getText().isEmpty() || this.productPriceTextfield.getText().isEmpty()){
@@ -100,9 +98,12 @@ public class ProductCreateFormController implements Initializable {
     }
     private void onConfirmCreateProduct(){
         confirmCreateProductButton.setOnAction(actionEvent -> {
-            if (this.createProduct()!=null){
-                ScrollPane productBoxLayout = (ScrollPane) productFormStackPane.getParent().getParent().getParent().getParent();
-                productBoxLayout.setContent(this.productGridPane.getGridPane(this.productService.getAll(), 4));
+            ProductEntity product = this.createProduct();
+            if (product!=null){
+                ScrollPane productBoxLayout = (ScrollPane) productCreateFormStackPane.getParent().getParent().getParent().getParent();
+                GridPane productGridPane = new ProductGridPane().getGridPane(this.articleService.getById(Long.valueOf(productCreateFormStackPane.getParent().getId())).getProducts(), 3,true);
+                productGridPane.setId(String.valueOf(product.getArticle().getId()));
+                productBoxLayout.setContent(productGridPane);
                 productFormBox.setVisible(false);
                 productCreatePane.setVisible(true);
             }
@@ -110,7 +111,8 @@ public class ProductCreateFormController implements Initializable {
     }
     public ProductEntity createProduct(){
         ProductEntity product = new ProductEntity();
-        ArticleEntity article = this.articleService.getById(1L);
+        Long article_id = Long.valueOf(productCreateFormStackPane.getParent().getId());
+        ArticleEntity article = this.articleService.getById(article_id);
         InventoryEntity inventory = this.inventoryService.getById(1L);
         product.setName(this.productNameTextfield.getText());
         product.setPrice(Double.valueOf(this.productPriceTextfield.getText()));

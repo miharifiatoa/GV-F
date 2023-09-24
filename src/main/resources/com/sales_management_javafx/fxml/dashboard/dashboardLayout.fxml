@@ -9,14 +9,14 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="dashboard" prefHeight="439.0" prefWidth="703.0" styleClass="dashboard" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.dashboard.DashboardLayoutController">
+<BorderPane fx:id="dashboard" prefHeight="428.0" prefWidth="708.0" styleClass="dashboard" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.dashboard.DashboardLayoutController">
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
    </padding>
    <top>
       <AnchorPane BorderPane.alignment="CENTER">
          <children>
-            <GridPane prefHeight="40.0" prefWidth="693.6" style="-fx-background-color: rgb(201, 201, 201);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <GridPane prefHeight="40.0" prefWidth="693.6" styleClass="gridpane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="180.0" prefWidth="180.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -27,9 +27,9 @@
                <children>
                   <AnchorPane>
                      <children>
-                        <Label prefHeight="40.0" prefWidth="232.8" text="Espace administrateur" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Label prefHeight="40.0" prefWidth="232.8" text="DDDD" textFill="#616161" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <font>
-                              <Font name="Agency FB" size="18.0" />
+                              <Font name="Arial Italic" size="16.0" />
                            </font>
                         </Label>
                      </children>

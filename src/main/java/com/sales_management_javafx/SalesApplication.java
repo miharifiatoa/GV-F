@@ -13,8 +13,8 @@ public class SalesApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(SalesApplication.class.getResource("sales-management.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 500);
         stage.setTitle("");
-        stage.setMinWidth(600);
-        stage.setMinHeight(400);
+        stage.setMinWidth(800);
+        stage.setMinHeight(500);
         stage.setScene(scene);
         stage.show();
     }

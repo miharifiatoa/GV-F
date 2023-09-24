@@ -1,7 +1,6 @@
 package com.sales_management_javafx.controller.shop;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.classes.NumberField;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +11,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import org.sales_management.entity.AccountEntity;
 import org.sales_management.entity.ShopEntity;
 import org.sales_management.service.ShopService;
 

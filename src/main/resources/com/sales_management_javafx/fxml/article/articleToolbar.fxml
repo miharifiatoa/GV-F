@@ -8,14 +8,13 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
 <GridPane fx:id="articleToolbarGridpane" maxHeight="40.0" minHeight="40.0" prefHeight="40.0" styleClass="toolbar" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.article.ArticleToolbarController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="917.5999908447266" minWidth="10.0" prefWidth="408.8000244140625" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="917.5999908447266" minWidth="10.0" prefWidth="411.9999755859375" />
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
       <AnchorPane GridPane.columnIndex="1">

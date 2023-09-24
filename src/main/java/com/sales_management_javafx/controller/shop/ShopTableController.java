@@ -33,7 +33,7 @@ public class ShopTableController implements Initializable {
     @FXML
     private TableColumn<ShopEntity,String> shopNameTableColumn;
     @FXML
-    private TableColumn<ShopEntity,Void> shopActionTableColumn;
+    private TableColumn<ShopEntity,Long> shopContactTableColumn;
     private final ShopService shopService;
 
     public ShopTableController() {
@@ -58,33 +58,13 @@ public class ShopTableController implements Initializable {
     public void showShops(){
         this.setShopColumnValue();
         shopTableView.setFocusTraversable(false);
-        shopTableView.setFixedCellSize(38.5);
+        shopTableView.setFixedCellSize(40);
         shopTableView.getItems().addAll(this.shopService.getAll());
     }
     public void setShopColumnValue(){
         shopIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         shopNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        shopActionTableColumn.setCellFactory(param->new TableCell<>(){
-            @Override
-            protected void updateItem(Void unused, boolean empty) {
-                super.updateItem(unused, empty);
-                if (empty){
-                    setText(null);
-                    setGraphic(null);
-                }
-                else {
-                    GridPane action_pane = new ActionTableCell(()-> {
-                        onDeleteShop(getTableRow());
-                    },
-                            ()-> {
-                                TableRow<ShopEntity> shopTableRow = getTableRow();
-                                onShowInformation(shopTableRow);
-                            }).createActionPane();
-                    setGraphic(action_pane);
-                }
-            }
-        });
-        this.shopActionTableColumn.setCellValueFactory(param->new SimpleObjectProperty<>());
+        shopContactTableColumn.setCellValueFactory(new PropertyValueFactory<>("contact"));
     }
     public void onDeleteShop(TableRow<ShopEntity> tableRow){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

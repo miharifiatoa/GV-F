@@ -12,18 +12,22 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="articleFormBox" prefHeight="191.0" prefWidth="824.0" style="-fx-background-color: #dedede;" styleClass="form" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.article.ArticleFormController">
+<VBox fx:id="articleFormBox" prefHeight="129.0" prefWidth="761.0" styleClass="form" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.article.ArticleFormController">
    <children>
       <GridPane hgap="10.0" prefHeight="50.0" prefWidth="617.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints maxHeight="15.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TextField fx:id="articleFamilyTextfield" maxHeight="30.0" minHeight="30.0" prefHeight="35.0" styleClass="textfield" GridPane.rowIndex="1" />
+            <AnchorPane GridPane.rowIndex="1">
+               <children>
+                  <TextField fx:id="articleFamilyTextfield" maxHeight="30.0" minHeight="30.0" prefHeight="35.2" prefWidth="752.0" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
             <AnchorPane>
                <children>
                   <Label alignment="BOTTOM_LEFT" prefHeight="36.8" prefWidth="300.0" text="Famille" textFill="#818181" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -42,13 +46,21 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
          <rowConstraints>
+            <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="15.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TextField fx:id="articleLabelTextfield" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" prefWidth="274.0" styleClass="textfield" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="articleCodeTextfield" maxHeight="30.0" minWidth="30.0" prefHeight="30.0" prefWidth="446.0" GridPane.rowIndex="1" />
+            <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <TextField fx:id="articleLabelTextfield" maxHeight="30.0" minHeight="30.0" prefHeight="35.2" prefWidth="371.2" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane GridPane.rowIndex="1">
+               <children>
+                  <TextField fx:id="articleCodeTextfield" maxHeight="30.0" minWidth="30.0" prefHeight="35.2" prefWidth="446.4" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
             <GridPane prefHeight="32.0" prefWidth="298.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" />
@@ -112,12 +124,35 @@
             </Label>
          </children>
       </GridPane>
-      <ButtonBar maxHeight="50.0" minHeight="50.0" prefHeight="78.0" prefWidth="654.0">
-         <buttons>
-            <Button fx:id="cancelCreateButton" mnemonicParsing="false" text="Annuler" />
-            <Button fx:id="confirmCreateButton" mnemonicParsing="false" text="Enregistrer" />
-         </buttons>
-      </ButtonBar>
+      <GridPane maxHeight="40.0" minHeight="40.0" prefHeight="40.0" styleClass="toolbar">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="917.5999908447266" minWidth="10.0" prefWidth="408.8000244140625" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="917.5999908447266" minWidth="10.0" prefWidth="411.9999755859375" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <AnchorPane GridPane.columnIndex="1">
+               <children>
+                  <ButtonBar focusTraversable="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="410.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <buttons>
+                        <Button fx:id="cancelCreateButton" layoutX="116.0" layoutY="15.0" maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: #fbff00;" text="Annuler" textFill="#7a7b09">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="confirmCreateButton" maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: #0e9128;" text="Next" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                     </buttons>
+                  </ButtonBar>
+               </children>
+            </AnchorPane>
+         </children>
+      </GridPane>
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

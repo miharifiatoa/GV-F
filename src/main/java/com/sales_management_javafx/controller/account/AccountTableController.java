@@ -32,7 +32,8 @@ public class AccountTableController implements Initializable {
     @FXML
     private TableColumn<AccountEntity,String> username_column;
     @FXML
-    private TableColumn<AccountEntity,Void> action_column;
+    private TableColumn<AccountEntity,String> role_column;
+
     private final AccountService accountService;
 
     public AccountTableController() {
@@ -57,33 +58,12 @@ public class AccountTableController implements Initializable {
     public void showAccounts(){
         this.setAccountColumnValue();
         account_tableview.setFocusTraversable(false);
-        account_tableview.setFixedCellSize(38.5);
+        account_tableview.setFixedCellSize(40);
         account_tableview.getItems().addAll(this.accountService.getAll());
     }
     public void setAccountColumnValue(){
         id_column.setCellValueFactory(new PropertyValueFactory<>("id"));
         username_column.setCellValueFactory(new PropertyValueFactory<>("username"));
-        action_column.setCellFactory(param->new TableCell<>(){
-            @Override
-            protected void updateItem(Void unused, boolean empty) {
-                super.updateItem(unused, empty);
-                if (empty){
-                    setText(null);
-                    setGraphic(null);
-                }
-                else {
-                    GridPane action_pane = new ActionTableCell(()-> {
-                        onDeleteAccount(getTableRow());
-                    },
-                    ()-> {
-                        TableRow<AccountEntity> tableRow = getTableRow();
-                        onShowInformation(tableRow);
-                    }).createActionPane();
-                    setGraphic(action_pane);
-                }
-            }
-        });
-        action_column.setCellValueFactory(param->new SimpleObjectProperty<>());
     }
     public void onDeleteAccount(TableRow<AccountEntity> tableRow){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

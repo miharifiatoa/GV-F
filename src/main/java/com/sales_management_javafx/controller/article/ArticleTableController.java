@@ -29,8 +29,8 @@ public class ArticleTableController implements Initializable {
     @FXML
     private TableColumn<ArticleEntity,String> articleLabelTableColumn;
     @FXML
-    private TableColumn<ArticleEntity,Void> articleActionTableColumn;
-    private ArticleService articleService;
+    private TableColumn<ArticleEntity,String> articleCodeTableColumn;
+    private final ArticleService articleService;
 
     public ArticleTableController() {
         this.articleService = new ArticleService();
@@ -43,33 +43,13 @@ public class ArticleTableController implements Initializable {
     public void showArticles(){
         this.setArticleColumnValue();
         articleTableView.setFocusTraversable(false);
-        articleTableView.setFixedCellSize(38.5);
+        articleTableView.setFixedCellSize(40);
         articleTableView.getItems().addAll(this.articleService.getAll());
     }
     public void setArticleColumnValue(){
         articleIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         articleLabelTableColumn.setCellValueFactory(new PropertyValueFactory<>("label"));
-        articleActionTableColumn.setCellFactory(param->new TableCell<>(){
-            @Override
-            protected void updateItem(Void unused, boolean empty) {
-                super.updateItem(unused, empty);
-                if (empty){
-                    setText(null);
-                    setGraphic(null);
-                }
-                else {
-                    GridPane action_pane = new ActionTableCell(()-> {
-                        onDeleteArticle(getTableRow());
-                    },
-                            ()-> {
-                                TableRow<ArticleEntity> articleTableRow = getTableRow();
-                                onShowInformation(articleTableRow);
-                            }).createActionPane();
-                    setGraphic(action_pane);
-                }
-            }
-        });
-        this.articleActionTableColumn.setCellValueFactory(param->new SimpleObjectProperty<>());
+        articleCodeTableColumn.setCellValueFactory(new PropertyValueFactory<>("code"));
     }
     public void onDeleteArticle(TableRow<ArticleEntity> tableRow){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

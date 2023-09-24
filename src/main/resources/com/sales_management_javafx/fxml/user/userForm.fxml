@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="user_form" prefHeight="165.0" prefWidth="600.0" spacing="10.0" style="-fx-background-color: #dedede;" styleClass="form" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.user.UserFormController">
+<VBox fx:id="user_form" prefHeight="177.0" prefWidth="548.0" spacing="10.0" styleClass="form" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.user.UserFormController">
    <children>
       <AnchorPane prefHeight="232.0" prefWidth="591.0">
          <children>
@@ -22,19 +22,27 @@
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                  <RowConstraints maxHeight="15.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="15.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="15.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField fx:id="user_lastname" maxHeight="30.0" minHeight="30.0" prefHeight="35.0" styleClass="textfield" GridPane.rowIndex="1" />
-                  <TextField fx:id="user_firstname" maxHeight="30.0" minHeight="30.0" prefHeight="35.0" styleClass="textfield" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <AnchorPane GridPane.rowIndex="1">
+                     <children>
+                        <TextField fx:id="user_lastname" maxHeight="30.0" minHeight="30.0" prefHeight="35.2" prefWidth="267.2" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <children>
+                        <TextField fx:id="user_firstname" maxHeight="30.0" minHeight="30.0" prefHeight="35.2" prefWidth="267.2" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
                   <AnchorPane GridPane.columnIndex="1">
                      <children>
-                        <Label alignment="BOTTOM_LEFT" prefHeight="36.8" prefWidth="300.0" text="Prénom" textFill="#818181" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Label alignment="BOTTOM_LEFT" prefHeight="36.8" prefWidth="300.0" text="Prénom" textFill="DIMGRAY" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <padding>
                               <Insets top="5.0" />
                            </padding></Label>
@@ -51,7 +59,7 @@
                      <children>
                         <AnchorPane prefHeight="34.0" prefWidth="27.0">
                            <children>
-                              <Label alignment="BOTTOM_LEFT" prefHeight="33.6" prefWidth="79.2" text="Nom" textFill="#818181" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <Label alignment="BOTTOM_LEFT" prefHeight="33.6" prefWidth="79.2" text="Nom" textFill="DIMGRAY" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane GridPane.columnIndex="1">
@@ -70,7 +78,7 @@
                   </GridPane>
                   <AnchorPane GridPane.rowIndex="2">
                      <children>
-                        <Label alignment="BOTTOM_LEFT" prefHeight="36.8" prefWidth="300.0" text="Adresse " textFill="#818181" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Label alignment="BOTTOM_LEFT" prefHeight="36.8" prefWidth="300.0" text="Adresse " textFill="DIMGRAY" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <padding>
                               <Insets top="5.0" />
                            </padding></Label>
@@ -78,22 +86,30 @@
                   </AnchorPane>
                   <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <children>
-                        <Label alignment="BOTTOM_LEFT" prefHeight="36.0" prefWidth="600.0" text="Telephone" textFill="#818181" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Label alignment="BOTTOM_LEFT" prefHeight="36.0" prefWidth="600.0" text="Telephone" textFill="DIMGRAY" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <padding>
                               <Insets top="5.0" />
                            </padding></Label>
                      </children>
                   </AnchorPane>
-                  <TextField fx:id="user_address" maxHeight="30.0" minHeight="30.0" prefHeight="35.0" styleClass="textfield" GridPane.rowIndex="3" />
+                  <AnchorPane GridPane.rowIndex="3">
+                     <children>
+                        <TextField fx:id="user_address" maxHeight="30.0" minHeight="30.0" prefHeight="35.2" prefWidth="267.2" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
                   <AnchorPane layoutX="10.0" layoutY="92.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <children>
-                        <Label alignment="BOTTOM_LEFT" prefHeight="36.8" prefWidth="300.0" text="E-mail" textFill="#818181" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Label alignment="BOTTOM_LEFT" prefHeight="36.8" prefWidth="300.0" text="E-mail" textFill="DIMGRAY" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <padding>
                               <Insets top="5.0" />
                            </padding></Label>
                      </children>
                   </AnchorPane>
-                  <TextField fx:id="user_email" maxHeight="30.0" minHeight="30.0" prefHeight="35.0" styleClass="textfield" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <children>
+                        <TextField fx:id="user_email" maxHeight="30.0" minHeight="30.0" prefHeight="35.2" prefWidth="267.2" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
                   <GridPane layoutX="10.0" layoutY="10.0" GridPane.rowIndex="4">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="40.0" minWidth="40.0" prefWidth="57.59996719360352" />
@@ -105,7 +121,7 @@
                      <children>
                         <AnchorPane prefHeight="34.0" prefWidth="27.0">
                            <children>
-                              <Label alignment="BOTTOM_LEFT" prefHeight="33.6" prefWidth="79.2" text="N CIN" textFill="#818181" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <Label alignment="BOTTOM_LEFT" prefHeight="33.6" prefWidth="79.2" text="N CIN" textFill="DIMGRAY" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane GridPane.columnIndex="1">
@@ -122,18 +138,49 @@
                         <Insets top="5.0" />
                      </padding>
                   </GridPane>
-                  <TextField fx:id="user_cin" maxHeight="30.0" minHeight="30.0" styleClass="textfield" GridPane.rowIndex="5" />
-                  <TextField fx:id="user_phone" maxHeight="30.0" minHeight="30.0" styleClass="textfield" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <AnchorPane GridPane.rowIndex="5">
+                     <children>
+                        <TextField fx:id="user_cin" maxHeight="30.0" minHeight="30.0" prefHeight="35.2" prefWidth="267.2" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <children>
+                        <TextField fx:id="user_phone" maxHeight="30.0" minHeight="30.0" prefHeight="35.2" prefWidth="267.2" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
                </children>
             </GridPane>
          </children>
       </AnchorPane>
-      <ButtonBar maxHeight="50.0" minHeight="50.0" prefHeight="78.0" prefWidth="654.0">
-        <buttons>
-          <Button fx:id="cancel_button" mnemonicParsing="false" text="Annuler" />
-            <Button fx:id="next_button" mnemonicParsing="false" text="Suivant" />
-        </buttons>
-      </ButtonBar>
+      <GridPane maxHeight="40.0" minHeight="40.0" prefHeight="40.0" styleClass="toolbar">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="917.5999908447266" minWidth="10.0" prefWidth="408.8000244140625" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="917.5999908447266" minWidth="10.0" prefWidth="411.9999755859375" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <AnchorPane GridPane.columnIndex="1">
+               <children>
+                  <ButtonBar focusTraversable="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="410.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <buttons>
+                        <Button fx:id="cancel_button" layoutX="116.0" layoutY="15.0" maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: #fbff00;" text="Annuler" textFill="#7a7b09">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="next_button" maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: #0e9128;" text="Next" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                     </buttons>
+                  </ButtonBar>
+               </children>
+            </AnchorPane>
+         </children>
+      </GridPane>
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

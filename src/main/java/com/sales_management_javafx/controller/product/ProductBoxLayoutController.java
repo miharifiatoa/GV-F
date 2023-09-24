@@ -1,32 +1,81 @@
 package com.sales_management_javafx.controller.product;
 
+import com.sales_management_javafx.classes.MenuIcon;
+import com.sales_management_javafx.composent.ArticleGridPane;
+import com.sales_management_javafx.composent.MenuGridPane;
 import com.sales_management_javafx.composent.ProductGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import org.sales_management.entity.ProductEntity;
+import org.sales_management.service.ArticleService;
 import org.sales_management.service.ProductService;
 
 import java.net.URL;
+import java.util.Collection;
 import java.util.ResourceBundle;
 
 public class ProductBoxLayoutController implements Initializable {
     @FXML
+    private Button exitFromInventoryButton;
+    @FXML
     private ScrollPane productBoxLayoutScrollpane;
+    @FXML
+    private ScrollPane articleBoxLayoutScrollpane;
+    @FXML
+    private TextField searchProductTextfield;
     private final ProductService productService;
+    private final ArticleService articleService;
     private final ProductGridPane productGridPane;
+    private final ArticleGridPane articleGridPane;
+    private final MenuGridPane menuGridPane;
+    private final MenuIcon menuIcon;
 
     public ProductBoxLayoutController() {
+        this.menuIcon = new MenuIcon();
+        this.menuGridPane = new MenuGridPane();
+        this.articleService = new ArticleService();
+        this.articleGridPane = new ArticleGridPane();
         this.productService = new ProductService();
         this.productGridPane = new ProductGridPane();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.setArticles();
         this.setProducts();
+        this.initializeSearchTextField();
+        this.onExitFromInventoryButton();
     }
     private void setProducts(){
-        productBoxLayoutScrollpane.setContent(this.productGridPane.getGridPane(this.productService.getAll(), 4));
-        productBoxLayoutScrollpane.setFitToWidth(true);
+        this.productBoxLayoutScrollpane.setContent(this.productGridPane.getGridPane(productService.getAll(),3,false));
+        this.productBoxLayoutScrollpane.setFitToWidth(true);
+    }
+    private void setArticles(){
+        articleBoxLayoutScrollpane.setContent(this.articleGridPane.getGridPane(this.articleService.getAll(),1));
+        articleBoxLayoutScrollpane.setFitToWidth(true);
+    }
+    private void initializeSearchTextField(){
+        this.searchProductTextfield.setPromptText("Recherche des produits");
+        searchProductTextfield.textProperty().addListener((observableValue, s, t1) -> {
+            if (!searchProductTextfield.getText().isEmpty()){
+                Collection<ProductEntity> products = this.productService.searchProductsByName(searchProductTextfield.getText());
+                this.productBoxLayoutScrollpane.setContent(new ProductGridPane().getGridPane(products,3,false));
+                System.out.println(products);
+            }
+            else {
+                this.productBoxLayoutScrollpane.setContent(new ProductGridPane().getGridPane(this.productService.getAll(), 3,false));
+            }
+        });
+    }
+    private void onExitFromInventoryButton(){
+        exitFromInventoryButton.setOnAction(event->{
+            BorderPane dashboard = (BorderPane) this.productBoxLayoutScrollpane.getParent().getParent().getParent().getParent();
+            dashboard.setLeft(this.menuGridPane.getGridPane(menuIcon.getMenuIcons(),1));
+            dashboard.setCenter(null);
+        });
     }
 }

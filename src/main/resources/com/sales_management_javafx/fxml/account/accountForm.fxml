@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="account_form" maxHeight="150.0" prefHeight="114.0" prefWidth="662.0" styleClass="form" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.account.AccountFormController">
+<VBox fx:id="account_form" maxHeight="150.0" prefHeight="77.0" prefWidth="643.0" styleClass="form" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.account.AccountFormController">
    <children>
       <GridPane hgap="10.0" prefHeight="155.0" prefWidth="654.0">
          <columnConstraints>
@@ -21,13 +21,21 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints maxHeight="15.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="15.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TextField fx:id="username" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" GridPane.rowIndex="1" />
-            <PasswordField fx:id="password" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <AnchorPane GridPane.rowIndex="1">
+               <children>
+                  <TextField fx:id="username" maxHeight="30.0" minHeight="30.0" prefHeight="35.2" prefWidth="312.0" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <PasswordField fx:id="password" maxHeight="30.0" minHeight="30.0" prefHeight="35.2" prefWidth="312.0" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
             <GridPane>
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="57.59996719360352" />
@@ -39,7 +47,7 @@
                <children>
                   <AnchorPane prefHeight="34.0" prefWidth="27.0">
                      <children>
-                        <Label alignment="BOTTOM_LEFT" prefHeight="33.6" prefWidth="79.2" text="Nom d'utilisateur" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Label alignment="BOTTOM_LEFT" prefHeight="33.6" prefWidth="79.2" text="Nom d'utilisateur" textFill="#696969" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                   <AnchorPane GridPane.columnIndex="1">
@@ -67,7 +75,7 @@
                <children>
                   <AnchorPane prefHeight="34.0" prefWidth="27.0">
                      <children>
-                        <Label alignment="BOTTOM_LEFT" prefHeight="33.6" prefWidth="79.2" text="Mot de passe" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Label alignment="BOTTOM_LEFT" prefHeight="33.6" prefWidth="79.2" text="Mot de passe" textFill="#696969" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                   <AnchorPane GridPane.columnIndex="1">
@@ -98,12 +106,35 @@
             </AnchorPane>
          </children>
       </GridPane>
-      <ButtonBar maxHeight="50.0" minHeight="50.0" prefHeight="109.0" prefWidth="678.0">
-         <buttons>
-            <Button fx:id="previous_button" mnemonicParsing="false" text="Précédent" />
-            <Button fx:id="confirm_button" mnemonicParsing="false" text="Enregistrer" />
-         </buttons>
-      </ButtonBar>
+      <GridPane maxHeight="40.0" minHeight="40.0" prefHeight="40.0" styleClass="toolbar">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="917.5999908447266" minWidth="10.0" prefWidth="408.8000244140625" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="917.5999908447266" minWidth="10.0" prefWidth="411.9999755859375" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <AnchorPane GridPane.columnIndex="1">
+               <children>
+                  <ButtonBar focusTraversable="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="410.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <buttons>
+                        <Button fx:id="previous_button" layoutX="116.0" layoutY="15.0" maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: #fbff00;" text="Précédent" textFill="#7a7b09">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="confirm_button" maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: #0e9128;" text="Enregistrer" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                     </buttons>
+                  </ButtonBar>
+               </children>
+            </AnchorPane>
+         </children>
+      </GridPane>
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

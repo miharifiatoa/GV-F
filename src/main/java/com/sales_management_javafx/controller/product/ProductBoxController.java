@@ -1,24 +1,29 @@
 package com.sales_management_javafx.controller.product;
 
 import com.sales_management_javafx.SalesApplication;
+import com.sales_management_javafx.classes.NumberTextField;
 import com.sales_management_javafx.composent.ProductGridPane;
+import com.sales_management_javafx.data.FileData;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import org.sales_management.entity.ArticleEntity;
 import org.sales_management.entity.ProductEntity;
+import org.sales_management.service.ArticleService;
 import org.sales_management.service.ProductService;
 
-import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.util.Collection;
 import java.util.ResourceBundle;
-import java.util.concurrent.SynchronousQueue;
 
 public class ProductBoxController implements Initializable {
     @FXML
@@ -40,7 +45,7 @@ public class ProductBoxController implements Initializable {
     @FXML
     private Label qualityLabel;
     @FXML
-    private Label arrivalLabel;
+    private Label productQuantityLabel;
     @FXML
     private Label deleteLabel;
     @FXML
@@ -54,6 +59,8 @@ public class ProductBoxController implements Initializable {
     @FXML
     private VBox addProductBox;
     @FXML
+    private VBox shareProductBox;
+    @FXML
     private Button deleteButton;
     @FXML
     private Button confirmDeleteButton;
@@ -62,50 +69,105 @@ public class ProductBoxController implements Initializable {
     @FXML
     private Button addProductButton;
     @FXML
+    private Button addProductInShareListButton;
+    @FXML
     private TextField quantityAddedTextfield;
+    @FXML
+    TextField quantitySharedTextfield;
     @FXML
     private Button confirmAddProductButton;
     @FXML
     private Button exitAddProductButton;
     @FXML
     private Button cancelDeleteButton;
+    @FXML
+    private VBox retireProductBox;
+    @FXML
+    private Button exitRetireProductButton;
+    @FXML
+    private Button confirmRetireProductButton;
+    @FXML
+    private TextField quantityRetireTextfield;
+    @FXML
+    private Button retireProductButton;
+    @FXML
+    private Button exitShareProductButton;
+    @FXML
+    private ImageView DeleteIcon;
+    @FXML
+    private ImageView EditIcon;
+    @FXML
+    private ImageView ShareIcon;
     private final ProductService productService;
+    private final ArticleService articleService;
     private final ProductGridPane productGridPane;
 
     public ProductBoxController() {
+        this.articleService = new ArticleService();
         this.productService = new ProductService();
         this.productGridPane = new ProductGridPane();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        productScrollpane.setMinHeight(130);
-        productScrollpane.setMaxHeight(130);
         this.productBox.setVisible(true);
         this.confirmDeleteBox.setVisible(false);
         this.addProductBox.setVisible(false);
-        this.quantityAddedTextfield.setPromptText("Nombres de produit");
+        this.retireProductBox.setVisible(false);
+        this.shareProductBox.setVisible(false);
         this.onDeleteProduct();
         this.onExitDeleteProduct();
         this.onEditProduct();
         this.onAddProduct();
+        this.onExitAddProduct();
+        this.onRetireProduct();
+        this.onExitRetireProduct();
+        this.onShareProduct();
+        this.onExitShareProduct();
+        this.formValidation();
+        NumberTextField.requireIntegerOnly(quantityAddedTextfield,1000);
+        this.putIcons();
     }
     public void initializeProductData(ProductEntity product){
+        if (product.getQuantity()<=0){
+            retireProductButton.setDisable(true);
+        }
         this.nameLabel.setText(product.getName());
-        this.priceLabel.setText(String.valueOf(product.getPrice()));
+        Double price = product.getPrice();
+        DecimalFormat decimalFormat = new DecimalFormat("0.##");
+        this.priceLabel.setText(decimalFormat.format(price)+ " Ar");
         this.sizeLabel.setText(String.valueOf(product.getSizes()));
-        this.quantityLabel.setText(String.valueOf(product.getQuantity()));
+        this.quantityLabel.setText(product.getQuantity() + " produit(s)");
         this.qualityLabel.setText(product.getQuality());
         this.brandLabel.setText(product.getBrand());
         this.referenceLabel.setText(product.getReference());
         this.colorLabel.setText(product.getColor());
         this.deleteLabel.setText("Voulez vous vraiment supprimer " + product.getName() + " dans la liste du produit?");
+        this.productQuantityLabel.setText("max : " + product.getQuantity());
+        this.onConfirmDeleteProduct(product.getId());
+        this.onConfirmAddProduct(product);
+        this.onConfirmRetireProduct(product);
+        this.onAddProductInShareList(product);
+        NumberTextField.requireIntegerOnly(quantityRetireTextfield,product.getQuantity());
+        NumberTextField.requireIntegerOnly(quantitySharedTextfield,product.getQuantity());
     }
-    public void onConfirmDeleteProduct(Long product_id){
+    private void onConfirmDeleteProduct(Long product_id){
         this.confirmDeleteButton.setOnAction(actionEvent -> {
-            if (this.productService.deleteById(product_id)!=null){
+            ProductEntity product = this.productService.deleteById(product_id);
+            if (product!=null){
                 ScrollPane productLayoutScrollpane = (ScrollPane) this.productBoxStackpane.getParent().getParent().getParent().getParent();
-                productLayoutScrollpane.setContent(this.productGridPane.getGridPane(this.productService.getAll(),4));
+                try {
+                    Long article_id = Long.valueOf(productBoxStackpane.getParent().getId());
+                    Collection<ProductEntity> products = this.articleService.getById(article_id).getProducts();
+                    GridPane productGridPane = new ProductGridPane().getGridPane(products, 3,true);
+                    productGridPane.setId(String.valueOf(product.getArticle().getId()));
+                    productLayoutScrollpane.setContent(productGridPane);
+                }
+                catch (NumberFormatException e){
+                    Collection<ProductEntity> products = this.productService.getAll();
+                    GridPane productGridPane = new ProductGridPane().getGridPane(products,3,false);
+                    productLayoutScrollpane.setContent(productGridPane);
+                }
             }
         });
     }
@@ -114,7 +176,6 @@ public class ProductBoxController implements Initializable {
             this.productBox.setVisible(false);
             this.confirmDeleteBox.setVisible(true);
         });
-
     }
     private void onExitDeleteProduct(){
         this.cancelDeleteButton.setOnAction(event->{
@@ -135,17 +196,110 @@ public class ProductBoxController implements Initializable {
             this.addProductBox.setVisible(true);
         });
     }
-    public void onConfirmAddProduct(ProductEntity product){
+    private void onConfirmAddProduct(ProductEntity product){
         confirmAddProductButton.setOnAction(event->{
-            if (!quantityAddedTextfield.getText().isEmpty()){
-                if (this.productService.addProduct(Integer.parseInt(this.quantityAddedTextfield.getText()),product)!=null){
+            if (!this.quantityAddedTextfield.getText().isEmpty() && product!=null){
+                ProductEntity productResponse = this.productService.addProduct(Integer.parseInt(this.quantityAddedTextfield.getText()),product);
+                if (productResponse!=null){
                     ScrollPane productLayoutScrollpane = (ScrollPane) this.productBoxStackpane.getParent().getParent().getParent().getParent();
-                    productLayoutScrollpane.setContent(this.productGridPane.getGridPane(this.productService.getAll(),4));
-                    this.productBox.setVisible(true);
-                    this.addProductBox.setVisible(false);
+                    try {
+                        Long article_id = Long.valueOf(productBoxStackpane.getParent().getId());
+                        Collection<ProductEntity> products = this.articleService.getById(article_id).getProducts();
+                        GridPane productGridPane = new ProductGridPane().getGridPane(products, 3,true);
+                        productGridPane.setId(String.valueOf(product.getArticle().getId()));
+                        productLayoutScrollpane.setContent(productGridPane);
+                    }
+                    catch (NumberFormatException e){
+                        Collection<ProductEntity> products = this.productService.getAll();
+                        GridPane productGridPane = new ProductGridPane().getGridPane(products,3,false);
+                        productLayoutScrollpane.setContent(productGridPane);
+                    }
+                }
+            }
 
+        });
+    }
+    private void onExitAddProduct(){
+        exitAddProductButton.setOnAction(event->{
+            this.productBox.setVisible(true);
+            this.addProductBox.setVisible(false);
+        });
+    }
+    private void onRetireProduct(){
+        this.retireProductButton.setOnAction(event->{
+            this.retireProductBox.setVisible(true);
+            this.productBox.setVisible(false);
+        });
+    }
+    private void onConfirmRetireProduct(ProductEntity product){
+        this.confirmRetireProductButton.setOnAction(event->{
+            if (!quantityRetireTextfield.getText().isEmpty() && product!=null){
+                ProductEntity productResponse = this.productService.retireProduct(Integer.parseInt(this.quantityRetireTextfield.getText()),product);
+                if (productResponse!=null){
+                    ScrollPane productLayoutScrollpane = (ScrollPane) this.productBoxStackpane.getParent().getParent().getParent().getParent();
+                    try {
+                        Long article_id = Long.valueOf(productBoxStackpane.getParent().getId());
+                        Collection<ProductEntity> products = this.articleService.getById(article_id).getProducts();
+                        GridPane productGridPane = new ProductGridPane().getGridPane(products, 3,true);
+                        productGridPane.setId(String.valueOf(product.getArticle().getId()));
+                        productLayoutScrollpane.setContent(productGridPane);
+                    }
+                    catch (NumberFormatException e){
+                        Collection<ProductEntity> products = this.productService.getAll();
+                        GridPane productGridPane = new ProductGridPane().getGridPane(products,3,false);
+                        productLayoutScrollpane.setContent(productGridPane);
+                    }
                 }
             }
         });
+    }
+    private void onExitRetireProduct(){
+        exitRetireProductButton.setOnAction(event->{
+            this.retireProductBox.setVisible(false);
+            this.productBox.setVisible(true);
+        });
+    }
+    private void onShareProduct(){
+        this.shareProductButton.setOnAction(event->{
+            this.shareProductBox.setVisible(true);
+            this.productBox.setVisible(false);
+        });
+    }
+    private void onAddProductInShareList(ProductEntity product){
+        this.addProductInShareListButton.setOnAction(event->{
+            FileData.appendProductToShareInFile(product);
+            FileData.readProductToShareFromFile();
+        });
+    }
+    private void onExitShareProduct(){
+        this.exitShareProductButton.setOnAction(event->{
+            this.shareProductBox.setVisible(false);
+            this.productBox.setVisible(true);
+        });
+    }
+    private void formValidation(){
+        if (quantityAddedTextfield.getText().isEmpty()){
+            confirmAddProductButton.setDisable(true);
+        }
+        if (quantityRetireTextfield.getText().isEmpty()){
+            confirmRetireProductButton.setDisable(true);
+        }
+        if (quantitySharedTextfield.getText().isEmpty()){
+            addProductInShareListButton.setDisable(true);
+        }
+        quantityAddedTextfield.textProperty().addListener((observableValue, s, t1) -> {
+            confirmAddProductButton.setDisable(quantityAddedTextfield.getText().isEmpty());
+        });
+        quantityRetireTextfield.textProperty().addListener((observableValue, s, t1) -> {
+            confirmRetireProductButton.setDisable(quantityRetireTextfield.getText().isEmpty());
+        });
+        quantitySharedTextfield.textProperty().addListener((observableValue, s, t1) -> {
+            addProductInShareListButton.setDisable(quantitySharedTextfield.getText().isEmpty());
+        });
+    }
+    public void putIcons(){
+        DeleteIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/DeleteIcon.png"))));
+        EditIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/EditIcon.png"))));
+        ShareIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/ShareIcon.png"))));
     }
 }

@@ -1,7 +1,7 @@
 package com.sales_management_javafx.controller.user;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.classes.NumberField;
+import com.sales_management_javafx.classes.NumberTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -47,8 +47,8 @@ public class UserFormController implements Initializable {
         this.closeForm();
         this.dataValidator();
         this.next();
-        NumberField.requireIntegerOnly(user_phone);
-        NumberField.requireIntegerOnly(user_cin);
+        NumberTextField.requireIntegerOnly(user_phone,999999);
+        NumberTextField.requireIntegerOnly(user_cin,999999);
     }
     public void dataValidator(){
         if (user_lastname.getText().isEmpty()){
@@ -89,8 +89,8 @@ public class UserFormController implements Initializable {
         user.setPerson(this.createPerson());
         return user;
     }
-    public void writeObjectOnFile(){
-        try(FileOutputStream fileOutputStream = new FileOutputStream(String.valueOf(SalesApplication.class.getResource("file/data.json")))) {
+    private void writeObjectOnFile(){
+        try(FileOutputStream fileOutputStream = new FileOutputStream(String.valueOf(SalesApplication.class.getResource("data/data.json")))) {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(this.createUser());
             objectOutputStream.close();

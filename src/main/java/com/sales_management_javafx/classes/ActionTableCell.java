@@ -24,7 +24,7 @@ public class ActionTableCell {
         ColumnConstraints col2 = new ColumnConstraints();
         col1.setPercentWidth(50);
         action_pane.setAlignment(Pos.CENTER);
-        action_pane.setHgap(5);
+        action_pane.setHgap(0);
         action_pane.getColumnConstraints().addAll(col1, col2);
         action_pane.add(this.createDeleteButton(),0,0);
         action_pane.add(this.createInfoButton(),1,0);
@@ -37,7 +37,7 @@ public class ActionTableCell {
         delete_button.setGraphic(this.createImageDeleteView());
         return delete_button;
     }
-    public @org.jetbrains.annotations.NotNull Button createInfoButton(){
+    public @NotNull Button createInfoButton(){
         Button info_button = new Button();
         info_button.setOnAction(actionEvent -> infoAction.onClick());
         info_button.getStyleClass().add("action-btn");
