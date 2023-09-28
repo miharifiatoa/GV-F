@@ -116,7 +116,7 @@
 }
 .dashboard .textfield{
     -fx-text-fill: rgb(106, 106, 106);
-    -fx-background-color: #f2f2f2;
+    -fx-background-color: #fbfbfb;
     -fx-border-color: rgb(235, 235, 235);
 
 }
@@ -166,6 +166,10 @@
 }
 .buttons{
     -fx-background-color: #ffffff00;
+}
+.search{
+    -fx-background-color: #a51a1a;
+    -fx-border-color: rgb(246, 246, 246)
 }
 
 

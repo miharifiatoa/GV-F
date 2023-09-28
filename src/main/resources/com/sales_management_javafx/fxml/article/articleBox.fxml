@@ -35,7 +35,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Button>
-                  <Button graphicTextGap="0.0" mnemonicParsing="false" rotate="45.0" styleClass="buttons" text="+" textFill="RED">
+                  <Button graphicTextGap="0.0" mnemonicParsing="false" styleClass="buttons" text="x" textFill="RED">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

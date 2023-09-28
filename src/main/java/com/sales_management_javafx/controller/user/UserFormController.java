@@ -89,13 +89,14 @@ public class UserFormController implements Initializable {
         user.setPerson(this.createPerson());
         return user;
     }
-    private void writeObjectOnFile(){
-        try(FileOutputStream fileOutputStream = new FileOutputStream(String.valueOf(SalesApplication.class.getResource("data/data.json")))) {
+    private void writeObjectOnFile() {
+        try (FileOutputStream fileOutputStream = new FileOutputStream("C:\\Users\\ASUS\\IdeaProjects\\Sales_management_javafx\\src\\main\\resources\\com\\sales_management_javafx\\data\\user.txt")) {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(this.createUser());
+            UserEntity user = this.createUser();
+            objectOutputStream.writeObject(user);
             objectOutputStream.close();
-        }
-        catch (Exception e){
+            System.out.println(user + " written on file");
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }

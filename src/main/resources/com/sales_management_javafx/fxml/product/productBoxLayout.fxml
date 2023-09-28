@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="338.0" prefWidth="670.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product.ProductBoxLayoutController">
    <center>
-      <BorderPane>
+      <BorderPane fx:id="productBoxLayoutBorderpane">
          <BorderPane.margin>
             <Insets left="10.0" />
          </BorderPane.margin>
          <center>
-            <ScrollPane fx:id="productBoxLayoutScrollpane" fitToHeight="true" fitToWidth="true" prefHeight="226.0" prefWidth="434.0" styleClass="box" />
+            <ScrollPane fx:id="productBoxLayoutScrollpane" fitToHeight="true" fitToWidth="true" prefHeight="226.0" prefWidth="434.0" styleClass="box">
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin></ScrollPane>
          </center>
       </BorderPane>
    </center>
@@ -29,38 +28,17 @@
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="6.0" />
          </padding>
-         <bottom>
-            <GridPane BorderPane.alignment="BOTTOM_LEFT">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" styleClass="box">
-                    <buttons>
-                      <Button fx:id="shareProductButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Partage" />
-                        <Button fx:id="exitFromInventoryButton" mnemonicParsing="false" text="Button" />
-                    </buttons>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </ButtonBar>
-               </children>
-               <padding>
-                  <Insets top="5.0" />
-               </padding>
-            </GridPane>
-         </bottom>
          <center>
-            <ScrollPane fx:id="articleBoxLayoutScrollpane" fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" styleClass="scrollpane" BorderPane.alignment="CENTER" />
+            <ScrollPane fx:id="articleBoxLayoutScrollpane" fitToHeight="true" fitToWidth="true" prefHeight="246.0" prefWidth="232.0" styleClass="scrollpane" BorderPane.alignment="CENTER" />
          </center>
          <top>
-            <TextField fx:id="searchProductTextfield" alignment="CENTER" focusTraversable="false" prefHeight="40.0" prefWidth="232.0" promptText="Recherche des produits" styleClass="textfield">
+            <TextField fx:id="searchProductTextfield" alignment="CENTER_RIGHT" focusTraversable="false" prefHeight="40.0" prefWidth="232.0" promptText="Recherche des produits" styleClass="textfield">
                <BorderPane.margin>
                   <Insets bottom="5.0" left="1.0" right="1.0" top="1.0" />
                </BorderPane.margin>
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
             </TextField>
          </top>
       </BorderPane>

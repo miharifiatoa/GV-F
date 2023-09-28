@@ -3,6 +3,7 @@ module com.sales_management_javafx {
     requires javafx.fxml;
     requires Sales.management;
     requires org.jetbrains.annotations;
+    requires com.fasterxml.jackson.databind;
 
     exports com.sales_management_javafx;
     opens com.sales_management_javafx to javafx.fxml;

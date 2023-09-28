@@ -2,8 +2,10 @@ package com.sales_management_javafx.controller.product;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.NumberTextField;
+import com.sales_management_javafx.classes.ProductFile;
 import com.sales_management_javafx.composent.ProductGridPane;
-import com.sales_management_javafx.data.FileData;
+import com.sales_management_javafx.composent.ProductShareGridPane;
+import com.sales_management_javafx.controller.inventory.ShareProductBoxController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,18 +14,18 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import org.sales_management.entity.ArticleEntity;
 import org.sales_management.entity.ProductEntity;
 import org.sales_management.service.ArticleService;
 import org.sales_management.service.ProductService;
 
+import java.io.*;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.Collection;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class ProductBoxController implements Initializable {
     @FXML
@@ -45,7 +47,9 @@ public class ProductBoxController implements Initializable {
     @FXML
     private Label qualityLabel;
     @FXML
-    private Label productQuantityLabel;
+    private Label productQuantityShareLabel;
+    @FXML
+    private Label productQuantityRetireLabel;
     @FXML
     private Label deleteLabel;
     @FXML
@@ -143,7 +147,8 @@ public class ProductBoxController implements Initializable {
         this.referenceLabel.setText(product.getReference());
         this.colorLabel.setText(product.getColor());
         this.deleteLabel.setText("Voulez vous vraiment supprimer " + product.getName() + " dans la liste du produit?");
-        this.productQuantityLabel.setText("max : " + product.getQuantity());
+        this.productQuantityRetireLabel.setText("max : " + product.getQuantity());
+        this.productQuantityShareLabel.setText("max : " + product.getQuantity());
         this.onConfirmDeleteProduct(product.getId());
         this.onConfirmAddProduct(product);
         this.onConfirmRetireProduct(product);
@@ -155,19 +160,7 @@ public class ProductBoxController implements Initializable {
         this.confirmDeleteButton.setOnAction(actionEvent -> {
             ProductEntity product = this.productService.deleteById(product_id);
             if (product!=null){
-                ScrollPane productLayoutScrollpane = (ScrollPane) this.productBoxStackpane.getParent().getParent().getParent().getParent();
-                try {
-                    Long article_id = Long.valueOf(productBoxStackpane.getParent().getId());
-                    Collection<ProductEntity> products = this.articleService.getById(article_id).getProducts();
-                    GridPane productGridPane = new ProductGridPane().getGridPane(products, 3,true);
-                    productGridPane.setId(String.valueOf(product.getArticle().getId()));
-                    productLayoutScrollpane.setContent(productGridPane);
-                }
-                catch (NumberFormatException e){
-                    Collection<ProductEntity> products = this.productService.getAll();
-                    GridPane productGridPane = new ProductGridPane().getGridPane(products,3,false);
-                    productLayoutScrollpane.setContent(productGridPane);
-                }
+                this.refreshData(product);
             }
         });
     }
@@ -201,19 +194,7 @@ public class ProductBoxController implements Initializable {
             if (!this.quantityAddedTextfield.getText().isEmpty() && product!=null){
                 ProductEntity productResponse = this.productService.addProduct(Integer.parseInt(this.quantityAddedTextfield.getText()),product);
                 if (productResponse!=null){
-                    ScrollPane productLayoutScrollpane = (ScrollPane) this.productBoxStackpane.getParent().getParent().getParent().getParent();
-                    try {
-                        Long article_id = Long.valueOf(productBoxStackpane.getParent().getId());
-                        Collection<ProductEntity> products = this.articleService.getById(article_id).getProducts();
-                        GridPane productGridPane = new ProductGridPane().getGridPane(products, 3,true);
-                        productGridPane.setId(String.valueOf(product.getArticle().getId()));
-                        productLayoutScrollpane.setContent(productGridPane);
-                    }
-                    catch (NumberFormatException e){
-                        Collection<ProductEntity> products = this.productService.getAll();
-                        GridPane productGridPane = new ProductGridPane().getGridPane(products,3,false);
-                        productLayoutScrollpane.setContent(productGridPane);
-                    }
+                    this.refreshData(product);
                 }
             }
 
@@ -236,19 +217,7 @@ public class ProductBoxController implements Initializable {
             if (!quantityRetireTextfield.getText().isEmpty() && product!=null){
                 ProductEntity productResponse = this.productService.retireProduct(Integer.parseInt(this.quantityRetireTextfield.getText()),product);
                 if (productResponse!=null){
-                    ScrollPane productLayoutScrollpane = (ScrollPane) this.productBoxStackpane.getParent().getParent().getParent().getParent();
-                    try {
-                        Long article_id = Long.valueOf(productBoxStackpane.getParent().getId());
-                        Collection<ProductEntity> products = this.articleService.getById(article_id).getProducts();
-                        GridPane productGridPane = new ProductGridPane().getGridPane(products, 3,true);
-                        productGridPane.setId(String.valueOf(product.getArticle().getId()));
-                        productLayoutScrollpane.setContent(productGridPane);
-                    }
-                    catch (NumberFormatException e){
-                        Collection<ProductEntity> products = this.productService.getAll();
-                        GridPane productGridPane = new ProductGridPane().getGridPane(products,3,false);
-                        productLayoutScrollpane.setContent(productGridPane);
-                    }
+                    this.refreshData(product);
                 }
             }
         });
@@ -266,9 +235,12 @@ public class ProductBoxController implements Initializable {
         });
     }
     private void onAddProductInShareList(ProductEntity product){
-        this.addProductInShareListButton.setOnAction(event->{
-            FileData.appendProductToShareInFile(product);
-            FileData.readProductToShareFromFile();
+        addProductInShareListButton.setOnAction(event->{
+            product.setQuantity(Integer.parseInt(quantitySharedTextfield.getText()));
+            Collection<ProductEntity> existingProducts = ProductFile.readProductsFromFile();
+            existingProducts.add(product);
+            ProductFile.writeProductsToFile(existingProducts);
+            this.refreshData(product);
         });
     }
     private void onExitShareProduct(){
@@ -301,5 +273,27 @@ public class ProductBoxController implements Initializable {
         DeleteIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/DeleteIcon.png"))));
         EditIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/EditIcon.png"))));
         ShareIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/ShareIcon.png"))));
+    }
+    public void refreshData(ProductEntity product){
+        ScrollPane productLayoutScrollpane = (ScrollPane) this.productBoxStackpane.getParent().getParent().getParent().getParent();
+        BorderPane borderPane = (BorderPane) productLayoutScrollpane.getParent();
+        if (borderPane.getBottom()!=null){
+            BorderPane shareProductLayoutBorderpane = (BorderPane) borderPane.getBottom();
+            ScrollPane shareProductLayoutScrollpane = (ScrollPane) shareProductLayoutBorderpane.getCenter();
+            GridPane productShareGridpane = new ProductShareGridPane().getGridPane(ProductFile.readProductsFromFile(),2);
+            shareProductLayoutScrollpane.setContent(productShareGridpane);
+        }
+        try {
+            Long article_id = Long.valueOf(productBoxStackpane.getParent().getId());
+            Collection<ProductEntity> products = this.articleService.getById(article_id).getProducts();
+            GridPane productGridPane = new ProductGridPane().getGridPane(products, 3,true);
+            productGridPane.setId(String.valueOf(product.getArticle().getId()));
+            productLayoutScrollpane.setContent(productGridPane);
+        }
+        catch (NumberFormatException e){
+            Collection<ProductEntity> products = this.productService.getAll();
+            GridPane productGridPane = new ProductGridPane().getGridPane(products,3,false);
+            productLayoutScrollpane.setContent(productGridPane);
+        }
     }
 }

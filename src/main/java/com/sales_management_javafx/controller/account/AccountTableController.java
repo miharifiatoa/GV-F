@@ -80,7 +80,7 @@ public class AccountTableController implements Initializable {
     }
     public void onShowInformation(@NotNull TableRow<AccountEntity> tableRow){
         AccountEntity account = tableRow.getItem();
-        try(FileOutputStream fileOutputStream = new FileOutputStream(String.valueOf(SalesApplication.class.getResource("/file/data.json")))) {
+        try(FileOutputStream fileOutputStream = new FileOutputStream(String.valueOf(SalesApplication.class.getResource("file/account_data.json")))) {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(account);
             objectOutputStream.close();

@@ -15,9 +15,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="productBoxStackpane" prefHeight="250.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product.ProductBoxController">
+<StackPane fx:id="productBoxStackpane" prefHeight="242.0" prefWidth="424.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product.ProductBoxController">
    <children>
-      <VBox fx:id="productBox" spacing="5.0" styleClass="box-layout" visible="false">
+      <VBox fx:id="productBox" spacing="5.0" styleClass="box-layout">
          <children>
             <GridPane prefHeight="37.0" vgap="5.0">
                <columnConstraints>
@@ -35,19 +35,19 @@
                               <Insets left="5.0" />
                            </padding>
                            <font>
-                              <Font name="System Italic" size="12.0" />
+                              <Font name="System Bold Italic" size="12.0" />
                            </font>
                         </Label>
                      </children>
                   </AnchorPane>
-                  <HBox alignment="CENTER_RIGHT" spacing="3.0" styleClass="box" GridPane.rowIndex="1">
+                  <HBox alignment="CENTER_RIGHT" spacing="10.0" styleClass="box" GridPane.rowIndex="1">
                      <children>
                       <Button fx:id="editProductButton" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" prefHeight="26.0" styleClass="buttons" textFill="WHITE">
                            <font>
                               <Font name="System Bold Italic" size="12.0" />
                            </font>
                            <graphic>
-                              <ImageView fx:id="EditIcon" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="EditIcon" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic>
                         </Button>
                         <Button fx:id="deleteButton" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" styleClass="buttons" textFill="WHITE">
@@ -55,7 +55,7 @@
                               <Font name="System Bold Italic" size="12.0" />
                            </font>
                            <graphic>
-                              <ImageView fx:id="DeleteIcon" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="DeleteIcon" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic>
                         </Button>
                         <Button fx:id="shareProductButton" alignment="CENTER" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" styleClass="buttons" textFill="RED">
@@ -63,7 +63,7 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                            <graphic>
-                              <ImageView fx:id="ShareIcon" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="ShareIcon" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic>
                         </Button>
                      </children>
@@ -252,9 +252,9 @@
                   </AnchorPane>
                   <AnchorPane GridPane.columnIndex="1">
                      <children>
-                        <Label fx:id="quantityLabel" alignment="CENTER" textFill="#595959" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Label fx:id="quantityLabel" alignment="CENTER" textFill="#535353" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <font>
-                              <Font name="System Bold Italic" size="12.0" />
+                              <Font name="System Italic" size="12.0" />
                            </font>
                         </Label>
                      </children>
@@ -410,7 +410,7 @@
                         </AnchorPane>
                         <AnchorPane GridPane.columnIndex="1">
                            <children>
-                              <Label fx:id="productQuantityLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="0" textFill="#717171" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label fx:id="productQuantityRetireLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" textFill="#717171" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font name="System Italic" size="12.0" />
                                  </font>
@@ -466,57 +466,44 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </VBox>
-      <VBox fx:id="shareProductBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="box">
+      <VBox fx:id="shareProductBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="box" visible="false">
          <children>
-            <VBox alignment="CENTER" maxHeight="120.0" minHeight="120.0" prefWidth="341.0" spacing="10.0" styleClass="box">
+            <VBox alignment="CENTER" maxHeight="120.0" minHeight="120.0" spacing="10.0" styleClass="box">
                <children>
-                  <GridPane>
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
+                  <AnchorPane>
                      <children>
-                        <AnchorPane>
+                        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="80.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
                            <children>
-                              <Label prefHeight="30.4" prefWidth="114.4" text="Nombre des produits à partager" textFill="#717171" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Italic" size="12.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane GridPane.columnIndex="1">
-                           <children>
-                              <Label fx:id="productQuantityLabel" alignment="CENTER_RIGHT" prefHeight="28.8" prefWidth="100.0" text="max" textFill="#717171" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label prefHeight="17.6" prefWidth="331.2" text="Nombre des produits à partager" textFill="#717171">
                                  <font>
                                     <Font name="System Italic" size="12.0" />
                                  </font>
                               </Label>
+                              <AnchorPane GridPane.columnIndex="1">
+                                 <children>
+                                    <Label fx:id="productQuantityShareLabel" alignment="CENTER_RIGHT" prefHeight="28.8" prefWidth="100.0" text="max" textFill="#717171" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font name="System Italic" size="12.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
                            </children>
-                        </AnchorPane>
+                        </GridPane>
                      </children>
-                  </GridPane>
-                  <GridPane>
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
+                  </AnchorPane>
+                  <AnchorPane>
                      <children>
-                        <AnchorPane>
-                           <children>
-                              <TextField fx:id="quantitySharedTextfield" focusTraversable="false" maxHeight="40.0" minHeight="40.0" prefHeight="40.0" prefWidth="301.6" promptText="Nombre uniquement" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
+                        <TextField fx:id="quantitySharedTextfield" focusTraversable="false" maxHeight="40.0" minHeight="40.0" prefHeight="30.4" prefWidth="301.6" promptText="Nombre uniquement" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
-                  </GridPane>
+                  </AnchorPane>
                   <GridPane hgap="10.0" prefHeight="34.0" prefWidth="341.0">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" />
@@ -537,7 +524,7 @@
                         </AnchorPane>
                         <AnchorPane GridPane.columnIndex="1">
                            <children>
-                              <Button fx:id="addProductInShareListButton" mnemonicParsing="false" style="-fx-background-color: #ac01c7;" text="Ajouter au liste de partage" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Button fx:id="addProductInShareListButton" mnemonicParsing="false" style="-fx-background-color: #c800ff;" text="Ajouter au liste de partage" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font name="System Bold Italic" size="12.0" />
                                  </font>

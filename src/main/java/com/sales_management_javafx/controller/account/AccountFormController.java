@@ -66,9 +66,11 @@ public class AccountFormController implements Initializable {
     }
     public UserEntity getUserFromFile(){
         UserEntity user;
-        try(FileInputStream fileInputStream = new FileInputStream(String.valueOf(SalesApplication.class.getResource("data/data.json")))) {
+        try(FileInputStream fileInputStream = new FileInputStream("C:\\Users\\ASUS\\IdeaProjects\\Sales_management_javafx\\src\\main\\resources\\com\\sales_management_javafx\\data\\user.txt")) {
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             user = (UserEntity) objectInputStream.readObject();
+            objectInputStream.close();
+            System.out.println(user + " read from file");
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

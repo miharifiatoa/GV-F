@@ -1,6 +1,7 @@
 package com.sales_management_javafx.composent;
 
 import com.sales_management_javafx.SalesApplication;
+import com.sales_management_javafx.classes.ProductFile;
 import com.sales_management_javafx.controller.product.ProductBoxController;
 import com.sales_management_javafx.controller.product.ProductEditFormController;
 import javafx.fxml.FXMLLoader;
@@ -34,11 +35,13 @@ public class ProductGridPane{
         }
         else col = 0;
         for (ProductEntity product : products) {
-            gridPane.add(this.getProductBox(product), col, row);
-            col++;
-            if (col == colSize) {
-                col = 0;
-                row++;
+            if (!ProductFile.readProductsFromFile().contains(product)){
+                gridPane.add(this.getProductBox(product), col, row);
+                col++;
+                if (col == colSize) {
+                    col = 0;
+                    row++;
+                }
             }
         }
         gridPane.getStyleClass().add("gridpane");

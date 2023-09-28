@@ -1,4 +1,4 @@
-package com.sales_management_javafx.controller.account;
+package com.sales_management_javafx.fxml.file;
 
 import com.sales_management_javafx.SalesApplication;
 import javafx.fxml.FXML;
@@ -39,7 +39,7 @@ public class AccountInformationController implements Initializable {
         this.closeInformation();
     }
     public void showInformation(){
-        try(FileInputStream fileInputStream = new FileInputStream(String.valueOf(SalesApplication.class.getResource("/file/data.json")))) {
+        try(FileInputStream fileInputStream = new FileInputStream(String.valueOf(SalesApplication.class.getResource("file/account_data.json")))) {
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             AccountEntity account = (AccountEntity) objectInputStream.readObject();
             account_information.getChildren().add(new Label(account.getUser().getPerson().getLastname()));
@@ -50,6 +50,7 @@ public class AccountInformationController implements Initializable {
             account_information.getChildren().add(new Label(String.valueOf(account.getUser().getEmail())));
             account_information.getChildren().add(new Label(String.valueOf(account.getUser().getNumber())));
             account_information.getChildren().add(new Label(String.valueOf(account.getUser().getNumber())));
+            objectInputStream.close();
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
