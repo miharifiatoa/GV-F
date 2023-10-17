@@ -44,8 +44,8 @@ public class ArticleBoxController implements Initializable {
     private void onShowProducts(ArticleEntity article){
         articleBoxStackPane.setOnMouseClicked(event->{
             BorderPane borderPane = (BorderPane) articleBoxStackPane.getParent().getParent().getParent().getParent().getParent().getParent();
-            BorderPane borderPane1 = (BorderPane) borderPane.getCenter();
-            this.productBoxLayoutScrollpane = (ScrollPane) borderPane1.getCenter();
+            BorderPane productBoxLayoutBorderpane = (BorderPane) borderPane.getCenter();
+            this.productBoxLayoutScrollpane = (ScrollPane) productBoxLayoutBorderpane.getCenter();
             GridPane gridPane = (GridPane) articleBoxStackPane.getParent();
             if (!Objects.equals(articleBoxStackPane.getStyleClass().toString(),("active"))){
                 for (Node node1 : gridPane.getChildren()){
@@ -54,10 +54,7 @@ public class ArticleBoxController implements Initializable {
                 articleBoxStackPane.getStyleClass().add("active");
                 System.out.println(articleBoxStackPane.getStyleClass());
             }
-            if (productBoxLayoutScrollpane == null) {
-                System.out.println(articleBoxStackPane.getParent().getParent().getParent().getParent().getParent());
-            }
-            GridPane productGridPane = new ProductGridPane().getGridPane(this.articleService.getById(article.getId()).getProducts(),3,true);
+            GridPane productGridPane = new ProductGridPane().getGridPane(this.articleService.getById(article.getId()).getProducts(),3,false);
             productGridPane.setId(String.valueOf(article.getId()));
             productBoxLayoutScrollpane.setContent(productGridPane);
         });

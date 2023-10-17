@@ -38,4 +38,10 @@ module com.sales_management_javafx {
     exports com.sales_management_javafx.controller.product;
     opens com.sales_management_javafx.controller.product to javafx.fxml;
 
+    exports com.sales_management_javafx.controller.product_variation;
+    opens com.sales_management_javafx.controller.product_variation to javafx.fxml;
+
+    exports com.sales_management_javafx.controller.seller;
+    opens com.sales_management_javafx.controller.seller to javafx.fxml;
+
 }

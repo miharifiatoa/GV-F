@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.StackPane?>
 
-<BorderPane styleClass="border-pane" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.SalesController">
-   <center>
-      <StackPane fx:id="stackPane" prefHeight="286.0" prefWidth="487.0" />
-   </center>
-</BorderPane>
+<BorderPane fx:id="salesManagementBorderpane" prefHeight="297.0" prefWidth="538.0" styleClass="border-pane" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.SalesController" />

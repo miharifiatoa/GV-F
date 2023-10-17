@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -12,537 +11,54 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="productBoxStackpane" prefHeight="242.0" prefWidth="424.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product.ProductBoxController">
+<StackPane fx:id="productBox" prefHeight="54.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product.ProductBoxController">
    <children>
-      <VBox fx:id="productBox" spacing="5.0" styleClass="box-layout">
+      <GridPane prefHeight="49.0" prefWidth="300.0" styleClass="box">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <GridPane prefHeight="37.0" vgap="5.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints maxHeight="35.0" minHeight="35.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
+            <AnchorPane>
                <children>
-                  <AnchorPane styleClass="box">
+                  <Label fx:id="productNameLabel" prefHeight="36.0" prefWidth="276.0" text="Label" textFill="#a1a1a1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane GridPane.columnIndex="1">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label fx:id="nameLabel" contentDisplay="CENTER" prefHeight="18.4" prefWidth="200.8" text="NameLabel" textFill="#8c8c8c" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <padding>
-                              <Insets left="5.0" />
-                           </padding>
-                           <font>
-                              <Font name="System Bold Italic" size="12.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-                  <HBox alignment="CENTER_RIGHT" spacing="10.0" styleClass="box" GridPane.rowIndex="1">
-                     <children>
-                      <Button fx:id="editProductButton" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" prefHeight="26.0" styleClass="buttons" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold Italic" size="12.0" />
-                           </font>
+                        <Button mnemonicParsing="false" styleClass="buttons">
                            <graphic>
-                              <ImageView fx:id="EditIcon" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="editIcon" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic>
                         </Button>
-                        <Button fx:id="deleteButton" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" styleClass="buttons" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold Italic" size="12.0" />
-                           </font>
+                        <Button mnemonicParsing="false" styleClass="buttons">
                            <graphic>
-                              <ImageView fx:id="DeleteIcon" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
-                           </graphic>
-                        </Button>
-                        <Button fx:id="shareProductButton" alignment="CENTER" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" styleClass="buttons" textFill="RED">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                           <graphic>
-                              <ImageView fx:id="ShareIcon" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="deleteIcon" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic>
                         </Button>
                      </children>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
                   </HBox>
                </children>
-            </GridPane>
-            <ScrollPane fx:id="productScrollpane" fitToHeight="true" fitToWidth="true" focusTraversable="false" style="-fx-background-color: white;" styleClass="box">
-               <content>
-                  <GridPane style="-fx-background-color: white;">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="60.0" prefWidth="150.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <AnchorPane GridPane.rowIndex="1">
-                           <children>
-                              <Label prefHeight="17.6" prefWidth="150.4" text="Prix" textFill="#8c8c8c" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Italic" size="12.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <Label text=":" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <font>
-                              <Font name="System Bold Italic" size="12.0" />
-                           </font></Label>
-                        <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="1">
-                           <children>
-                              <Label fx:id="priceLabel" alignment="TOP_LEFT" prefHeight="18.4" prefWidth="131.2" text="PriceLabel" textFill="#8c8c8c" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Italic" size="12.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane GridPane.rowIndex="3">
-                           <children>
-                              <Label prefHeight="17.6" prefWidth="150.4" text="Marque" textFill="#8c8c8c" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Italic" size="12.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <Label text=":" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                           <font>
-                              <Font name="System Bold Italic" size="12.0" />
-                           </font></Label>
-                        <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="3">
-                           <children>
-                              <Label fx:id="brandLabel" alignment="TOP_LEFT" prefHeight="18.4" prefWidth="131.2" text="BrandLabel" textFill="#8c8c8c" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Italic" size="12.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane GridPane.rowIndex="4">
-                           <children>
-                              <Label prefHeight="17.6" prefWidth="150.4" text="Reference" textFill="#8c8c8c" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Italic" size="12.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="4">
-                           <children>
-                              <Label fx:id="referenceLabel" alignment="TOP_LEFT" prefHeight="18.4" prefWidth="131.2" text="ReferenceLabel" textFill="#8c8c8c" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Italic" size="12.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane GridPane.rowIndex="5">
-                           <children>
-                              <Label prefHeight="17.6" prefWidth="150.4" text="Couleur" textFill="#8c8c8c" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Italic" size="12.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <Label text=":" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                           <font>
-                              <Font name="System Bold Italic" size="12.0" />
-                           </font></Label>
-                        <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="5">
-                           <children>
-                              <Label fx:id="colorLabel" alignment="TOP_LEFT" prefHeight="18.4" prefWidth="131.2" text="ColorLabel" textFill="#8c8c8c" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Italic" size="12.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <Label text=":" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                           <font>
-                              <Font name="System Bold Italic" size="12.0" />
-                           </font></Label>
-                        <AnchorPane GridPane.rowIndex="6">
-                           <children>
-                              <Label prefHeight="17.6" prefWidth="150.4" text="Qualite" textFill="#8c8c8c" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Italic" size="12.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <Label text=":" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                           <font>
-                              <Font name="System Bold Italic" size="12.0" />
-                           </font></Label>
-                        <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="6">
-                           <children>
-                              <Label fx:id="qualityLabel" alignment="TOP_LEFT" prefHeight="18.4" prefWidth="131.2" text="QualityLabel" textFill="#8c8c8c" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Italic" size="12.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane GridPane.rowIndex="2">
-                           <children>
-                              <Label prefHeight="17.6" prefWidth="150.4" text="Taille" textFill="#8c8c8c" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Italic" size="12.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="2">
-                           <children>
-                              <Label fx:id="sizeLabel" alignment="TOP_LEFT" prefHeight="18.4" prefWidth="131.2" text="SizeLabel" textFill="#8c8c8c" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Italic" size="12.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <Label text=":" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <font>
-                              <Font name="System Bold Italic" size="12.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </GridPane>
-               </content>
-            </ScrollPane>
-            <GridPane styleClass="box">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints maxHeight="30.0" minHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <AnchorPane GridPane.columnIndex="2">
-                     <children>
-                        <Button fx:id="addProductButton" mnemonicParsing="false" prefHeight="30.4" prefWidth="240.0" style="-fx-background-color: #ffffff;" text="+" textFill="#00b223" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane GridPane.columnIndex="1">
-                     <children>
-                        <Label fx:id="quantityLabel" alignment="CENTER" textFill="#535353" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <font>
-                              <Font name="System Italic" size="12.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane>
-                     <children>
-                        <Button fx:id="retireProductButton" mnemonicParsing="false" prefHeight="25.6" prefWidth="104.0" style="-fx-background-color: #ffffff;" text="-" textFill="#ff0000" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </AnchorPane>
-               </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </GridPane>
+            </AnchorPane>
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
-      </VBox>
-      <VBox fx:id="confirmDeleteBox" alignment="CENTER" styleClass="box-layout" visible="false">
-         <children>
-            <VBox alignment="BOTTOM_CENTER" maxHeight="120.0" minHeight="120.0" styleClass="box">
-               <children>
-                  <Label fx:id="deleteLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="56.8" prefWidth="331.2" text="Voulez vous..." textAlignment="CENTER" textFill="#6e6e6e" textOverrun="CENTER_ELLIPSIS" wrapText="true">
-                     <font>
-                        <Font name="System Italic" size="12.0" />
-                     </font>
-                  </Label>
-                  <GridPane hgap="10.0">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" />
-                        <ColumnConstraints hgrow="SOMETIMES" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints maxHeight="30.0" minHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <AnchorPane>
-                           <children>
-                            <Button fx:id="cancelDeleteButton" mnemonicParsing="false" prefHeight="25.6" prefWidth="127.2" style="-fx-background-color: ffe300;" text="Non" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="12.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane GridPane.columnIndex="1">
-                           <children>
-                              <Button fx:id="confirmDeleteButton" mnemonicParsing="false" prefHeight="25.6" prefWidth="99.2" style="-fx-background-color: #ff0000;" text="OK" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="12.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </AnchorPane>
-                     </children>
-                  </GridPane>
-               </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </VBox>
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </VBox>
-      <VBox fx:id="addProductBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" styleClass="box-layout" visible="false">
-         <children>
-            <VBox alignment="CENTER" maxHeight="120.0" minHeight="120.0" spacing="10.0" styleClass="box">
-               <children>
-                  <AnchorPane>
-                     <children>
-                        <Label prefHeight="17.6" prefWidth="331.2" text="Nombre des produits à ajoutés" textFill="#717171" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <font>
-                              <Font name="System Italic" size="12.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane>
-                     <children>
-                        <TextField fx:id="quantityAddedTextfield" focusTraversable="false" maxHeight="40.0" minHeight="40.0" prefHeight="30.4" prefWidth="301.6" promptText="Nombre uniquement" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                     </children>
-                  </AnchorPane>
-                  <GridPane hgap="10.0" prefHeight="34.0" prefWidth="341.0">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" />
-                        <ColumnConstraints hgrow="SOMETIMES" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints maxHeight="30.0" minHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <AnchorPane>
-                           <children>
-                              <Button fx:id="exitAddProductButton" mnemonicParsing="false" style="-fx-background-color: ffe300;" text="Retour" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="12.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane GridPane.columnIndex="1">
-                           <children>
-                              <Button fx:id="confirmAddProductButton" mnemonicParsing="false" style="-fx-background-color: #2bff00;" text="Confirmer l'ajout" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="12.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </AnchorPane>
-                     </children>
-                  </GridPane>
-               </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </VBox>
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </VBox>
-      <VBox fx:id="retireProductBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" styleClass="box" visible="false">
-         <children>
-            <VBox alignment="CENTER" maxHeight="120.0" minHeight="120.0" prefHeight="122.0" prefWidth="393.0" spacing="10.0" styleClass="box">
-               <children>
-                  <GridPane prefHeight="28.0" prefWidth="341.0">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" />
-                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <AnchorPane>
-                           <children>
-                              <Label prefHeight="30.4" prefWidth="114.4" text="Nombres des produits à rétirer" textFill="#717171" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Italic" size="12.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane GridPane.columnIndex="1">
-                           <children>
-                              <Label fx:id="productQuantityRetireLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" textFill="#717171" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Italic" size="12.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                     </children>
-                  </GridPane>
-                  <AnchorPane prefHeight="40.0" prefWidth="385.0">
-                     <children>
-                        <TextField fx:id="quantityRetireTextfield" focusTraversable="false" maxHeight="40.0" minHeight="40.0" prefHeight="40.0" prefWidth="384.8" promptText="Nombre uniquement" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                     </children>
-                  </AnchorPane>
-                  <GridPane hgap="10.0" prefHeight="34.0" prefWidth="341.0">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" />
-                        <ColumnConstraints hgrow="SOMETIMES" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints maxHeight="30.0" minHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <AnchorPane>
-                           <children>
-                              <Button fx:id="exitRetireProductButton" mnemonicParsing="false" style="-fx-background-color: ffe300;" text="Retour" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="12.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane GridPane.columnIndex="1">
-                           <children>
-                              <Button fx:id="confirmRetireProductButton" mnemonicParsing="false" style="-fx-background-color: #ff5634;" text="Confirmer le retrait" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="12.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </AnchorPane>
-                     </children>
-                  </GridPane>
-               </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </VBox>
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </VBox>
-      <VBox fx:id="shareProductBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="box" visible="false">
-         <children>
-            <VBox alignment="CENTER" maxHeight="120.0" minHeight="120.0" spacing="10.0" styleClass="box">
-               <children>
-                  <AnchorPane>
-                     <children>
-                        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="80.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <children>
-                              <Label prefHeight="17.6" prefWidth="331.2" text="Nombre des produits à partager" textFill="#717171">
-                                 <font>
-                                    <Font name="System Italic" size="12.0" />
-                                 </font>
-                              </Label>
-                              <AnchorPane GridPane.columnIndex="1">
-                                 <children>
-                                    <Label fx:id="productQuantityShareLabel" alignment="CENTER_RIGHT" prefHeight="28.8" prefWidth="100.0" text="max" textFill="#717171" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <font>
-                                          <Font name="System Italic" size="12.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </AnchorPane>
-                           </children>
-                        </GridPane>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane>
-                     <children>
-                        <TextField fx:id="quantitySharedTextfield" focusTraversable="false" maxHeight="40.0" minHeight="40.0" prefHeight="30.4" prefWidth="301.6" promptText="Nombre uniquement" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                     </children>
-                  </AnchorPane>
-                  <GridPane hgap="10.0" prefHeight="34.0" prefWidth="341.0">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" />
-                        <ColumnConstraints hgrow="SOMETIMES" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints maxHeight="30.0" minHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <AnchorPane>
-                           <children>
-                              <Button fx:id="exitShareProductButton" mnemonicParsing="false" style="-fx-background-color: ffe300;" text="Retour" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="12.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane GridPane.columnIndex="1">
-                           <children>
-                              <Button fx:id="addProductInShareListButton" mnemonicParsing="false" style="-fx-background-color: #c800ff;" text="Ajouter au liste de partage" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="12.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </AnchorPane>
-                     </children>
-                  </GridPane>
-               </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </VBox>
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </VBox>
+      </GridPane>
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

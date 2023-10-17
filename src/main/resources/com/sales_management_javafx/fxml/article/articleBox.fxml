@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="articleBoxStackPane" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="272.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.article.ArticleBoxController">
+<StackPane fx:id="articleBoxStackPane" maxHeight="50.0" minHeight="43.0" prefHeight="43.0" prefWidth="272.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.article.ArticleBoxController">
    <children>
-      <GridPane styleClass="box">
+      <GridPane maxHeight="45.0" minHeight="45.0" styleClass="box">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="101.199951171875" minWidth="10.0" prefWidth="50.0" />
@@ -54,4 +54,7 @@
          </padding>
       </GridPane>
    </children>
+   <cursor>
+      <Cursor fx:constant="HAND" />
+   </cursor>
 </StackPane>

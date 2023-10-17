@@ -5,6 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -15,21 +17,45 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
     @FXML
-    private GridPane login;
-    private BorderPane borderPane;
+    private GridPane loginGridpane;
+    @FXML
+    private Button connectionButton;
+    @FXML
+    private TextField passwordTextfield;
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        FXMLLoader fxmlLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/dashboard/dashboardLayout.fxml"));
+        this.connect();
+    }
+
+    public void connect() {
+        connectionButton.setOnAction(event->{
+            BorderPane salesManagementBorderpane = (BorderPane) loginGridpane.getParent();
+            if (passwordTextfield.getText().isEmpty()){
+                salesManagementBorderpane.setCenter(this.getSellerLayout());
+            }
+            else {
+                salesManagementBorderpane.setCenter(this.getDashboard());
+            }
+        });
+    }
+    private BorderPane getDashboard(){
+        FXMLLoader dashboardLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/dashboard/dashboardLayout.fxml"));
+        BorderPane dashboard;
         try {
-            borderPane = fxmlLoader.load();
+            dashboard = dashboardLoader.load();
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return dashboard;
     }
-
-    public void login(ActionEvent actionEvent) {
-        StackPane stackPane = (StackPane) login.getParent().getParent();
-        stackPane.getChildren().remove(0);
-        stackPane.getChildren().add(borderPane);
+    private BorderPane getSellerLayout(){
+        FXMLLoader sellerLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/seller/sellerLayout.fxml"));
+        BorderPane sellerLayout;
+        try {
+            sellerLayout = sellerLayoutLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return sellerLayout;
     }
 }

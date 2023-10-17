@@ -22,13 +22,17 @@ public class ProductToolbarController implements Initializable {
     @FXML
     private Button shareProductButton;
     @FXML
+    private Button createProductButton;
+    @FXML
     private StackPane toolbar;
     private final MenuGridPane menuGridPane;
     private final MenuIcon menuIcon;
     @FXML
-    private ImageView ShowShareListIcon;
+    private ImageView showShareListIcon;
     @FXML
     private ImageView ExitInventoryIcon;
+    @FXML
+    private ImageView createIcon;
     public ProductToolbarController() {
         this.menuGridPane = new MenuGridPane();
         this.menuIcon = new MenuIcon();
@@ -54,18 +58,19 @@ public class ProductToolbarController implements Initializable {
             productBoxLayoutBorderpane.setBottom(getShareProductLayout());
         });
     }
-    private BorderPane getShareProductLayout(){
+    private StackPane getShareProductLayout(){
         FXMLLoader shareProductLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/inventory/shareProductLayout.fxml"));
-        BorderPane borderPane;
+        StackPane stackPane;
         try {
-            borderPane = shareProductLayoutLoader.load();
+            stackPane = shareProductLayoutLoader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return borderPane;
+        return stackPane;
     }
     private void putIcons(){
-        ShowShareListIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/ShowShareListIcon.png"))));
+        showShareListIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/ShowShareListIcon.png"))));
+        createIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/CreateIcon.png"))));
         ExitInventoryIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/ExitInventoryIcon.png"))));
     }
 }

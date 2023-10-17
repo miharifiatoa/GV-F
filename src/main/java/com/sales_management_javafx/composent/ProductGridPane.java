@@ -1,12 +1,9 @@
 package com.sales_management_javafx.composent;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.classes.ProductFile;
 import com.sales_management_javafx.controller.product.ProductBoxController;
-import com.sales_management_javafx.controller.product.ProductEditFormController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.*;
-import org.sales_management.entity.ArticleEntity;
 import org.sales_management.entity.ProductEntity;
 
 import java.io.IOException;
@@ -31,18 +28,18 @@ public class ProductGridPane{
         int col = 1;
         int row = 0;
         if (isShowCreateBox){
-            gridPane.add(this.getProductCreateFormBox(), 0, row);
+//            gridPane.add(this.getProductCreateFormBox(), 0, row);
         }
         else col = 0;
         for (ProductEntity product : products) {
-            if (!ProductFile.readProductsFromFile().contains(product)){
+//            if (!ProductFile.readProductsFromFile().contains(product)){
                 gridPane.add(this.getProductBox(product), col, row);
                 col++;
                 if (col == colSize) {
                     col = 0;
                     row++;
                 }
-            }
+//            }
         }
         gridPane.getStyleClass().add("gridpane");
         return gridPane;
@@ -53,8 +50,7 @@ public class ProductGridPane{
         try {
             productBoxStackpane = productBoxLoader.load();
             ProductBoxController productBoxController = productBoxLoader.getController();
-            productBoxController.initializeProductData(product);
-            productBoxStackpane.getChildren().add(this.getProductEditBox(product));
+            productBoxController.initialize(product);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -70,18 +66,18 @@ public class ProductGridPane{
         }
         return productFormBox;
     }
-    private VBox getProductEditBox(ProductEntity product){
-        FXMLLoader productEditFormLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productEditForm.fxml"));
-        VBox productEditForm;
-        try {
-            productEditForm = productEditFormLoader.load();
-            ProductEditFormController productEditFormController = productEditFormLoader.getController();
-            productEditFormController.initializeForm(product);
-            productEditFormController.onConfirmEditProduct(product.getId());
-            productEditForm.setVisible(false);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return productEditForm;
-    }
+//    private VBox getProductEditBox(ProductEntity product){
+//        FXMLLoader productEditFormLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productVariationEdit.fxml"));
+//        VBox productEditForm;
+//        try {
+//            productEditForm = productEditFormLoader.load();
+//            ProductEditFormController productEditFormController = productEditFormLoader.getController();
+//            productEditFormController.initializeForm(product);
+//            productEditFormController.onConfirmEditProduct(product.getId());
+//            productEditForm.setVisible(false);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return productEditForm;
+//    }
 }

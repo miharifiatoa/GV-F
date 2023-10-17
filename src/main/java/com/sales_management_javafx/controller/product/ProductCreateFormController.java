@@ -72,7 +72,7 @@ public class ProductCreateFormController implements Initializable {
         this.formValidation();
         this.onCreateProduct();
         this.onCancelCreateProduct();
-        this.onConfirmCreateProduct();
+//        this.onConfirmCreateProduct();
         this.onClickOutOfProductStackPane();
         NumberTextField.requireDouble(this.productPriceTextfield);
     }
@@ -96,39 +96,39 @@ public class ProductCreateFormController implements Initializable {
             productCreatePane.setVisible(true);
         });
     }
-    private void onConfirmCreateProduct(){
-        confirmCreateProductButton.setOnAction(actionEvent -> {
-            ProductEntity product = this.createProduct();
-            if (product!=null){
-                ScrollPane productBoxLayout = (ScrollPane) productCreateFormStackPane.getParent().getParent().getParent().getParent();
-                GridPane productGridPane = new ProductGridPane().getGridPane(this.articleService.getById(Long.valueOf(productCreateFormStackPane.getParent().getId())).getProducts(), 3,true);
-                productGridPane.setId(String.valueOf(product.getArticle().getId()));
-                productBoxLayout.setContent(productGridPane);
-                productFormBox.setVisible(false);
-                productCreatePane.setVisible(true);
-            }
-        });
-    }
-    public ProductEntity createProduct(){
-        ProductEntity product = new ProductEntity();
-        Long article_id = Long.valueOf(productCreateFormStackPane.getParent().getId());
-        ArticleEntity article = this.articleService.getById(article_id);
-        InventoryEntity inventory = this.inventoryService.getById(1L);
-        product.setName(this.productNameTextfield.getText());
-        product.setPrice(Double.valueOf(this.productPriceTextfield.getText()));
-        product.setSizes(this.productSizeTextfield.getText());
-        product.setQuantity(0);
-        product.setQuality(this.productQualityTextfield.getText());
-        product.setBrand(this.productBrandTextfield.getText());
-        product.setReference(this.productReferenceTextfield.getText());
-        product.setColor(this.productColorTextfield.getText());
-        product.setArticle(article);
-        product.setInventory(inventory);
-        if (article!=null && inventory!=null && !this.productNameTextfield.getText().isEmpty() && !this.productPriceTextfield.getText().isEmpty()){
-            this.productService.create(product);
-        }
-        return product;
-    }
+//    private void onConfirmCreateProduct(){
+//        confirmCreateProductButton.setOnAction(actionEvent -> {
+//            ProductEntity product = this.createProduct();
+//            if (product!=null){
+//                ScrollPane productBoxLayout = (ScrollPane) productCreateFormStackPane.getParent().getParent().getParent().getParent();
+//                GridPane productGridPane = new ProductGridPane().getGridPane(this.articleService.getById(Long.valueOf(productCreateFormStackPane.getParent().getId())).getProducts(), 3,true);
+//                productGridPane.setId(String.valueOf(product.getArticle().getId()));
+//                productBoxLayout.setContent(productGridPane);
+//                productFormBox.setVisible(false);
+//                productCreatePane.setVisible(true);
+//            }
+//        });
+//    }
+//    public ProductEntity createProduct(){
+//        ProductEntity product = new ProductEntity();
+//        Long article_id = Long.valueOf(productCreateFormStackPane.getParent().getId());
+//        ArticleEntity article = this.articleService.getById(article_id);
+//        InventoryEntity inventory = this.inventoryService.getById(1L);
+//        product.setName(this.productNameTextfield.getText());
+//        product.setPrice(Double.valueOf(this.productPriceTextfield.getText()));
+//        product.setSizes(this.productSizeTextfield.getText());
+//        product.setQuantity(0);
+//        product.setQuality(this.productQualityTextfield.getText());
+//        product.setBrand(this.productBrandTextfield.getText());
+//        product.setReference(this.productReferenceTextfield.getText());
+//        product.setColor(this.productColorTextfield.getText());
+//        product.setArticle(article);
+//        product.setInventory(inventory);
+//        if (article!=null && inventory!=null && !this.productNameTextfield.getText().isEmpty() && !this.productPriceTextfield.getText().isEmpty()){
+//            this.productService.create(product);
+//        }
+//        return product;
+//    }
     public void onClickOutOfProductStackPane(){
 
     }

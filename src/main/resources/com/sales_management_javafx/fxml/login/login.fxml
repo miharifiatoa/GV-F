@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="login" alignment="TOP_CENTER" maxHeight="170.0" maxWidth="350.0" minHeight="170.0" prefHeight="170.4" prefWidth="350.4" styleClass="login-gridpane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.login.LoginController">
+<GridPane fx:id="loginGridpane" alignment="TOP_CENTER" maxHeight="170.0" maxWidth="350.0" minHeight="170.0" prefHeight="170.4" prefWidth="350.4" styleClass="login-gridpane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.login.LoginController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     </columnConstraints>
@@ -27,14 +27,14 @@
           <Font name="System Bold" size="13.0" />
         </font>
     </TextField>
-    <PasswordField minHeight="40.0" promptText="Mot de passe" GridPane.rowIndex="1">
+    <PasswordField fx:id="passwordTextfield" minHeight="40.0" promptText="Mot de passe" GridPane.rowIndex="1">
         <font>
           <Font name="System Bold" size="13.0" />
         </font>
     </PasswordField>
     <ButtonBar prefHeight="78.0" prefWidth="360.0" GridPane.rowIndex="2">
         <buttons>
-          <Button minHeight="40.0" mnemonicParsing="false" onAction="#login" style="-fx-background-color: #006eff;" text="Se connecter" textFill="WHITE">
+          <Button fx:id="connectionButton" minHeight="40.0" mnemonicParsing="false" style="-fx-background-color: #006eff;" text="Se connecter" textFill="WHITE">
               <font>
                   <Font name="System Bold" size="13.0" />
               </font>

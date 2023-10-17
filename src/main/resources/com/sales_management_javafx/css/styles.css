@@ -9,11 +9,9 @@
 .dashboard{
     -fx-background-color: #ffffff;
 }
-.dashboard .gridpane{
+.dashboard , .seller .gridpane{
     -fx-background-color: #ffffff;
     -fx-text-fill: rgb(0, 0, 0);
-    -fx-border-width: 1px;
-    -fx-border-color: rgb(234, 234, 234);
 }
 .dashboard .title{
     -fx-background-color: #ffffff;
@@ -114,7 +112,7 @@
     -fx-border-width: 1px;
     -fx-border-color: rgb(234, 234, 234);
 }
-.dashboard .textfield{
+.textfield{
     -fx-text-fill: rgb(106, 106, 106);
     -fx-background-color: #fbfbfb;
     -fx-border-color: rgb(235, 235, 235);
@@ -126,6 +124,11 @@
     -fx-background-color: #dedede
 }
 .dashboard .box{
+    -fx-border-width: 1px;
+    -fx-border-color: rgb(235, 235, 235);
+    -fx-background-color: rgb(255, 255, 255);
+}
+.seller .box{
     -fx-border-width: 1px;
     -fx-border-color: rgb(235, 235, 235);
     -fx-background-color: rgb(255, 255, 255);

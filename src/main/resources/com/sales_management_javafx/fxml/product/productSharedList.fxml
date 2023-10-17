@@ -29,9 +29,9 @@
          <children>
             <AnchorPane>
                <children>
-                  <Label alignment="CENTER" prefHeight="28.8" prefWidth="88.0" text="Nom du produit" textFill="#919191" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Label alignment="CENTER" prefHeight="28.8" prefWidth="88.0" text="Nom du produit" textFill="#6b6b6b" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
-                        <Font name="System Bold Italic" size="12.0" />
+                        <Font name="System Italic" size="13.0" />
                      </font>
                   </Label>
                   <AnchorPane layoutX="114.0" layoutY="-87.0" />
@@ -39,18 +39,18 @@
             </AnchorPane>
             <AnchorPane GridPane.columnIndex="1">
                <children>
-                  <Label alignment="CENTER" prefHeight="28.8" prefWidth="88.0" text="Quantité" textFill="#919191" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Label alignment="CENTER" prefHeight="28.8" prefWidth="88.0" text="Quantité" textFill="#6b6b6b" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
-                        <Font name="System Bold Italic" size="12.0" />
+                        <Font name="System Italic" size="13.0" />
                      </font>
                   </Label>
                </children>
             </AnchorPane>
             <AnchorPane GridPane.columnIndex="2">
                <children>
-                  <Label alignment="CENTER" prefHeight="28.8" prefWidth="88.0" text="Prix" textFill="#919191" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Label alignment="CENTER" prefHeight="28.8" prefWidth="88.0" text="Prix" textFill="#6b6b6b" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
-                        <Font name="System Bold Italic" size="12.0" />
+                        <Font name="System Italic" size="13.0" />
                      </font>
                   </Label>
                </children>

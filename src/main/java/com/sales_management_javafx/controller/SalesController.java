@@ -16,14 +16,14 @@ import java.util.ResourceBundle;
 
 public class SalesController implements Initializable {
     @FXML
-    private StackPane stackPane;
+    private BorderPane salesManagementBorderpane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        FXMLLoader fxmlLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/login/loginLayout.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/login/login.fxml"));
         try {
-            BorderPane borderPane = fxmlLoader.load();
-            this.stackPane.getChildren().add(borderPane);
+            GridPane loginGridpane = fxmlLoader.load();
+            this.salesManagementBorderpane.setCenter(loginGridpane);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -1,9 +1,10 @@
 package com.sales_management_javafx.composent;
-
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.controller.product.ProductSharedListController;
+import com.sales_management_javafx.controller.product_variation.PriceVariationSharedListController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.*;
+import org.sales_management.entity.PriceVariationEntity;
 import org.sales_management.entity.ProductEntity;
 
 import java.io.IOException;
@@ -16,7 +17,7 @@ public class ProductShareGridPane {
         this.gridPane = new GridPane();
     }
 
-    public GridPane getGridPane(Collection<ProductEntity> products, int colSize){
+    public GridPane getGridPane(Collection<PriceVariationEntity> priceVariations, int colSize){
         for (int i = 0 ; i < colSize ; i++){
             ColumnConstraints constraints = new ColumnConstraints();
             constraints.setHgrow(Priority.ALWAYS);
@@ -28,8 +29,8 @@ public class ProductShareGridPane {
         }
         int col = 0;
         int row = 0;
-        for (ProductEntity product : products) {
-            gridPane.add(this.getProductShareList(product), col, row);
+        for (PriceVariationEntity priceVariation : priceVariations) {
+            gridPane.add(this.getProductShareList(priceVariation), col, row);
             col++;
             if (col == colSize) {
                 col = 0;
@@ -39,13 +40,13 @@ public class ProductShareGridPane {
         gridPane.getStyleClass().add("gridpane");
         return gridPane;
     }
-    private VBox getProductShareList(ProductEntity product){
-        FXMLLoader productShareListLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productSharedList.fxml"));
+    private VBox getProductShareList(PriceVariationEntity priceVariation){
+        FXMLLoader productShareListLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_variation/priceVariationSharedList.fxml"));
         VBox productShareList;
         try {
             productShareList = productShareListLoader.load();
-            ProductSharedListController productSharedListController = productShareListLoader.getController();
-            productSharedListController.initialize(product);
+            PriceVariationSharedListController productSharedListController = productShareListLoader.getController();
+            productSharedListController.initialize(priceVariation);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
