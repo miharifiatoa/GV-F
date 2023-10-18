@@ -3,7 +3,6 @@ package com.sales_management_javafx.controller.inventory;
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.composent.ProductShareGridPane;
-import com.sales_management_javafx.composent.ProductVariationGridPane;
 import com.sales_management_javafx.composent.ShopGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

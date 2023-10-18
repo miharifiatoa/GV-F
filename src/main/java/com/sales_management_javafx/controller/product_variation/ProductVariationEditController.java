@@ -3,7 +3,7 @@ package com.sales_management_javafx.controller.product_variation;
 import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.classes.NumberTextField;
 import com.sales_management_javafx.composent.ProductGridPane;
-import com.sales_management_javafx.composent.ProductVariationGridPane;
+import com.sales_management_javafx.composent.PriceVariationGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -86,7 +86,7 @@ public class ProductVariationEditController implements Initializable {
             PriceVariationEntity priceVariationResponse = this.priceVariationService.update(priceVariation);
             if (priceVariationResponse!=null){
                 ProductEntity product = (ProductEntity) FileIO.readFrom("product.dat");
-                GridPane gridPane = new ProductVariationGridPane().getGridPane(new ProductService().getById(product.getId()).getPriceVariations(),3);
+                GridPane gridPane = new PriceVariationGridPane().getGridPane(new ProductService().getById(product.getId()).getPriceVariations(),3,false);
                 ScrollPane productBoxLayoutScrollpane = (ScrollPane) productVariationEditVBox.getParent().getParent().getParent().getParent().getParent();
                 System.out.println(productBoxLayoutScrollpane);
                 productBoxLayoutScrollpane.setContent(gridPane);

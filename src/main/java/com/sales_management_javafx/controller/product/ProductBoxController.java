@@ -2,7 +2,7 @@ package com.sales_management_javafx.controller.product;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
-import com.sales_management_javafx.composent.ProductVariationGridPane;
+import com.sales_management_javafx.composent.PriceVariationGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -42,7 +42,7 @@ public class ProductBoxController implements Initializable {
         productNameLabel.setOnMouseClicked(event->{
             FileIO.writeTo("product.dat",product);
             ScrollPane productBoxLayoutScrollpane = (ScrollPane) productBox.getParent().getParent().getParent().getParent();
-            GridPane gridPane = new ProductVariationGridPane().getGridPane(product.getPriceVariations(),3);
+            GridPane gridPane = new PriceVariationGridPane().getGridPane(product.getPriceVariations(),3,true);
             productBoxLayoutScrollpane.setContent(gridPane);
         });
     }

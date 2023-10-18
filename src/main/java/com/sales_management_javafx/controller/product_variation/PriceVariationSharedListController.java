@@ -2,7 +2,7 @@ package com.sales_management_javafx.controller.product_variation;
 
 import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.composent.ProductShareGridPane;
-import com.sales_management_javafx.composent.ProductVariationGridPane;
+import com.sales_management_javafx.composent.PriceVariationGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -70,7 +70,7 @@ public class PriceVariationSharedListController implements Initializable {
             GridPane gridPane = new ProductShareGridPane().getGridPane(FileIO.readPricesFromFile("prices.dat"),1);
             BorderPane productBoxLayoutBorderpane = (BorderPane) shareProductLayoutScrollpane.getParent().getParent().getParent();
             ScrollPane productBoxLayoutScrollpane = (ScrollPane) productBoxLayoutBorderpane.getCenter();
-            GridPane productVariationGridpane = new ProductVariationGridPane().getGridPane(new PriceVariationService().getById(priceVariation.getId()).getProduct().getPriceVariations(), 3);
+            GridPane productVariationGridpane = new PriceVariationGridPane().getGridPane(new PriceVariationService().getById(priceVariation.getId()).getProduct().getPriceVariations(), 3,false);
             shareProductLayoutScrollpane.setContent(gridPane);
             productBoxLayoutScrollpane.setContent(productVariationGridpane);
         });

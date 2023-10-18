@@ -5,7 +5,7 @@ import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.classes.NumberTextField;
 import com.sales_management_javafx.composent.ProductGridPane;
 import com.sales_management_javafx.composent.ProductShareGridPane;
-import com.sales_management_javafx.composent.ProductVariationGridPane;
+import com.sales_management_javafx.composent.PriceVariationGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -175,7 +175,7 @@ public class ProductVariationBoxController implements Initializable {
     private void onConfirmDeletePriceVariation(Long id){
         confirmDeleteButton.setOnAction(event->{
             ScrollPane productBoxLayoutScrollpane = (ScrollPane) productVariationBox.getParent().getParent().getParent().getParent();
-            GridPane gridPane = new ProductVariationGridPane().getGridPane(new PriceVariationService().getById(id).getProduct().getPriceVariations(), 3);
+            GridPane gridPane = new PriceVariationGridPane().getGridPane(new PriceVariationService().getById(id).getProduct().getPriceVariations(), 3,false);
             productBoxLayoutScrollpane.setContent(gridPane);
         });
     }
@@ -205,7 +205,7 @@ public class ProductVariationBoxController implements Initializable {
                 PriceVariationEntity priceResponse = this.priceVariationService.update(priceVariation);
                 if (priceResponse!=null){
                     ScrollPane productBoxLayoutScrollpane = (ScrollPane) productVariationBox.getParent().getParent().getParent().getParent();
-                    GridPane gridPane = new ProductVariationGridPane().getGridPane(new PriceVariationService().getById(priceVariation.getId()).getProduct().getPriceVariations(), 3);
+                    GridPane gridPane = new PriceVariationGridPane().getGridPane(new PriceVariationService().getById(priceVariation.getId()).getProduct().getPriceVariations(), 3,false);
                     productBoxLayoutScrollpane.setContent(gridPane);
                 }
             }
@@ -231,7 +231,7 @@ public class ProductVariationBoxController implements Initializable {
                 PriceVariationEntity productResponse = this.priceVariationService.update(priceVariation);
                 if (productResponse!=null){
                     ScrollPane productBoxLayoutScrollpane = (ScrollPane) productVariationBox.getParent().getParent().getParent().getParent();
-                    GridPane gridPane = new ProductVariationGridPane().getGridPane(new PriceVariationService().getById(priceVariation.getId()).getProduct().getPriceVariations(), 3);
+                    GridPane gridPane = new PriceVariationGridPane().getGridPane(new PriceVariationService().getById(priceVariation.getId()).getProduct().getPriceVariations(), 3,false);
                     productBoxLayoutScrollpane.setContent(gridPane);
                 }
             }
@@ -256,7 +256,7 @@ public class ProductVariationBoxController implements Initializable {
             existingPrices.add(priceVariation);
             FileIO.writeTo("prices.dat", existingPrices);
             ScrollPane productBoxLayoutScrollpane = (ScrollPane) productVariationBox.getParent().getParent().getParent().getParent();
-            GridPane gridPane = new ProductVariationGridPane().getGridPane(new PriceVariationService().getById(priceVariation.getId()).getProduct().getPriceVariations(), 3);
+            GridPane gridPane = new PriceVariationGridPane().getGridPane(new PriceVariationService().getById(priceVariation.getId()).getProduct().getPriceVariations(), 3,false);
             BorderPane productBoxLayoutBorderpane = (BorderPane) productBoxLayoutScrollpane.getParent();
             StackPane shareProductLayoutStackpane = (StackPane) productBoxLayoutBorderpane.getBottom();
             ScrollPane shareProductLayoutScrollpane = (ScrollPane) shareProductLayoutStackpane.lookup("#shareProductLayoutScrollpane");

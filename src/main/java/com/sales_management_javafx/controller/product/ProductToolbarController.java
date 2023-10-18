@@ -42,6 +42,7 @@ public class ProductToolbarController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.onExitFromInventoryButton();
         this.onShowShareProductLayout();
+        this.onCreatePriceVariation();
         this.putIcons();
     }
     private void onExitFromInventoryButton(){
@@ -56,6 +57,12 @@ public class ProductToolbarController implements Initializable {
         shareProductButton.setOnAction(event->{
             BorderPane productBoxLayoutBorderpane = (BorderPane) this.toolbar.getParent();
             productBoxLayoutBorderpane.setBottom(getShareProductLayout());
+        });
+    }
+    private void onCreatePriceVariation(){
+        createProductButton.setOnAction(event->{
+            BorderPane productBoxLayoutBorderpane = (BorderPane) this.toolbar.getParent();
+            productBoxLayoutBorderpane.setBottom(null);
         });
     }
     private StackPane getShareProductLayout(){

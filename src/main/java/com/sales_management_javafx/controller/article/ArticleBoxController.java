@@ -1,5 +1,6 @@
 package com.sales_management_javafx.controller.article;
 
+import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.composent.ArticleGridPane;
 import com.sales_management_javafx.composent.ProductGridPane;
 import javafx.fxml.FXML;
@@ -56,6 +57,7 @@ public class ArticleBoxController implements Initializable {
             }
             GridPane productGridPane = new ProductGridPane().getGridPane(this.articleService.getById(article.getId()).getProducts(),3,false);
             productGridPane.setId(String.valueOf(article.getId()));
+            FileIO.writeTo("article.dat",article);
             productBoxLayoutScrollpane.setContent(productGridPane);
         });
     }

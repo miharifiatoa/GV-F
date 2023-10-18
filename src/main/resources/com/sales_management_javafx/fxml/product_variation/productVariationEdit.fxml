@@ -13,22 +13,22 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="productVariationEditVBox" prefHeight="184.0" prefWidth="462.0" spacing="5.0" styleClass="box-layout" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product_variation.ProductVariationEditController">
+<VBox fx:id="productVariationEditVBox" prefHeight="233.0" prefWidth="515.0" spacing="5.0" styleClass="box-layout" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product_variation.ProductVariationEditController">
    <children>
-      <GridPane maxHeight="40.0" minHeight="40.0" prefHeight="40.0" prefWidth="326.0" styleClass="box">
+      <GridPane prefWidth="326.0" styleClass="box">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="25.0" minHeight="25.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
             <AnchorPane>
                <children>
                   <Label fx:id="nameLabel" contentDisplay="CENTER" text="Modification" textFill="#7e7e7e" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
-                        <Font name="System Italic" size="13.0" />
+                        <Font name="System Bold Italic" size="12.0" />
                      </font>
                   </Label>
                </children>
@@ -88,9 +88,9 @@
                      <children>
                         <AnchorPane prefHeight="34.0" prefWidth="27.0">
                            <children>
-                              <Label alignment="BOTTOM_LEFT" prefHeight="17.6" prefWidth="100.0" text="Prix" textFill="#a4a4a4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label alignment="BOTTOM_LEFT" prefHeight="17.6" prefWidth="100.0" text="Prix" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
-                                    <Font name="System Italic" size="12.0" />
+                                    <Font name="System Bold Italic" size="11.0" />
                                  </font>
                               </Label>
                            </children>
@@ -120,9 +120,9 @@
                   </AnchorPane>
                   <AnchorPane GridPane.rowIndex="4">
                      <children>
-                        <Label alignment="BOTTOM_LEFT" prefHeight="20.0" prefWidth="391.2" text="Qualité" textFill="#a4a4a4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Label alignment="BOTTOM_LEFT" prefHeight="20.0" prefWidth="391.2" text="Qualité" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <font>
-                              <Font name="System Italic" size="12.0" />
+                              <Font name="System Bold Italic" size="11.0" />
                            </font>
                         </Label>
                      </children>
@@ -156,34 +156,34 @@
                   </AnchorPane>
                   <AnchorPane GridPane.rowIndex="8">
                      <children>
-                        <Label alignment="BOTTOM_LEFT" prefHeight="33.6" prefWidth="416.0" text="Référence" textFill="#a4a4a4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Label alignment="BOTTOM_LEFT" prefHeight="33.6" prefWidth="416.0" text="Référence" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <font>
-                              <Font name="System Italic" size="12.0" />
+                              <Font name="System Bold Italic" size="11.0" />
                            </font>
                         </Label>
                      </children>
                   </AnchorPane>
                   <AnchorPane GridPane.rowIndex="10">
                      <children>
-                        <Label alignment="BOTTOM_LEFT" prefHeight="33.6" prefWidth="416.0" text="Couleur" textFill="#a4a4a4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Label alignment="BOTTOM_LEFT" prefHeight="33.6" prefWidth="416.0" text="Couleur" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <font>
-                              <Font name="System Italic" size="12.0" />
+                              <Font name="System Bold Italic" size="11.0" />
                            </font>
                         </Label>
                      </children>
                   </AnchorPane>
                   <AnchorPane GridPane.rowIndex="6">
                      <children>
-                        <Label alignment="BOTTOM_LEFT" prefHeight="33.6" prefWidth="455.2" text="Marque" textFill="#a4a4a4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Label alignment="BOTTOM_LEFT" prefHeight="33.6" prefWidth="455.2" text="Marque" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <font>
-                              <Font name="System Italic" size="12.0" />
+                              <Font name="System Bold Italic" size="11.0" />
                            </font>
                         </Label>
                      </children>
                   </AnchorPane>
-                  <Label alignment="BOTTOM_LEFT" prefHeight="20.0" prefWidth="391.2" text="Taille" textFill="#a4a4a4" GridPane.rowIndex="2">
+                  <Label alignment="BOTTOM_LEFT" prefHeight="20.0" prefWidth="391.2" text="Taille" textFill="#bcbcbc" GridPane.rowIndex="2">
                      <font>
-                        <Font name="System Italic" size="12.0" />
+                        <Font name="System Bold Italic" size="11.0" />
                      </font>
                   </Label>
                   <AnchorPane GridPane.rowIndex="3">
@@ -209,12 +209,12 @@
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
                   <AnchorPane>
                      <children>
-                        <Button fx:id="confirmEditProductButton" mnemonicParsing="false" prefHeight="30.4" prefWidth="531.2" style="-fx-background-color: #00b7ff;" text="Enregistrer la modification" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Button fx:id="confirmEditProductButton" mnemonicParsing="false" style="-fx-background-color: #00b7ff;" text="Sauvegarder" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <font>
                               <Font name="System Bold Italic" size="12.0" />
                            </font>

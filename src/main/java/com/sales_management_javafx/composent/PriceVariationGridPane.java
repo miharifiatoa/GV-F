@@ -13,14 +13,14 @@ import org.sales_management.entity.PriceVariationEntity;
 import java.io.IOException;
 import java.util.Collection;
 
-public class ProductVariationGridPane {
+public class PriceVariationGridPane {
     private final GridPane gridPane;
 
-    public ProductVariationGridPane() {
+    public PriceVariationGridPane() {
         this.gridPane = new GridPane();
     }
 
-    public GridPane getGridPane(Collection<PriceVariationEntity> priceVariations, int colSize){
+    public GridPane getGridPane(Collection<PriceVariationEntity> priceVariations, int colSize, boolean show){
         for (int i = 0 ; i < colSize ; i++){
             ColumnConstraints constraints = new ColumnConstraints();
             constraints.setHgrow(Priority.ALWAYS);
@@ -32,6 +32,10 @@ public class ProductVariationGridPane {
         }
         int col = 0;
         int row = 0;
+        if (show){
+            gridPane.add(this.getCreatePriceBox(),col,row);
+            col++;
+        }
         for (PriceVariationEntity priceVariation : priceVariations) {
             if (!FileIO.readPricesFromFile("prices.dat").contains(priceVariation)){
                 gridPane.add(this.getProductBox(priceVariation), col, row);
@@ -56,5 +60,15 @@ public class ProductVariationGridPane {
             throw new RuntimeException(e);
         }
         return productBoxStackpane;
+    }
+    private StackPane getCreatePriceBox(){
+        FXMLLoader createPriceBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_variation/priceVariationCreate.fxml"));
+        StackPane priceVariationCreateStackPane;
+        try {
+            priceVariationCreateStackPane = createPriceBoxLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return priceVariationCreateStackPane;
     }
 }

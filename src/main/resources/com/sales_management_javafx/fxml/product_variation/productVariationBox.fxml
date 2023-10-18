@@ -16,23 +16,22 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="productVariationBox" prefHeight="224.0" prefWidth="376.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product_variation.ProductVariationBoxController">
+<StackPane fx:id="productVariationBox" prefHeight="199.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product_variation.ProductVariationBoxController">
    <children>
-      <VBox fx:id="productVariationVBox" spacing="10.0" styleClass="box-layout">
+      <VBox fx:id="productVariationVBox" spacing="5.0" styleClass="box-layout">
          <children>
             <GridPane styleClass="box">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" prefWidth="150.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" />
                   <ColumnConstraints hgrow="SOMETIMES" prefWidth="150.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="25.0" minHeight="25.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <AnchorPane>
+                  <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                      <children>
-                      <Button fx:id="editButton" alignment="BASELINE_LEFT" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="67.2" styleClass="buttons" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <Button fx:id="editButton" alignment="CENTER" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="67.2" styleClass="buttons" textFill="WHITE">
                            <font>
                               <Font name="System Bold Italic" size="12.0" />
                            </font>
@@ -43,11 +42,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane GridPane.columnIndex="1">
-                     <children>
-                        <Button fx:id="shareButton" alignment="CENTER" layoutX="43.0" layoutY="34.0" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="147.2" styleClass="buttons" textFill="RED" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Button fx:id="shareButton" alignment="CENTER" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="147.2" styleClass="buttons" textFill="RED">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -58,11 +53,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane GridPane.columnIndex="2">
-                     <children>
-                        <Button fx:id="deleteButton" alignment="BASELINE_RIGHT" layoutX="55.0" layoutY="27.0" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="147.2" styleClass="buttons" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Button fx:id="deleteButton" alignment="CENTER" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="147.2" styleClass="buttons" textFill="WHITE">
                            <font>
                               <Font name="System Bold Italic" size="12.0" />
                            </font>
@@ -74,10 +65,19 @@
                            </cursor>
                         </Button>
                      </children>
+                  </HBox>
+                  <AnchorPane>
+                     <children>
+                        <Label fx:id="priceLabel" prefHeight="25.6" prefWidth="185.6" text="PriceLabel" textFill="#45cc00" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font name="System Bold Italic" size="11.0" />
+                           </font>
+                        </Label>
+                     </children>
                   </AnchorPane>
                </children>
                <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets bottom="5.0" left="5.0" top="5.0" />
                </padding>
             </GridPane>
             <ScrollPane fx:id="productVariationScrollpane" fitToHeight="true" fitToWidth="true" focusTraversable="false" style="-fx-background-color: white;" styleClass="box">
@@ -90,7 +90,6 @@
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -98,27 +97,27 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <AnchorPane GridPane.rowIndex="1">
+                        <AnchorPane GridPane.rowIndex="2">
                            <children>
-                              <Label prefHeight="16.0" prefWidth="132.0" text="Prix" textFill="#d1d1d1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label prefHeight="17.6" prefWidth="150.4" text="Marque" textFill="#d1d1d1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font name="System Bold Italic" size="11.0" />
                                  </font>
                               </Label>
                            </children>
                         </AnchorPane>
-                        <AnchorPane nodeOrientation="LEFT_TO_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <children>
-                              <Label alignment="CENTER" prefHeight="20.0" prefWidth="76.0" text=":" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label alignment="CENTER" prefHeight="17.6" prefWidth="81.6" text=":" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font name="System Bold Italic" size="12.0" />
                                  </font>
                               </Label>
                            </children>
                         </AnchorPane>
-                        <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="2">
                            <children>
-                              <Label fx:id="priceLabel" alignment="CENTER_RIGHT" prefHeight="18.4" prefWidth="131.2" text="PriceLabel" textFill="#e7d619" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label fx:id="brandLabel" alignment="CENTER_RIGHT" prefHeight="18.4" prefWidth="131.2" text="BrandLabel" textFill="#d1d1d1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font name="System Bold Italic" size="11.0" />
                                  </font>
@@ -127,7 +126,43 @@
                         </AnchorPane>
                         <AnchorPane GridPane.rowIndex="3">
                            <children>
-                              <Label prefHeight="17.6" prefWidth="150.4" text="Marque" textFill="#d1d1d1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label prefHeight="17.6" prefWidth="150.4" text="Reference" textFill="#d1d1d1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <font>
+                                    <Font name="System Bold Italic" size="11.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="3">
+                           <children>
+                              <Label fx:id="referenceLabel" alignment="CENTER_RIGHT" prefHeight="18.4" prefWidth="131.2" text="ReferenceLabel" textFill="#d1d1d1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <font>
+                                    <Font name="System Bold Italic" size="11.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane GridPane.rowIndex="4">
+                           <children>
+                              <Label prefHeight="17.6" prefWidth="150.4" text="Couleur" textFill="#d1d1d1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <font>
+                                    <Font name="System Bold Italic" size="11.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="4">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="17.6" prefWidth="81.6" text=":" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <font>
+                                    <Font name="System Bold Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="4">
+                           <children>
+                              <Label fx:id="colorLabel" alignment="CENTER_RIGHT" prefHeight="18.4" prefWidth="131.2" text="ColorLabel" textFill="#d1d1d1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font name="System Bold Italic" size="11.0" />
                                  </font>
@@ -143,36 +178,9 @@
                               </Label>
                            </children>
                         </AnchorPane>
-                        <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="3">
-                           <children>
-                              <Label fx:id="brandLabel" alignment="CENTER_RIGHT" prefHeight="18.4" prefWidth="131.2" text="BrandLabel" textFill="#d1d1d1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="11.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane GridPane.rowIndex="4">
-                           <children>
-                              <Label prefHeight="17.6" prefWidth="150.4" text="Reference" textFill="#d1d1d1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="11.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="4">
-                           <children>
-                              <Label fx:id="referenceLabel" alignment="CENTER_RIGHT" prefHeight="18.4" prefWidth="131.2" text="ReferenceLabel" textFill="#d1d1d1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="11.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
                         <AnchorPane GridPane.rowIndex="5">
                            <children>
-                              <Label prefHeight="17.6" prefWidth="150.4" text="Couleur" textFill="#d1d1d1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label prefHeight="17.6" prefWidth="150.4" text="Qualite" textFill="#d1d1d1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font name="System Bold Italic" size="11.0" />
                                  </font>
@@ -190,42 +198,6 @@
                         </AnchorPane>
                         <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="5">
                            <children>
-                              <Label fx:id="colorLabel" alignment="CENTER_RIGHT" prefHeight="18.4" prefWidth="131.2" text="ColorLabel" textFill="#d1d1d1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="11.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="4">
-                           <children>
-                              <Label alignment="CENTER" prefHeight="17.6" prefWidth="81.6" text=":" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="12.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane GridPane.rowIndex="6">
-                           <children>
-                              <Label prefHeight="17.6" prefWidth="150.4" text="Qualite" textFill="#d1d1d1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="11.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="6">
-                           <children>
-                              <Label alignment="CENTER" prefHeight="17.6" prefWidth="81.6" text=":" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="12.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="6">
-                           <children>
                               <Label fx:id="qualityLabel" alignment="CENTER_RIGHT" prefHeight="18.4" prefWidth="131.2" text="QualityLabel" textFill="#d1d1d1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font name="System Bold Italic" size="11.0" />
@@ -233,7 +205,7 @@
                               </Label>
                            </children>
                         </AnchorPane>
-                        <AnchorPane GridPane.rowIndex="2">
+                        <AnchorPane GridPane.rowIndex="1">
                            <children>
                               <Label prefHeight="17.6" prefWidth="150.4" text="Taille" textFill="#d1d1d1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
@@ -242,7 +214,7 @@
                               </Label>
                            </children>
                         </AnchorPane>
-                        <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="2">
+                        <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <children>
                               <Label fx:id="sizeLabel" alignment="CENTER_RIGHT" prefHeight="18.4" prefWidth="131.2" text="SizeLabel" textFill="#d1d1d1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
@@ -251,7 +223,7 @@
                               </Label>
                            </children>
                         </AnchorPane>
-                        <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <children>
                               <Label alignment="CENTER" prefHeight="17.6" prefWidth="81.6" text=":" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
@@ -274,7 +246,7 @@
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" prefWidth="100.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
                   <AnchorPane GridPane.columnIndex="2">
@@ -333,12 +305,12 @@
                      <children>
                       <Button fx:id="cancelDeleteButton" mnemonicParsing="false" style="-fx-background-color: ffe300;" text="Non" textFill="WHITE">
                            <font>
-                              <Font name="System Bold Italic" size="12.0" />
+                              <Font name="System Bold Italic" size="11.0" />
                            </font>
                         </Button>
                         <Button fx:id="confirmDeleteButton" mnemonicParsing="false" style="-fx-background-color: #ff0000;" text="Ok" textFill="WHITE">
                            <font>
-                              <Font name="System Bold Italic" size="12.0" />
+                              <Font name="System Bold Italic" size="11.0" />
                            </font>
                         </Button>
                      </children>
@@ -367,9 +339,9 @@
                      <children>
                         <AnchorPane>
                            <children>
-                              <Label fx:id="nameLabel" contentDisplay="CENTER" text="Ajout des produits" textFill="#898989" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label fx:id="nameLabel" contentDisplay="CENTER" text="Ajout des produits" textFill="#7e7e7e" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
-                                    <Font name="System Italic" size="13.0" />
+                                    <Font name="System Italic" size="12.0" />
                                  </font>
                               </Label>
                            </children>
@@ -385,12 +357,12 @@
                      <children>
                         <Button fx:id="exitAddProductButton" alignment="BOTTOM_LEFT" mnemonicParsing="false" style="-fx-background-color: #acacac;" text="Retour" textFill="WHITE">
                            <font>
-                              <Font name="System Bold Italic" size="12.0" />
+                              <Font name="System Bold Italic" size="11.0" />
                            </font>
                         </Button>
                         <Button fx:id="confirmAddProductButton" mnemonicParsing="false" style="-fx-background-color: #00a917;" text="Confirmer l'ajout" textFill="WHITE">
                            <font>
-                              <Font name="System Bold Italic" size="12.0" />
+                              <Font name="System Bold Italic" size="11.0" />
                            </font>
                         </Button>
                      </children>
@@ -423,16 +395,16 @@
                      <children>
                         <AnchorPane>
                            <children>
-                              <Label text="Nombres des produits à rétirer" textFill="#898989" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label text="Nombres des produits à rétirer" textFill="#7e7e7e" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
-                                    <Font name="System Italic" size="13.0" />
+                                    <Font name="System Italic" size="12.0" />
                                  </font>
                               </Label>
                            </children>
                         </AnchorPane>
                         <AnchorPane GridPane.columnIndex="1">
                            <children>
-                              <Label fx:id="productQuantityRetireLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" textFill="#717171" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label fx:id="productQuantityRetireLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" textFill="#7e7e7e" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font name="System Italic" size="12.0" />
                                  </font>
@@ -448,7 +420,7 @@
                            <children>
                               <Button fx:id="exitRetireProductButton" mnemonicParsing="false" style="-fx-background-color: ffe300;" text="Retour" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
-                                    <Font name="System Bold Italic" size="12.0" />
+                                    <Font name="System Bold Italic" size="11.0" />
                                  </font>
                               </Button>
                            </children>
@@ -457,7 +429,7 @@
                            <children>
                               <Button fx:id="confirmRetireProductButton" mnemonicParsing="false" style="-fx-background-color: #ff5634;" text="Confirmer le retrait" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
-                                    <Font name="System Bold Italic" size="12.0" />
+                                    <Font name="System Bold Italic" size="11.0" />
                                  </font>
                               </Button>
                            </children>
@@ -489,18 +461,18 @@
                      <children>
                         <AnchorPane>
                            <children>
-                              <Label prefHeight="17.6" prefWidth="205.6" text="Nombre des produits à partager" textFill="#898989" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label prefHeight="17.6" prefWidth="205.6" text="Nombre des produits à partager" textFill="#7e7e7e" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
-                                    <Font name="System Italic" size="13.0" />
+                                    <Font name="System Italic" size="12.0" />
                                  </font>
                               </Label>
                            </children>
                         </AnchorPane>
                         <AnchorPane GridPane.columnIndex="1">
                            <children>
-                              <Label fx:id="productQuantityShareLabel" alignment="CENTER_RIGHT" text="max" textFill="#898989" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label fx:id="productQuantityShareLabel" alignment="CENTER_RIGHT" text="max" textFill="#7e7e7e" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
-                                    <Font name="System Italic" size="13.0" />
+                                    <Font name="System Italic" size="12.0" />
                                  </font>
                               </Label>
                            </children>
@@ -514,7 +486,7 @@
                            <children>
                               <Button fx:id="exitShareProductButton" mnemonicParsing="false" style="-fx-background-color: ffe300;" text="Retour" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
-                                    <Font name="System Bold Italic" size="12.0" />
+                                    <Font name="System Bold Italic" size="11.0" />
                                  </font>
                               </Button>
                            </children>
@@ -523,7 +495,7 @@
                            <children>
                               <Button fx:id="addProductInShareListButton" mnemonicParsing="false" style="-fx-background-color: #c800ff;" text="Ajouter au liste de partage" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
-                                    <Font name="System Bold Italic" size="12.0" />
+                                    <Font name="System Bold Italic" size="11.0" />
                                  </font>
                               </Button>
                            </children>
