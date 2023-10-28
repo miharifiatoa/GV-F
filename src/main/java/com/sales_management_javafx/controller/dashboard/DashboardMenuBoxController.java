@@ -46,7 +46,7 @@ public class DashboardMenuBoxController implements Initializable {
     public void initialize(){
         FXMLLoader accountLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountLayout.fxml"));
         FXMLLoader shopLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/shop/shopLayout.fxml"));
-        FXMLLoader articleLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article/articleLayout.fxml"));
+        FXMLLoader articleLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_category/productCategoryLayout.fxml"));
         FXMLLoader saleLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/sale/sale.fxml"));
         try {
             this.account = accountLoader.load();
@@ -72,7 +72,6 @@ public class DashboardMenuBoxController implements Initializable {
                 dashboard.setLeft(null);
             }
         }
-        BorderPane.setAlignment(dashboard, Pos.CENTER);
         event.consume();
     }
     public BorderPane getInventoryLayout(){

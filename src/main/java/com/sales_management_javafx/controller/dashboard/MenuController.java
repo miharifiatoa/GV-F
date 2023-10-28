@@ -35,7 +35,7 @@ public class MenuController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         FXMLLoader accountLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountLayout.fxml"));
         FXMLLoader shopLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/shop/shopLayout.fxml"));
-        FXMLLoader articleLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article/articleLayout.fxml"));
+        FXMLLoader articleLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article/productCategoryLayout.fxml"));
         FXMLLoader saleLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/sale/sale.fxml"));
         try {
             this.account = accountLoader.load();

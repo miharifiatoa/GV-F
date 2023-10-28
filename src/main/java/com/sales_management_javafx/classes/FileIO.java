@@ -1,7 +1,6 @@
 package com.sales_management_javafx.classes;
 
-import org.sales_management.entity.PriceVariationEntity;
-import org.sales_management.entity.ProductEntity;
+import org.sales_management.entity.ArticleEntity;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -18,17 +17,17 @@ public class FileIO {
             throw new RuntimeException(e);
         }
     }
-    public static Collection<PriceVariationEntity> readPricesFromFile(String filename) {
-        Collection<PriceVariationEntity> priceList = new ArrayList<>();
+    public static Collection<ArticleEntity> readArticleFromFile(String filename) {
+        Collection<ArticleEntity> articles = new ArrayList<>();
         Object object = readFrom(filename);
         if (object instanceof List<?> list) {
             for (Object item : list) {
-                if (item instanceof PriceVariationEntity) {
-                    priceList.add((PriceVariationEntity) item);
+                if (item instanceof ArticleEntity) {
+                    articles.add((ArticleEntity) item);
                 }
             }
         }
-        return priceList;
+        return articles;
     }
 
     public static Object readFrom(String filename) {

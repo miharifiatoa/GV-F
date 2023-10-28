@@ -25,8 +25,6 @@ public class ShopGridPane {
             constraints.setHgrow(Priority.ALWAYS);
             constraints.setFillWidth(true);
             constraints.setPercentWidth((double) 100 /colSize);
-            gridPane.setHgap(5);
-            gridPane.setVgap(5);
             gridPane.getColumnConstraints().add(constraints);
         }
         int col = 0;

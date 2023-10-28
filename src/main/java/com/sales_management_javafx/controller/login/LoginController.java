@@ -13,6 +13,7 @@ import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -29,8 +30,11 @@ public class LoginController implements Initializable {
     public void connect() {
         connectionButton.setOnAction(event->{
             BorderPane salesManagementBorderpane = (BorderPane) loginGridpane.getParent();
-            if (passwordTextfield.getText().isEmpty()){
+            if (Objects.equals(passwordTextfield.getText(), "v")){
                 salesManagementBorderpane.setCenter(this.getSellerLayout());
+            }
+            if (Objects.equals(passwordTextfield.getText(), "s")){
+                salesManagementBorderpane.setCenter(this.getStockistLayout());
             }
             else {
                 salesManagementBorderpane.setCenter(this.getDashboard());
@@ -57,5 +61,15 @@ public class LoginController implements Initializable {
             throw new RuntimeException(e);
         }
         return sellerLayout;
+    }
+    private BorderPane getStockistLayout(){
+        FXMLLoader stockistLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/stockist/stockistLayout.fxml"));
+        BorderPane stockistLayout;
+        try {
+            stockistLayout = stockistLayoutLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return stockistLayout;
     }
 }

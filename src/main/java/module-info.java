@@ -20,6 +20,9 @@ module com.sales_management_javafx {
     exports com.sales_management_javafx.controller.dashboard;
     opens com.sales_management_javafx.controller.dashboard to javafx.fxml;
 
+    exports com.sales_management_javafx.controller.product_type;
+    opens com.sales_management_javafx.controller.product_type to javafx.fxml;
+
     exports com.sales_management_javafx.enums;
     opens com.sales_management_javafx.enums to javafx.fxml;
 
@@ -32,16 +35,23 @@ module com.sales_management_javafx {
     exports com.sales_management_javafx.controller.inventory;
     opens com.sales_management_javafx.controller.inventory to javafx.fxml;
 
-    exports com.sales_management_javafx.controller.article;
-    opens com.sales_management_javafx.controller.article to javafx.fxml;
+    exports com.sales_management_javafx.controller.product_category;
+    opens com.sales_management_javafx.controller.product_category to javafx.fxml;
 
     exports com.sales_management_javafx.controller.product;
     opens com.sales_management_javafx.controller.product to javafx.fxml;
 
-    exports com.sales_management_javafx.controller.product_variation;
-    opens com.sales_management_javafx.controller.product_variation to javafx.fxml;
+    exports com.sales_management_javafx.controller.article;
+    opens com.sales_management_javafx.controller.article to javafx.fxml;
 
     exports com.sales_management_javafx.controller.seller;
     opens com.sales_management_javafx.controller.seller to javafx.fxml;
 
+    exports com.sales_management_javafx.controller.arrival;
+    opens com.sales_management_javafx.controller.arrival to javafx.fxml;
+
+    exports com.sales_management_javafx.controller.stockist;
+    opens com.sales_management_javafx.controller.stockist to javafx.fxml;
+    exports com.sales_management_javafx.controller.share;
+    opens com.sales_management_javafx.controller.share to javafx.fxml;
 }

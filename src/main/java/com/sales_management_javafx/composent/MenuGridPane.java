@@ -2,16 +2,11 @@ package com.sales_management_javafx.composent;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.controller.dashboard.DashboardMenuBoxController;
-import com.sales_management_javafx.enums.Menu;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.*;
-import org.sales_management.entity.ArticleEntity;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.Collection;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 public class MenuGridPane {
     private final GridPane gridPane;
@@ -23,8 +18,6 @@ public class MenuGridPane {
             ColumnConstraints constraints = new ColumnConstraints();
             constraints.setHgrow(Priority.ALWAYS);
             constraints.setPercentWidth((double) 100 /colSize);
-            gridPane.setHgap(5);
-            gridPane.setVgap(5);
             gridPane.getColumnConstraints().add(constraints);
         }
         int col = 0;

@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import org.sales_management.entity.InventoryEntity;
 import org.sales_management.service.InventoryService;
 
@@ -40,7 +41,7 @@ public class InventoryLayoutController implements Initializable {
     private void putProductBoxLayout(){
         FXMLLoader productBoxLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productBoxLayout.fxml"));
         try {
-            BorderPane productBoxLayout = productBoxLayoutLoader.load();
+            StackPane productBoxLayout = productBoxLayoutLoader.load();
             this.inventoryLayoutBorderpane.setCenter(productBoxLayout);
         } catch (IOException e) {
             throw new RuntimeException(e);

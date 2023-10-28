@@ -21,8 +21,6 @@ public class ProductGridPane{
             constraints.setHgrow(Priority.ALWAYS);
             constraints.setFillWidth(true);
             constraints.setPercentWidth((double) 100 /colSize);
-            gridPane.setHgap(5);
-            gridPane.setVgap(5);
             gridPane.getColumnConstraints().add(constraints);
         }
         int col = 1;
@@ -42,6 +40,7 @@ public class ProductGridPane{
 //            }
         }
         gridPane.getStyleClass().add("gridpane");
+        gridPane.setId("productGridPane");
         return gridPane;
     }
     private StackPane getProductBox(ProductEntity product){
@@ -56,28 +55,4 @@ public class ProductGridPane{
         }
         return productBoxStackpane;
     }
-    private StackPane getProductCreateFormBox(){
-        FXMLLoader productFormLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productCreateForm.fxml"));
-        StackPane productFormBox;
-        try {
-            productFormBox = productFormLoader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return productFormBox;
-    }
-//    private VBox getProductEditBox(ProductEntity product){
-//        FXMLLoader productEditFormLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productVariationEdit.fxml"));
-//        VBox productEditForm;
-//        try {
-//            productEditForm = productEditFormLoader.load();
-//            ProductEditFormController productEditFormController = productEditFormLoader.getController();
-//            productEditFormController.initializeForm(product);
-//            productEditFormController.onConfirmEditProduct(product.getId());
-//            productEditForm.setVisible(false);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return productEditForm;
-//    }
 }

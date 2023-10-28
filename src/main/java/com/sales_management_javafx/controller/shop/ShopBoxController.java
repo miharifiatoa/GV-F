@@ -38,7 +38,7 @@ public class ShopBoxController implements Initializable {
                 node.getStyleClass().remove("active");
             }
             shopBoxStackpane.getStyleClass().add("active");
-            FileIO.writeTo("ShopToSendProduct.dat",shop);
+            FileIO.writeTo("shop.dat",shop);
             handleSelectShop();
         });
     }

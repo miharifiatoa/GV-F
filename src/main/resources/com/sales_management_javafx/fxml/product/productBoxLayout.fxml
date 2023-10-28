@@ -4,74 +4,77 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="338.0" prefWidth="670.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product.ProductBoxLayoutController">
-   <center>
-      <BorderPane fx:id="productBoxLayoutBorderpane" styleClass="box">
-         <BorderPane.margin>
-            <Insets left="10.0" />
-         </BorderPane.margin>
+
+<StackPane fx:id="productBoxLayout" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product.ProductBoxLayoutController">
+   <children>
+      <BorderPane fx:id="product">
          <center>
-            <ScrollPane fx:id="productBoxLayoutScrollpane" fitToHeight="true" fitToWidth="true" prefHeight="286.0" prefWidth="409.0" styleClass="box">
+            <BorderPane fx:id="productBoxLayoutBorderpane" styleClass="box">
                <BorderPane.margin>
                   <Insets />
-               </BorderPane.margin></ScrollPane>
-         </center>
-         <top>
-            <GridPane maxHeight="35.0" styleClass="box" BorderPane.alignment="CENTER">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="200.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints vgrow="SOMETIMES" />
-              </rowConstraints>
-               <BorderPane.margin>
-                  <Insets bottom="5.0" />
                </BorderPane.margin>
-               <children>
-                  <TextField fx:id="searchProductTextfield" alignment="CENTER_RIGHT" focusTraversable="false" maxHeight="30.0" minHeight="30.0" promptText="Recherche des produits" styleClass="textfield" GridPane.columnIndex="1">
-                     <font>
-                        <Font name="System Italic" size="12.0" />
-                     </font>
-                  </TextField>
-                  <AnchorPane>
+               <center>
+                  <ScrollPane fx:id="productBoxLayoutScrollpane" fitToHeight="true" fitToWidth="true" prefHeight="286.0" prefWidth="409.0" styleClass="box">
+                     <BorderPane.margin>
+                        <Insets />
+                     </BorderPane.margin>
+                  </ScrollPane>
+               </center>
+               <top>
+                  <GridPane alignment="CENTER_LEFT" maxHeight="45.0" minHeight="45.0" styleClass="box" BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" />
+                      <ColumnConstraints hgrow="SOMETIMES" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <BorderPane.margin>
+                        <Insets bottom="5.0" />
+                     </BorderPane.margin>
                      <children>
-                        <Label prefHeight="36.0" prefWidth="199.2" text="Produits" textFill="#acacac" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <font>
-                              <Font name="System Italic" size="15.0" />
-                           </font>
-                        </Label>
+                        <HBox fx:id="navigation" alignment="CENTER_LEFT" spacing="5.0">
+                           <children>
+                              <Label fx:id="productName" text="Categorie des produits" textFill="#818181">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" spacing="5.0" GridPane.columnIndex="1">
+                           <children>
+                              <TextField fx:id="searchProductTextfield" alignment="CENTER_RIGHT" focusTraversable="false" maxWidth="150.0" promptText="Recherche des produits" styleClass="no-border">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </HBox>
                      </children>
-                  </AnchorPane>
-               </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </GridPane>
+               </top>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
-            </GridPane>
-         </top>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </BorderPane>
-   </center>
-   <padding>
-      <Insets bottom="5.0" />
-   </padding>
-   <left>
-      <BorderPane prefHeight="334.0" prefWidth="241.0" styleClass="box" BorderPane.alignment="CENTER">
-         <center>
-            <ScrollPane fx:id="articleBoxLayoutScrollpane" fitToHeight="true" fitToWidth="true" prefHeight="246.0" prefWidth="232.0" styleClass="scrollpane" BorderPane.alignment="CENTER" />
+            </BorderPane>
          </center>
-         <padding>
-            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-         </padding>
       </BorderPane>
-   </left>
-</BorderPane>
+      <BorderPane fx:id="modal" style="-fx-background-color: #8585857b;" styleClass="box-transparent" visible="false" StackPane.alignment="TOP_CENTER">
+         <center>
+            <Label text="Label" BorderPane.alignment="TOP_CENTER" />
+         </center>
+      </BorderPane>
+   </children>
+</StackPane>
