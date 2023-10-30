@@ -44,8 +44,6 @@ public class ProductBoxController implements Initializable {
     @FXML
     private Label delete;
     @FXML
-    private Button editProduct;
-    @FXML
     private Button deleteProduct;
     @FXML private Label add;
     private final ProductService productService;

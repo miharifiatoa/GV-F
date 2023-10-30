@@ -29,6 +29,13 @@ public class FileIO {
         }
         return articles;
     }
+    public static double getPriceTotal(String filename){
+        double price = 0;
+        for (ArticleEntity article : readArticleFromFile(filename)){
+            price += article.getPrice() * article.getQuantity();
+        }
+        return price;
+    }
 
     public static Object readFrom(String filename) {
         try (FileInputStream fileInputStream = new FileInputStream("C:\\Users\\ASUS\\IdeaProjects\\Sales_management_javafx\\src\\main\\resources\\com\\sales_management_javafx\\data\\"+filename);

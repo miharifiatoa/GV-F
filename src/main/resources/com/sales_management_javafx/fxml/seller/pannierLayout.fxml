@@ -5,15 +5,17 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="pannierLayout" prefHeight="302.0" prefWidth="491.0" styleClass="box" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.seller.PannierLayoutController">
+<BorderPane fx:id="pannierLayout" prefHeight="330.0" prefWidth="637.0" styleClass="box" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.seller.PannierLayoutController">
    <top>
       <GridPane styleClass="box" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -27,9 +29,9 @@
          <children>
             <ButtonBar buttonMinWidth="0.0" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2">
               <buttons>
-                <Button fx:id="closePannierButton" mnemonicParsing="false" styleClass="buttons" text="x" textFill="RED">
+                <Button fx:id="exit" mnemonicParsing="false" style="-fx-background-color: #acacac;" styleClass="buttons" text="x" textFill="WHITE">
                      <font>
-                        <Font name="System Bold Italic" size="12.0" />
+                        <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
               </buttons>
@@ -54,7 +56,7 @@
       </GridPane>
    </top>
    <center>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" styleClass="box" BorderPane.alignment="CENTER">
+      <ScrollPane fx:id="pannierLayoutScrollpane" fitToHeight="true" fitToWidth="true" prefHeight="126.0" prefWidth="610.0" styleClass="box" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="5.0" />
          </BorderPane.margin>
@@ -64,24 +66,80 @@
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
    </padding>
    <bottom>
-      <GridPane styleClass="box" BorderPane.alignment="CENTER">
+      <GridPane styleClass="box" vgap="5.0" BorderPane.alignment="CENTER">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1">
-              <buttons>
-                <Button fx:id="saleProductButton" mnemonicParsing="false" style="-fx-background-color: #002bff;" text="Vendez les produits" textFill="WHITE">
+            <HBox fx:id="payementHBox" alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="601.0" styleClass="box">
+               <children>
+                  <Label text="Payement par : " textFill="#6e6e6e">
                      <font>
-                        <Font name="System Bold Italic" size="12.0" />
+                        <Font name="System Italic" size="12.0" />
                      </font>
-                  </Button>
-              </buttons>
-            </ButtonBar>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <GridPane hgap="5.0" prefHeight="14.0" prefWidth="601.0" styleClass="box" GridPane.rowIndex="1">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="354.0" spacing="5.0">
+                     <children>
+                        <TextField fx:id="clientNameTextfield" minWidth="150.0" promptText="Nom Client" styleClass="textfield">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="totalPayedTextfield" minWidth="150.0" promptText="Total payé" styleClass="textfield">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font>
+                        </TextField>
+                        <Label fx:id="priceTotal" alignment="CENTER_RIGHT" text="Prix total" textFill="#6e6e6e">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="reimbursementLabel" alignment="CENTER_RIGHT" text="Remboursement" textFill="#6e6e6e">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1">
+                     <children>
+                      <Button fx:id="sale" mnemonicParsing="false" text="Confirmer la vente" textFill="#ffaf00">
+                           <font>
+                              <Font name="System Bold Italic" size="11.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </GridPane>
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

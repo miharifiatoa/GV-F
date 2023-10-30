@@ -2,7 +2,7 @@ package com.sales_management_javafx.controller.arrival;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
-import com.sales_management_javafx.composent.ArrivalArticleGridPane;
+import com.sales_management_javafx.composent.ArticleInfoGridPane;
 import com.sales_management_javafx.composent.StockistArticleGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -62,7 +62,7 @@ public class ArrivalLayoutController implements Initializable {
                 ArrivalEntity arrival = new ArrivalEntity();
                 ArticleEntity articlePersisted = articleService.getById(article.getId());
                 article.setQuantity(article.getQuantity() + articlePersisted.getQuantity());
-                arrival.setArrivalDate(LocalDate.now());
+                arrival.setArrivalDate(LocalDateTime.now());
                 arrival.setDescription(arrivalDescriptionTextfield.getText());
                 arrival.setQuantity(article.getQuantity());
                 arrivalService.create(arrival);
@@ -72,15 +72,15 @@ public class ArrivalLayoutController implements Initializable {
             articles.clear();
             FileIO.writeTo("arrivals.dat",articles);
             GridPane stockistArticleGridPane = new StockistArticleGridPane().getGridPane(new ArticleService().getAll(),4);
-            GridPane gridPane = new ArrivalArticleGridPane().getGridPane(FileIO.readArticleFromFile("arrivals.dat"),2);
+            GridPane articleInfoGridPane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("arrivals.dat"),2);
             getStockistBoxLayoutScrollpane().setContent(stockistArticleGridPane);
-            arrivalLayoutScrollpane.setContent(gridPane);
+            arrivalLayoutScrollpane.setContent(articleInfoGridPane);
             setExit();
         });
     }
     private void setArrivalLayoutScrollpane(){
         try {
-            GridPane gridPane = new ArrivalArticleGridPane().getGridPane(FileIO.readArticleFromFile("arrivals.dat"),2);
+            GridPane gridPane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("arrivals.dat"),2);
             arrivalLayoutScrollpane.setContent(gridPane);
         } catch (Exception e) {
             throw new RuntimeException(e);

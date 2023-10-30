@@ -15,7 +15,7 @@
 
 <StackPane fx:id="productBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product.ProductBoxController">
    <children>
-      <GridPane fx:id="productInfo" styleClass="box" visible="false">
+      <GridPane fx:id="productInfo" styleClass="box">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="80.0" prefWidth="80.0" />
@@ -78,7 +78,7 @@
             </AnchorPane>
          </children>
       </GridPane>
-      <GridPane fx:id="productSuppression" styleClass="box">
+      <GridPane fx:id="productSuppression" styleClass="box" visible="false">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="80.0" />

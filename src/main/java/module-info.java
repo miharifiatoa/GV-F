@@ -52,6 +52,10 @@ module com.sales_management_javafx {
 
     exports com.sales_management_javafx.controller.stockist;
     opens com.sales_management_javafx.controller.stockist to javafx.fxml;
+
     exports com.sales_management_javafx.controller.share;
     opens com.sales_management_javafx.controller.share to javafx.fxml;
+
+    exports com.sales_management_javafx.controller.sale;
+    opens com.sales_management_javafx.controller.sale to javafx.fxml;
 }

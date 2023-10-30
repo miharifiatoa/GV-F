@@ -47,12 +47,10 @@ public class DashboardMenuBoxController implements Initializable {
         FXMLLoader accountLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountLayout.fxml"));
         FXMLLoader shopLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/shop/shopLayout.fxml"));
         FXMLLoader articleLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_category/productCategoryLayout.fxml"));
-        FXMLLoader saleLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/sale/sale.fxml"));
         try {
             this.account = accountLoader.load();
             this.shop = shopLoader.load();
             this.article = articleLoader.load();
-            this.sale = saleLoader.load();
         } catch (IOException e) {
             System.out.println("error");
             e.printStackTrace();

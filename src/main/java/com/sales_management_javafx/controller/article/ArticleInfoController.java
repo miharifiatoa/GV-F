@@ -1,9 +1,8 @@
 package com.sales_management_javafx.controller.article;
 
 import com.sales_management_javafx.classes.FileIO;
-import com.sales_management_javafx.composent.ArrivalArticleGridPane;
-import com.sales_management_javafx.composent.ArticleGridPane;
 import com.sales_management_javafx.composent.ArticleInfoGridPane;
+import com.sales_management_javafx.composent.SellerArticleGridPane;
 import com.sales_management_javafx.composent.StockistArticleGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,7 +23,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ArticleInfoController implements Initializable {
-    @FXML private VBox articleShareVBox;
+    @FXML private VBox articleInfoVBox;
     @FXML private Label productTypeNameLabel;
     @FXML private Label articleQuantityLabel;
     @FXML private Label articlePriceLabel;
@@ -51,7 +50,7 @@ public class ArticleInfoController implements Initializable {
         productTypeNameLabel.setText(article.getProductType().getName());
         articleQuantityLabel.setText(String.valueOf(article.getQuantity()));
         articlePriceLabel.setText(String.valueOf(article.getPrice()));
-        articleCodeLabel.setText(String.valueOf(article.getId()));
+        articleCodeLabel.setText(String.valueOf(article.getCode()));
         articleSizeLabel.setText(article.getSize());
         articleColorLabel.setText(article.getColor());
         productTypeMarkLabel.setText(article.getProductType().getBrand());
@@ -64,7 +63,7 @@ public class ArticleInfoController implements Initializable {
                 Collection<ArticleEntity> arrivals = FileIO.readArticleFromFile("arrivals.dat");
                 arrivals.remove(article);
                 FileIO.writeTo("arrivals.dat",arrivals);
-                GridPane arrivalArticleGridpane = new ArrivalArticleGridPane().getGridPane(FileIO.readArticleFromFile("arrivals.dat"),2);
+                GridPane arrivalArticleGridpane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("arrivals.dat"),2);
                 GridPane stockistArticleGridPane = new StockistArticleGridPane().getGridPane(new ArticleService().getAll(), 4);
                 ScrollPane stockistBoxLayoutScrollpane = (ScrollPane) getArticleLayoutScrollpane().getParent().getParent().getParent().getParent().lookup("#stockistBoxLayoutScrollpane");
                 stockistBoxLayoutScrollpane.setContent(stockistArticleGridPane);
@@ -80,13 +79,25 @@ public class ArticleInfoController implements Initializable {
                 stockistBoxLayoutScrollpane.setContent(stockistArticleGridPane);
                 getArticleLayoutScrollpane().setContent(shareArticleGridpane);
             }
-//            else {
-//                System.out.println("...");
-//            }
+            else if (Objects.equals(getArticleLayoutScrollpane().getId(),"pannierLayoutScrollpane")){
+                Collection<ArticleEntity> articles = FileIO.readArticleFromFile("sales.dat");
+                articles.remove(article);
+                FileIO.writeTo("sales.dat",articles);
+                GridPane pannierGridpane  = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("sales.dat"),2);
+                GridPane sellerArticleGridPane = new SellerArticleGridPane().getGridPane(new ArticleService().getAll(),4);
+                ScrollPane sellerArticleScrollpane = (ScrollPane) getArticleLayoutScrollpane().getParent().getParent().lookup("#sellerArticleScrollpane");
+                Label priceTotal = (Label) getArticleLayoutScrollpane().getParent().getParent().lookup("#priceTotal");
+                priceTotal.setText("Prix total : " + FileIO.getPriceTotal("sales.dat") +"Ar");
+                sellerArticleScrollpane.setContent(sellerArticleGridPane);
+                getArticleLayoutScrollpane().setContent(pannierGridpane);
+            }
+            else {
+                System.out.println("...");
+            }
         });
     }
     private ScrollPane getArticleLayoutScrollpane(){
-        return (ScrollPane) articleShareVBox.getParent().getParent().getParent().getParent();
+        return (ScrollPane) articleInfoVBox.getParent().getParent().getParent().getParent();
     }
     private StackPane getProductBoxLayout(){
         return (StackPane) getArticleLayoutScrollpane().getParent().getParent().getParent().getParent();

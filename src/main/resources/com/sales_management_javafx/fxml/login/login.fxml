@@ -22,7 +22,7 @@
     <padding>
         <Insets left="7.0" right="7.0" />
     </padding>
-    <TextField minHeight="40.0" prefHeight="26.0" prefWidth="242.0" promptText="Nom d'utilisateur">
+    <TextField fx:id="usernameTextfield" minHeight="40.0" prefHeight="26.0" prefWidth="242.0" promptText="Nom d'utilisateur">
         <font>
           <Font name="System Bold" size="13.0" />
         </font>

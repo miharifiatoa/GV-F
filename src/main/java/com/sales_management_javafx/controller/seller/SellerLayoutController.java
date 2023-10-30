@@ -1,39 +1,36 @@
 package com.sales_management_javafx.controller.seller;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.composent.ProductGridPane;
-import com.sales_management_javafx.composent.SellerProductGridPane;
+import com.sales_management_javafx.composent.SellerArticleGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import org.sales_management.entity.ProductEntity;
-import org.sales_management.entity.ShopEntity;
-import org.sales_management.entity.ShopProductEntity;
+import org.sales_management.entity.ArticleEntity;
+import org.sales_management.service.ArticleService;
 import org.sales_management.service.ProductService;
-import org.sales_management.service.ShopService;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.ResourceBundle;
 
 public class SellerLayoutController implements Initializable {
     @FXML
     private BorderPane sellerLayout;
     @FXML
-    private ScrollPane sellerProductScrollpane;
+    private ScrollPane sellerArticleScrollpane;
     @FXML
     private Label productNameLabel;
-    private final ProductService productService;
+    @FXML private TextField searchTextfield;
+    private final ArticleService articleService;
 
     public SellerLayoutController() {
-        this.productService = new ProductService();
+        this.articleService = new ArticleService();
     }
 
     @Override
@@ -41,14 +38,29 @@ public class SellerLayoutController implements Initializable {
         this.sellerLayout.setBottom(this.getToolbar());
         this.setProducts();
         this.onShowProducts();
+        this.setSearchTextfield();
     }
+
     private void setProducts(){
-        GridPane gridPane = new SellerProductGridPane().getGridPane(productService.getAll(),4);
-        sellerProductScrollpane.setContent(gridPane);
+        GridPane gridPane = new SellerArticleGridPane().getGridPane(articleService.getAll(),4);
+        sellerArticleScrollpane.setContent(gridPane);
     }
     private void onShowProducts(){
         productNameLabel.setOnMouseClicked(event->{
             this.setProducts();
+        });
+    }
+    private void setSearchTextfield(){
+        searchTextfield.textProperty().addListener(event->{
+            if (!searchTextfield.getText().isEmpty()){
+                Collection<ArticleEntity> articles = articleService.searchArticleByByCode(searchTextfield.getText());
+                GridPane sellerArticleGridPane = new SellerArticleGridPane().getGridPane(articles,4);
+                sellerArticleScrollpane.setContent(sellerArticleGridPane);
+            }
+            else {
+                GridPane sellerArticleGridPane = new SellerArticleGridPane().getGridPane(articleService.getAll(),4);
+                sellerArticleScrollpane.setContent(sellerArticleGridPane);
+            }
         });
     }
     private GridPane getToolbar(){

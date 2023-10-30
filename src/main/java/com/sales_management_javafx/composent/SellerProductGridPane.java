@@ -1,7 +1,6 @@
 package com.sales_management_javafx.composent;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.controller.product.ProductBoxController;
 import com.sales_management_javafx.controller.seller.SellerProductBoxController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.ColumnConstraints;
@@ -9,7 +8,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import org.sales_management.entity.ProductEntity;
-import org.sales_management.entity.ShopProductEntity;
 
 import java.io.IOException;
 import java.util.Collection;

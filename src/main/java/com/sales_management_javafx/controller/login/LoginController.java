@@ -17,12 +17,10 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
-    @FXML
-    private GridPane loginGridpane;
-    @FXML
-    private Button connectionButton;
-    @FXML
-    private TextField passwordTextfield;
+    @FXML private GridPane loginGridpane;
+    @FXML private Button connectionButton;
+    @FXML private TextField passwordTextfield;
+    @FXML private TextField usernameTextfield;
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.connect();
     }
@@ -30,10 +28,10 @@ public class LoginController implements Initializable {
     public void connect() {
         connectionButton.setOnAction(event->{
             BorderPane salesManagementBorderpane = (BorderPane) loginGridpane.getParent();
-            if (Objects.equals(passwordTextfield.getText(), "v")){
+            if (Objects.equals(usernameTextfield.getText(), "v")){
                 salesManagementBorderpane.setCenter(this.getSellerLayout());
             }
-            if (Objects.equals(passwordTextfield.getText(), "s")){
+            else if (Objects.equals(usernameTextfield.getText(), "s")){
                 salesManagementBorderpane.setCenter(this.getStockistLayout());
             }
             else {

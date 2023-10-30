@@ -2,7 +2,6 @@ package com.sales_management_javafx.controller.seller;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.composent.ProductTypeGridPane;
-import com.sales_management_javafx.composent.SellerPriceVariationGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;

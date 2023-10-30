@@ -2,13 +2,11 @@ package com.sales_management_javafx.composent;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.controller.product_type.ProductTypeBoxController;
-import com.sales_management_javafx.controller.seller.SellerPriceVariationBoxController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
-import org.sales_management.entity.ArticleEntity;
 import org.sales_management.entity.ProductTypeEntity;
 
 import java.io.IOException;
