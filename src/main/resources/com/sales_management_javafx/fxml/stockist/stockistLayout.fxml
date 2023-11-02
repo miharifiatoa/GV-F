@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -47,15 +46,7 @@
                                     </TextField>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane>
-                                 <children>
-                                    <Label fx:id="name" prefHeight="35.2" prefWidth="200.0" text="Produits" textFill="#6e6e6e" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <font>
-                                          <Font name="System Italic" size="18.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </AnchorPane>
+                              <AnchorPane />
                            </children>
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -68,7 +59,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </BorderPane>
-            <BorderPane fx:id="modal" prefHeight="200.0" prefWidth="200.0" />
+            <BorderPane fx:id="modal" prefHeight="200.0" prefWidth="200.0" visible="false" />
          </children>
       </StackPane>
    </center>

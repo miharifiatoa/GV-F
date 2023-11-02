@@ -13,8 +13,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class DashboardLayoutController implements Initializable {
-    @FXML
-    private BorderPane dashboard;
+    @FXML private BorderPane dashboardLayout;
+    @FXML private BorderPane dashboardLayoutBorderpane;
     private final MenuGridPane menuGridPane;
     private final MenuIcon menuIcon;
 
@@ -25,6 +25,6 @@ public class DashboardLayoutController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        dashboard.setLeft(this.menuGridPane.getGridPane(menuIcon.getMenuIcons(),1));
+        dashboardLayoutBorderpane.setTop(this.menuGridPane.getGridPane(menuIcon.getMenuIcons(),5));
     }
 }

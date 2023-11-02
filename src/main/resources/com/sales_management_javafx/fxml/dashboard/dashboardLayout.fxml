@@ -2,42 +2,54 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="dashboard" prefHeight="428.0" prefWidth="708.0" styleClass="dashboard" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.dashboard.DashboardLayoutController">
+
+<BorderPane fx:id="dashboardLayout" prefHeight="428.0" prefWidth="708.0" styleClass="dashboard" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.dashboard.DashboardLayoutController">
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
    </padding>
-   <top>
-      <GridPane prefHeight="40.0" prefWidth="693.6" styleClass="box">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" />
-            <ColumnConstraints hgrow="SOMETIMES" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-         </rowConstraints>
+   <center>
+      <StackPane fx:id="dashboardLayoutStackpane" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane>
-               <children>
-                  <Label prefHeight="40.0" prefWidth="232.8" textFill="#7e7e7e" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <font>
-                        <Font name="Yu Gothic Bold" size="16.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-            <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1" />
+            <BorderPane fx:id="modal" visible="false" />
+            <BorderPane fx:id="dashboardLayoutBorderpane">
+               <center>
+                  <ScrollPane fx:id="dashboardLayoutScrollpane" fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" styleClass="box">
+                     <BorderPane.margin>
+                        <Insets top="5.0" />
+                     </BorderPane.margin>
+                  </ScrollPane>
+               </center>
+            </BorderPane>
          </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
+      </StackPane>
+   </center>
+   <top>
+      <GridPane styleClass="box" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Administrateur">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <font>
+                  <Font name="System Italic" size="16.0" />
+               </font>
+            </Label>
+         </children>
          <BorderPane.margin>
             <Insets bottom="5.0" />
          </BorderPane.margin>

@@ -24,12 +24,12 @@
          <children>
             <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                <children>
-                  <Button fx:id="exitFromInventoryButton" focusTraversable="false" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" styleClass="buttons" textFill="WHITE">
+                  <Button fx:id="newArticle" focusTraversable="false" mnemonicParsing="false" styleClass="buttons" textFill="WHITE">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
                      <graphic>
-                        <ImageView fx:id="ExitInventoryIcon" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="articleIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -39,7 +39,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5.0">
                <children>
-                  <Button fx:id="share" focusTraversable="false" mnemonicParsing="false" styleClass="buttons" textFill="#ea9fff">
+                  <Button fx:id="share" accessibleHelp="test" accessibleRoleDescription="test" accessibleText="test" cache="true" cacheHint="ROTATE" depthTest="ENABLE" ellipsisString="4444" focusTraversable="false" mnemonicParsing="false" styleClass="buttons" textFill="#ea9fff" textOverrun="LEADING_WORD_ELLIPSIS">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>

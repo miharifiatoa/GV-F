@@ -1,11 +1,14 @@
 package com.sales_management_javafx.controller.shop;
 
+import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -22,9 +25,13 @@ public class ShopBoxController implements Initializable {
     private Label shopAddresslabel;
     @FXML
     private StackPane shopBoxStackpane;
+    @FXML
+    private ImageView editIcon;
+    @FXML
+    private ImageView deleteIcon;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        this.putIcons();
     }
     public void initialize(ShopEntity shop){
         this.shopNameLabel.setText(shop.getName());
@@ -46,5 +53,9 @@ public class ShopBoxController implements Initializable {
         BorderPane shopLayoutBorderpane = (BorderPane) shopBoxStackpane.getParent().getParent().getParent().getParent().getParent();
         Button shareProductButton = (Button) shopLayoutBorderpane.lookup("#shareProductButton");
         shareProductButton.setDisable(false);
+    }
+    private void putIcons(){
+        this.editIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/EditIcon.png"))));
+        this.deleteIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/DeleteIcon.png"))));
     }
 }

@@ -30,36 +30,22 @@ import java.text.DecimalFormat;
 import java.util.*;
 
 public class ArticleBoxController implements Initializable {
-    @FXML
-    private StackPane articleBox;
-    @FXML
-    private Label articlePriceLabel;
-    @FXML
-    private Label articleCodeLabel;
-    @FXML
-    private Label articleColorLabel;
-    @FXML
-    private Label articleSizeLabel;
-    @FXML
-    private Label articleQuantityLabel;
-    @FXML
-    private Label deleteText;
-    @FXML
-    private Button delete;
-    @FXML
-    private Button confirmDelete;
-    @FXML
-    private Button edit;
-    @FXML
-    private Button exitDelete;
-    @FXML
-    private VBox articleVBox;
-    @FXML
-    private VBox deleteVBox;
-    @FXML
-    private ImageView DeleteIcon;
-    @FXML
-    private ImageView EditIcon;
+    @FXML private StackPane articleBox;
+    @FXML private Label articlePriceLabel;
+    @FXML private Label articleCodeLabel;
+    @FXML private Label articleColorLabel;
+    @FXML private Label articleSizeLabel;
+    @FXML private Label articleQuantityLabel;
+    @FXML private Label productTypeNameLabel;
+    @FXML private Label deleteText;
+    @FXML private Button delete;
+    @FXML private Button confirmDelete;
+    @FXML private Button edit;
+    @FXML private Button exitDelete;
+    @FXML private VBox articleVBox;
+    @FXML private VBox deleteVBox;
+    @FXML private ImageView DeleteIcon;
+    @FXML private ImageView EditIcon;
     private final ArticleService articleService;
 
     public ArticleBoxController() {
@@ -79,7 +65,8 @@ public class ArticleBoxController implements Initializable {
     public void initialize(ArticleEntity article){
         Double price = article.getPrice();
         DecimalFormat decimalFormat = new DecimalFormat("0.##");
-        articleCodeLabel.setText(String.valueOf(article.getCode()));
+        this.productTypeNameLabel.setText(article.getProductType().getName());
+        this.articleCodeLabel.setText(String.valueOf(article.getCode()));
         this.articlePriceLabel.setText(decimalFormat.format(price)+ " Ar");
         this.articleSizeLabel.setText(String.valueOf(article.getSize()));
         this.articleQuantityLabel.setText(String.valueOf(article.getQuantity()));
@@ -92,6 +79,9 @@ public class ArticleBoxController implements Initializable {
         }
         if (FileIO.readArticleFromFile("arrivals.dat").contains(article)){
             articleBox.setDisable(true);
+        }
+        if (article.getQuantity() != 0){
+            delete.setDisable(true);
         }
     }
     private void setDelete(){

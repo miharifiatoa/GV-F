@@ -4,6 +4,7 @@ import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.composent.ArticleInfoGridPane;
 import com.sales_management_javafx.composent.ShopGridPane;
+import com.sales_management_javafx.composent.StockistArticleGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,11 +15,18 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import org.sales_management.entity.ArticleEntity;
+import org.sales_management.entity.ShareEntity;
+import org.sales_management.entity.ShopEntity;
+import org.sales_management.service.ArticleService;
 import org.sales_management.service.ProductService;
+import org.sales_management.service.ShareService;
 import org.sales_management.service.ShopService;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.ResourceBundle;
 public class ShareProductLayoutController implements Initializable {
     @FXML private StackPane shareArticleLayoutStackpane;
@@ -46,10 +54,10 @@ public class ShareProductLayoutController implements Initializable {
     @FXML
     private BorderPane shopLayoutBorderpane;
     private final ShopService shopService;
-    private final ProductService productService;
+    private final ShareService shareService;
 
     public ShareProductLayoutController() {
-        this.productService = new ProductService();
+        this.shareService = new ShareService();
         this.shopService = new ShopService();
     }
 
@@ -61,17 +69,17 @@ public class ShareProductLayoutController implements Initializable {
         this.shareProductButton.setDisable(true);
         this.shareToolbar.setVisible(true);
         this.putIcons();
-        this.setCloseShareListButton();
+        closeShareListButton.setOnAction(event->this.setCloseShareListButton());
         this.setProducts();
         this.onShareProduct();
         this.onReturnToShareList();
-        this.onShowProductShareConfirmBox();
         this.setShops();
+        this.setShareProductButton();
     }
 
     public void setProducts(){
         try {
-            GridPane gridPane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("articles.dat"),2);
+            GridPane gridPane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("shares.dat"),2);
             shareArticleLayoutScrollpane.setContent(gridPane);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -89,6 +97,23 @@ public class ShareProductLayoutController implements Initializable {
             this.shopLayoutBorderpane.setVisible(true);
         });
     }
+    private void setShareProductButton(){
+        shareProductButton.setOnAction(event->{
+            ShareEntity share = new ShareEntity();
+            share.setShop(null);
+            share.setUser(null);
+            share.setShareDate(LocalDateTime.now());
+            Collection<ArticleEntity> articles = FileIO.readArticleFromFile("shares.dat");
+            if (shareService.toShareArticles(share , articles) != null){
+                articles.clear();
+                FileIO.writeTo("shares.dat",articles);
+                GridPane gridPane = new StockistArticleGridPane().getGridPane(new ArticleService().getAll(),4);
+                ScrollPane stockistBoxLayoutScrollpane = (ScrollPane) shareArticleLayoutStackpane.getParent().getParent().lookup("#stockistBoxLayoutScrollpane");
+                stockistBoxLayoutScrollpane.setContent(gridPane);
+                this.setCloseShareListButton();
+            }
+        });
+    }
     private void setShops(){
         GridPane gridPane = new ShopGridPane().getGridPane(shopService.getAll(),4);
         ScrollPane scrollPane = (ScrollPane) shopLayoutBorderpane.getCenter();
@@ -101,29 +126,11 @@ public class ShareProductLayoutController implements Initializable {
         });
     }
     private void setCloseShareListButton(){
-        closeShareListButton.setOnAction(event->{
-            shareArticleLayoutStackpane.getParent().setVisible(false);
-            BorderPane stockistLayout = (BorderPane) shareArticleLayoutStackpane.getParent().getParent().getParent();
-            stockistLayout.setBottom(getToolbar());
-        });
+        shareArticleLayoutStackpane.getParent().setVisible(false);
+        BorderPane stockistLayout = (BorderPane) shareArticleLayoutStackpane.getParent().getParent().getParent();
+        stockistLayout.setBottom(getToolbar());
     }
-    private void onShowProductShareConfirmBox(){
-        this.shareProductButton.setOnAction(event->{
-            BorderPane productBoxLayoutBorderpane = (BorderPane) shareArticleLayoutBorderpane.getParent().getParent().getParent().getParent().getParent();
-            ScrollPane productBoxLayoutScrollpane = (ScrollPane) productBoxLayoutBorderpane.lookup("#productBoxLayoutScrollpane");
-            productBoxLayoutScrollpane.setContent(this.getProductShareConfirmBox());
-        });
-    }
-    private StackPane getProductShareConfirmBox(){
-        FXMLLoader productShareBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/share/ProductShareConfirmBox.fxml"));
-        StackPane stackPane;
-        try {
-            stackPane = productShareBoxLoader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return stackPane;
-    }
+
     private StackPane getToolbar(){
         FXMLLoader toolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/stockist/stockistToolbar.fxml"));
         StackPane toolbar;

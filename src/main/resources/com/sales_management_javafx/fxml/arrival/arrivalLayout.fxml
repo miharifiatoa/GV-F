@@ -17,7 +17,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-
 <StackPane fx:id="arrivalLayout" styleClass="bg-white" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.arrival.ArrivalLayoutController">
    <children>
       <BorderPane>
@@ -41,14 +40,14 @@
                <children>
                   <AnchorPane GridPane.columnIndex="1">
                      <children>
-                        <Label prefHeight="36.0" prefWidth="442.4" text="Arrivage des produits" textFill="#6b6b6b" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Label prefHeight="36.0" prefWidth="442.4" text="Arrivage des produits" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <font>
-                              <Font name="System Italic" size="13.0" />
+                              <Font name="System Bold Italic" size="12.0" />
                            </font>
                         </Label>
                      </children>
                   </AnchorPane>
-                  <ImageView fx:id="arrivalIcon" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="arrivalIcon" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                   <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="2">
                      <children>
                         <Button fx:id="exit" alignment="CENTER" contentDisplay="CENTER" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #acacac;" textFill="RED">

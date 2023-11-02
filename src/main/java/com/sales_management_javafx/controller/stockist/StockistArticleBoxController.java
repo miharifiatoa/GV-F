@@ -84,7 +84,7 @@ public class StockistArticleBoxController implements Initializable {
             retire.setDisable(true);
             share.setDisable(true);
         }
-        if (FileIO.readArticleFromFile("articles.dat").contains(article)){
+        if (FileIO.readArticleFromFile("shares.dat").contains(article)){
             articleBox.setDisable(true);
         }
         if (FileIO.readArticleFromFile("arrivals.dat").contains(article)){
@@ -163,9 +163,9 @@ public class StockistArticleBoxController implements Initializable {
     private void onAddArticleInShareList(ArticleEntity article){
         addInList.setOnAction(event->{
             article.setQuantity(Integer.parseInt(quantitySharedTextfield.getText()));
-            Collection<ArticleEntity> existingPrices = FileIO.readArticleFromFile("articles.dat");
+            Collection<ArticleEntity> existingPrices = FileIO.readArticleFromFile("shares.dat");
             existingPrices.add(article);
-            FileIO.writeTo("articles.dat", existingPrices);
+            FileIO.writeTo("shares.dat", existingPrices);
             ScrollPane productBoxLayoutScrollpane = (ScrollPane) articleBox.getParent().getParent().getParent().getParent();
             GridPane gridPane = new StockistArticleGridPane().getGridPane(new ArticleService().getAll(), 4);
             productBoxLayoutScrollpane.setContent(gridPane);

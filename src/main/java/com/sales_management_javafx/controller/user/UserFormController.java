@@ -74,6 +74,7 @@ public class UserFormController implements Initializable {
         person.setLastname(user_lastname.getText());
         person.setFirstname(user_firstname.getText());
         person.setAddress(user_address.getText());
+        person.setGender('M');
         return person;
     }
     public UserEntity createUser(){

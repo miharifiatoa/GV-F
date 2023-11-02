@@ -1,11 +1,13 @@
 package com.sales_management_javafx.controller.shop;
 
 import com.sales_management_javafx.SalesApplication;
+import com.sales_management_javafx.composent.ShopGridPane;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -63,11 +65,10 @@ public class ShopFormController implements Initializable {
                 shop.setAddress(this.shopAddressTextfield.getText());
                 shop.setEmail(this.shopEmailTextfield.getText());
                 if (this.shopService.create(shop)!=null){
-                    BorderPane ShopLayoutBorderpane = (BorderPane) this.shopFormVBox.getParent();
-                    BorderPane shopTableBorderpane = (BorderPane) ShopLayoutBorderpane.getCenter();
-                    @SuppressWarnings("unchecked")
-                    TableView<ShopEntity> account_tableview = (TableView<ShopEntity>) shopTableBorderpane.getCenter();
-                    account_tableview.setItems(FXCollections.observableArrayList(this.shopService.getAll()));
+                    BorderPane shopLayoutBorderpane = (BorderPane) this.shopFormVBox.getParent();
+                    GridPane shopGridPane = new ShopGridPane().getGridPane(new ShopService().getAll(),4);
+                    ScrollPane shopBoxLayoutScrollpane = (ScrollPane) shopLayoutBorderpane.lookup("#shopBoxLayoutScrollpane");
+                    shopBoxLayoutScrollpane.setContent(shopGridPane);
                     this.putToolbarInBorderpane();
                 }
             }

@@ -10,9 +10,12 @@ import com.sales_management_javafx.composent.ProductGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -27,20 +30,15 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ProductBoxLayoutController implements Initializable {
-    @FXML
-    private StackPane productBoxLayout;
-    @FXML
-    private BorderPane product;
-    @FXML
-    private BorderPane modal;
-    @FXML
-    private ScrollPane productBoxLayoutScrollpane;
-    @FXML
-    private BorderPane productBoxLayoutBorderpane;
-    @FXML
-    private TextField searchProductTextfield;
-    @FXML
-    private Label productName;
+    @FXML private StackPane productBoxLayout;
+    @FXML private BorderPane product;
+    @FXML private BorderPane modal;
+    @FXML private ScrollPane productBoxLayoutScrollpane;
+    @FXML private BorderPane productBoxLayoutBorderpane;
+    @FXML private TextField searchProductTextfield;
+    @FXML private Label productName;
+    @FXML private ImageView articleIcon;
+    @FXML private Button exit;
     private final ProductService productService;
     private final ProductCategoryService productCategoryService;
     private final ProductGridPane productGridPane;
@@ -64,7 +62,10 @@ public class ProductBoxLayoutController implements Initializable {
         this.onShowProducts();
         this.product.setVisible(true);
         this.modal.setVisible(false);
-        this.productBoxLayoutBorderpane.setBottom(this.getToolbar());
+        this.putIcons();
+        this.exit.setOnAction(event->{
+            this.setExit();
+        });
     }
     private void setProductCategories(){
         this.productBoxLayoutScrollpane.setContent(new ProductCategoryGridPane().getGridPane(productCategoryService.getAll(),4));
@@ -87,8 +88,17 @@ public class ProductBoxLayoutController implements Initializable {
             this.setProductCategories();
         });
     }
+    public void setExit(){
+        productBoxLayout.getParent().setVisible(false);
+        BorderPane stockistLayout = (BorderPane) productBoxLayout.getParent().getParent().getParent();
+        stockistLayout.setBottom(getToolbar());
+    }
+    private void putIcons(){
+        this.articleIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/ArticleIcon.png"))));
+    }
+
     private StackPane getToolbar(){
-        FXMLLoader toolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productToolbar.fxml"));
+        FXMLLoader toolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/stockist/stockistToolbar.fxml"));
         StackPane toolbar;
         try {
             toolbar = toolbarLoader.load();

@@ -52,23 +52,25 @@ public class ProductCategoryFormController implements Initializable {
         if (this.productCategoryNameTextfield.getText().isEmpty()){
             save.setDisable(true);
         }
-        productCategoryNameTextfield.textProperty().addListener(event->{
-            if (!productCategoryNameTextfield.getText().isEmpty()){
-                ProductCategoryEntity productCategory = productCategoryService.isUniqueValue(productCategoryNameTextfield.getText());
-                if (productCategory != null){
-                    nameWarning.setText(productCategoryNameTextfield.getText() + " existe deja dans la liste de categorie des produits");
+        productCategoryNameTextfield.textProperty().addListener((observable, oldValue, newValue) -> {
+            String categoryName = newValue.trim().toLowerCase();
+
+            if (!categoryName.isEmpty()) {
+                ProductCategoryEntity existingCategory = productCategoryService.isUniqueValue(categoryName);
+
+                if (existingCategory != null) {
+                    nameWarning.setText(categoryName + " existe déjà dans la liste de catégories de produits");
                     save.setDisable(true);
-                }
-                else {
+                } else {
                     nameWarning.setText(null);
                     save.setDisable(false);
                 }
-            }
-            else {
+            } else {
                 nameWarning.setText("Champ obligatoire");
                 save.setDisable(true);
             }
         });
+
     }
     private void onCreateArticle(){
         this.save.setOnAction(event->{

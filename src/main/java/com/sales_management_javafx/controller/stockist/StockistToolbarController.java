@@ -19,13 +19,17 @@ public class StockistToolbarController implements Initializable {
     @FXML private StackPane toolbar;
     @FXML private Button share;
     @FXML private Button arrival;
+    @FXML private Button newArticle;
     @FXML private ImageView shareIcon;
     @FXML private ImageView arrivalIcon;
+    @FXML private ImageView articleIcon;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.putIcons();
         this.setShare();
         this.setArrival();
+        this.setNewArticle();
     }
     private void setShare(){
         share.setOnAction(event->{
@@ -41,6 +45,14 @@ public class StockistToolbarController implements Initializable {
             getStockistLayoutBorderpane().setBottom(null);
         });
     }
+    private void setNewArticle(){
+        newArticle.setOnAction(event->{
+            getModal().setCenter(getProductBoxLayout());
+            getModal().setVisible(true);
+            getStockistLayoutBorderpane().setBottom(null);
+        });
+    }
+
     private StackPane getShareProductLayout(){
         FXMLLoader shareProductLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/share/shareProductLayout.fxml"));
         StackPane stackPane;
@@ -61,8 +73,15 @@ public class StockistToolbarController implements Initializable {
         }
         return shareProductLayout;
     }
-    private ScrollPane getProductBoxLayoutScrollpane(){
-        return   (ScrollPane) getStockistLayoutBorderpane().getCenter();
+    private StackPane getProductBoxLayout(){
+        FXMLLoader productBoxLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productBoxLayout.fxml"));
+        StackPane productBoxLayout;
+        try {
+            productBoxLayout = productBoxLayoutLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return productBoxLayout;
     }
     private BorderPane getStockistLayoutBorderpane(){
         return (BorderPane) this.toolbar.getParent();
@@ -74,5 +93,6 @@ public class StockistToolbarController implements Initializable {
     private void putIcons(){
         shareIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/ShowShareListIcon.png"))));
         arrivalIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/ArrivalIcon.png"))));
+        articleIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/ArticleIcon.png"))));
     }
 }

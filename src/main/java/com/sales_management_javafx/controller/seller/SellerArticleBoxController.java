@@ -92,7 +92,7 @@ public class SellerArticleBoxController implements Initializable {
             GridPane pannierArticleGridPane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("sales.dat"),2);
             ScrollPane sellerArticleScrollpane = (ScrollPane) sellerArticleBox.getParent().getParent().getParent().getParent();
             sellerArticleScrollpane.setContent(sellerArticleGridPane);
-            BorderPane sellerLayout = (BorderPane) sellerArticleScrollpane.getParent().getParent();
+            BorderPane sellerLayout = (BorderPane) sellerArticleScrollpane.getParent().getParent().getParent();
             ScrollPane pannierLayoutScrollpane = (ScrollPane) sellerLayout.lookup("#pannierLayoutScrollpane");
             Label priceTotal = (Label) sellerLayout.lookup("#priceTotal");
             if (pannierLayoutScrollpane != null){

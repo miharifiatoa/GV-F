@@ -58,13 +58,10 @@ public class ProductCategoryBoxController implements Initializable {
             System.out.println(product);
             BorderPane productBoxLayoutBorderpane = (BorderPane) product.lookup("#productBoxLayoutBorderpane");
             ScrollPane productBoxLayoutScrollpane = (ScrollPane) product.lookup("#productBoxLayoutScrollpane");
-//            HBox navigation = (HBox) product.lookup("#navigation");
             GridPane productGridPane = new ProductGridPane().getGridPane(this.productCategoryService.getById(productCategory.getId()).getProducts(),4,false);
             FileIO.writeTo("product_category.dat",productCategory);
             productBoxLayoutScrollpane.setContent(productGridPane);
             productBoxLayoutBorderpane.setCenter(productBoxLayoutScrollpane);
-            productBoxLayoutBorderpane.setBottom(this.getToolbar());
-//            navigation.getChildren().add(new Label(productCategory.getLabel()));
         });
     }
     private void onCreateProduct(ProductCategoryEntity productCategory){

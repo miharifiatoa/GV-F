@@ -58,24 +58,18 @@ public class ArrivalLayoutController implements Initializable {
     private void setSave(){
         save.setOnAction(event->{
             Collection<ArticleEntity> articles = FileIO.readArticleFromFile("arrivals.dat");
-            for (ArticleEntity article : articles){
-                ArrivalEntity arrival = new ArrivalEntity();
-                ArticleEntity articlePersisted = articleService.getById(article.getId());
-                article.setQuantity(article.getQuantity() + articlePersisted.getQuantity());
-                arrival.setArrivalDate(LocalDateTime.now());
-                arrival.setDescription(arrivalDescriptionTextfield.getText());
-                arrival.setQuantity(article.getQuantity());
-                arrivalService.create(arrival);
-                article.setArrival(arrival);
-                articleService.update(article);
+            ArrivalEntity arrival = new ArrivalEntity();
+            arrival.setArrivalDate(LocalDateTime.now());
+            arrival.setDescription(arrivalDescriptionTextfield.getText());
+            if (arrivalService.toSaveArrival(arrival,articles)!=null){
+                articles.clear();
+                FileIO.writeTo("arrivals.dat",articles);
+                GridPane stockistArticleGridPane = new StockistArticleGridPane().getGridPane(new ArticleService().getAll(),4);
+                GridPane articleInfoGridPane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("arrivals.dat"),2);
+                getStockistBoxLayoutScrollpane().setContent(stockistArticleGridPane);
+                arrivalLayoutScrollpane.setContent(articleInfoGridPane);
+                setExit();
             }
-            articles.clear();
-            FileIO.writeTo("arrivals.dat",articles);
-            GridPane stockistArticleGridPane = new StockistArticleGridPane().getGridPane(new ArticleService().getAll(),4);
-            GridPane articleInfoGridPane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("arrivals.dat"),2);
-            getStockistBoxLayoutScrollpane().setContent(stockistArticleGridPane);
-            arrivalLayoutScrollpane.setContent(articleInfoGridPane);
-            setExit();
         });
     }
     private void setArrivalLayoutScrollpane(){

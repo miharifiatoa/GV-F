@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="account_toolbar" maxHeight="40.0" minHeight="40.0" prefHeight="40.0" styleClass="toolbar" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.account.AccountToolbarController">
+<GridPane fx:id="account_toolbar" prefHeight="35.0" prefWidth="419.0" styleClass="toolbar" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.account.AccountToolbarController">
    <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="917.5999908447266" minWidth="10.0" prefWidth="408.8000244140625" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="917.5999908447266" minWidth="10.0" prefWidth="411.9999755859375" />
+      <ColumnConstraints hgrow="SOMETIMES" />
+      <ColumnConstraints hgrow="SOMETIMES" />
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="30.0" minHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <AnchorPane GridPane.columnIndex="1">
+      <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
          <children>
-            <ButtonBar focusTraversable="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="410.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <buttons>
-                  <Button fx:id="create_account_button" maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: blue;" text="Nouveau compte" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
-               </buttons>
-            </ButtonBar>
+            <Button fx:id="create_account_button" mnemonicParsing="false" style="-fx-background-color: blue;" text="Nouveau compte" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
          </children>
-      </AnchorPane>
+      </HBox>
    </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
 </GridPane>

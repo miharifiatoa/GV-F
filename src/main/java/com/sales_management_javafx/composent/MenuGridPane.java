@@ -30,7 +30,7 @@ public class MenuGridPane {
                 row++;
             }
         }
-        gridPane.getStyleClass().add("box-layout");
+        gridPane.getStyleClass().add("box");
         return gridPane;
     }
     private StackPane getMenuBox(String menu , String icon_name){

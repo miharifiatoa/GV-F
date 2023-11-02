@@ -1,18 +1,21 @@
 package com.sales_management_javafx.controller.dashboard;
 
 import com.sales_management_javafx.SalesApplication;
+import com.sales_management_javafx.composent.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import org.sales_management.service.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -60,26 +63,44 @@ public class DashboardMenuBoxController implements Initializable {
         dashboardMenu.setOnMouseClicked(this::handleClickMenuItems);
     }
     public void handleClickMenuItems(MouseEvent event){
-        BorderPane dashboard = (BorderPane) dashboardMenuBox.getParent().getParent();
+        BorderPane dashboardLayout = (BorderPane) dashboardMenuBox.getParent().getParent();
+        ScrollPane dashboardLayoutScrollpane = (ScrollPane) dashboardLayout.lookup("#dashboardLayoutScrollpane");
+        System.out.println(dashboardLayoutScrollpane);
         switch (dashboardMenu.getId()) {
-            case "ACCOUNT" -> dashboard.setCenter(this.account);
-            case "SHOP" -> dashboard.setCenter(this.shop);
-            case "ARTICLE" -> dashboard.setCenter(this.article);
-            case "INVENTORY" -> {
-                dashboard.setCenter(this.getInventoryLayout());
-                dashboard.setLeft(null);
+            case "ACCOUNT" ->{
+                GridPane accountGridPane = new AccountGridPane().getGridPane(new AccountService().getAll(),4);
+                dashboardLayoutScrollpane.setContent(accountGridPane);
+            }
+            case "SHOP" -> {
+                GridPane shopGridPane = new ShopGridPane().getGridPane(new ShopService().getAll(),4);
+                dashboardLayoutScrollpane.setContent(shopGridPane);
+            }
+            case "ARTICLE" -> {
+                System.out.println("ARTICLE");
+            }
+            case "SALE" ->{
+                GridPane adminSaleGridPane = new AdminSaleGridPane().getGridPane(new SaleService().getAll(),4);
+                dashboardLayoutScrollpane.setContent(adminSaleGridPane);
+            }
+            case "ARRIVAL" -> {
+                GridPane gridPane = new ArrivalGridPane().getGridPane(new ArrivalService().getAll(),4);
+                dashboardLayoutScrollpane.setContent(gridPane);
+            }
+            case "STOCK" -> {
+                GridPane gridPane = new ArticleGridPane().getGridPane(new ArticleService().getAll(),4,false);
+                dashboardLayoutScrollpane.setContent(gridPane);
             }
         }
         event.consume();
     }
-    public BorderPane getInventoryLayout(){
-        FXMLLoader loadInventory = new FXMLLoader(SalesApplication.class.getResource("fxml/inventory/inventoryLayout.fxml"));
-        BorderPane inventoryLayout;
+    public StackPane getProductBoxLayout(){
+        FXMLLoader productBoxLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productBoxLayout.fxml"));
+        StackPane productBoxLayout;
         try {
-            inventoryLayout = loadInventory.load();
+            productBoxLayout = productBoxLayoutLoader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return inventoryLayout;
+        return productBoxLayout;
     }
 }

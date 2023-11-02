@@ -15,7 +15,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <StackPane fx:id="productTypeBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product_type.ProductTypeBoxController">
    <children>
       <VBox fx:id="productTypeVBox" spacing="5.0" styleClass="box-layout">
@@ -96,7 +95,7 @@
                      <children>
                         <AnchorPane GridPane.rowIndex="1">
                            <children>
-                              <Label layoutX="-41.0" layoutY="-3.0" text="Reference" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label alignment="CENTER" layoutX="-41.0" layoutY="-3.0" text="Reference" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font name="System Italic" size="12.0" />
                                  </font>
@@ -105,7 +104,7 @@
                         </AnchorPane>
                         <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <children>
-                              <Label fx:id="productTypeReferenceLabel" alignment="CENTER_RIGHT" text="ReferenceLabel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label fx:id="productTypeReferenceLabel" alignment="CENTER" text="ReferenceLabel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font name="System Italic" size="12.0" />
                                  </font>
@@ -114,7 +113,7 @@
                         </AnchorPane>
                         <AnchorPane GridPane.rowIndex="3">
                            <children>
-                              <Label prefHeight="17.6" prefWidth="150.4" text="Qualite" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label alignment="CENTER" prefHeight="17.6" prefWidth="150.4" text="Qualite" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font name="System Italic" size="12.0" />
                                  </font>
@@ -132,7 +131,7 @@
                         </AnchorPane>
                         <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="3">
                            <children>
-                              <Label fx:id="productTypeQualiteLabel" alignment="CENTER_RIGHT" prefHeight="18.4" prefWidth="131.2" text="QualiteLabel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label fx:id="productTypeQualiteLabel" alignment="CENTER" prefHeight="18.4" prefWidth="131.2" text="QualiteLabel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font name="System Italic" size="12.0" />
                                  </font>
@@ -150,7 +149,7 @@
                         </AnchorPane>
                         <AnchorPane GridPane.rowIndex="2">
                            <children>
-                              <Label prefHeight="17.6" prefWidth="150.4" text="Marque" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label alignment="CENTER" prefHeight="17.6" prefWidth="150.4" text="Marque" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font name="System Italic" size="12.0" />
                                  </font>
@@ -159,7 +158,7 @@
                         </AnchorPane>
                         <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="2">
                            <children>
-                              <Label fx:id="productTypeBrandLabel" alignment="CENTER_RIGHT" prefHeight="18.4" prefWidth="131.2" text="MarqueLabel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label fx:id="productTypeBrandLabel" alignment="CENTER" prefHeight="18.4" prefWidth="131.2" text="MarqueLabel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font name="System Italic" size="12.0" />
                                  </font>
@@ -182,6 +181,28 @@
                   </GridPane>
                </content>
             </ScrollPane>
+            <GridPane styleClass="box">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <AnchorPane>
+                     <children>
+                        <Label fx:id="articleQuantityLabel" alignment="CENTER" text="Quantity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font name="System Bold Italic" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </GridPane>
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

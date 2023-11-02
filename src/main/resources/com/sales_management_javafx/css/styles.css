@@ -11,7 +11,7 @@
     -fx-border-width: 1px;
     -fx-border-color: rgb(235, 235, 235);
 }
-.dashboard , .seller .gridpane{
+.seller .gridpane{
     -fx-background-color: #ffffff;
     -fx-text-fill: rgb(0, 0, 0);
 }
@@ -20,7 +20,7 @@
     -fx-border-color: rgb(234, 234, 234);
     -fx-background-color: #ffffff;
 }
-.dashboard .title{
+.title{
     -fx-background-color: #ffffff;
     -fx-text-fill: rgb(0, 0, 0);
     -fx-border-width: 1px;
@@ -28,25 +28,25 @@
     -fx-margin: 5px;
 
 }
-.dashboard .toolbar{
+.toolbar{
     -fx-border-width: 1px;
     -fx-border-color: rgb(234, 234, 234);
     -fx-padding: 5px;
     -fx-background-color: rgb(255, 255, 255);
 }
-.dashboard .inventory-button{
+.inventory-button{
     -fx-background-color: rgb(255, 255, 255);
     -fx-padding: 5px;
     -fx-text-fill: rgb(132, 132, 132);
     -fx-font-weight: bold;
 }
-.dashboard .exit-inventory-button{
+.exit-inventory-button{
     -fx-background-color: rgb(255, 0, 0);
     -fx-padding: 7px;
     -fx-text-fill: rgb(255, 255, 255);
     -fx-font-weight: bold;
 }
-.dashboard .article-box{
+.article-box{
     -fx-border-width: 1px;
     -fx-border-color: rgb(234, 234, 234);
     
@@ -72,7 +72,6 @@
 }
 .table-row-cell {
     -fx-text-fill: rgb(0, 0, 0);
-    /* -fx-background-color:rgb(219, 219, 219); */
 }
 .table-view .table-row-cell:focused {
     -fx-background-color:rgb(234, 234, 234);
@@ -81,39 +80,35 @@
     -fx-focus-color: rgb(207, 207, 207);
     -fx-faint-focus-color: #ffffff00;
 }   
-.dashboard .menu-pane{
+.menu-pane{
     -fx-background-color:rgb(255, 255, 255);
     -fx-border-color: rgb(234, 234, 234);
 }
-.dashboard .menus .no-active{
+.menus .no-active{
     -fx-text-fill: rgb(255, 255, 255);
 }
-.dashboard .menus .no-active:hover{
+.menus .no-active:hover{
     -fx-text-fill: rgb(36, 36, 36);
     -fx-font-size:1.1em;
 }
-.dashboard .menus .active{
+.menus .active{
     -fx-text-fill: rgb(36, 36, 36);
     -fx-font-size:1.1em;
 }
 
-.dashboard .menus .active:hover{
+.menus .active:hover{
     -fx-text-fill: rgb(36, 36, 36);
     -fx-font-size:1.1em;
-    /* -fx-font-weight: bold; */
 }
-.dashboard .menus .no-active .item-label{
+.menus .no-active .item-label{
     -fx-padding :.8em 5px;
     -fx-text-fill: rgb(110, 110, 110);
 }
-.dashboard .menus .active .item-label{
+.menus .active .item-label{
     -fx-text-fill: rgb(36, 36, 36);
     -fx-font-size:1.1em;
 }
-.dashboard .menus .no-active .item-label:hover{
-    
-}
-.dashboard .form{
+.form{
     -fx-background-color: #ffffff;
     -fx-padding :5px;
     -fx-border-width: 1px;
@@ -125,17 +120,12 @@
     -fx-border-color: rgb(235, 235, 235);
 
 }
-.dashboard .information{
+.information{
     -fx-border-width: 1px;
     -fx-border-color: rgb(234, 234, 234);
     -fx-background-color: #dedede
 }
-.dashboard .box{
-    -fx-border-width: 1px;
-    -fx-border-color: rgb(235, 235, 235);
-    -fx-background-color: rgb(255, 255, 255);
-}
-.seller .box{
+.box{
     -fx-border-width: 1px;
     -fx-border-color: rgb(235, 235, 235);
     -fx-background-color: rgb(255, 255, 255);
@@ -145,23 +135,23 @@
     -fx-border-color: rgb(235, 235, 235);
     -fx-background-color: rgb(255, 255, 255);
 }
-.dashboard .box-layout{
+.box-layout{
     -fx-border-width: 1px;
     -fx-border-color: rgb(234, 234, 234);
     -fx-background-color: #ffffff;
 }
-.dashboard .box-layout-pane{
+.box-layout-pane{
     -fx-border-color: rgb(202, 202, 202);
     -fx-background-color: #ffffff;
 }
-.dashboard .gridpane{
+.gridpane{
     -fx-background-color: #ffffff;
     -fx-border-color: rgb(255, 255, 255);
 }
 .color{
     -fx-background-color: #484848;
 }
-.dashboard .active .box{
+.active .box{
     -fx-background-color: #f2f2f2;
     -fx-border-width: 1px;
     -fx-border-color: rgb(235, 235, 235);

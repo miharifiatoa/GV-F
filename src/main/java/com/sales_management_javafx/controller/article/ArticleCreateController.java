@@ -22,6 +22,8 @@ import org.sales_management.service.ProductService;
 import org.sales_management.service.ProductTypeService;
 
 import java.net.URL;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ArticleCreateController implements Initializable {
@@ -70,10 +72,11 @@ public class ArticleCreateController implements Initializable {
         }
         this.articleCodeTextfield.textProperty().addListener(event->{
             if (!articleCodeTextfield.getText().isEmpty()){
-                ArticleEntity article = articleService.isUniqueValue(articleCodeTextfield.getText());
-                if (article != null){
+                ArticleEntity article1 = articleService.isUniqueValue(articleCodeTextfield.getText().toLowerCase());
+                ArticleEntity article2 = articleService.isUniqueValue(articleCodeTextfield.getText().toUpperCase());
+                if (article1 != null || article2 != null){
                     save.setDisable(true);
-                    identifyWarning.setText(articleCodeTextfield.getText() + " existe deja dans la liste d 'article " + article.getProductType().getName());
+                    identifyWarning.setText(articleCodeTextfield.getText() + " existe deja dans la liste d 'article " + Objects.requireNonNullElse(article1, article2).getProductType().getName());
                 }
                 else {
                     save.setDisable(false);

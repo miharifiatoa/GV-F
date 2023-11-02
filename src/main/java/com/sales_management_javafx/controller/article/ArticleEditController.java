@@ -38,7 +38,7 @@ public class ArticleEditController implements Initializable {
     @FXML
     private VBox articleEditVBox;
     @FXML
-    ProductGridPane productGridPane =new ProductGridPane();
+    ProductGridPane productGridPane = new ProductGridPane();
     private final ProductService productService;
     private final ProductCategoryService productCategoryService;
     private final ArticleService articleService;

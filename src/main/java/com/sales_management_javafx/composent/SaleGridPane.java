@@ -30,11 +30,13 @@ public class SaleGridPane {
         int col = 0;
         int row = 0;
         for (SaleEntity sale : sales) {
-            gridPane.add(this.getSaleBox(sale), col, row);
-            col++;
-            if (col == colSize) {
-                col = 0;
-                row++;
+            if (!sale.getCanceled()){
+                gridPane.add(this.getSaleBox(sale), col, row);
+                col++;
+                if (col == colSize) {
+                    col = 0;
+                    row++;
+                }
             }
         }
         gridPane.getStyleClass().add("gridpane");

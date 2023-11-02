@@ -70,9 +70,9 @@ public class ArticleInfoController implements Initializable {
                 getArticleLayoutScrollpane().setContent(arrivalArticleGridpane);
             }
             else if (Objects.equals(getArticleLayoutScrollpane().getId(),"shareArticleLayoutScrollpane")){
-                Collection<ArticleEntity> shares = FileIO.readArticleFromFile("articles.dat");
+                Collection<ArticleEntity> shares = FileIO.readArticleFromFile("shares.dat");
                 shares.remove(article);
-                FileIO.writeTo("articles.dat",shares);
+                FileIO.writeTo("shares.dat",shares);
                 GridPane shareArticleGridpane  = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("articles.dat"),2);
                 GridPane stockistArticleGridPane = new StockistArticleGridPane().getGridPane(new ArticleService().getAll(),4);
                 ScrollPane stockistBoxLayoutScrollpane = (ScrollPane) getArticleLayoutScrollpane().getParent().getParent().getParent().getParent().lookup("#stockistBoxLayoutScrollpane");

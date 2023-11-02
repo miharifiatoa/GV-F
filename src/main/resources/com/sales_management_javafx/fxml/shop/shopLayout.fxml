@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<BorderPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.shop.ShopLayoutController">
+<BorderPane fx:id="shopLayout" prefHeight="185.0" prefWidth="269.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.shop.ShopLayoutController">
    <center>
-      <BorderPane fx:id="shop_layout" prefHeight="200.0" prefWidth="288.0" styleClass="layout">
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </BorderPane>
+      <ScrollPane fx:id="shopBoxLayoutScrollpane" fitToHeight="true" fitToWidth="true" styleClass="box" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="5.0" top="5.0" />
+         </BorderPane.margin>
+      </ScrollPane>
    </center>
-   <padding>
-      <Insets left="10.0" />
-   </padding>
 </BorderPane>

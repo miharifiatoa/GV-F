@@ -75,21 +75,22 @@ public class ProductTypeCreateController implements Initializable {
         if (productTypeNameTextfield.getText().isEmpty()){
             save.setDisable(true);
         }
-        productTypeNameTextfield.textProperty().addListener(event->{
-            if (!productTypeNameTextfield.getText().isEmpty()){
-                ProductTypeEntity productType = productTypeService.isUniqueValue(productTypeNameTextfield.getText());
-                if (productType != null){
-                    nameWarning.setText(productTypeNameTextfield.getText() + " existe deja dans la type du produit " + productType.getProduct().getName());
+        productTypeNameTextfield.textProperty().addListener((observable, oldValue, newValue) -> {
+            String typeName = newValue.trim();
+            if (!typeName.isEmpty()) {
+                ProductTypeEntity existingProductType = productTypeService.isUniqueValue(typeName);
+                if (existingProductType != null) {
+                    nameWarning.setText(typeName + " existe déjà dans le type de produit " + existingProductType.getProduct().getName());
                     save.setDisable(true);
-                }
-                else {
+                } else {
                     nameWarning.setText(null);
                     save.setDisable(false);
                 }
-            }
-            else {
+            } else {
                 nameWarning.setText("Champ obligatoire");
+                save.setDisable(true);
             }
         });
+
     }
 }

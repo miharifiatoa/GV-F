@@ -31,20 +31,10 @@ public class InventoryLayoutController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.putProductBoxLayout();
         if (this.inventoryService.getAll().isEmpty() || this.inventoryService.getAll().size()==0){
             InventoryEntity inventory = new InventoryEntity();
             inventory.setCode(100);
             inventoryService.create(inventory);
-        }
-    }
-    private void putProductBoxLayout(){
-        FXMLLoader productBoxLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productBoxLayout.fxml"));
-        try {
-            StackPane productBoxLayout = productBoxLayoutLoader.load();
-            this.inventoryLayoutBorderpane.setCenter(productBoxLayout);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 }

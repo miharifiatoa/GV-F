@@ -24,6 +24,7 @@ import org.sales_management.service.SaleService;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.ResourceBundle;
@@ -54,12 +55,17 @@ public class PannierLayoutController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         NumberTextField.requireDouble(this.totalPayedTextfield);
         this.reimbursementLabel.setText(null);
-        this.priceTotal.setText("Prix total : " + FileIO.getPriceTotal("sales.dat") +"Ar");
         this.putIcons();
         this.exit.setOnAction(event->this.setExit());
         this.setArticles();
         this.formValidation();
         this.setSale();
+        this.setPriceTotal();
+    }
+    private void setPriceTotal(){
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
+        String price = decimalFormat.format(FileIO.getPriceTotal("sales.dat"));
+        this.priceTotal.setText("Prix total : " + price +"Ar");
     }
     private void setArticles(){
         GridPane gridPane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("sales.dat"),2);
@@ -75,6 +81,7 @@ public class PannierLayoutController implements Initializable {
             saleEntity.setClientName(clientNameTextfield.getText());
             saleEntity.setSaleDate(LocalDateTime.now());
             saleEntity.setDescription("test");
+            saleEntity.setCanceled(false);
             if (saleService.toSaleArticles(saleEntity,FileIO.readArticleFromFile("sales.dat")) != null){
                 Collection<ArticleEntity> articles = FileIO.readArticleFromFile("sales.dat");
                 articles.clear();

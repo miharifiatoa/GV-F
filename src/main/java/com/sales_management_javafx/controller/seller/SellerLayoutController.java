@@ -24,8 +24,7 @@ public class SellerLayoutController implements Initializable {
     private BorderPane sellerLayout;
     @FXML
     private ScrollPane sellerArticleScrollpane;
-    @FXML
-    private Label productNameLabel;
+
     @FXML private TextField searchTextfield;
     private final ArticleService articleService;
 
@@ -37,18 +36,12 @@ public class SellerLayoutController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.sellerLayout.setBottom(this.getToolbar());
         this.setProducts();
-        this.onShowProducts();
         this.setSearchTextfield();
     }
 
     private void setProducts(){
         GridPane gridPane = new SellerArticleGridPane().getGridPane(articleService.getAll(),4);
         sellerArticleScrollpane.setContent(gridPane);
-    }
-    private void onShowProducts(){
-        productNameLabel.setOnMouseClicked(event->{
-            this.setProducts();
-        });
     }
     private void setSearchTextfield(){
         searchTextfield.textProperty().addListener(event->{
