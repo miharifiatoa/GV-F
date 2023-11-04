@@ -41,10 +41,10 @@ public class AdminSaleBoxController implements Initializable {
         this.saleVBox.setVisible(true);
     }
     public void initialize(SaleEntity sale){
-        sum.setText(getSum(sale) + " Ar");
+        sum.setText("Prix total : " + getSum(sale) + " Ar");
         saleDateLabel.setText(String.valueOf(sale.getSaleDate()));
         descriptionLabel.setText("Payement par : " + sale.getDescription());
-        articleNumbersLabel.setText(sale.getClientName() + " a acheté " + getTotalSize(sale) + " produit(s)");
+        articleNumbersLabel.setText(sale.getUser().getAccount().getUsername() + " a vendu " + getTotalSize(sale) + " produit(s) au client : " + sale.getClientName());
     }
 
     private int getTotalSize(SaleEntity sale){

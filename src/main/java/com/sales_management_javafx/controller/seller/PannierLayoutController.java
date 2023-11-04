@@ -18,9 +18,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import org.sales_management.entity.ArticleEntity;
 import org.sales_management.entity.SaleEntity;
+import org.sales_management.entity.UserEntity;
 import org.sales_management.service.ArticleService;
 import org.sales_management.service.SaleArticleService;
 import org.sales_management.service.SaleService;
+import org.sales_management.session.SessionManager;
 
 import java.io.IOException;
 import java.net.URL;
@@ -44,8 +46,10 @@ public class PannierLayoutController implements Initializable {
     private final ArticleService articleService;
     private final SaleService saleService;
     private final SaleArticleService saleArticleService;
+    private final UserEntity user;
 
     public PannierLayoutController() {
+        this.user = SessionManager.getSession().getCurrentUser();
         this.saleArticleService = new SaleArticleService();
         this.saleService = new SaleService();
         this.articleService = new ArticleService();
@@ -82,6 +86,9 @@ public class PannierLayoutController implements Initializable {
             saleEntity.setSaleDate(LocalDateTime.now());
             saleEntity.setDescription("test");
             saleEntity.setCanceled(false);
+            if (user != null){
+                saleEntity.setUser(user);
+            }
             if (saleService.toSaleArticles(saleEntity,FileIO.readArticleFromFile("sales.dat")) != null){
                 Collection<ArticleEntity> articles = FileIO.readArticleFromFile("sales.dat");
                 articles.clear();

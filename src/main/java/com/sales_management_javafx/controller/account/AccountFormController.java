@@ -1,6 +1,7 @@
 package com.sales_management_javafx.controller.account;
 
 import com.sales_management_javafx.SalesApplication;
+import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.composent.AccountGridPane;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -11,8 +12,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.sales_management.entity.AccountEntity;
 import org.sales_management.entity.PersonEntity;
 import org.sales_management.entity.UserEntity;
@@ -62,18 +65,6 @@ public class AccountFormController implements Initializable {
         username.textProperty().addListener(((observableValue, s, t1) -> confirm_button.setDisable(username.getText().isEmpty() || password.getText().isEmpty())));
         password.textProperty().addListener(((observableValue, s, t1) -> confirm_button.setDisable(username.getText().isEmpty() || password.getText().isEmpty())));
     }
-    public UserEntity getUserFromFile(){
-        UserEntity user;
-        try(FileInputStream fileInputStream = new FileInputStream("C:\\Users\\ASUS\\IdeaProjects\\Sales_management_javafx\\src\\main\\resources\\com\\sales_management_javafx\\data\\user.txt")) {
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            user = (UserEntity) objectInputStream.readObject();
-            objectInputStream.close();
-            System.out.println(user + " read from file");
-        } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        return user;
-    }
     public void putToolbarInBorderpane(){
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountToolbar.fxml"));
@@ -87,21 +78,21 @@ public class AccountFormController implements Initializable {
     public void createAccount(){
         confirm_button.setOnAction(actionEvent -> {
             if (this.accountService.isUniqueValue(username.getText())){
-                PersonEntity person = this.getUserFromFile().getPerson();
+                UserEntity user = (UserEntity) FileIO.readFrom("user.dat");
+                PersonEntity person = user.getPerson();
                 if (this.personService.create(person)!=null){
-                    UserEntity user = this.getUserFromFile();
                     user.setPerson(person);
                     if (this.userService.create(user)!=null){
                         AccountEntity account = new AccountEntity();
                         account.setUsername(username.getText());
-                        account.setPassword(password.getText());
+                        account.setPassword(DigestUtils.sha256Hex(password.getText()));
                         account.setUser(user);
                         if (this.accountService.create(account)!=null){
-                            BorderPane accountLayout = (BorderPane) this.account_form.getParent();
-                            ScrollPane scrollPane = (ScrollPane) accountLayout.lookup("#accountLayoutScrollpane");
+                            BorderPane dashboardLayout = (BorderPane) this.account_form.getParent();
+                            ScrollPane dashboardLayoutScrollpane = (ScrollPane) dashboardLayout.lookup("#dashboardLayoutScrollpane");
                             GridPane accountGridPane = new AccountGridPane().getGridPane(new AccountService().getAll(),4);
-                            scrollPane.setContent(accountGridPane);
-                            this.putToolbarInBorderpane();
+                            dashboardLayoutScrollpane.setContent(accountGridPane);
+                            dashboardLayout.setBottom(this.getDashboardToolbar());
                         }
                     }
                 }
@@ -115,14 +106,28 @@ public class AccountFormController implements Initializable {
     }
     public void previous(){
         previous_button.setOnAction(actionEvent -> {
-            FXMLLoader fxmlLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/user/userForm.fxml"));
-            try {
-                VBox user_form = fxmlLoader.load();
-                BorderPane parent = (BorderPane) account_form.getParent();
-                parent.setBottom(user_form);
-            } catch (IOException e) {
-                System.out.println("Error while getting toolbar.fxml");
-            }
+            BorderPane dashboardLayout = (BorderPane) account_form.getParent();
+            dashboardLayout.setBottom(getUserForm());
         });
+    }
+    private VBox getUserForm(){
+        FXMLLoader userFormLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/user/userForm.fxml"));
+        VBox userForm;
+        try {
+            userForm = userFormLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return userForm;
+    }
+    private StackPane getDashboardToolbar(){
+        FXMLLoader dashboardToolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/dashboard/dashboardToolbar.fxml"));
+        StackPane dashboardToolbar;
+        try {
+            dashboardToolbar = dashboardToolbarLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return dashboardToolbar;
     }
 }

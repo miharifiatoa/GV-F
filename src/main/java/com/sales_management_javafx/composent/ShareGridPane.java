@@ -1,24 +1,24 @@
 package com.sales_management_javafx.composent;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.controller.seller.SellerProductBoxController;
+import com.sales_management_javafx.controller.admin.AdminShareBoxController;
+import com.sales_management_javafx.controller.share.ShareBoxController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
-import org.sales_management.entity.ProductEntity;
+import org.sales_management.entity.ShareEntity;
 
 import java.io.IOException;
 import java.util.Collection;
 
-public class SellerProductGridPane {
+public class ShareGridPane {
     private final GridPane gridPane;
-
-    public SellerProductGridPane() {
+    public ShareGridPane() {
         this.gridPane = new GridPane();
     }
-    public GridPane getGridPane(Collection<ProductEntity> products, int colSize){
+    public GridPane getGridPane(Collection<ShareEntity> shares , int colSize) {
         for (int i = 0 ; i < colSize ; i++){
             ColumnConstraints constraints = new ColumnConstraints();
             constraints.setHgrow(Priority.ALWAYS);
@@ -28,8 +28,8 @@ public class SellerProductGridPane {
         }
         int col = 0;
         int row = 0;
-        for (ProductEntity product : products) {
-            gridPane.add(this.getSellerProductBox(product), col, row);
+        for (ShareEntity share : shares) {
+            gridPane.add(this.getShareBox(share), col, row);
             col++;
             if (col == colSize) {
                 col = 0;
@@ -39,16 +39,16 @@ public class SellerProductGridPane {
         gridPane.getStyleClass().add("gridpane");
         return gridPane;
     }
-    private StackPane getSellerProductBox(ProductEntity product){
-        FXMLLoader productBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/seller/sellerProductBox.fxml"));
-        StackPane stackPane;
+    private StackPane getShareBox(ShareEntity share){
+        FXMLLoader shareBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/share/shareBox.fxml"));
+        StackPane shareBox;
         try {
-            stackPane = productBoxLoader.load();
-            SellerProductBoxController sellerProductBoxController = productBoxLoader.getController();
-            sellerProductBoxController.initialize(product);
+            shareBox = shareBoxLoader.load();
+            ShareBoxController shareBoxController = shareBoxLoader.getController();
+            shareBoxController.initialize(share);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return stackPane;
+        return shareBox;
     }
 }

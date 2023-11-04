@@ -15,15 +15,16 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.sales_management.entity.SaleArticleEntity;
 import org.sales_management.entity.SaleEntity;
+import org.sales_management.entity.UserEntity;
 import org.sales_management.service.ArticleService;
 import org.sales_management.service.SaleService;
+import org.sales_management.session.SessionManager;
 
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-import java.util.Vector;
 
 public class SaleBoxController implements Initializable {
     @FXML private Label saleDateLabel;
@@ -40,8 +41,10 @@ public class SaleBoxController implements Initializable {
     @FXML private StackPane saleBox;
     private final SaleService saleService;
     private final ArticleService articleService;
+    private final UserEntity user;
 
     public SaleBoxController() {
+        this.user = SessionManager.getSession().getCurrentUser();
         this.articleService = new ArticleService();
         this.saleService = new SaleService();
     }
@@ -58,7 +61,7 @@ public class SaleBoxController implements Initializable {
         sum.setText(getSum(sale) + " Ar");
         saleDateLabel.setText(String.valueOf(sale.getSaleDate()));
         descriptionLabel.setText("Payement par : " + sale.getDescription());
-        articleNumbersLabel.setText(sale.getClientName() + " a acheté " + getTotalSize(sale) + " produit(s)");
+        articleNumbersLabel.setText("Vous avez vendu " + getTotalSize(sale) + " produit(s) au client : " + sale.getClientName());
         cancelText.setText("Voulez vous vraiment annuler cette vente des produits au client : " + sale.getClientName());
         this.setFacture(sale);
     }

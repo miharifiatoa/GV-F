@@ -16,6 +16,7 @@ public class MenuIcon {
         menuIcons.put("SALE" , "SaleIcon.png");
         menuIcons.put("ARRIVAL" , "ArrivalIcon.png");
         menuIcons.put("STOCK" , "InventoryIcon.png");
+        menuIcons.put("SHARE" , "ShareIcon.png");
         return menuIcons;
     }
 }

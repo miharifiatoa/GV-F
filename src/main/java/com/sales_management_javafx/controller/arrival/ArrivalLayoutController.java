@@ -2,6 +2,7 @@ package com.sales_management_javafx.controller.arrival;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
+import com.sales_management_javafx.composent.ArrivalGridPane;
 import com.sales_management_javafx.composent.ArticleInfoGridPane;
 import com.sales_management_javafx.composent.StockistArticleGridPane;
 import javafx.fxml.FXML;
@@ -17,12 +18,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import org.sales_management.entity.ArrivalEntity;
 import org.sales_management.entity.ArticleEntity;
+import org.sales_management.entity.UserEntity;
 import org.sales_management.service.ArrivalService;
 import org.sales_management.service.ArticleService;
+import org.sales_management.session.SessionManager;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.ResourceBundle;
@@ -30,14 +32,19 @@ import java.util.ResourceBundle;
 public class ArrivalLayoutController implements Initializable {
     @FXML private Button exit;
     @FXML private Button save;
+    @FXML private Button arrival;
+    @FXML private Button listArrival;
     @FXML private StackPane arrivalLayout;
     @FXML private ScrollPane arrivalLayoutScrollpane;
     @FXML private ImageView arrivalIcon;
+    @FXML private ImageView listArrivalIcon;
     @FXML private TextField arrivalDescriptionTextfield;
     private final ArticleService articleService;
     private final ArrivalService arrivalService;
+    private final UserEntity user;
 
     public ArrivalLayoutController() {
+        this.user = SessionManager.getSession().getCurrentUser();
         this.arrivalService = new ArrivalService();
         this.articleService = new ArticleService();
     }
@@ -49,11 +56,25 @@ public class ArrivalLayoutController implements Initializable {
         this.setArrivalLayoutScrollpane();
         this.putIcons();
         this.formValidation();
+        this.setArrival();
+        this.setListArrival();
     }
     private void setExit(){
         arrivalLayout.getParent().setVisible(false);
         BorderPane stockistLayout = (BorderPane) arrivalLayout.getParent().getParent().getParent();
         stockistLayout.setBottom(getToolbar());
+    }
+    private void setArrival(){
+        arrival.setOnAction(event->{
+            GridPane gridPane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("arrivals.dat"),2);
+            arrivalLayoutScrollpane.setContent(gridPane);
+        });
+    }
+    private void setListArrival(){
+        listArrival.setOnAction(event->{
+            GridPane arrivalGridPane = new ArrivalGridPane().getGridPane(new ArrivalService().getAll(),4);
+            arrivalLayoutScrollpane.setContent(arrivalGridPane);
+        });
     }
     private void setSave(){
         save.setOnAction(event->{
@@ -61,6 +82,9 @@ public class ArrivalLayoutController implements Initializable {
             ArrivalEntity arrival = new ArrivalEntity();
             arrival.setArrivalDate(LocalDateTime.now());
             arrival.setDescription(arrivalDescriptionTextfield.getText());
+            if (user != null){
+                arrival.setUser(user);
+            }
             if (arrivalService.toSaveArrival(arrival,articles)!=null){
                 articles.clear();
                 FileIO.writeTo("arrivals.dat",articles);
@@ -73,12 +97,8 @@ public class ArrivalLayoutController implements Initializable {
         });
     }
     private void setArrivalLayoutScrollpane(){
-        try {
-            GridPane gridPane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("arrivals.dat"),2);
-            arrivalLayoutScrollpane.setContent(gridPane);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        GridPane gridPane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("arrivals.dat"),2);
+        arrivalLayoutScrollpane.setContent(gridPane);
     }
     private BorderPane getStockistLayout(){
         return (BorderPane) arrivalLayout.getParent().getParent().getParent();
@@ -88,6 +108,7 @@ public class ArrivalLayoutController implements Initializable {
     }
     public void putIcons(){
         arrivalIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/ArrivalIcon.png"))));
+        listArrivalIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/ListIcon.png"))));
     }
     private StackPane getToolbar(){
         FXMLLoader toolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/stockist/stockistToolbar.fxml"));

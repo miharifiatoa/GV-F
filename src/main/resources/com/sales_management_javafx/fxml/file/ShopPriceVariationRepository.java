@@ -1,7 +1,7 @@
 package com.sales_management_javafx.fxml.file;
 
 import org.hibernate.Session;
-import org.sales_management.HibernateUtil;
+import org.sales_management.session.HibernateUtil;
 import org.sales_management.entity.ShopPriceVariationEntity;
 import org.sales_management.interfaces.CrudInterface;
 

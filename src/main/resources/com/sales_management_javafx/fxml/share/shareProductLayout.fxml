@@ -29,7 +29,6 @@
          <top>
             <GridPane maxHeight="45.0" minHeight="45.0" prefHeight="45.0" prefWidth="502.0" styleClass="box">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" />
                   <ColumnConstraints hgrow="SOMETIMES" />
                   <ColumnConstraints hgrow="SOMETIMES" />
                </columnConstraints>
@@ -37,17 +36,27 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <AnchorPane GridPane.columnIndex="1">
+                  <HBox alignment="CENTER_LEFT">
                      <children>
-                        <Label alignment="BASELINE_LEFT" prefHeight="34.4" prefWidth="447.2" text="Listes des produits à partager" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Button fx:id="share" mnemonicParsing="false" styleClass="buttons" text="Listes des produits à partager">
+                           <graphic>
+                              <ImageView fx:id="shareIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic>
                            <font>
                               <Font name="System Bold Italic" size="12.0" />
                            </font>
-                        </Label>
+                        </Button>
+                        <Button fx:id="shareList" layoutX="10.0" layoutY="14.0" mnemonicParsing="false" styleClass="buttons" text="Partages">
+                           <graphic>
+                              <ImageView fx:id="shareListIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic>
+                           <font>
+                              <Font name="System Bold Italic" size="12.0" />
+                           </font>
+                        </Button>
                      </children>
-                  </AnchorPane>
-                  <ImageView fx:id="shareListIcon" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
-                  <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="2">
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                      <children>
                         <Button fx:id="closeShareListButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #acacac;" textFill="RED">
                            <font>

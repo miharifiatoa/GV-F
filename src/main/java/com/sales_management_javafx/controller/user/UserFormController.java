@@ -1,6 +1,7 @@
 package com.sales_management_javafx.controller.user;
 
 import com.sales_management_javafx.SalesApplication;
+import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.classes.NumberTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.sales_management.entity.PersonEntity;
 import org.sales_management.entity.UserEntity;
@@ -39,9 +41,6 @@ public class UserFormController implements Initializable {
     @FXML
     private Button next_button;
 
-    public UserFormController() {
-
-    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.closeForm();
@@ -59,14 +58,8 @@ public class UserFormController implements Initializable {
     }
     public void closeForm(){
         cancel_button.setOnAction(actionEvent -> {
-            FXMLLoader fxmlLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountToolbar.fxml"));
-            try {
-                GridPane toolbar = fxmlLoader.load();
-                BorderPane parent = (BorderPane) user_form.getParent();
-                parent.setBottom(toolbar);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            BorderPane dashboardLayout = (BorderPane) user_form.getParent();
+            dashboardLayout.setBottom(getDashboardToolbar());
         });
     }
     public PersonEntity createPerson(){
@@ -86,20 +79,9 @@ public class UserFormController implements Initializable {
             user.setCin(Long.valueOf(user_cin.getText()));
         }
         user.setEmail(user_email.getText());
-        user.setRole("USER");
+        user.setRole("STOCKIST");
         user.setPerson(this.createPerson());
         return user;
-    }
-    private void writeObjectOnFile() {
-        try (FileOutputStream fileOutputStream = new FileOutputStream("C:\\Users\\ASUS\\IdeaProjects\\Sales_management_javafx\\src\\main\\resources\\com\\sales_management_javafx\\data\\user.txt")) {
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            UserEntity user = this.createUser();
-            objectOutputStream.writeObject(user);
-            objectOutputStream.close();
-            System.out.println(user + " written on file");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
     }
     public void next(){
         next_button.setOnAction(actionEvent -> {
@@ -107,11 +89,21 @@ public class UserFormController implements Initializable {
             try {
                 VBox accountForm = fxmlLoader.load();
                 BorderPane parent = (BorderPane) user_form.getParent();
-                this.writeObjectOnFile();
+                FileIO.writeTo("user.dat",this.createUser());
                 parent.setBottom(accountForm);
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
         });
+    }
+    private StackPane getDashboardToolbar(){
+        FXMLLoader dashboardToolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/dashboard/dashboardToolbar.fxml"));
+        StackPane dashboardToolbar;
+        try {
+            dashboardToolbar = dashboardToolbarLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return dashboardToolbar;
     }
 }

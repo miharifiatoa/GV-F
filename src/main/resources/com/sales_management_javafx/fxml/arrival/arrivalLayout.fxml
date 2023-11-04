@@ -30,7 +30,6 @@
          <top>
             <GridPane maxHeight="45.0" minHeight="45.0" prefHeight="45.0" prefWidth="502.0" styleClass="box">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" />
                   <ColumnConstraints hgrow="SOMETIMES" />
                   <ColumnConstraints hgrow="SOMETIMES" />
                </columnConstraints>
@@ -38,17 +37,27 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <AnchorPane GridPane.columnIndex="1">
+                  <HBox alignment="CENTER_LEFT">
                      <children>
-                        <Label prefHeight="36.0" prefWidth="442.4" text="Arrivage des produits" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Button fx:id="arrival" mnemonicParsing="false" styleClass="buttons" text="Arrivage des produits">
+                           <graphic>
+                              <ImageView fx:id="arrivalIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic>
                            <font>
                               <Font name="System Bold Italic" size="12.0" />
                            </font>
-                        </Label>
+                        </Button>
+                        <Button fx:id="listArrival" layoutX="10.0" layoutY="14.0" mnemonicParsing="false" styleClass="buttons" text="Listes">
+                           <graphic>
+                              <ImageView fx:id="listArrivalIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic>
+                           <font>
+                              <Font name="System Bold Italic" size="12.0" />
+                           </font>
+                        </Button>
                      </children>
-                  </AnchorPane>
-                  <ImageView fx:id="arrivalIcon" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
-                  <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="2">
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                      <children>
                         <Button fx:id="exit" alignment="CENTER" contentDisplay="CENTER" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #acacac;" textFill="RED">
                            <font>

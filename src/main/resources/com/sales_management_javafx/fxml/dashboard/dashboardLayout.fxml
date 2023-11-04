@@ -23,7 +23,7 @@
                <center>
                   <ScrollPane fx:id="dashboardLayoutScrollpane" fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" styleClass="box">
                      <BorderPane.margin>
-                        <Insets top="5.0" />
+                        <Insets bottom="5.0" top="5.0" />
                      </BorderPane.margin>
                   </ScrollPane>
                </center>

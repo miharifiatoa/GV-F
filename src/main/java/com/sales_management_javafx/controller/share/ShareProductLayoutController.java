@@ -3,6 +3,7 @@ package com.sales_management_javafx.controller.share;
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.composent.ArticleInfoGridPane;
+import com.sales_management_javafx.composent.ShareGridPane;
 import com.sales_management_javafx.composent.ShopGridPane;
 import com.sales_management_javafx.composent.StockistArticleGridPane;
 import javafx.fxml.FXML;
@@ -18,10 +19,11 @@ import javafx.scene.layout.StackPane;
 import org.sales_management.entity.ArticleEntity;
 import org.sales_management.entity.ShareEntity;
 import org.sales_management.entity.ShopEntity;
+import org.sales_management.entity.UserEntity;
 import org.sales_management.service.ArticleService;
-import org.sales_management.service.ProductService;
 import org.sales_management.service.ShareService;
 import org.sales_management.service.ShopService;
+import org.sales_management.session.SessionManager;
 
 import java.io.IOException;
 import java.net.URL;
@@ -30,38 +32,30 @@ import java.util.Collection;
 import java.util.ResourceBundle;
 public class ShareProductLayoutController implements Initializable {
     @FXML private StackPane shareArticleLayoutStackpane;
-    @FXML
-    private BorderPane shareArticleLayoutBorderpane;
-    @FXML
-    private ScrollPane shareArticleLayoutScrollpane;
-    @FXML
-    private ImageView shareListIcon;
-    @FXML
-    private ImageView sendIcon;
-    @FXML
-    private ImageView shopIcon;
+    @FXML private BorderPane shareArticleLayoutBorderpane;
+    @FXML private ScrollPane shareArticleLayoutScrollpane;
+    @FXML private ImageView shareListIcon;
+    @FXML private ImageView shareIcon;
+    @FXML private ImageView sendIcon;
+    @FXML private ImageView shopIcon;
     @FXML private ImageView returnIcon;
-    @FXML
-    private Button closeShareListButton;
-    @FXML
-    private Button shareProductButton;
-    @FXML
-    private Button sendProductButton;
-    @FXML
-    private Button returnButton;
-    @FXML
-    private GridPane shareToolbar;
-    @FXML
-    private BorderPane shopLayoutBorderpane;
+    @FXML private Button closeShareListButton;
+    @FXML private Button shareProductButton;
+    @FXML private Button sendProductButton;
+    @FXML private Button returnButton;
+    @FXML private Button shareList;
+    @FXML private Button share;
+    @FXML private GridPane shareToolbar;
+    @FXML private BorderPane shopLayoutBorderpane;
     private final ShopService shopService;
     private final ShareService shareService;
+    private final UserEntity user;
 
     public ShareProductLayoutController() {
+        this.user = SessionManager.getSession().getCurrentUser();
         this.shareService = new ShareService();
         this.shopService = new ShopService();
     }
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.shareArticleLayoutBorderpane.setVisible(true);
@@ -75,18 +69,27 @@ public class ShareProductLayoutController implements Initializable {
         this.onReturnToShareList();
         this.setShops();
         this.setShareProductButton();
+        this.setShare();
+        this.setShareList();
     }
-
+    private void setShare(){
+        share.setOnAction(event->{
+            setProducts();
+        });
+    }
+    private void setShareList(){
+        shareList.setOnAction(event->{
+            GridPane shareGridPane = new ShareGridPane().getGridPane(new ShareService().getAll(),4);
+            shareArticleLayoutScrollpane.setContent(shareGridPane);
+        });
+    }
     public void setProducts(){
-        try {
-            GridPane gridPane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("shares.dat"),2);
-            shareArticleLayoutScrollpane.setContent(gridPane);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        GridPane articleInfoGridPane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("shares.dat"),2);
+        shareArticleLayoutScrollpane.setContent(articleInfoGridPane);
     }
     public void putIcons(){
-        shareListIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/ShowShareListIcon.png"))));
+        shareIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/ShowShareListIcon.png"))));
+        shareListIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/ListIcon.png"))));
         sendIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/SendIcon.png"))));
         shopIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/ShopIcon.png"))));
         returnIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/ReturnIcon.png"))));
@@ -100,8 +103,11 @@ public class ShareProductLayoutController implements Initializable {
     private void setShareProductButton(){
         shareProductButton.setOnAction(event->{
             ShareEntity share = new ShareEntity();
-            share.setShop(null);
-            share.setUser(null);
+            ShopEntity shop = (ShopEntity) FileIO.readFrom("shop.dat");
+            share.setShop(shop);
+            if (user != null){
+                share.setUser(user);
+            }
             share.setShareDate(LocalDateTime.now());
             Collection<ArticleEntity> articles = FileIO.readArticleFromFile("shares.dat");
             if (shareService.toShareArticles(share , articles) != null){

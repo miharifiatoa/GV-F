@@ -1,29 +1,32 @@
 package com.sales_management_javafx.controller.inventory;
 
-import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.MenuIcon;
 import com.sales_management_javafx.composent.MenuGridPane;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
+import org.sales_management.entity.AccountEntity;
 import org.sales_management.entity.InventoryEntity;
+import org.sales_management.entity.UserEntity;
+import org.sales_management.service.AccountService;
 import org.sales_management.service.InventoryService;
+import org.sales_management.service.UserService;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class InventoryLayoutController implements Initializable {
     @FXML
     private BorderPane inventoryLayoutBorderpane;
-    private final InventoryService inventoryService;
     private final MenuGridPane menuGridPane;
     private final MenuIcon menuIcon;
+    private final InventoryService inventoryService;
+    private final AccountService accountService;
+    private final UserService userService;
 
     public InventoryLayoutController() {
+        this.userService = new UserService();
+        this.accountService = new AccountService();
         this.menuIcon = new MenuIcon();
         this.menuGridPane = new MenuGridPane();
         this.inventoryService = new InventoryService();
@@ -31,10 +34,6 @@ public class InventoryLayoutController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (this.inventoryService.getAll().isEmpty() || this.inventoryService.getAll().size()==0){
-            InventoryEntity inventory = new InventoryEntity();
-            inventory.setCode(100);
-            inventoryService.create(inventory);
-        }
+
     }
 }

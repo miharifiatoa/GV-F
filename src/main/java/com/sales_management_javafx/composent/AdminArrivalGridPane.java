@@ -2,7 +2,6 @@ package com.sales_management_javafx.composent;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.controller.admin.AdminArrivalBoxController;
-import com.sales_management_javafx.controller.arrival.ArrivalBoxController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -13,9 +12,9 @@ import org.sales_management.entity.ArrivalEntity;
 import java.io.IOException;
 import java.util.Collection;
 
-public class ArrivalGridPane {
+public class AdminArrivalGridPane {
     private final GridPane gridPane;
-    public ArrivalGridPane() {
+    public AdminArrivalGridPane() {
         this.gridPane = new GridPane();
     }
     public GridPane getGridPane(Collection<ArrivalEntity> arrivals , int colSize) {
@@ -29,7 +28,7 @@ public class ArrivalGridPane {
         int col = 0;
         int row = 0;
         for (ArrivalEntity arrival : arrivals) {
-            gridPane.add(this.getArrivalBox(arrival), col, row);
+            gridPane.add(this.getAdminArrivalBox(arrival), col, row);
             col++;
             if (col == colSize) {
                 col = 0;
@@ -40,16 +39,16 @@ public class ArrivalGridPane {
         gridPane.setId("product-type-grid-pane");
         return gridPane;
     }
-    private StackPane getArrivalBox(ArrivalEntity arrival){
-        FXMLLoader arrivalBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/arrival/arrivalBox.fxml"));
-        StackPane arrivalBox;
+    private StackPane getAdminArrivalBox(ArrivalEntity arrival){
+        FXMLLoader adminSaleBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/admin/adminArrivalBox.fxml"));
+        StackPane adminSaleBox;
         try {
-            arrivalBox = arrivalBoxLoader.load();
-            ArrivalBoxController arrivalBoxController = arrivalBoxLoader.getController();
-            arrivalBoxController.initialize(arrival);
+            adminSaleBox = adminSaleBoxLoader.load();
+            AdminArrivalBoxController adminArrivalBoxController = adminSaleBoxLoader.getController();
+            adminArrivalBoxController.initialize(arrival);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return arrivalBox;
+        return adminSaleBox;
     }
 }

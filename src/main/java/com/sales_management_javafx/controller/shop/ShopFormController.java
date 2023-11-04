@@ -1,6 +1,7 @@
 package com.sales_management_javafx.controller.shop;
 
 import com.sales_management_javafx.SalesApplication;
+import com.sales_management_javafx.classes.NumberTextField;
 import com.sales_management_javafx.composent.ShopGridPane;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.sales_management.entity.ShopEntity;
 import org.sales_management.service.ShopService;
@@ -46,7 +48,7 @@ public class ShopFormController implements Initializable {
         this.formValidation();
         this.onCreateShop();
         this.onCancelCreateShop();
-        this.requireNumberOnly(shopContactTextfield);
+        NumberTextField.requireNumber(shopContactTextfield);
     }
     private void formValidation(){
         if (this.shopNameTextfield.getText().isEmpty()){
@@ -65,35 +67,29 @@ public class ShopFormController implements Initializable {
                 shop.setAddress(this.shopAddressTextfield.getText());
                 shop.setEmail(this.shopEmailTextfield.getText());
                 if (this.shopService.create(shop)!=null){
-                    BorderPane shopLayoutBorderpane = (BorderPane) this.shopFormVBox.getParent();
+                    BorderPane dashboardLayout = (BorderPane) this.shopFormVBox.getParent();
+                    ScrollPane dashboardLayoutScrollpane = (ScrollPane) dashboardLayout.lookup("#dashboardLayoutScrollpane");
                     GridPane shopGridPane = new ShopGridPane().getGridPane(new ShopService().getAll(),4);
-                    ScrollPane shopBoxLayoutScrollpane = (ScrollPane) shopLayoutBorderpane.lookup("#shopBoxLayoutScrollpane");
-                    shopBoxLayoutScrollpane.setContent(shopGridPane);
-                    this.putToolbarInBorderpane();
+                    dashboardLayoutScrollpane.setContent(shopGridPane);
+                    dashboardLayout.setBottom(this.getDashboardToolbar());
                 }
             }
         });
     }
     private void onCancelCreateShop(){
         this.cancelShopButton.setOnAction(actionEvent -> {
-            this.putToolbarInBorderpane();
+            BorderPane dashboardLayout = (BorderPane) this.shopFormVBox.getParent();
+            dashboardLayout.setBottom(this.getDashboardToolbar());
         });
     }
-    public void putToolbarInBorderpane(){
+    private StackPane getDashboardToolbar(){
+        FXMLLoader dashboardToolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/dashboard/dashboardToolbar.fxml"));
+        StackPane dashboardToolbar;
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/shop/shopToolbar.fxml"));
-            GridPane shopToolbar = fxmlLoader.load();
-            BorderPane parent = (BorderPane) shopFormVBox.getParent();
-            parent.setBottom(shopToolbar);
+            dashboardToolbar = dashboardToolbarLoader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-    public void requireNumberOnly(TextField textField){
-        textField.textProperty().addListener((observableValue, old, newValue) -> {
-            if (!newValue.matches("\\d*")){
-                textField.setText(newValue.replaceAll("\\D",""));
-            }
-        });
+        return dashboardToolbar;
     }
 }
