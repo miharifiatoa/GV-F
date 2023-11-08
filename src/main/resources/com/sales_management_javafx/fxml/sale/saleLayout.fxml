@@ -14,8 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane fx:id="saleLayout" prefHeight="276.0" prefWidth="507.0" styleClass="box" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.sale.SaleLayoutController">
+<BorderPane fx:id="saleLayout" prefHeight="308.0" prefWidth="513.0" styleClass="box" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.sale.SaleLayoutController">
    <top>
       <GridPane styleClass="box">
          <columnConstraints>

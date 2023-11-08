@@ -19,6 +19,7 @@ import org.sales_management.service.ArticleService;
 
 import java.net.URL;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class SellerArticleBoxController implements Initializable {
@@ -105,11 +106,11 @@ public class SellerArticleBoxController implements Initializable {
         });
     }
     private void formValidation(){
-        if (quantityToSaleTextfield.getText().isEmpty()){
+        if (quantityToSaleTextfield.getText().isEmpty() || Objects.equals(quantityToSaleTextfield.getText(), String.valueOf(0))){
             save.setDisable(true);
         }
         quantityToSaleTextfield.textProperty().addListener(event->{
-            save.setDisable(quantityToSaleTextfield.getText().isEmpty());
+            save.setDisable(quantityToSaleTextfield.getText().isEmpty() ||  Objects.equals(quantityToSaleTextfield.getText(), String.valueOf(0)));
         });
     }
 }

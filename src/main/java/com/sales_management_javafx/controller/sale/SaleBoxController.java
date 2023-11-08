@@ -1,6 +1,7 @@
 package com.sales_management_javafx.controller.sale;
 
 import com.sales_management_javafx.SalesApplication;
+import com.sales_management_javafx.classes.DateTimeFormatter;
 import com.sales_management_javafx.composent.SaleGridPane;
 import com.sales_management_javafx.composent.SellerArticleGridPane;
 import javafx.fxml.FXML;
@@ -58,11 +59,19 @@ public class SaleBoxController implements Initializable {
     }
     public void initialize(SaleEntity sale){
         this.setSave(sale);
-        sum.setText(getSum(sale) + " Ar");
-        saleDateLabel.setText(String.valueOf(sale.getSaleDate()));
+        sum.setText("Total : " + getSum(sale) + " Ar");
+        saleDateLabel.setText(DateTimeFormatter.format(sale.getSaleDate()));
         descriptionLabel.setText("Payement par : " + sale.getDescription());
-        articleNumbersLabel.setText("Vous avez vendu " + getTotalSize(sale) + " produit(s) au client : " + sale.getClientName());
-        cancelText.setText("Voulez vous vraiment annuler cette vente des produits au client : " + sale.getClientName());
+//        articleNumbersLabel.setText("Vous avez vendu " + getTotalSize(sale)
+//                + " produit(s) au client : "
+//                + sale.getClient().getPerson().getLastname()
+//                + " "
+//                + sale.getClient().getPerson().getFirstname()
+//                + " le : ");
+//        cancelText.setText("Voulez vous vraiment annuler cette vente des produits au client : "
+//                + sale.getClient().getPerson().getLastname()
+//                + " "
+//                + sale.getClient().getPerson().getFirstname());
         this.setFacture(sale);
     }
     private void setCancel(){

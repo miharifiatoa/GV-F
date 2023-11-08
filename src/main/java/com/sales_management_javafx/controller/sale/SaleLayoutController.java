@@ -31,7 +31,6 @@ public class SaleLayoutController implements Initializable {
     @FXML private Label payementLabel;
     @FXML private Label saleNumberLabel;
 
-
     private final SaleService saleService;
 
     public SaleLayoutController() {

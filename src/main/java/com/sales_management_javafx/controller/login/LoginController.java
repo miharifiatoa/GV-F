@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.sales_management.entity.AccountEntity;
 import org.sales_management.entity.UserEntity;
@@ -59,9 +60,11 @@ public class LoginController implements Initializable {
                         System.out.println("no ...");
                     }
                 }
+                else SessionManager.clearSession();
             }
             else {
                 System.out.println("username or password incorrect");
+                SessionManager.clearSession();
             }
         });
     }
@@ -76,9 +79,9 @@ public class LoginController implements Initializable {
         }
         return dashboard;
     }
-    private BorderPane getSellerLayout(){
+    private StackPane getSellerLayout(){
         FXMLLoader sellerLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/seller/sellerLayout.fxml"));
-        BorderPane sellerLayout;
+        StackPane sellerLayout;
         try {
             sellerLayout = sellerLayoutLoader.load();
         } catch (IOException e) {
@@ -99,7 +102,7 @@ public class LoginController implements Initializable {
     private AccountEntity authenticate(String username , String password){
         AccountEntity account = new AccountEntity();
         try {
-            AccountEntity accountEntity = userService.getAccountByUsername(username);
+            AccountEntity accountEntity = new UserService().getAccountByUsername(username);
             if (accountEntity != null){
                 if (DigestUtils.sha256Hex(password).equals(accountEntity.getPassword())){
                     account = accountEntity;

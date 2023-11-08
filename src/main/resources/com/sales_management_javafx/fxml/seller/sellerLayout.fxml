@@ -11,52 +11,58 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="sellerLayout" prefHeight="241.0" prefWidth="510.0" styleClass="seller" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.seller.SellerLayoutController">
-   <center>
-      <StackPane BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets bottom="5.0" />
-         </BorderPane.margin>
-         <children>
-            <BorderPane>
-               <center>
-                  <ScrollPane fx:id="sellerArticleScrollpane" fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" styleClass="box" />
-               </center>
-               <top>
-                  <GridPane styleClass="box" BorderPane.alignment="CENTER">
-                     <BorderPane.margin>
-                        <Insets bottom="5.0" />
-                     </BorderPane.margin>
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <AnchorPane GridPane.columnIndex="1">
+
+<StackPane fx:id="sellerLayout" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.seller.SellerLayoutController">
+   <children>
+      <BorderPane fx:id="sellerLayoutBorderpane" prefHeight="241.0" prefWidth="510.0" styleClass="seller">
+         <center>
+            <StackPane BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="5.0" />
+               </BorderPane.margin>
+               <children>
+                  <BorderPane>
+                     <center>
+                        <ScrollPane fx:id="sellerArticleScrollpane" fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" styleClass="box" />
+                     </center>
+                     <top>
+                        <GridPane styleClass="box" BorderPane.alignment="CENTER">
+                           <BorderPane.margin>
+                              <Insets bottom="5.0" />
+                           </BorderPane.margin>
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
                            <children>
-                              <TextField fx:id="searchTextfield" alignment="CENTER_RIGHT" focusTraversable="false" promptText="Recherche des produits" styleClass="buttons" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Italic" size="12.0" />
-                                 </font>
-                              </TextField>
+                              <AnchorPane GridPane.columnIndex="1">
+                                 <children>
+                                    <TextField fx:id="searchTextfield" alignment="CENTER_RIGHT" focusTraversable="false" promptText="Recherche des produits" styleClass="buttons" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font name="System Italic" size="12.0" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane />
                            </children>
-                        </AnchorPane>
-                        <AnchorPane />
-                     </children>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </GridPane>
-               </top>
-            </BorderPane>
-            <BorderPane fx:id="modal" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #8585857b;" visible="false" />
-         </children>
-      </StackPane>
-   </center>
-   <padding>
-      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-   </padding>
-</BorderPane>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </GridPane>
+                     </top>
+                  </BorderPane>
+                  <BorderPane fx:id="modal" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #8585857b;" visible="false" />
+               </children>
+            </StackPane>
+         </center>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </BorderPane>
+      <BorderPane fx:id="modal" prefHeight="200.0" prefWidth="200.0" visible="false" />
+   </children>
+</StackPane>

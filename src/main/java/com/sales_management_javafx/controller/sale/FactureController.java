@@ -1,6 +1,7 @@
 package com.sales_management_javafx.controller.sale;
 
 import com.sales_management_javafx.SalesApplication;
+import com.sales_management_javafx.classes.Printer;
 import com.sales_management_javafx.composent.FactureGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -46,22 +47,14 @@ public class FactureController implements Initializable {
     }
     private void putIcons(){
         this.printIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/PrintIcon.png"))));
-        this.exitIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/Exit" + "Icon.png"))));
+        this.exitIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/ExitIcon.png"))));
     }
 
     private void setPrint(){
         print.setOnAction(event->{
-            print(factureScrollpane);
+            Printer.print(factureScrollpane);
         });
     }
-    public static void print(ScrollPane scrollPane) {
-        PrinterJob printerJob = PrinterJob.createPrinterJob();
-        if (printerJob != null && printerJob.showPrintDialog(null)) {
-            boolean success = printerJob.printPage(scrollPane);
-            if (success) {
-                printerJob.endJob();
-            }
-        }
-    }
+
 
 }

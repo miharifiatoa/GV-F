@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-
-<StackPane fx:id="dashboardToolbar" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.dashboard.DashboardToolbarController">
+<StackPane fx:id="dashboardToolbar" prefHeight="41.0" prefWidth="688.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.dashboard.DashboardToolbarController">
    <children>
       <GridPane prefHeight="42.0" prefWidth="461.0" styleClass="box">
          <columnConstraints>
@@ -39,6 +38,15 @@
                      <graphic>
                         <ImageView fx:id="newAccountIcon" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic>
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
+               <children>
+                  <Button fx:id="logout" mnemonicParsing="false" styleClass="buttons" text="Deconnexion" textFill="RED">
                      <font>
                         <Font name="System Italic" size="12.0" />
                      </font>

@@ -25,13 +25,9 @@ public class ShopBoxController implements Initializable {
     private Label shopAddresslabel;
     @FXML
     private StackPane shopBoxStackpane;
-    @FXML
-    private ImageView editIcon;
-    @FXML
-    private ImageView deleteIcon;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.putIcons();
     }
     public void initialize(ShopEntity shop){
         this.shopNameLabel.setText(shop.getName());
@@ -53,9 +49,5 @@ public class ShopBoxController implements Initializable {
         BorderPane shopLayoutBorderpane = (BorderPane) shopBoxStackpane.getParent().getParent().getParent().getParent().getParent();
         Button shareProductButton = (Button) shopLayoutBorderpane.lookup("#shareProductButton");
         shareProductButton.setDisable(false);
-    }
-    private void putIcons(){
-        this.editIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/EditIcon.png"))));
-        this.deleteIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/DeleteIcon.png"))));
     }
 }

@@ -151,10 +151,12 @@
 .color{
     -fx-background-color: #484848;
 }
+.active{
+    -fx-background-color: #e8e8e8;
+    -fx-font-weight: bold;
+}
 .active .box{
-    -fx-background-color: #f2f2f2;
-    -fx-border-width: 1px;
-    -fx-border-color: rgb(235, 235, 235);
+    -fx-background-color: #ff0000;
     -fx-font-weight: bold;
 }
 .scrollpane{
@@ -178,7 +180,7 @@
 }
 .no-border{
     -fx-text-fill: #acacac;
-    -fx-background-color: rgba(108, 108, 108, 0)
+    -fx-background-color: rgb(255, 255, 255)
 }
 .bg-white{
     -fx-background-color: #ffffff;
@@ -187,6 +189,12 @@
     -fx-background-color: #8585857b;
     -fx-border-width: 1px;
     -fx-border-color: rgb(235, 235, 235)
+}
+.canceled-box{
+    -fx-background-color: #ffffff;
+}
+.canceled-text{
+    -fx-text-fill: #ff0000
 }
 
 

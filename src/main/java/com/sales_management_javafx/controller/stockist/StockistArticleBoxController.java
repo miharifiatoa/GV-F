@@ -36,7 +36,6 @@ public class StockistArticleBoxController implements Initializable {
     @FXML private Label quantityToShareLabel;
     @FXML private Button share;
     @FXML private Label add;
-    @FXML private Label retire;
     @FXML private Button confirmAdd;
     @FXML private Button confirmRetire;
     @FXML private Button exitAdd;
@@ -63,7 +62,6 @@ public class StockistArticleBoxController implements Initializable {
         this.putIcons();
         this.setShare();
         this.setAdd();
-        this.setRetire();
         this.setExitShare();
         this.setExitAdd();
         this.setExitRetire();
@@ -81,7 +79,6 @@ public class StockistArticleBoxController implements Initializable {
         articleQuantityLabel.setText(String.valueOf(article.getQuantity()));
         productTypeNameLabel.setText(article.getProductType().getName());
         if (article.getQuantity()<=0){
-            retire.setDisable(true);
             share.setDisable(true);
         }
         if (FileIO.readArticleFromFile("shares.dat").contains(article)){
@@ -127,12 +124,6 @@ public class StockistArticleBoxController implements Initializable {
         exitAdd.setOnAction(event->{
             this.articleVBox.setVisible(true);
             this.addVBox.setVisible(false);
-        });
-    }
-    private void setRetire(){
-        this.retire.setOnMouseClicked(event->{
-            this.retireVBox.setVisible(true);
-            this.articleVBox.setVisible(false);
         });
     }
     private void setConfirmRetire(ArticleEntity article){

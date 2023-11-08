@@ -22,6 +22,7 @@ import org.sales_management.service.ProductService;
 import org.sales_management.service.ProductTypeService;
 
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -132,6 +133,7 @@ public class ArticleCreateController implements Initializable {
         article.setPrice(Double.valueOf(this.articlePriceTextfield.getText()));
         article.setSize(this.articleSizeTextfield.getText());
         article.setQuantity(0);
+        article.setCreatedDate(LocalDateTime.now());
         article.setColor(this.articleColorTextfield.getText());
         article.setProductType(productType);
         return article;

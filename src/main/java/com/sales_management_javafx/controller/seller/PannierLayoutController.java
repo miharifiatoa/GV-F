@@ -8,20 +8,15 @@ import com.sales_management_javafx.composent.SellerArticleGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import org.sales_management.entity.ArticleEntity;
-import org.sales_management.entity.SaleEntity;
-import org.sales_management.entity.UserEntity;
-import org.sales_management.service.ArticleService;
-import org.sales_management.service.SaleArticleService;
-import org.sales_management.service.SaleService;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import org.sales_management.entity.*;
+import org.sales_management.service.*;
 import org.sales_management.session.SessionManager;
 
 import java.io.IOException;
@@ -29,16 +24,14 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class PannierLayoutController implements Initializable {
     @FXML private BorderPane pannierLayout;
     @FXML private Button exit;
-    @FXML private Button sale;
+    @FXML private Button payment;
     @FXML private Label priceTotal;
-    @FXML private Label reimbursementLabel;
-    @FXML private TextField clientNameTextfield;
-    @FXML private TextField totalPayedTextfield;
 
     @FXML private ImageView pannierIcon;
     @FXML private ScrollPane pannierLayoutScrollpane;
@@ -46,9 +39,16 @@ public class PannierLayoutController implements Initializable {
     private final ArticleService articleService;
     private final SaleService saleService;
     private final SaleArticleService saleArticleService;
+    private final PaymentModeService paymentModeService;
+    private final PersonService personService;
+    private final ClientService clientService;
     private final UserEntity user;
+    private PaymentModeEntity paymentBy;
 
     public PannierLayoutController() {
+        this.personService = new PersonService();
+        this.clientService = new ClientService();
+        this.paymentModeService = new PaymentModeService();
         this.user = SessionManager.getSession().getCurrentUser();
         this.saleArticleService = new SaleArticleService();
         this.saleService = new SaleService();
@@ -57,12 +57,9 @@ public class PannierLayoutController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        NumberTextField.requireDouble(this.totalPayedTextfield);
-        this.reimbursementLabel.setText(null);
         this.putIcons();
         this.exit.setOnAction(event->this.setExit());
         this.setArticles();
-        this.formValidation();
         this.setSale();
         this.setPriceTotal();
     }
@@ -80,59 +77,62 @@ public class PannierLayoutController implements Initializable {
         borderPane.setBottom(this.getToolbar());
     }
     private void setSale(){
-        sale.setOnAction(event->{
-            SaleEntity saleEntity = new SaleEntity();
-            saleEntity.setClientName(clientNameTextfield.getText());
-            saleEntity.setSaleDate(LocalDateTime.now());
-            saleEntity.setDescription("test");
-            saleEntity.setCanceled(false);
-            if (user != null){
-                saleEntity.setUser(user);
-            }
-            if (saleService.toSaleArticles(saleEntity,FileIO.readArticleFromFile("sales.dat")) != null){
-                Collection<ArticleEntity> articles = FileIO.readArticleFromFile("sales.dat");
-                articles.clear();
-                FileIO.writeTo("sales.dat",articles);
-                GridPane sellerArticleGridPane = new SellerArticleGridPane().getGridPane(articleService.getAll(),4);
-                ScrollPane sellerArticleScrollpane = (ScrollPane) pannierLayout.getParent().lookup("#sellerArticleScrollpane");
-                sellerArticleScrollpane.setContent(sellerArticleGridPane);
-                this.setExit();
-            }
+        payment.setOnAction(event->{
+            pannierLayoutScrollpane.setContent(getSellerPayment());
+
+//            if (Objects.equals(sale.getText(), "Vente a credit")){
+//
+//            }
+//            else {
+//                PersonEntity person = new PersonEntity();
+//                person.setLastname(String.valueOf(clientNameTextfield));
+//                personService.create(person);
+//                SaleEntity saleEntity = new SaleEntity();
+//                saleEntity.setSaleDate(LocalDateTime.now());
+//                saleEntity.setDescription("");
+//                saleEntity.setCanceled(false);
+//                if (user != null){
+//                    saleEntity.setUser(user);
+//                }
+//                SaleEntity response = saleService.toSaleArticles(saleEntity,FileIO.readArticleFromFile("sales.dat"));
+//                if (response != null){
+//                    ClientEntity client = new ClientEntity();
+//                    client.setName(clientNameTextfield.getText());
+//                    Collection<ArticleEntity> articles = FileIO.readArticleFromFile("sales.dat");
+//                    articles.clear();
+//                    FileIO.writeTo("sales.dat",articles);
+//                    GridPane sellerArticleGridPane = new SellerArticleGridPane().getGridPane(articleService.getAll(),4);
+//                    ScrollPane sellerArticleScrollpane = (ScrollPane) pannierLayout.getParent().lookup("#sellerArticleScrollpane");
+//                    sellerArticleScrollpane.setContent(sellerArticleGridPane);
+//                    this.setExit();
+//                }
+//            }
+
         });
     }
-    private void formValidation(){
-        if (clientNameTextfield.getText().isEmpty() || totalPayedTextfield.getText().isEmpty()){
-            sale.setDisable(true);
-        }
-        clientNameTextfield.textProperty().addListener(event->{
-            if(!clientNameTextfield.getText().isEmpty() && !totalPayedTextfield.getText().isEmpty()){
-                if (Double.parseDouble(totalPayedTextfield.getText())< FileIO.getPriceTotal("sales.dat")){
-                    sale.setDisable(true);
-                }
-                else {
-                    sale.setDisable(false);
-                }
-            }
-            else {
-                sale.setDisable(true);
-            }
-        });
-        totalPayedTextfield.textProperty().addListener(event->{
-            if(!totalPayedTextfield.getText().isEmpty() && !clientNameTextfield.getText().isEmpty() && FileIO.getPriceTotal("sales.dat") != 0){
-                if (Double.parseDouble(totalPayedTextfield.getText())< FileIO.getPriceTotal("sales.dat")){
-                    sale.setDisable(true);
-                    reimbursementLabel.setText("Manque : " + (Double.parseDouble(totalPayedTextfield.getText()) - FileIO.getPriceTotal("sales.dat")) + "Ar");
-                }
-                else{
-                    sale.setDisable(false);
-                    reimbursementLabel.setText("Reste : " + (Double.parseDouble(totalPayedTextfield.getText()) - FileIO.getPriceTotal("sales.dat")) + "Ar");
-                }
-            }
-            else {
-                sale.setDisable(true);
-                reimbursementLabel.setText(null);
-            }
-        });
+//    private void formValidation(){
+//        sale.setText("Vente a credit");
+//        clientNameTextfield.textProperty().addListener(event->{
+//
+//        });
+//        totalPayedTextfield.textProperty().addListener(event->{
+//            if(!totalPayedTextfield.getText().isEmpty() && FileIO.getPriceTotal("sales.dat") != 0){
+//                if (Double.parseDouble(totalPayedTextfield.getText())< FileIO.getPriceTotal("sales.dat")){
+//                    reimbursementLabel.setText("Manque : " + (Double.parseDouble(totalPayedTextfield.getText()) - FileIO.getPriceTotal("sales.dat")) + "Ar");
+//                    sale.setText("Vente a credit");
+//                }
+//                else{
+//                    sale.setText("Vendez les produits");
+//                    reimbursementLabel.setText("Reste : " + (Double.parseDouble(totalPayedTextfield.getText()) - FileIO.getPriceTotal("sales.dat")) + "Ar");
+//                }
+//            }
+//            else {
+//                reimbursementLabel.setText(null);
+//            }
+//        });
+    //    }
+    private void putIcons(){
+        pannierIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/PannierIcon.png"))));
     }
     private GridPane getToolbar(){
         FXMLLoader toolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/seller/sellerToolbar.fxml"));
@@ -144,7 +144,14 @@ public class PannierLayoutController implements Initializable {
         }
         return  toolbar;
     }
-    private void putIcons(){
-        pannierIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/PannierIcon.png"))));
+    private StackPane getSellerPayment(){
+        FXMLLoader sellerPaymentLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/seller/sellerPayment.fxml"));
+        StackPane sellerPayment;
+        try {
+            sellerPayment = sellerPaymentLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return  sellerPayment;
     }
 }

@@ -25,6 +25,7 @@ import org.sales_management.session.SessionManager;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.ResourceBundle;
@@ -72,7 +73,7 @@ public class ArrivalLayoutController implements Initializable {
     }
     private void setListArrival(){
         listArrival.setOnAction(event->{
-            GridPane arrivalGridPane = new ArrivalGridPane().getGridPane(new ArrivalService().getAll(),4);
+            GridPane arrivalGridPane = new ArrivalGridPane().getGridPane(new ArrivalService().getArrivalsByDate(LocalDate.now()),4);
             arrivalLayoutScrollpane.setContent(arrivalGridPane);
         });
     }

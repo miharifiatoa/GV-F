@@ -27,6 +27,7 @@ import org.sales_management.session.SessionManager;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.ResourceBundle;
@@ -79,7 +80,7 @@ public class ShareProductLayoutController implements Initializable {
     }
     private void setShareList(){
         shareList.setOnAction(event->{
-            GridPane shareGridPane = new ShareGridPane().getGridPane(new ShareService().getAll(),4);
+            GridPane shareGridPane = new ShareGridPane().getGridPane(new ShareService().getSharesByDate(LocalDate.now()),4);
             shareArticleLayoutScrollpane.setContent(shareGridPane);
         });
     }
@@ -105,6 +106,7 @@ public class ShareProductLayoutController implements Initializable {
             ShareEntity share = new ShareEntity();
             ShopEntity shop = (ShopEntity) FileIO.readFrom("shop.dat");
             share.setShop(shop);
+            share.setShareDate(LocalDateTime.now());
             if (user != null){
                 share.setUser(user);
             }

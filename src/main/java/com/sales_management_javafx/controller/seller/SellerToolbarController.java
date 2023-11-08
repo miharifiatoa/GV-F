@@ -9,6 +9,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import org.sales_management.entity.UserEntity;
+import org.sales_management.session.SessionManager;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,13 +20,24 @@ public class SellerToolbarController implements Initializable {
     @FXML private GridPane pannierToolbar;
     @FXML private Button  pannier;
     @FXML private Button  sale;
+    @FXML private Button  logout;
     @FXML private ImageView pannierIcon;
     @FXML private ImageView  saleIcon;
+    private final UserEntity user;
+
+    public SellerToolbarController() {
+        this.user = SessionManager.getSession().getCurrentUser();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.setPannier();
         this.setSale();
         this.putIcons();
+        if (user == null){
+            setLogout();
+        }
+        logout.setOnAction(event->setLogout());
     }
     private void setPannier(){
         pannier.setOnAction(event->{
@@ -62,4 +75,20 @@ public class SellerToolbarController implements Initializable {
         }
         return pannierLayout;
     }
+    private GridPane getLogin(){
+        FXMLLoader fxmlLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/login/login.fxml"));
+        GridPane login;
+        try {
+            login = fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return login;
+    }
+    private void setLogout(){
+        SessionManager.clearSession();
+        BorderPane salesManagementBorderpane = (BorderPane) pannierToolbar.getParent().getParent().getParent();
+        salesManagementBorderpane.setCenter(this.getLogin());
+    }
+
 }

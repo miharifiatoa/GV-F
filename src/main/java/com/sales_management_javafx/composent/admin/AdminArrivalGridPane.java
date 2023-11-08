@@ -1,12 +1,9 @@
-package com.sales_management_javafx.composent;
+package com.sales_management_javafx.composent.admin;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.controller.admin.AdminArrivalBoxController;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import org.sales_management.entity.ArrivalEntity;
 
 import java.io.IOException;
@@ -36,7 +33,7 @@ public class AdminArrivalGridPane {
             }
         }
         gridPane.getStyleClass().add("gridpane");
-        gridPane.setId("product-type-grid-pane");
+        gridPane.setId("arrival");
         return gridPane;
     }
     private StackPane getAdminArrivalBox(ArrivalEntity arrival){

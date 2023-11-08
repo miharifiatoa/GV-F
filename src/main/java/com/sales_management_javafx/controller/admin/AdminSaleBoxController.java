@@ -1,7 +1,9 @@
 package com.sales_management_javafx.controller.admin;
 
+import com.sales_management_javafx.classes.DateTimeFormatter;
 import com.sales_management_javafx.composent.SaleGridPane;
 import com.sales_management_javafx.composent.SellerArticleGridPane;
+import com.sales_management_javafx.composent.admin.AdminSaleInfoGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -42,9 +44,39 @@ public class AdminSaleBoxController implements Initializable {
     }
     public void initialize(SaleEntity sale){
         sum.setText("Prix total : " + getSum(sale) + " Ar");
-        saleDateLabel.setText(String.valueOf(sale.getSaleDate()));
+        saleDateLabel.setText(DateTimeFormatter.format(sale.getSaleDate()));
         descriptionLabel.setText("Payement par : " + sale.getDescription());
-        articleNumbersLabel.setText(sale.getUser().getAccount().getUsername() + " a vendu " + getTotalSize(sale) + " produit(s) au client : " + sale.getClientName());
+        if (sale.getCanceled()){
+            articleNumbersLabel.setDisable(true);
+            articleNumbersLabel.getStyleClass().add("canceled-text");
+            articleNumbersLabel.setText(sale.getUser().getAccount().getUsername()
+                    + " a annulé(e) la vente de "
+                    + getTotalSize(sale)
+                    + " produit(s) au client : "
+                    + sale.getClient().getName()
+                    + " "
+                    + sale.getClient().getName()
+                    + " qui a passé le : ");
+        }
+        else {
+            articleNumbersLabel.setText(sale.getUser().getAccount().getUsername()
+                    + " a vendu "
+                    + getTotalSize(sale)
+                    + " produit(s) au client : "
+                    + sale.getClient().getName()
+                    + " "
+                    + sale.getClient().getName());
+        }
+        this.setSaleVBox(sale);
+    }
+    private void setSaleVBox(SaleEntity sale){
+        saleVBox.setOnMouseClicked(event->{
+            GridPane adminSaleInfoGridPane = new AdminSaleInfoGridPane().getGridPane(sale,2);
+            getDashboardLayoutScrollpane().setContent(adminSaleInfoGridPane);
+        });
+    }
+    private ScrollPane getDashboardLayoutScrollpane(){
+        return (ScrollPane) saleBox.getParent().getParent().getParent().getParent();
     }
 
     private int getTotalSize(SaleEntity sale){

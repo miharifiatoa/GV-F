@@ -5,11 +5,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import org.sales_management.entity.UserEntity;
+import org.sales_management.session.SessionManager;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,10 +21,16 @@ public class StockistToolbarController implements Initializable {
     @FXML private StackPane toolbar;
     @FXML private Button share;
     @FXML private Button arrival;
+    @FXML private Button logout;
     @FXML private Button newArticle;
     @FXML private ImageView shareIcon;
     @FXML private ImageView arrivalIcon;
     @FXML private ImageView articleIcon;
+    private final UserEntity user;
+
+    public StockistToolbarController() {
+        this.user = SessionManager.getSession().getCurrentUser();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -30,6 +38,10 @@ public class StockistToolbarController implements Initializable {
         this.setShare();
         this.setArrival();
         this.setNewArticle();
+        if (user == null){
+            setLogout();
+        }
+        logout.setOnAction(event->this.setLogout());
     }
     private void setShare(){
         share.setOnAction(event->{
@@ -94,5 +106,20 @@ public class StockistToolbarController implements Initializable {
         shareIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/ShowShareListIcon.png"))));
         arrivalIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/ArrivalIcon.png"))));
         articleIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/ArticleIcon.png"))));
+    }
+    private GridPane getLogin(){
+        FXMLLoader fxmlLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/login/login.fxml"));
+        GridPane login;
+        try {
+            login = fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return login;
+    }
+    private void setLogout(){
+        SessionManager.clearSession();
+        BorderPane salesManagementBorderpane = (BorderPane) toolbar.getParent().getParent();
+        salesManagementBorderpane.setCenter(this.getLogin());
     }
 }

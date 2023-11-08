@@ -11,9 +11,9 @@
    <children>
       <VBox fx:id="shareVBox" spacing="5.0" styleClass="box">
          <children>
-            <Label fx:id="articleNumbersLabel" text="Nombre" textAlignment="CENTER" textFill="#595959" wrapText="true">
+            <Label fx:id="articleNumbersLabel" text="Nombre" textAlignment="CENTER" wrapText="true">
                <font>
-                  <Font name="System Bold Italic" size="12.0" />
+                  <Font name="System Italic" size="12.0" />
                </font>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

@@ -2,9 +2,11 @@ package com.sales_management_javafx.controller.dashboard;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.composent.*;
+import com.sales_management_javafx.composent.admin.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -40,7 +42,7 @@ public class DashboardMenuBoxController implements Initializable {
     public void initialize(String menu, String image_name){
         this.menuIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/"+ image_name))));
         this.menuLabel.setText(menu);
-        this.dashboardMenu.setId(menu);
+        this.menuLabel.setId(menu);
         this.initialize();
         this.onShowContent();
     }
@@ -58,19 +60,19 @@ public class DashboardMenuBoxController implements Initializable {
         }
     }
     public void onShowContent(){
-        dashboardMenu.setOnMouseClicked(this::handleClickMenuItems);
+        menuLabel.setOnMouseClicked(this::handleClickMenuItems);
     }
     public void handleClickMenuItems(MouseEvent event){
         BorderPane dashboardLayout = (BorderPane) dashboardMenuBox.getParent().getParent();
         ScrollPane dashboardLayoutScrollpane = (ScrollPane) dashboardLayout.lookup("#dashboardLayoutScrollpane");
-        switch (dashboardMenu.getId()) {
+        switch (menuLabel.getId()) {
             case "ACCOUNT" ->{
                 GridPane accountGridPane = new AccountGridPane().getGridPane(new AccountService().getAll(),4);
                 dashboardLayoutScrollpane.setContent(accountGridPane);
             }
             case "SHOP" -> {
-                GridPane shopGridPane = new ShopGridPane().getGridPane(new ShopService().getAll(),4);
-                dashboardLayoutScrollpane.setContent(shopGridPane);
+                GridPane adminShopGridPane = new AdminShopGridPane().getGridPane(new ShopService().getAll(),4);
+                dashboardLayoutScrollpane.setContent(adminShopGridPane);
             }
             case "SHARE" -> {
                 GridPane shareGridPane = new AdminShareGridPane().getGridPane(new ShareService().getAll(),4);
@@ -89,6 +91,14 @@ public class DashboardMenuBoxController implements Initializable {
                 dashboardLayoutScrollpane.setContent(adminArticleGridPane);
             }
         }
+        GridPane gridPane = (GridPane) dashboardMenuBox.getParent();
+        for (Node node : gridPane.getChildren()){
+            StackPane stackPane = (StackPane) node;
+            for (Node node1 : stackPane.getChildren()){
+                node1.getStyleClass().remove("active");
+            }
+        }
+        dashboardMenu.getStyleClass().add("active");
         event.consume();
     }
     public StackPane getProductBoxLayout(){

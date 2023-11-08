@@ -5,14 +5,15 @@ import com.sales_management_javafx.composent.SellerArticleGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import org.sales_management.entity.ArticleEntity;
+import org.sales_management.entity.UserEntity;
 import org.sales_management.service.ArticleService;
-import org.sales_management.service.ProductService;
+import org.sales_management.session.SessionManager;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,21 +21,21 @@ import java.util.Collection;
 import java.util.ResourceBundle;
 
 public class SellerLayoutController implements Initializable {
-    @FXML
-    private BorderPane sellerLayout;
+    @FXML private StackPane sellerLayout;
+    @FXML private BorderPane sellerLayoutBorderpane;
+
     @FXML
     private ScrollPane sellerArticleScrollpane;
 
     @FXML private TextField searchTextfield;
     private final ArticleService articleService;
-
     public SellerLayoutController() {
         this.articleService = new ArticleService();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.sellerLayout.setBottom(this.getToolbar());
+        this.sellerLayoutBorderpane.setBottom(this.getToolbar());
         this.setProducts();
         this.setSearchTextfield();
     }

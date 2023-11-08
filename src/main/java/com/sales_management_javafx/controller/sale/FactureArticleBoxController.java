@@ -22,8 +22,7 @@ public class FactureArticleBoxController implements Initializable {
     }
     public void initialize(SaleArticleEntity saleArticle){
         productTypeNameLabel.setText(saleArticle.getArticle().getProductType().getName());
-        articlePriceLabel.setText(String.valueOf(saleArticle.getArticle().getPrice()));
+        articlePriceLabel.setText(saleArticle.getArticle().getPrice() + "Ar");
         articleQuantityLabel.setText(String.valueOf(saleArticle.getQuantity()));
-
     }
 }

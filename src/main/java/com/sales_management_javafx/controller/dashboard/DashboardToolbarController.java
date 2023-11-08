@@ -8,8 +8,11 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import org.sales_management.entity.UserEntity;
+import org.sales_management.session.SessionManager;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,11 +24,22 @@ public class DashboardToolbarController implements Initializable {
     @FXML private ImageView newShopIcon;
     @FXML private Button newAccount;
     @FXML private Button newShop;
+    @FXML private Button logout;
+    private final UserEntity user;
+
+    public DashboardToolbarController() {
+        this.user = SessionManager.getSession().getCurrentUser();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.setNewShop();
         this.setNewAccount();
         this.putIcons();
+        if (user == null){
+            this.setLogout();
+        }
+        logout.setOnAction(event->setLogout());
     }
     private void setNewShop(){
         newShop.setOnAction(event->{
@@ -62,5 +76,21 @@ public class DashboardToolbarController implements Initializable {
             throw new RuntimeException(e);
         }
         return userForm;
+    }
+
+    private GridPane getLogin(){
+        FXMLLoader fxmlLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/login/login.fxml"));
+        GridPane login;
+        try {
+            login = fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return login;
+    }
+    private void setLogout(){
+        SessionManager.clearSession();
+        BorderPane salesManagementBorderpane = (BorderPane) dashboardToolbar.getParent().getParent().getParent().getParent();
+        salesManagementBorderpane.setCenter(this.getLogin());
     }
 }
