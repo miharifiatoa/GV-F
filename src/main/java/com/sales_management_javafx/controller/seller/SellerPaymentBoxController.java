@@ -27,6 +27,7 @@ public class SellerPaymentBoxController implements Initializable {
 
     public SellerPaymentBoxController() {
         this.paymentModeService = new PaymentModeService();
+        this.paymentBy = new PaymentModeService().getById(1L);
     }
 
     @Override

@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -29,10 +30,8 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class SaleBoxController implements Initializable {
-    @FXML private Label saleDateLabel;
-    @FXML private Label articleNumbersLabel;
+    @FXML private Label  saleText;
     @FXML private Label cancelText;
-    @FXML private Label sum;
     @FXML private Button save;
     @FXML private Button exit;
     @FXML private Button cancel;
@@ -60,13 +59,13 @@ public class SaleBoxController implements Initializable {
     }
     public void initialize(SaleEntity sale){
         this.setSave(sale);
-        sum.setText("Total : " + getSum(sale) + " Ar");
-        saleDateLabel.setText(DateTimeFormatter.format(sale.getSaleDate()));
-        articleNumbersLabel.setText("Vous avez vendu " + getTotalSize(sale)
-                + " produit(s) au client : "
+//        sum.setText("Total : " + getSum(sale) + " Ar");
+        saleText.setText("Vous avez vendu " + getTotalSize(sale)
+                + " produit(s) au client , "
                 + sale.getClient().getName()
                 + " "
-                + " le : ");
+                + " le : "
+                + DateTimeFormatter.format(sale.getSaleDate()));
         cancelText.setText("Voulez vous vraiment annuler cette vente des produits au client : "
                 + sale.getClient().getName());
         this.setFacture(sale);
