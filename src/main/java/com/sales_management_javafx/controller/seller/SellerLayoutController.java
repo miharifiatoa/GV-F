@@ -5,6 +5,7 @@ import com.sales_management_javafx.composent.SellerArticleGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -23,6 +24,8 @@ import java.util.ResourceBundle;
 public class SellerLayoutController implements Initializable {
     @FXML private StackPane sellerLayout;
     @FXML private BorderPane sellerLayoutBorderpane;
+    @FXML private Label username;
+    private final UserEntity user;
 
     @FXML
     private ScrollPane sellerArticleScrollpane;
@@ -30,6 +33,7 @@ public class SellerLayoutController implements Initializable {
     @FXML private TextField searchTextfield;
     private final ArticleService articleService;
     public SellerLayoutController() {
+        this.user = SessionManager.getSession().getCurrentUser();
         this.articleService = new ArticleService();
     }
 
@@ -38,6 +42,9 @@ public class SellerLayoutController implements Initializable {
         this.sellerLayoutBorderpane.setBottom(this.getToolbar());
         this.setProducts();
         this.setSearchTextfield();
+        if (user != null){
+            username.setText(user.getAccount().getUsername());
+        }
     }
 
     private void setProducts(){

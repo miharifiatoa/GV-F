@@ -3,6 +3,7 @@ package com.sales_management_javafx.controller.sale;
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.DateTimeFormatter;
 import com.sales_management_javafx.composent.SaleGridPane;
+import com.sales_management_javafx.composent.SalePaymentBoxGridPane;
 import com.sales_management_javafx.composent.SellerArticleGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,7 +31,6 @@ import java.util.ResourceBundle;
 public class SaleBoxController implements Initializable {
     @FXML private Label saleDateLabel;
     @FXML private Label articleNumbersLabel;
-    @FXML private Label descriptionLabel;
     @FXML private Label cancelText;
     @FXML private Label sum;
     @FXML private Button save;
@@ -40,6 +40,7 @@ public class SaleBoxController implements Initializable {
     @FXML private VBox saleVBox;
     @FXML private VBox cancelSaleVBox;
     @FXML private StackPane saleBox;
+    @FXML private ScrollPane paymentBoxScrollpane;
     private final SaleService saleService;
     private final ArticleService articleService;
     private final UserEntity user;
@@ -61,18 +62,19 @@ public class SaleBoxController implements Initializable {
         this.setSave(sale);
         sum.setText("Total : " + getSum(sale) + " Ar");
         saleDateLabel.setText(DateTimeFormatter.format(sale.getSaleDate()));
-        descriptionLabel.setText("Payement par : " + sale.getDescription());
-//        articleNumbersLabel.setText("Vous avez vendu " + getTotalSize(sale)
-//                + " produit(s) au client : "
-//                + sale.getClient().getPerson().getLastname()
-//                + " "
-//                + sale.getClient().getPerson().getFirstname()
-//                + " le : ");
-//        cancelText.setText("Voulez vous vraiment annuler cette vente des produits au client : "
-//                + sale.getClient().getPerson().getLastname()
-//                + " "
-//                + sale.getClient().getPerson().getFirstname());
+        articleNumbersLabel.setText("Vous avez vendu " + getTotalSize(sale)
+                + " produit(s) au client : "
+                + sale.getClient().getName()
+                + " "
+                + " le : ");
+        cancelText.setText("Voulez vous vraiment annuler cette vente des produits au client : "
+                + sale.getClient().getName());
         this.setFacture(sale);
+        this.setPaymentBoxScrollpane(sale);
+    }
+    private void setPaymentBoxScrollpane(SaleEntity sale){
+        GridPane salePaymentBoxGridPane = new SalePaymentBoxGridPane().getGridPane(sale,1);
+        paymentBoxScrollpane.setContent(salePaymentBoxGridPane);
     }
     private void setCancel(){
         this.saleVBox.setVisible(false);

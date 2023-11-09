@@ -79,6 +79,7 @@ public class PannierLayoutController implements Initializable {
     private void setSale(){
         payment.setOnAction(event->{
             pannierLayoutScrollpane.setContent(getSellerPayment());
+            pannierLayout.setBottom(null);
 
 //            if (Objects.equals(sale.getText(), "Vente a credit")){
 //

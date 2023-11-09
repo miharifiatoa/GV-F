@@ -4,6 +4,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -13,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="saleBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.sale.SaleBoxController">
+<StackPane fx:id="saleBox" prefHeight="256.0" prefWidth="469.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.sale.SaleBoxController">
    <children>
       <VBox fx:id="saleVBox" spacing="5.0" styleClass="box">
          <children>
@@ -49,18 +50,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane>
-               <children>
-                  <Label fx:id="descriptionLabel" alignment="CENTER_RIGHT" text="Description" textAlignment="CENTER" textFill="#8c8c8c" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <font>
-                        <Font name="System Italic" size="12.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </Label>
-               </children>
-            </AnchorPane>
+            <ScrollPane fx:id="paymentBoxScrollpane" fitToHeight="true" fitToWidth="true" maxHeight="100.0" minHeight="100.0" />
             <GridPane hgap="5.0" styleClass="box">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" />
