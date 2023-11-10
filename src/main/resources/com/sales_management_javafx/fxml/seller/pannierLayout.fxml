@@ -68,13 +68,13 @@
       <GridPane hgap="5.0" prefHeight="14.0" prefWidth="601.0" styleClass="box">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" />
+            <ColumnConstraints hgrow="SOMETIMES" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="354.0" spacing="5.0">
+            <HBox spacing="10.0">
                <children>
                   <Label fx:id="priceTotal" alignment="CENTER_RIGHT" text="Prix total" textFill="#6e6e6e">
                      <padding>
@@ -84,10 +84,31 @@
                         <Font name="System Italic" size="12.0" />
                      </font>
                   </Label>
+                  <Label fx:id="pay" alignment="CENTER_RIGHT" textFill="#6e6e6e">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="rest" alignment="CENTER_RIGHT" layoutX="77.0" layoutY="10.0" textFill="#6e6e6e">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </Label>
                </children>
             </HBox>
-            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1">
+            <HBox fx:id="pannierMenuHBox" alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="228.0" spacing="5.0" GridPane.columnIndex="1">
                <children>
+                  <Button fx:id="saveNoPay" layoutX="187.0" layoutY="12.0" mnemonicParsing="false" text="Vente a credit" textFill="#ffaf00">
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
                 <Button fx:id="payment" mnemonicParsing="false" text="Payement" textFill="#ffaf00">
                      <font>
                         <Font name="System Bold Italic" size="11.0" />

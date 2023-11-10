@@ -20,17 +20,17 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="payLabel" text="Montant">
+            <Label fx:id="payLabel" text="Montant" textFill="#797979">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="paymentModeLabel" text="Mode" GridPane.columnIndex="1">
+            <Label fx:id="paymentModeLabel" text="Mode" textFill="#797979" GridPane.columnIndex="1">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="paymentDateLabel" text="date" GridPane.columnIndex="2">
+            <Label fx:id="paymentDateLabel" text="date" textFill="#797979" GridPane.columnIndex="2">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font>

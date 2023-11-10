@@ -79,7 +79,7 @@ public class UserFormController implements Initializable {
             user.setCin(Long.valueOf(user_cin.getText()));
         }
         user.setEmail(user_email.getText());
-        user.setRole("STOCKIST");
+        user.setRole("SELLER");
         user.setPerson(this.createPerson());
         return user;
     }

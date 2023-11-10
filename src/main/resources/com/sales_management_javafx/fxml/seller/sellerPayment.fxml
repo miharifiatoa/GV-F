@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<StackPane prefHeight="282.0" prefWidth="581.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.seller.SellerPaymentController">
+<StackPane fx:id="sellerPayment" prefHeight="282.0" prefWidth="581.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.seller.SellerPaymentController">
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
          <children>
@@ -103,41 +102,6 @@
                   </GridPane>
                </children>
             </VBox>
-            <GridPane hgap="5.0" prefHeight="14.0" prefWidth="601.0" styleClass="box">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="354.0" spacing="5.0">
-                     <children>
-                        <Label fx:id="priceTotal" alignment="CENTER_RIGHT" text="Prix total" textFill="#6e6e6e">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                           <font>
-                              <Font name="System Italic" size="12.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1">
-                     <children>
-                        <Button fx:id="save" mnemonicParsing="false" text="Confirmer la vente" textFill="#ffaf00">
-                           <font>
-                              <Font name="System Bold Italic" size="11.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </HBox>
-               </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </GridPane>
          </children>
       </VBox>
    </children>

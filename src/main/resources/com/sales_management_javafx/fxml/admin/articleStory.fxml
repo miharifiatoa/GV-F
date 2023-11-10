@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-
 <StackPane fx:id="articleStory" prefHeight="390.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.admin.ArticleStoryController">
    <children>
       <GridPane styleClass="no-border" vgap="5.0">
@@ -29,10 +28,10 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ScrollPane fx:id="saleInfoScrollpane" fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" styleClass="no-border" GridPane.rowIndex="2" />
-            <ScrollPane fx:id="arrivalInfoScrollpane" fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" styleClass="no-border" GridPane.rowIndex="4" />
+            <ScrollPane fx:id="saleInfoScrollpane" fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" styleClass="no-border" GridPane.rowIndex="4" />
+            <ScrollPane fx:id="arrivalInfoScrollpane" fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" styleClass="no-border" GridPane.rowIndex="2" />
             <ScrollPane fx:id="shareInfoScrollpane" fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" styleClass="no-border" GridPane.rowIndex="6" />
-            <GridPane GridPane.rowIndex="1">
+            <GridPane GridPane.rowIndex="3">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" />
@@ -74,7 +73,7 @@
                   <DatePicker fx:id="shareDatePicker" GridPane.columnIndex="1" />
                </children>
             </GridPane>
-            <GridPane GridPane.rowIndex="3">
+            <GridPane GridPane.rowIndex="1">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" />
@@ -99,7 +98,7 @@
                <children>
                   <Label fx:id="title" text="Label">
                      <font>
-                        <Font name="Verdana Italic" size="14.0" />
+                        <Font name="System Bold Italic" size="13.0" />
                      </font>
                   </Label>
                </children>

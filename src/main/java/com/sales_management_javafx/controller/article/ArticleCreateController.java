@@ -4,6 +4,7 @@ import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.classes.NumberTextField;
 import com.sales_management_javafx.composent.ArticleGridPane;
 import com.sales_management_javafx.composent.ProductTypeGridPane;
+import com.sales_management_javafx.composent.StockistArticleGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -119,9 +120,12 @@ public class ArticleCreateController implements Initializable {
             if (!articlePriceTextfield.getText().isEmpty()){
                 if (this.articleService.create(this.getArticle(productType))!=null){
                     StackPane  productBoxLayout = (StackPane) articleCreate.getParent().getParent();
+                    ScrollPane stockistBoxLayoutScrollpane = (ScrollPane) productBoxLayout.getParent().getParent().lookup("#stockistBoxLayoutScrollpane");
                     ScrollPane productBoxLayoutScrollpane = (ScrollPane) productBoxLayout.lookup("#productBoxLayoutScrollpane");
-                    GridPane gridPane = new ProductTypeGridPane().getGridPane(new ProductTypeService().getById(productType.getId()).getProduct().getProductTypes(), 4);
-                    productBoxLayoutScrollpane.setContent(gridPane);
+                    GridPane stockistArticleGridPane = new StockistArticleGridPane().getGridPane(new ArticleService().getAll(),4);
+                    GridPane productTypeGridPane = new ProductTypeGridPane().getGridPane(new ProductTypeService().getById(productType.getId()).getProduct().getProductTypes(), 4);
+                    stockistBoxLayoutScrollpane.setContent(stockistArticleGridPane);
+                    productBoxLayoutScrollpane.setContent(productTypeGridPane);
                     articleCreate.getParent().setVisible(false);
                 }
             }

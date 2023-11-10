@@ -20,6 +20,6 @@ public class SalePaymentBoxController implements Initializable {
     public void initialize(PaymentEntity payment){
         payLabel.setText(String.valueOf(payment.getPay()));
         paymentModeLabel.setText(payment.getPaymentMode().getDescription());
-        paymentDateLabel.setText(String.valueOf(payment.getPaymentDate()));
+        paymentDateLabel.setText(String.valueOf(payment.getPaymentDate().toLocalDate()));
     }
 }

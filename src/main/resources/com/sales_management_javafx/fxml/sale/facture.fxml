@@ -13,7 +13,7 @@
 
 <VBox fx:id="facture" spacing="5.0" styleClass="box" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.sale.FactureController">
    <children>
-      <GridPane styleClass="box">
+      <GridPane maxHeight="40.0" minHeight="40.0" styleClass="box">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" />
         </columnConstraints>
@@ -46,7 +46,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </GridPane>
-      <ScrollPane fx:id="factureScrollpane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="100.0" styleClass="no-border" vbarPolicy="NEVER" />
+      <ScrollPane fx:id="factureScrollpane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="130.0" styleClass="no-border" vbarPolicy="NEVER" />
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

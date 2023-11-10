@@ -92,7 +92,7 @@
       </VBox>
       <VBox fx:id="saleVBox" alignment="TOP_CENTER" spacing="5.0" styleClass="box">
          <children>
-            <Label fx:id="saleText" text="Label" wrapText="true">
+            <Label fx:id="saleText" text="Label" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font>

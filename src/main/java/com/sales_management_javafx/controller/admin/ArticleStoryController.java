@@ -53,7 +53,7 @@ public class ArticleStoryController implements Initializable {
         this.setArrivalDatePicker(article);
         this.setSaleDatePicker(article);
         this.setShareDatePicker(article);
-        title.setText(article.getProductType().getName() + " - " + article.getCode());
+        title.setText(article.getProductType().getName() + " : " + article.getCode());
     }
     private void setSaleInfoScrollpane(ArticleEntity article){
         GridPane saleArticlesGridPane = new SaleArticlesGridPane().getGridPane(article.getSaleArticles(),1);

@@ -23,6 +23,7 @@ import org.sales_management.service.ProductTypeService;
 import java.net.URL;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class StockistArticleBoxController implements Initializable {
@@ -169,23 +170,23 @@ public class StockistArticleBoxController implements Initializable {
         });
     }
     private void formValidation(){
-        if (quantityAddedTextfield.getText().isEmpty()){
+        if (quantityAddedTextfield.getText().isEmpty() || Integer.parseInt(quantityAddedTextfield.getText())<=0){
             confirmAdd.setDisable(true);
         }
-        if (quantityRetireTextfield.getText().isEmpty()){
+        if (quantityRetireTextfield.getText().isEmpty()  || Integer.parseInt(quantityRetireTextfield.getText())<=0){
             confirmRetire.setDisable(true);
         }
-        if (quantitySharedTextfield.getText().isEmpty()){
+        if (quantitySharedTextfield.getText().isEmpty()  || Integer.parseInt(quantitySharedTextfield.getText())<=0){
             addInList.setDisable(true);
         }
         quantityAddedTextfield.textProperty().addListener((observableValue, s, t1) -> {
-            confirmAdd.setDisable(quantityAddedTextfield.getText().isEmpty());
+            confirmAdd.setDisable(quantityAddedTextfield.getText().isEmpty() || Integer.parseInt(quantityAddedTextfield.getText())<=0);
         });
         quantityRetireTextfield.textProperty().addListener((observableValue, s, t1) -> {
-            confirmRetire.setDisable(quantityRetireTextfield.getText().isEmpty());
+            confirmRetire.setDisable(quantityRetireTextfield.getText().isEmpty()  || Integer.parseInt(quantityRetireTextfield.getText())<=0);
         });
         quantitySharedTextfield.textProperty().addListener((observableValue, s, t1) -> {
-            addInList.setDisable(quantitySharedTextfield.getText().isEmpty());
+            addInList.setDisable(quantitySharedTextfield.getText().isEmpty()  || Integer.parseInt(quantitySharedTextfield.getText())<=0);
         });
     }
     public void putIcons(){
