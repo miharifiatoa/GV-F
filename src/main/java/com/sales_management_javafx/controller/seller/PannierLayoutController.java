@@ -66,16 +66,17 @@ public class PannierLayoutController implements Initializable {
     }
     private void setSale(){
         payment.setOnAction(event->{
-            if (Objects.equals(payment.getId(), "payment")){
-                payment.setId("save");
-                payment.setText("Confirmer la vente");
-                saveNoPay.setVisible(true);
-                if (!FileIO.readArticleFromFile("sales.dat").isEmpty()){
+            if (!FileIO.readArticleFromFile("sales.dat").isEmpty()){
+                if (Objects.equals(payment.getId(), "payment")){
                     pannierLayoutScrollpane.setContent(getSellerPayment());
+                    payment.setId("save");
+                    payment.setText("Confirmer la vente");
+                    saveNoPay.setVisible(true);
+                    payment.setDisable(true);
                 }
-            }
-            else if (Objects.equals(payment.getId(), "save")){
-                sellerPaymentController.setSave();
+                else if (Objects.equals(payment.getId(), "save")){
+                    sellerPaymentController.setSave();
+                }
             }
         });
     }

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="articleFormBox" prefHeight="129.0" prefWidth="761.0" styleClass="form" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product_category.ProductCategoryFormController">
+<VBox fx:id="articleFormBox" prefHeight="100.0" prefWidth="497.0" styleClass="form" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product_category.ProductCategoryFormController">
    <children>
       <AnchorPane />
       <GridPane hgap="10.0" prefHeight="46.0" prefWidth="846.0">

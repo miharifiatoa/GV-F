@@ -70,13 +70,14 @@ public class SellerPaymentController implements Initializable {
         double totalMontant = 0.0;
         Label pay = (Label) sellerPayment.getParent().getParent().getParent().getParent().lookup("#pay");
         Label rest = (Label) sellerPayment.getParent().getParent().getParent().getParent().lookup("#rest");
+        Button save = (Button) sellerPayment.getParent().getParent().getParent().getParent().lookup("#save");
         double priceTotal = FileIO.getPriceTotal("sales.dat");
         for (SellerPaymentBoxController sellerPaymentBoxController : sellerPaymentBoxControllers) {
             totalMontant += sellerPaymentBoxController.getPay();
         }
         pay.setText("Montant payé : " + totalMontant);
         rest.setText("Rest : " + DecimalFormat.format(priceTotal-totalMontant));
-
+        save.setDisable(!(priceTotal <= totalMontant));
     }
     public void setSave(){
         ClientEntity client = new ClientEntity();
