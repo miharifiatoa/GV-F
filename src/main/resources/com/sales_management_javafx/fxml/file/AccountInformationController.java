@@ -39,7 +39,7 @@ public class AccountInformationController implements Initializable {
         this.closeInformation();
     }
     public void showInformation(){
-        try(FileInputStream fileInputStream = new FileInputStream(String.valueOf(SalesApplication.class.getResource("file/account_data.json")))) {
+        try(FileInputStream fileInputStream = new FileInputStream(String.valueOf(SalesApplication.class.getResource("file/account_data.dat")))) {
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             AccountEntity account = (AccountEntity) objectInputStream.readObject();
             account_information.getChildren().add(new Label(account.getUser().getPerson().getLastname()));

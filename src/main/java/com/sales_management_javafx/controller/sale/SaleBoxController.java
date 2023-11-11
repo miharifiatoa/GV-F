@@ -8,6 +8,8 @@ import com.sales_management_javafx.composent.SellerArticleGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -72,8 +74,15 @@ public class SaleBoxController implements Initializable {
         this.setPaymentBoxScrollpane(sale);
     }
     private void setPaymentBoxScrollpane(SaleEntity sale){
-        GridPane salePaymentBoxGridPane = new SalePaymentBoxGridPane().getGridPane(sale,1);
-        paymentBoxScrollpane.setContent(salePaymentBoxGridPane);
+        if (!sale.getPayments().isEmpty()){
+            GridPane salePaymentBoxGridPane = new SalePaymentBoxGridPane().getGridPane(sale,1);
+            paymentBoxScrollpane.setContent(salePaymentBoxGridPane);
+        }
+        else {
+            Label label = new Label("Aucun payement");
+            label.setPadding(new Insets(5));
+            paymentBoxScrollpane.setContent(label);
+        }
     }
     private void setCancel(){
         this.saleVBox.setVisible(false);

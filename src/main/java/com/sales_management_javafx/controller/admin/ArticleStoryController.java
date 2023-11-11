@@ -11,10 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.DateCell;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
@@ -42,6 +39,7 @@ public class ArticleStoryController implements Initializable {
     @FXML private DatePicker arrivalDatePicker;
     @FXML private DatePicker shareDatePicker;
     @FXML private Label title;
+    @FXML private Button action;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

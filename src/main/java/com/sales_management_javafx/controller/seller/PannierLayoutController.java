@@ -31,8 +31,9 @@ public class PannierLayoutController implements Initializable {
     @FXML private BorderPane pannierLayout;
     @FXML private Button exit;
     @FXML private Button payment;
-    @FXML private Button saveNoPay;
+    @FXML private Button savePartial;
     @FXML private Label priceTotal;
+    @FXML private TextField deliveryTexfield;
 
     @FXML private ImageView pannierIcon;
     @FXML private ScrollPane pannierLayoutScrollpane;
@@ -49,8 +50,9 @@ public class PannierLayoutController implements Initializable {
         this.exit.setOnAction(event->this.setExit());
         this.setArticles();
         this.setSale();
+        this.setSavePartial();
         this.setPriceTotal();
-        saveNoPay.setVisible(false);
+        savePartial.setVisible(false);
     }
     private void setPriceTotal(){
         String price = DecimalFormat.format(FileIO.getPriceTotal("sales.dat"));
@@ -71,13 +73,18 @@ public class PannierLayoutController implements Initializable {
                     pannierLayoutScrollpane.setContent(getSellerPayment());
                     payment.setId("save");
                     payment.setText("Confirmer la vente");
-                    saveNoPay.setVisible(true);
+                    savePartial.setVisible(true);
                     payment.setDisable(true);
                 }
                 else if (Objects.equals(payment.getId(), "save")){
-                    sellerPaymentController.setSave();
+                    sellerPaymentController.setSaveTotally();
                 }
             }
+        });
+    }
+    private void setSavePartial(){
+        savePartial.setOnAction(event->{
+            sellerPaymentController.setSavePartial();
         });
     }
 

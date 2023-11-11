@@ -37,6 +37,7 @@ public class SellerPaymentController implements Initializable {
     @FXML private Button newPayment;
     @FXML private TextField clientNameTextfield;
     @FXML private TextField clientContactTextfield;
+    @FXML private TextField deliveryTextfield;
     private final SaleService saleService;
     private final ClientService clientService;
     private final PaymentService paymentService;
@@ -79,7 +80,7 @@ public class SellerPaymentController implements Initializable {
         rest.setText("Rest : " + DecimalFormat.format(priceTotal-totalMontant));
         save.setDisable(!(priceTotal <= totalMontant));
     }
-    public void setSave(){
+    public void setSaveTotally(){
         ClientEntity client = new ClientEntity();
         client.setName(clientNameTextfield.getText());
         client.setTelephone(clientContactTextfield.getText());
@@ -95,6 +96,36 @@ public class SellerPaymentController implements Initializable {
             for (PaymentEntity payment : getPayments()){
                 payment.setSale(saleResponse);
                 paymentService.create(payment);
+            }
+            Collection<ArticleEntity> articles = FileIO.readArticleFromFile("sales.dat");
+            articles.clear();
+            FileIO.writeTo("sales.dat",articles);
+            BorderPane sellerLayoutBorderpane = (BorderPane) sellerPayment.getParent().getParent().getParent().getParent().getParent();
+            sellerLayoutBorderpane.setBottom(getSaleLayout());
+            GridPane sellerArticleGridPane = new SellerArticleGridPane().getGridPane(new ArticleService().getAll(),4);
+            ScrollPane sellerArticleScrollpane = (ScrollPane) sellerLayoutBorderpane.lookup("#sellerArticleScrollpane");
+            sellerArticleScrollpane.setContent(sellerArticleGridPane);
+        }
+
+    }
+    public void setSavePartial(){
+        ClientEntity client = new ClientEntity();
+        client.setName(clientNameTextfield.getText());
+        client.setTelephone(clientContactTextfield.getText());
+        ClientEntity clientResponse = clientService.create(client);
+        SaleEntity sale = new SaleEntity();
+        sale.setClient(clientResponse);
+        sale.setCanceled(false);
+        sale.setPayed(false);
+        sale.setSaleDate(LocalDateTime.now());
+        sale.setUser(SessionManager.getSession().getCurrentUser());
+        SaleEntity saleResponse = saleService.toSaleArticles(sale, FileIO.readArticleFromFile("sales.dat"));
+        if (saleResponse != null){
+            for (PaymentEntity payment : getPayments()){
+                if (payment != null){
+                    payment.setSale(saleResponse);
+                    paymentService.create(payment);
+                }
             }
             Collection<ArticleEntity> articles = FileIO.readArticleFromFile("sales.dat");
             articles.clear();

@@ -1,12 +1,8 @@
 package com.sales_management_javafx.controller.product;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.classes.MenuIcon;
-import com.sales_management_javafx.composent.ProductCategoryGridPane;
-import com.sales_management_javafx.composent.MenuGridPane;
-import com.sales_management_javafx.composent.ArticleGridPane;
-import com.sales_management_javafx.composent.ProductGridPane;
+import com.sales_management_javafx.composent.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,16 +13,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import org.sales_management.entity.ProductEntity;
+import org.sales_management.service.ArticleService;
 import org.sales_management.service.ProductCategoryService;
 import org.sales_management.service.ProductService;
+import org.sales_management.service.ProductTypeService;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ProductBoxLayoutController implements Initializable {
@@ -36,39 +32,44 @@ public class ProductBoxLayoutController implements Initializable {
     @FXML private ScrollPane productBoxLayoutScrollpane;
     @FXML private BorderPane productBoxLayoutBorderpane;
     @FXML private TextField searchProductTextfield;
-    @FXML private Label productName;
+    @FXML private Label categories;
+    @FXML private Label products;
+    @FXML private Label types;
+    @FXML private Label articles;
     @FXML private ImageView articleIcon;
     @FXML private Button exit;
     private final ProductService productService;
     private final ProductCategoryService productCategoryService;
+    private final ProductTypeService productTypeService;
+    private final ArticleService articleService;
     private final ProductGridPane productGridPane;
-    private final ProductCategoryGridPane productCategoryGridPane;
     private final MenuGridPane menuGridPane;
     private final MenuIcon menuIcon;
 
     public ProductBoxLayoutController() {
+        this.productTypeService = new ProductTypeService();
+        this.articleService = new ArticleService();
         this.menuIcon = new MenuIcon();
         this.menuGridPane = new MenuGridPane();
         this.productCategoryService = new ProductCategoryService();
-        this.productCategoryGridPane = new ProductCategoryGridPane();
         this.productService = new ProductService();
         this.productGridPane = new ProductGridPane();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.setProductCategories();
         this.initializeSearchTextField();
-        this.onShowProducts();
+        this.setCategories();
         this.product.setVisible(true);
         this.modal.setVisible(false);
         this.putIcons();
+        this.setCategories();
+        this.setProducts();
+        this.setTypes();
+        this.setArticles();
         this.exit.setOnAction(event->{
             this.setExit();
         });
-    }
-    private void setProductCategories(){
-        this.productBoxLayoutScrollpane.setContent(new ProductCategoryGridPane().getGridPane(productCategoryService.getAll(),4));
     }
     private void initializeSearchTextField(){
         this.searchProductTextfield.setPromptText("Recherche");
@@ -83,9 +84,24 @@ public class ProductBoxLayoutController implements Initializable {
             }
         });
     }
-    private void onShowProducts(){
-        productName.setOnMouseClicked(event->{
-            this.setProductCategories();
+    private void setCategories(){
+        categories.setOnMouseClicked(event->{
+            this.productBoxLayoutScrollpane.setContent(new ProductCategoryGridPane().getGridPane(productCategoryService.getAll(),4));
+        });
+    }
+    private void setProducts(){
+        products.setOnMouseClicked(event->{
+            this.productBoxLayoutScrollpane.setContent(new ProductGridPane().getGridPane(productService.getAll(),4,false));
+        });
+    }
+    private void setTypes(){
+        types.setOnMouseClicked(event->{
+            this.productBoxLayoutScrollpane.setContent(new ProductTypeGridPane().getGridPane(productTypeService.getAll(),4));
+        });
+    }
+    private void setArticles(){
+        articles.setOnMouseClicked(event->{
+            this.productBoxLayoutScrollpane.setContent(new ArticleGridPane().getGridPane(articleService.getAll(),4,false));
         });
     }
     public void setExit(){

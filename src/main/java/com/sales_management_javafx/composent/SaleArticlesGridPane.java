@@ -2,15 +2,9 @@ package com.sales_management_javafx.composent;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.controller.admin.AdminArticleStoryBoxController;
-import com.sales_management_javafx.controller.sale.FactureArticleBoxController;
-import com.sales_management_javafx.controller.sale.FactureInfoController;
-import com.sales_management_javafx.controller.sale.SaleBoxController;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import org.sales_management.entity.ArticleEntity;
 import org.sales_management.entity.SaleArticleEntity;
-import org.sales_management.entity.SaleEntity;
 
 import java.io.IOException;
 import java.util.Collection;

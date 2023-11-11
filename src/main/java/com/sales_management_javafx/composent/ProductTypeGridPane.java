@@ -38,7 +38,6 @@ public class ProductTypeGridPane {
             }
         }
         gridPane.getStyleClass().add("gridpane");
-        gridPane.setId("product-type-grid-pane");
         return gridPane;
     }
     private StackPane getProductTypeBox(ProductTypeEntity productType){

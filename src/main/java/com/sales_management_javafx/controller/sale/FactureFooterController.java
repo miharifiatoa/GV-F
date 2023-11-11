@@ -10,9 +10,9 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
-public class FactureInfoController implements Initializable {
+public class FactureFooterController implements Initializable {
     @FXML private Label sum;
-    @FXML private Label shopInfoLabel;
+    @FXML private Label isPayedLabel;
     @FXML private Label date;
 
     @Override
@@ -21,7 +21,13 @@ public class FactureInfoController implements Initializable {
     }
     public void initialize(SaleEntity sale){
         sum.setText(this.getSum(sale) + "Ar");
-        date.setText(String.valueOf(sale.getSaleDate()));
+        date.setText(sale.getSaleDate().toLocalDate() + " à " + sale.getSaleDate().toLocalTime());
+        if (sale.getPayed()){
+            isPayedLabel.setText("payé");
+        }
+        else {
+            isPayedLabel.setText("non payé");
+        }
     }
 
     private String getSum(SaleEntity sale){

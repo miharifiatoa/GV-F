@@ -58,7 +58,7 @@ public class ProductCategoryTableController implements Initializable {
     }
     public void onShowInformation(@NotNull TableRow<ProductCategoryEntity> tableRow){
         ProductCategoryEntity article = tableRow.getItem();
-        try(FileOutputStream fileOutputStream = new FileOutputStream(String.valueOf(SalesApplication.class.getResource("/file/data.json")))) {
+        try(FileOutputStream fileOutputStream = new FileOutputStream(String.valueOf(SalesApplication.class.getResource("/file/data.dat")))) {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(article);
             objectOutputStream.close();

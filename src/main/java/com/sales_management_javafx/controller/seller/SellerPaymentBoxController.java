@@ -83,14 +83,16 @@ public class SellerPaymentBoxController implements Initializable {
             paymentVBox.getChildren().remove(paymentBox);
         });
     }
-    public void setSellerPaymentController(SellerPaymentController sellerPaymentController){
-        this.sellerPaymentController = sellerPaymentController;
-    }
     private void updateTotal(){
         payTextfield.textProperty().addListener(event->{
             if (sellerPaymentController != null){
                 sellerPaymentController.updateTotal();
             }
+            remove.setDisable(!payTextfield.getText().isEmpty());
         });
     }
+    public void setSellerPaymentController(SellerPaymentController sellerPaymentController){
+        this.sellerPaymentController = sellerPaymentController;
+    }
+
 }
