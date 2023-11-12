@@ -5,6 +5,7 @@ import com.sales_management_javafx.controller.sale.SaleBoxController;
 import com.sales_management_javafx.controller.sale.SalePaymentBoxController;
 import com.sales_management_javafx.controller.seller.SellerPaymentBoxController;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -37,6 +38,9 @@ public class SalePaymentBoxGridPane {
                     col = 0;
                     row++;
                 }
+        }
+        if (!sale.getPayed()){
+            gridPane.add(new Button("+"),col,row);
         }
         gridPane.getStyleClass().add("gridpane");
         return gridPane;

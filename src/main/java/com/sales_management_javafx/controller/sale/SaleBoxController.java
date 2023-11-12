@@ -74,15 +74,8 @@ public class SaleBoxController implements Initializable {
         this.setPaymentBoxScrollpane(sale);
     }
     private void setPaymentBoxScrollpane(SaleEntity sale){
-        if (!sale.getPayments().isEmpty()){
-            GridPane salePaymentBoxGridPane = new SalePaymentBoxGridPane().getGridPane(sale,1);
-            paymentBoxScrollpane.setContent(salePaymentBoxGridPane);
-        }
-        else {
-            Label label = new Label("Aucun payement");
-            label.setPadding(new Insets(5));
-            paymentBoxScrollpane.setContent(label);
-        }
+        GridPane salePaymentBoxGridPane = new SalePaymentBoxGridPane().getGridPane(sale,1);
+        paymentBoxScrollpane.setContent(salePaymentBoxGridPane);
     }
     private void setCancel(){
         this.saleVBox.setVisible(false);
@@ -105,7 +98,7 @@ public class SaleBoxController implements Initializable {
                 Label payementLabel = (Label) sellerLayout.lookup("#payementLabel");
                 Label saleNumberLabel = (Label) sellerLayout.lookup("#saleNumberLabel");
                 payementLabel.setText("Versement : " + this.getMoneyTotalByDay() + " Ar");
-                int size = new SaleService().getSalesByDate(LocalDate.now()).size();
+                int size = new SaleService().getAcceptedAndPayedOrUnPayedSalesByDate(LocalDate.now(),true).size();
                 if (size != 0){
                     saleNumberLabel.setText("Vous avez effectué "+ size + " Vente(s)");
                 }
@@ -113,7 +106,7 @@ public class SaleBoxController implements Initializable {
                     saleNumberLabel.setText(null);
                 }
                 GridPane sellerArticleGridPane = new SellerArticleGridPane().getGridPane(articleService.getAll(),4);
-                GridPane saleGridPane = new SaleGridPane().getGridPane(saleService.getSalesByDate(LocalDate.now()),4);
+                GridPane saleGridPane = new SaleGridPane().getGridPane(saleService.getAcceptedAndPayedOrUnPayedSalesByDate(LocalDate.now(),true),4);
                 sellerArticleScrollpane.setContent(sellerArticleGridPane);
                 getSaleLayoutScrollpane().setContent(saleGridPane);
             }
@@ -121,7 +114,7 @@ public class SaleBoxController implements Initializable {
     }
     private String getMoneyTotalByDay(){
         double money = 0;
-        for (SaleEntity sale : saleService.getSalesByDate(LocalDate.now())){
+        for (SaleEntity sale : saleService.getAcceptedAndPayedOrUnPayedSalesByDate(LocalDate.now(),true)){
             for (SaleArticleEntity saleArticle : sale.getSaleArticles()){
                 money += saleArticle.getArticle().getPrice() * saleArticle.getQuantity();
             }

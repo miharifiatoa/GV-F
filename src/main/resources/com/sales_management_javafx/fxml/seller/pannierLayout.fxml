@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -18,7 +17,6 @@
    <top>
       <GridPane styleClass="box" BorderPane.alignment="CENTER">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" minWidth="30.0" prefWidth="30.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -26,7 +24,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ButtonBar buttonMinWidth="0.0" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2">
+            <ButtonBar buttonMinWidth="0.0" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1">
               <buttons>
                 <Button fx:id="exit" mnemonicParsing="false" style="-fx-background-color: #acacac;" styleClass="buttons" text="x" textFill="WHITE">
                      <font>
@@ -35,16 +33,16 @@
                   </Button>
               </buttons>
             </ButtonBar>
-            <AnchorPane GridPane.columnIndex="1">
+            <HBox alignment="BOTTOM_LEFT" spacing="10.0">
                <children>
-                  <Label alignment="BOTTOM_LEFT" prefHeight="30.4" prefWidth="196.0" text="Panier" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <ImageView fx:id="pannierIcon" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="pannierLabel" alignment="BOTTOM_LEFT" text="Panier">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
                   </Label>
                </children>
-            </AnchorPane>
-            <ImageView fx:id="pannierIcon" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+            </HBox>
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -74,7 +72,7 @@
           <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <HBox alignment="CENTER_LEFT" spacing="5.0">
+            <HBox spacing="10.0">
                <children>
                   <Label fx:id="priceTotal" alignment="CENTER_RIGHT" text="Prix total" textFill="#6e6e6e">
                      <padding>
@@ -104,11 +102,6 @@
             </HBox>
             <HBox fx:id="pannierMenuHBox" alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="228.0" spacing="5.0" GridPane.columnIndex="1">
                <children>
-                  <Button fx:id="savePartial" layoutX="187.0" layoutY="12.0" mnemonicParsing="false" text="Vente a credit" textFill="#ffaf00">
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
                 <Button fx:id="payment" mnemonicParsing="false" text="Payement" textFill="#ffaf00">
                      <font>
                         <Font name="System Bold Italic" size="11.0" />

@@ -26,8 +26,6 @@ public class AdminArticleStoryBoxController implements Initializable {
                     + saleArticle.getQuantity()
                     + " produit(s) au client "
                     + saleArticle.getSale().getClient().getName()
-                    + " "
-                    + saleArticle.getSale().getClient().getName()
                     + " qui a passé le "
                     + DateTimeFormatter.format(saleArticle.getSaleDate()));
         }
@@ -35,8 +33,6 @@ public class AdminArticleStoryBoxController implements Initializable {
             text.setText(saleArticle.getSale().getUser().getAccount().getUsername()
                     + " a vendu " + saleArticle.getQuantity()
                     + " produit(s) au client "
-                    + saleArticle.getSale().getClient().getName()
-                    + " "
                     + saleArticle.getSale().getClient().getName()
                     + " le "
                     + DateTimeFormatter.format(saleArticle.getSaleDate()));

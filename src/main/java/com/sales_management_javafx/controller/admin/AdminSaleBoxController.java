@@ -45,7 +45,7 @@ public class AdminSaleBoxController implements Initializable {
     public void initialize(SaleEntity sale){
         sum.setText("Prix total : " + getSum(sale) + " Ar");
         saleDateLabel.setText(DateTimeFormatter.format(sale.getSaleDate()));
-        descriptionLabel.setText("Payement par : " + sale.getDescription());
+        descriptionLabel.setText("Payement par : " + sale.getDescription( ));
         if (sale.getCanceled()){
             articleNumbersLabel.setDisable(true);
             articleNumbersLabel.getStyleClass().add("canceled-text");
@@ -54,8 +54,6 @@ public class AdminSaleBoxController implements Initializable {
                     + getTotalSize(sale)
                     + " produit(s) au client : "
                     + sale.getClient().getName()
-                    + " "
-                    + sale.getClient().getName()
                     + " qui a passé le : ");
         }
         else {
@@ -63,8 +61,6 @@ public class AdminSaleBoxController implements Initializable {
                     + " a vendu "
                     + getTotalSize(sale)
                     + " produit(s) au client : "
-                    + sale.getClient().getName()
-                    + " "
                     + sale.getClient().getName());
         }
         this.setSaleVBox(sale);

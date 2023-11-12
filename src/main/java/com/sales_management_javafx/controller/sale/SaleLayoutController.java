@@ -30,6 +30,8 @@ public class SaleLayoutController implements Initializable {
     @FXML private ImageView saleIcon;
     @FXML private Label payementLabel;
     @FXML private Label saleNumberLabel;
+    @FXML private Label unpayedSalesLabel;
+    @FXML private Label payedSalesLabel;
 
     private final SaleService saleService;
 
@@ -40,21 +42,39 @@ public class SaleLayoutController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         exit.setOnAction(event->setExit());
-        this.setArticles();
         this.putIcons();
         payementLabel.setText("Versement : "+ this.getMoneyTotalByDay() + " Ar");
-        int size = saleService.getSalesByDate(LocalDate.now()).size();
+        int size = saleService.getAcceptedAndPayedOrUnPayedSalesByDate(LocalDate.now(),true).size();
         if (size != 0){
             saleNumberLabel.setText("Vous avez effectué "+ size + " Vente(s)");
         }
         else {
             saleNumberLabel.setText(null);
         }
+//        this.setPayedSales();
+        this.setPayedSalesLabel();
+        this.setUnPayedSalesLabel();
     }
-    private void setArticles(){
-        GridPane gridPane = new SaleGridPane().getGridPane(saleService.getSalesByDate(LocalDate.now()),4);
-        saleLayoutScrollpane.setContent(gridPane);
+    private void setPayedSalesLabel(){
+        payedSalesLabel.setOnMouseClicked(event->{
+            this.setPayedSales();
+        });
     }
+    private void setUnPayedSalesLabel(){
+        unpayedSalesLabel.setOnMouseClicked(event->{
+            this.setUnPayedSales();
+        });
+    }
+
+    private void setPayedSales(){
+        GridPane saleGridPane = new SaleGridPane().getGridPane(saleService.getAcceptedAndPayedOrUnPayedSalesByDate(LocalDate.now(),true),4);
+        saleLayoutScrollpane.setContent(saleGridPane);
+    }
+    private void setUnPayedSales(){
+        GridPane saleGridPane = new SaleGridPane().getGridPane(saleService.getAcceptedAndPayedOrUnPayedSalesByDate(LocalDate.now(),false),4);
+        saleLayoutScrollpane.setContent(saleGridPane);
+    }
+
     private void setExit(){
         BorderPane sellerLayout = (BorderPane) saleLayout.getParent();
         sellerLayout.setBottom(this.getToolbar());
@@ -64,7 +84,7 @@ public class SaleLayoutController implements Initializable {
     }
     private String getMoneyTotalByDay(){
         double money = 0;
-        for (SaleEntity sale : saleService.getSalesByDate(LocalDate.now())){
+        for (SaleEntity sale : saleService.getAcceptedAndPayedOrUnPayedSalesByDate(LocalDate.now(),true)){
             for (SaleArticleEntity saleArticle : sale.getSaleArticles()){
                 money += saleArticle.getArticle().getPrice() * saleArticle.getQuantity();
             }

@@ -34,14 +34,14 @@
                   </Button>
                </buttons>
             </ButtonBar>
-            <HBox alignment="BOTTOM_LEFT" spacing="10.0" GridPane.columnIndex="1">
+            <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="1">
                <children>
-                  <Label fx:id="payedSales" alignment="BOTTOM_LEFT" text="Ventes">
+                  <Label fx:id="payedSalesLabel" text="Ventes">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
                   </Label>
-                  <Label fx:id="unpayedSales" text="Vente a credit">
+                  <Label fx:id="unpayedSalesLabel" layoutX="10.0" layoutY="10.0" text="Ventes à crédit ">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>

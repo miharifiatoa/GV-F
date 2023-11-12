@@ -31,13 +31,10 @@ public class PannierLayoutController implements Initializable {
     @FXML private BorderPane pannierLayout;
     @FXML private Button exit;
     @FXML private Button payment;
-    @FXML private Button savePartial;
     @FXML private Label priceTotal;
-    @FXML private TextField deliveryTexfield;
 
     @FXML private ImageView pannierIcon;
     @FXML private ScrollPane pannierLayoutScrollpane;
-    @FXML private HBox pannierMenuHBox;
     private PaymentModeEntity paymentBy;
     private SellerPaymentController sellerPaymentController;
 
@@ -50,9 +47,7 @@ public class PannierLayoutController implements Initializable {
         this.exit.setOnAction(event->this.setExit());
         this.setArticles();
         this.setSale();
-        this.setSavePartial();
         this.setPriceTotal();
-        savePartial.setVisible(false);
     }
     private void setPriceTotal(){
         String price = DecimalFormat.format(FileIO.getPriceTotal("sales.dat"));
@@ -69,22 +64,9 @@ public class PannierLayoutController implements Initializable {
     private void setSale(){
         payment.setOnAction(event->{
             if (!FileIO.readArticleFromFile("sales.dat").isEmpty()){
-                if (Objects.equals(payment.getId(), "payment")){
-                    pannierLayoutScrollpane.setContent(getSellerPayment());
-                    payment.setId("save");
-                    payment.setText("Confirmer la vente");
-                    savePartial.setVisible(true);
-                    payment.setDisable(true);
-                }
-                else if (Objects.equals(payment.getId(), "save")){
-                    sellerPaymentController.setSaveTotally();
-                }
+                BorderPane sellerLayout = (BorderPane) pannierLayout.getParent();
+                sellerLayout.setBottom(getSellerPayment());
             }
-        });
-    }
-    private void setSavePartial(){
-        savePartial.setOnAction(event->{
-            sellerPaymentController.setSavePartial();
         });
     }
 
@@ -101,9 +83,9 @@ public class PannierLayoutController implements Initializable {
         }
         return  toolbar;
     }
-    private StackPane getSellerPayment(){
+    private BorderPane getSellerPayment(){
         FXMLLoader sellerPaymentLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/seller/sellerPayment.fxml"));
-        StackPane sellerPayment;
+        BorderPane sellerPayment;
         try {
             sellerPayment = sellerPaymentLoader.load();
             sellerPaymentController = sellerPaymentLoader.getController();

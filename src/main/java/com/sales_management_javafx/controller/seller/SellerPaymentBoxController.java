@@ -94,5 +94,8 @@ public class SellerPaymentBoxController implements Initializable {
     public void setSellerPaymentController(SellerPaymentController sellerPaymentController){
         this.sellerPaymentController = sellerPaymentController;
     }
+    public TextField getPayTextField(){
+        return this.payTextfield;
+    }
 
 }

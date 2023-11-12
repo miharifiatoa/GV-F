@@ -30,17 +30,15 @@ public class SaleGridPane {
         int col = 0;
         int row = 0;
         for (SaleEntity sale : sales) {
-            if (!sale.getCanceled()){
-                gridPane.add(this.getSaleBox(sale), col, row);
-                col++;
-                if (col == colSize) {
-                    col = 0;
-                    row++;
-                }
+            gridPane.add(this.getSaleBox(sale), col, row);
+            col++;
+            if (col == colSize) {
+                col = 0;
+                row++;
             }
+            System.out.println(sale.getPayed());
         }
         gridPane.getStyleClass().add("gridpane");
-        gridPane.setId("product-type-grid-pane");
         return gridPane;
     }
     private StackPane getSaleBox(SaleEntity sale){
