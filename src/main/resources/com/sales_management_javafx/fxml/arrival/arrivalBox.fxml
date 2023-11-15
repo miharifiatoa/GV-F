@@ -15,22 +15,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="arrivalBox" prefHeight="112.0" prefWidth="281.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.arrival.ArrivalBoxController">
+<StackPane fx:id="arrivalBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.arrival.ArrivalBoxController">
    <children>
       <VBox fx:id="arrivalVBox" spacing="5.0" styleClass="box" visible="false">
          <children>
-            <AnchorPane>
-               <children>
-                  <Label fx:id="text" prefHeight="27.2" prefWidth="264.0" text="Nombre" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <font>
-                        <Font name="System Italic" size="12.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </Label>
-               </children>
-            </AnchorPane>
+            <Label fx:id="text" text="Nombre" wrapText="true">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </Label>
             <AnchorPane>
                <children>
                   <Label fx:id="arrivalDateLabel" alignment="CENTER" prefHeight="27.2" prefWidth="264.0" text="Date" textAlignment="CENTER" textFill="#8c8c8c" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -55,38 +51,19 @@
                   </Label>
                </children>
             </AnchorPane>
-            <GridPane hgap="5.0" styleClass="box">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" />
-                  <ColumnConstraints hgrow="SOMETIMES" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints vgrow="SOMETIMES" />
-               </rowConstraints>
+            <HBox fx:id="arrivalHBox" alignment="CENTER_RIGHT" spacing="10.0" styleClass="box">
                <children>
-                  <AnchorPane>
-                     <children>
-                        <Button fx:id="cancel" mnemonicParsing="false" prefHeight="31.2" prefWidth="20.0" text="Annuler" textFill="RED" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <font>
-                              <Font name="System Italic" size="12.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane GridPane.columnIndex="1">
-                     <children>
-                        <Button fx:id="info" mnemonicParsing="false" prefHeight="31.2" prefWidth="82.4" text="facture" textFill="#0015ff" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <font>
-                              <Font name="System Italic" size="12.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </AnchorPane>
+                  <Button fx:id="cancel" mnemonicParsing="false" text="x" textFill="RED" />
+                  <Button fx:id="info" mnemonicParsing="false" text="facture" textFill="#0015ff">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </Button>
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
-            </GridPane>
+            </HBox>
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -201,7 +178,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </GridPane>
-            <ScrollPane fx:id="arrivalScrollpane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="no-border" vbarPolicy="NEVER" />
+            <ScrollPane fx:id="arrivalScrollpane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="105.0" styleClass="no-border" vbarPolicy="NEVER" />
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

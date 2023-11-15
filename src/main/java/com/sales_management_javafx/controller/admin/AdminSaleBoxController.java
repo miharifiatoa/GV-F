@@ -1,15 +1,11 @@
 package com.sales_management_javafx.controller.admin;
 
 import com.sales_management_javafx.classes.DateTimeFormatter;
-import com.sales_management_javafx.composent.SaleGridPane;
-import com.sales_management_javafx.composent.SellerArticleGridPane;
 import com.sales_management_javafx.composent.admin.AdminSaleInfoGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -20,7 +16,6 @@ import org.sales_management.service.SaleService;
 
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class AdminSaleBoxController implements Initializable {

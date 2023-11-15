@@ -3,7 +3,7 @@ package com.sales_management_javafx.controller.share;
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.composent.ArticleInfoGridPane;
-import com.sales_management_javafx.composent.ShareGridPane;
+import com.sales_management_javafx.composent.share.ShareGridPane;
 import com.sales_management_javafx.composent.ShopGridPane;
 import com.sales_management_javafx.composent.StockistArticleGridPane;
 import javafx.fxml.FXML;

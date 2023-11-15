@@ -72,13 +72,13 @@ public class ArticleCreateController implements Initializable {
         if (this.articlePriceTextfield.getText().isEmpty() || this.articleCodeTextfield.getText().isEmpty()){
             this.save.setDisable(true);
         }
-        this.articleCodeTextfield.textProperty().addListener(event->{
+        this.articleCodeTextfield.textProperty().addListener((event,oldValue, newValue)->{
+            String code = newValue.trim().toLowerCase();
             if (!articleCodeTextfield.getText().isEmpty()){
-                ArticleEntity article1 = articleService.isUniqueValue(articleCodeTextfield.getText().toLowerCase());
-                ArticleEntity article2 = articleService.isUniqueValue(articleCodeTextfield.getText().toUpperCase());
-                if (article1 != null || article2 != null){
+                ArticleEntity existedArticle =  articleService.isUniqueValue(code);
+                if (existedArticle != null){
                     save.setDisable(true);
-                    identifyWarning.setText(articleCodeTextfield.getText() + " existe deja dans la liste d 'article " + Objects.requireNonNullElse(article1, article2).getProductType().getName());
+                    identifyWarning.setText(articleCodeTextfield.getText() + " existe deja dans la type de produit " + existedArticle.getProductType().getName());
                 }
                 else {
                     save.setDisable(false);

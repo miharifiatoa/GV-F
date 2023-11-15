@@ -3,9 +3,10 @@ package com.sales_management_javafx.controller.share;
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.DateTimeFormatter;
 import com.sales_management_javafx.classes.Printer;
-import com.sales_management_javafx.composent.ShareInfoGridPane;
-import com.sales_management_javafx.composent.ShareGridPane;
+import com.sales_management_javafx.composent.share.ShareInfoGridPane;
+import com.sales_management_javafx.composent.share.ShareGridPane;
 import com.sales_management_javafx.composent.StockistArticleGridPane;
+import com.sales_management_javafx.composent.admin.AdminShareInfoGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -14,6 +15,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.sales_management.entity.ShareArticleEntity;
@@ -39,6 +41,7 @@ public class ShareBoxController implements Initializable {
     @FXML private VBox shareVBox;
     @FXML private VBox cancelShareVBox;
     @FXML private VBox infoVBox;
+    @FXML private HBox shareHBox;
     @FXML private ImageView printIcon;
     @FXML private ImageView exitIcon;
     @FXML private ScrollPane shareScrollpane;
@@ -60,12 +63,25 @@ public class ShareBoxController implements Initializable {
         this.putIcons();
         this.setPrint();
     }
-    public void initialize(ShareEntity share){
-        text.setText("Vous avez partagé " + sum(share) + " produit(s) vers le boutique : " + share.getShop().getName() + " à " + share.getShop().getAddress() + " le : ");
+    private void initialize(ShareEntity share){
         dateLabel.setText(DateTimeFormatter.format(share.getShareDate()));
         cancelText.setText("Voulez vous vraiment annuler cet partage ?");
         this.setSave(share);
         this.setShareScrollpane(share);
+    }
+    public void initializeForStockist(ShareEntity share){
+        this.initialize(share);
+        this.text.setText("Vous avez partagé " + sum(share) + " produit(s) vers le boutique : " + share.getShop().getName() + " à " + share.getShop().getAddress() + " le : ");
+    }
+    public void initializeForAdmin(ShareEntity share){
+        this.shareHBox.getChildren().remove(cancel);
+        this.initialize(share);
+        this.text.setText(share.getUser().getAccount().getUsername() + " a partagé " + sum(share) + " produit(s) vers le boutique : " + share.getShop().getName() + " à " + share.getShop().getAddress() + " le : ");
+        this.text.setOnMouseClicked(event->{
+            GridPane adminShareInfoGridPane = new AdminShareInfoGridPane().getGridPane(share,1);
+            ScrollPane dashboardLayoutScrollpane = (ScrollPane) shareBox.getParent().getParent().getParent().getParent();
+            dashboardLayoutScrollpane.setContent(adminShareInfoGridPane);
+        });
     }
     private int sum(ShareEntity share){
         int sum = 0;

@@ -1,6 +1,7 @@
 package com.sales_management_javafx.composent;
 
 import com.sales_management_javafx.SalesApplication;
+import com.sales_management_javafx.composent.sale.SalePaymentBoxGridPane;
 import com.sales_management_javafx.controller.sale.FactureArticleBoxController;
 import com.sales_management_javafx.controller.sale.FactureFooterController;
 import com.sales_management_javafx.controller.sale.FactureHeaderController;
@@ -36,6 +37,8 @@ public class FactureGridPane {
                 row++;
             }
         }
+        gridPane.add(new SalePaymentBoxGridPane().getGridPane(sale,1),col,row);
+        row++;
         gridPane.add(this.getFactureFooter(sale),col,row);
         gridPane.getStyleClass().add("box");
         gridPane.setId("product-type-grid-pane");

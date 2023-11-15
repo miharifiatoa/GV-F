@@ -1,24 +1,24 @@
-package com.sales_management_javafx.composent;
+package com.sales_management_javafx.composent.arrival;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.controller.admin.AdminShareBoxController;
-import com.sales_management_javafx.controller.share.ShareBoxController;
+import com.sales_management_javafx.controller.admin.AdminArrivalBoxController;
+import com.sales_management_javafx.controller.arrival.ArrivalBoxController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
-import org.sales_management.entity.ShareEntity;
+import org.sales_management.entity.ArrivalEntity;
 
 import java.io.IOException;
 import java.util.Collection;
 
-public class ShareGridPane {
+public class ArrivalGridPane {
     private final GridPane gridPane;
-    public ShareGridPane() {
+    public ArrivalGridPane() {
         this.gridPane = new GridPane();
     }
-    public GridPane getGridPane(Collection<ShareEntity> shares , int colSize) {
+    public GridPane getGridPane(Collection<ArrivalEntity> arrivals , int colSize) {
         for (int i = 0 ; i < colSize ; i++){
             ColumnConstraints constraints = new ColumnConstraints();
             constraints.setHgrow(Priority.ALWAYS);
@@ -28,8 +28,8 @@ public class ShareGridPane {
         }
         int col = 0;
         int row = 0;
-        for (ShareEntity share : shares) {
-            gridPane.add(this.getShareBox(share), col, row);
+        for (ArrivalEntity arrival : arrivals) {
+            gridPane.add(this.getArrivalBox(arrival), col, row);
             col++;
             if (col == colSize) {
                 col = 0;
@@ -37,18 +37,19 @@ public class ShareGridPane {
             }
         }
         gridPane.getStyleClass().add("gridpane");
+        gridPane.setId("product-type-grid-pane");
         return gridPane;
     }
-    private StackPane getShareBox(ShareEntity share){
-        FXMLLoader shareBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/share/shareBox.fxml"));
-        StackPane shareBox;
+    private StackPane getArrivalBox(ArrivalEntity arrival){
+        FXMLLoader arrivalBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/arrival/arrivalBox.fxml"));
+        StackPane arrivalBox;
         try {
-            shareBox = shareBoxLoader.load();
-            ShareBoxController shareBoxController = shareBoxLoader.getController();
-            shareBoxController.initialize(share);
+            arrivalBox = arrivalBoxLoader.load();
+            ArrivalBoxController arrivalBoxController = arrivalBoxLoader.getController();
+            arrivalBoxController.initializeForStockist(arrival);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return shareBox;
+        return arrivalBox;
     }
 }

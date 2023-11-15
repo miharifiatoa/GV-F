@@ -1,6 +1,7 @@
 package com.sales_management_javafx.controller.seller;
 
 import com.sales_management_javafx.classes.NumberTextField;
+import com.sales_management_javafx.controller.sale.SaleAddPaymentController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.sales_management.entity.PaymentEntity;
 import org.sales_management.entity.PaymentModeEntity;
+import org.sales_management.entity.SaleEntity;
 import org.sales_management.service.PaymentModeService;
 
 import java.net.URL;
@@ -27,6 +29,7 @@ public class SellerPaymentBoxController implements Initializable {
     private PaymentModeEntity paymentBy;
     private Double pay;
     private SellerPaymentController sellerPaymentController;
+    private SaleAddPaymentController saleAddPaymentController;
 
     public SellerPaymentBoxController() {
         this.paymentModeService = new PaymentModeService();
@@ -36,12 +39,15 @@ public class SellerPaymentBoxController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.paymentBy();
-        this.updateTotal();
         NumberTextField.requireDouble(payTextfield);
     }
     public void initialize(VBox vBox){
         this.setRemove(vBox);
     }
+    public void initialize(SaleEntity sale){
+        this.setPayTextField(sale);
+    }
+
     private void paymentBy(){
         ToggleGroup toggleGroup = new ToggleGroup();
         for (PaymentModeEntity paymentMode : paymentModeService.getAll()){
@@ -83,10 +89,13 @@ public class SellerPaymentBoxController implements Initializable {
             paymentVBox.getChildren().remove(paymentBox);
         });
     }
-    private void updateTotal(){
+    private void setPayTextField(SaleEntity sale){
         payTextfield.textProperty().addListener(event->{
             if (sellerPaymentController != null){
-                sellerPaymentController.updateTotal();
+                sellerPaymentController.setPayTextField();
+            }
+            else if (saleAddPaymentController != null){
+                saleAddPaymentController.setPayTextField(sale);
             }
             remove.setDisable(!payTextfield.getText().isEmpty());
         });
@@ -94,6 +103,10 @@ public class SellerPaymentBoxController implements Initializable {
     public void setSellerPaymentController(SellerPaymentController sellerPaymentController){
         this.sellerPaymentController = sellerPaymentController;
     }
+    public void setSaleAddPaymentController(SaleAddPaymentController saleAddPaymentController){
+        this.saleAddPaymentController = saleAddPaymentController;
+    }
+
     public TextField getPayTextField(){
         return this.payTextfield;
     }

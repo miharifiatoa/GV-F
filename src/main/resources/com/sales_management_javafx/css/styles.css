@@ -188,7 +188,7 @@
 .canceled-box{
     -fx-background-color: #ffffff;
 }
-.canceled-text{
+.canceled-text  {
     -fx-text-fill: #ff0000
 }
 

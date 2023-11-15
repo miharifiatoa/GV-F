@@ -1,27 +1,22 @@
-package com.sales_management_javafx.composent;
+package com.sales_management_javafx.composent.share;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.controller.article.ArticleCodeController;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import org.sales_management.entity.ArrivalArticleEntity;
-import org.sales_management.entity.ArrivalEntity;
+import javafx.scene.layout.*;
 import org.sales_management.entity.ShareArticleEntity;
 import org.sales_management.entity.ShareEntity;
 
 import java.io.IOException;
 
-public class ArrivalInfoGridPane {
+public class ShareInfoGridPane {
     private final GridPane gridPane;
 
-    public ArrivalInfoGridPane() {
+    public ShareInfoGridPane() {
         this.gridPane = new GridPane();
     }
 
-    public GridPane getGridPane(ArrivalEntity arrival, int colSize){
+    public GridPane getGridPane(ShareEntity share, int colSize){
         for (int i = 0 ; i < colSize ; i++){
             ColumnConstraints constraints = new ColumnConstraints();
             constraints.setHgrow(Priority.ALWAYS);
@@ -31,8 +26,8 @@ public class ArrivalInfoGridPane {
         }
         int col = 0;
         int row = 0;
-        for (ArrivalArticleEntity arrivalArticle : arrival.getArrivalArticles()) {
-            gridPane.add(this.getArticleCode(arrivalArticle), col, row);
+        for (ShareArticleEntity shareArticle : share.getShareArticles()) {
+            gridPane.add(this.getArticleCode(shareArticle), col, row);
             col++;
             if (col == colSize) {
                 col = 0;
@@ -42,13 +37,13 @@ public class ArrivalInfoGridPane {
         gridPane.getStyleClass().add("box");
         return gridPane;
     }
-    private StackPane getArticleCode(ArrivalArticleEntity arrivalArticle){
+    private StackPane getArticleCode(ShareArticleEntity shareArticle){
         FXMLLoader articleCodeLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article/articleCode.fxml"));
         StackPane articleCode;
         try {
             articleCode = articleCodeLoader.load();
             ArticleCodeController articleCodeController = articleCodeLoader.getController();
-            articleCodeController.initialize(arrivalArticle);
+            articleCodeController.initialize(shareArticle);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -1,19 +1,12 @@
 package com.sales_management_javafx.controller.admin;
 
-import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.composent.ArrivalArticlesGridPane;
-import com.sales_management_javafx.composent.SaleArticlesGridPane;
-import com.sales_management_javafx.composent.ShareArticlesGridPane;
-import com.sales_management_javafx.composent.admin.AdminArrivalGridPane;
-import com.sales_management_javafx.composent.admin.AdminSaleGridPane;
-import com.sales_management_javafx.composent.admin.AdminShareGridPane;
+import com.sales_management_javafx.composent.arrival.ArrivalArticlesGridPane;
+import com.sales_management_javafx.composent.sale.SaleArticlesGridPane;
+import com.sales_management_javafx.composent.share.ShareArticlesGridPane;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 import org.sales_management.entity.ArrivalArticleEntity;
 import org.sales_management.entity.ArticleEntity;
@@ -23,12 +16,10 @@ import org.sales_management.service.ArrivalArticleService;
 import org.sales_management.service.SaleArticleService;
 import org.sales_management.service.ShareArticleService;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ArticleStoryController implements Initializable {

@@ -1,53 +1,49 @@
 package com.sales_management_javafx.controller.sale;
 
 import com.sales_management_javafx.SalesApplication;
+import com.sales_management_javafx.actions.Payment;
 import com.sales_management_javafx.classes.DateTimeFormatter;
-import com.sales_management_javafx.composent.SaleGridPane;
-import com.sales_management_javafx.composent.SalePaymentBoxGridPane;
+import com.sales_management_javafx.classes.DecimalFormat;
+import com.sales_management_javafx.composent.sale.SaleGridPane;
 import com.sales_management_javafx.composent.SellerArticleGridPane;
+import com.sales_management_javafx.composent.admin.AdminSaleInfoGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import org.sales_management.entity.SaleArticleEntity;
 import org.sales_management.entity.SaleEntity;
-import org.sales_management.entity.UserEntity;
 import org.sales_management.service.ArticleService;
 import org.sales_management.service.SaleService;
-import org.sales_management.session.SessionManager;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class SaleBoxController implements Initializable {
     @FXML private Label  saleText;
     @FXML private Label cancelText;
+    @FXML private Label sum;
+    @FXML private Label payed;
+    @FXML private Label rest;
+    @FXML private Label addPayment;
     @FXML private Button save;
     @FXML private Button exit;
     @FXML private Button cancel;
     @FXML private Button facture;
     @FXML private VBox saleVBox;
     @FXML private VBox cancelSaleVBox;
+    @FXML private HBox addPaymentHBox;
+    @FXML private HBox saleHBox;
     @FXML private StackPane saleBox;
-    @FXML private ScrollPane paymentBoxScrollpane;
     private final SaleService saleService;
     private final ArticleService articleService;
-    private final UserEntity user;
 
     public SaleBoxController() {
-        this.user = SessionManager.getSession().getCurrentUser();
         this.articleService = new ArticleService();
         this.saleService = new SaleService();
     }
@@ -59,23 +55,32 @@ public class SaleBoxController implements Initializable {
         this.cancel.setOnAction(event->this.setCancel());
         this.exit.setOnAction(event->this.setExit());
     }
-    public void initialize(SaleEntity sale){
+    public void initializeForSale(SaleEntity sale){
         this.setSave(sale);
-//        sum.setText("Total : " + getSum(sale) + " Ar");
-        saleText.setText("Vous avez vendu " + getTotalSize(sale)
-                + " produit(s) au client , "
-                + sale.getClient().getName()
-                + " "
-                + " le : "
-                + DateTimeFormatter.format(sale.getSaleDate()));
-        cancelText.setText("Voulez vous vraiment annuler cette vente des produits au client : "
-                + sale.getClient().getName());
-        this.setFacture(sale);
-        this.setPaymentBoxScrollpane(sale);
+        this.initialize(sale);
+        this.setAddPayment(sale);
+        this.saleText.setText("Vous avez vendu " + getTotalSize(sale) + " produit(s) au client , " + sale.getClient().getName() + " " + " le : " + DateTimeFormatter.format(sale.getSaleDate()));
+        this.cancelText.setText("Voulez vous vraiment annuler cette vente des produits au client : " + sale.getClient().getName());
+        if (sale.getPayed()){
+            addPaymentHBox.getChildren().remove(addPayment);
+        }
     }
-    private void setPaymentBoxScrollpane(SaleEntity sale){
-        GridPane salePaymentBoxGridPane = new SalePaymentBoxGridPane().getGridPane(sale,1);
-        paymentBoxScrollpane.setContent(salePaymentBoxGridPane);
+    public void initializeForAdmin(SaleEntity sale){
+        saleVBox.setOnMouseClicked(event->{
+            GridPane adminSaleInfoGridPane = new AdminSaleInfoGridPane().getGridPane(sale,1);
+            ScrollPane dashboardLayoutScrollpane = (ScrollPane) saleBox.getParent().getParent().getParent().getParent();
+            dashboardLayoutScrollpane.setContent(adminSaleInfoGridPane);
+        });
+        saleHBox.getChildren().remove(cancel);
+        addPaymentHBox.getChildren().remove(addPayment);
+        initialize(sale);
+        this.saleText.setText(sale.getUser().getAccount().getUsername() + " a vendu " + getTotalSize(sale) + " produit(s) au client , " + sale.getClient().getName() + " " + " le : " + DateTimeFormatter.format(sale.getSaleDate()));
+    }
+    private void initialize(SaleEntity sale){
+        this.setFacture(sale);
+        this.sum.setText(DecimalFormat.format(Payment.getTotalToPay(sale) - sale.getDelivery()) + "Ar");
+        this.payed.setText(DecimalFormat.format(Payment.getPayed(sale)) + "Ar");
+        this.rest.setText(DecimalFormat.format(Payment.getTotalToPay(sale) - sale.getDelivery() - Payment.getPayed(sale)) + "Ar");
     }
     private void setCancel(){
         this.saleVBox.setVisible(false);
@@ -97,30 +102,26 @@ public class SaleBoxController implements Initializable {
                 ScrollPane sellerArticleScrollpane = (ScrollPane) sellerLayout.lookup("#sellerArticleScrollpane");
                 Label payementLabel = (Label) sellerLayout.lookup("#payementLabel");
                 Label saleNumberLabel = (Label) sellerLayout.lookup("#saleNumberLabel");
-                payementLabel.setText("Versement : " + this.getMoneyTotalByDay() + " Ar");
-                int size = new SaleService().getAcceptedAndPayedOrUnPayedSalesByDate(LocalDate.now(),true).size();
+                payementLabel.setText("Versement : " + Payment.getPaymentByDay(LocalDate.now()) + " Ar");
+                int size = new SaleService().getAcceptedSalesByDate(LocalDate.now()).size();
                 if (size != 0){
                     saleNumberLabel.setText("Vous avez effectué "+ size + " Vente(s)");
                 }
                 else {
                     saleNumberLabel.setText(null);
                 }
+                GridPane gridPane;
+                if (sale.getPayed()){
+                    gridPane = new SaleGridPane().getGridPane(saleService.getAcceptedAndPayedSalesByDate(LocalDate.now()),4);
+                }
+                else {
+                    gridPane = new SaleGridPane().getGridPane(saleService.getAcceptedAndUnPayedSales(),4);
+                }
                 GridPane sellerArticleGridPane = new SellerArticleGridPane().getGridPane(articleService.getAll(),4);
-                GridPane saleGridPane = new SaleGridPane().getGridPane(saleService.getAcceptedAndPayedOrUnPayedSalesByDate(LocalDate.now(),true),4);
                 sellerArticleScrollpane.setContent(sellerArticleGridPane);
-                getSaleLayoutScrollpane().setContent(saleGridPane);
+                getSaleLayoutScrollpane().setContent(gridPane);
             }
         });
-    }
-    private String getMoneyTotalByDay(){
-        double money = 0;
-        for (SaleEntity sale : saleService.getAcceptedAndPayedOrUnPayedSalesByDate(LocalDate.now(),true)){
-            for (SaleArticleEntity saleArticle : sale.getSaleArticles()){
-                money += saleArticle.getArticle().getPrice() * saleArticle.getQuantity();
-            }
-        }
-        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
-        return decimalFormat.format(money);
     }
     private int getTotalSize(SaleEntity sale){
         int total = 0;
@@ -129,14 +130,13 @@ public class SaleBoxController implements Initializable {
         }
         return total;
     }
-    private String getSum(SaleEntity sale){
-        double sum = 0;
-        for (SaleArticleEntity saleArticle : sale.getSaleArticles()){
-            sum += saleArticle.getArticle().getPrice() * saleArticle.getQuantity();
-        }
-        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
-        return decimalFormat.format(sum);
+    private void setAddPayment(SaleEntity sale){
+        addPayment.setOnMouseClicked(event->{
+            BorderPane sellerLayoutBorderpane = (BorderPane) saleBox.getParent().getParent().getParent().getParent().getParent().getParent();
+            sellerLayoutBorderpane.setBottom(getSaleAddPayment(sale));
+        });
     }
+
     private ScrollPane getSaleLayoutScrollpane(){
         return (ScrollPane) saleBox.getParent().getParent().getParent().getParent();
     }
@@ -151,5 +151,17 @@ public class SaleBoxController implements Initializable {
             throw new RuntimeException(e);
         }
         return  facture;
+    }
+    private BorderPane getSaleAddPayment(SaleEntity sale){
+        FXMLLoader saleAddPaymentLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/sale/saleAddPayment.fxml"));
+        BorderPane saleAddPayment;
+        try {
+            saleAddPayment = saleAddPaymentLoader.load();
+            SaleAddPaymentController saleAddPaymentController = saleAddPaymentLoader.getController();
+            saleAddPaymentController.initialize(sale);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return saleAddPayment;
     }
 }

@@ -1,21 +1,24 @@
 package com.sales_management_javafx.composent.admin;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.controller.admin.AdminArrivalBoxController;
 import com.sales_management_javafx.controller.arrival.ArrivalBoxController;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.*;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import org.sales_management.entity.ArrivalEntity;
+import org.sales_management.entity.PaymentModeEntity;
 
 import java.io.IOException;
 import java.util.Collection;
 
-public class AdminArrivalGridPane {
+public class AdminPaymentGridPane {
     private final GridPane gridPane;
-    public AdminArrivalGridPane() {
+    public AdminPaymentGridPane() {
         this.gridPane = new GridPane();
     }
-    public GridPane getGridPane(Collection<ArrivalEntity> arrivals , int colSize) {
+    public GridPane getGridPane(Collection<PaymentModeEntity> paymentModes , int colSize) {
         for (int i = 0 ; i < colSize ; i++){
             ColumnConstraints constraints = new ColumnConstraints();
             constraints.setHgrow(Priority.ALWAYS);
@@ -25,8 +28,9 @@ public class AdminArrivalGridPane {
         }
         int col = 0;
         int row = 0;
-        for (ArrivalEntity arrival : arrivals) {
-            gridPane.add(this.getArrivalBox(arrival), col, row);
+        for (PaymentModeEntity paymentMode : paymentModes) {
+
+            gridPane.add(null, col, row);
             col++;
             if (col == colSize) {
                 col = 0;

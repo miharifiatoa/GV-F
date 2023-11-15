@@ -70,7 +70,7 @@ public class ProductCreateController implements Initializable {
         }
         productNameTextfield.textProperty().addListener((observable, oldValue, newValue) -> {
             String productName = newValue.trim().toLowerCase();
-            if (!productName.isEmpty()) {
+            if (!productNameTextfield.getText().isEmpty()) {
                 ProductEntity existingProduct = productService.isProductNameExists(productName);
                 if (existingProduct != null) {
                     nameWarning.setText(productName + " existe déjà dans la liste de " + existingProduct.getProductCategory().getName());

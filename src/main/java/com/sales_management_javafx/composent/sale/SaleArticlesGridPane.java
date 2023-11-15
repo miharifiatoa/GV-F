@@ -1,4 +1,4 @@
-package com.sales_management_javafx.composent;
+package com.sales_management_javafx.composent.sale;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.controller.admin.AdminArticleStoryBoxController;

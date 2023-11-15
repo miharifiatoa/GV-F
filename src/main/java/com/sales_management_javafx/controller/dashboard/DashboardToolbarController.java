@@ -1,10 +1,13 @@
 package com.sales_management_javafx.controller.dashboard;
 
 import com.sales_management_javafx.SalesApplication;
+import com.sales_management_javafx.actions.Payment;
+import com.sales_management_javafx.classes.DecimalFormat;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -12,10 +15,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.sales_management.entity.UserEntity;
+import org.sales_management.service.PaymentService;
 import org.sales_management.session.SessionManager;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class DashboardToolbarController implements Initializable {
@@ -25,6 +31,7 @@ public class DashboardToolbarController implements Initializable {
     @FXML private Button newAccount;
     @FXML private Button newShop;
     @FXML private Button logout;
+    @FXML private Label payment;
     private final UserEntity user;
 
     public DashboardToolbarController() {
@@ -36,10 +43,11 @@ public class DashboardToolbarController implements Initializable {
         this.setNewShop();
         this.setNewAccount();
         this.putIcons();
+        this.logout.setOnAction(event->setLogout());
+        this.payment.setText(DecimalFormat.format(Payment.getPaymentByDay(LocalDate.now())) + "Ar");
         if (user == null){
             this.setLogout();
         }
-        logout.setOnAction(event->setLogout());
     }
     private void setNewShop(){
         newShop.setOnAction(event->{
@@ -93,4 +101,5 @@ public class DashboardToolbarController implements Initializable {
         BorderPane salesManagementBorderpane = (BorderPane) dashboardToolbar.getParent().getParent().getParent().getParent();
         salesManagementBorderpane.setCenter(this.getLogin());
     }
+
 }

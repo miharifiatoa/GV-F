@@ -29,7 +29,7 @@ public class AdminSaleGridPane {
         int col = 0;
         int row = 0;
         for (SaleEntity sale : sales) {
-            gridPane.add(this.getAdminSaleBox(sale), col, row);
+            gridPane.add(this.getSaleBox(sale), col, row);
             col++;
             if (col == colSize) {
                 col = 0;
@@ -40,16 +40,16 @@ public class AdminSaleGridPane {
         gridPane.setId("sale");
         return gridPane;
     }
-    private StackPane getAdminSaleBox(SaleEntity sale){
-        FXMLLoader adminSaleBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/admin/adminSaleBox.fxml"));
-        StackPane adminSaleBox;
+    private StackPane getSaleBox(SaleEntity sale){
+        FXMLLoader saleBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/sale/saleBox.fxml"));
+        StackPane saleBox;
         try {
-            adminSaleBox = adminSaleBoxLoader.load();
-            AdminSaleBoxController adminSaleBoxController = adminSaleBoxLoader.getController();
-            adminSaleBoxController.initialize(sale);
+            saleBox = saleBoxLoader.load();
+            SaleBoxController saleBoxController = saleBoxLoader.getController();
+            saleBoxController.initializeForAdmin(sale);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return adminSaleBox;
+        return saleBox;
     }
 }

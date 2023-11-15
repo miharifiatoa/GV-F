@@ -1,15 +1,14 @@
-package com.sales_management_javafx.composent;
+package com.sales_management_javafx.composent.sale;
 
 import com.sales_management_javafx.SalesApplication;
+import com.sales_management_javafx.controller.sale.SaleAddPaymentController;
 import com.sales_management_javafx.controller.sale.SaleBoxController;
 import com.sales_management_javafx.controller.sale.SalePaymentBoxController;
 import com.sales_management_javafx.controller.seller.SellerPaymentBoxController;
+import com.sales_management_javafx.controller.seller.SellerPaymentController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import org.sales_management.entity.PaymentEntity;
 import org.sales_management.entity.SaleEntity;
 
@@ -39,9 +38,6 @@ public class SalePaymentBoxGridPane {
                     row++;
                 }
         }
-        if (!sale.getPayed()){
-            gridPane.add(new Button("+"),col,row);
-        }
         gridPane.getStyleClass().add("gridpane");
         return gridPane;
     }
@@ -57,4 +53,5 @@ public class SalePaymentBoxGridPane {
         }
         return salePaymentBox;
     }
+
 }

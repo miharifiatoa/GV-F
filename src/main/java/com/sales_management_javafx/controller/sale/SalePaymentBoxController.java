@@ -1,5 +1,6 @@
 package com.sales_management_javafx.controller.sale;
 
+import com.sales_management_javafx.classes.DecimalFormat;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -18,7 +19,7 @@ public class SalePaymentBoxController implements Initializable {
 
     }
     public void initialize(PaymentEntity payment){
-        payLabel.setText(String.valueOf(payment.getPay()));
+        payLabel.setText(DecimalFormat.format(payment.getPay()) + "Ar");
         paymentModeLabel.setText(payment.getPaymentMode().getDescription());
         paymentDateLabel.setText(String.valueOf(payment.getPaymentDate().toLocalDate()));
     }

@@ -1,7 +1,8 @@
 package com.sales_management_javafx.controller.sale;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.composent.SaleGridPane;
+import com.sales_management_javafx.actions.Payment;
+import com.sales_management_javafx.composent.sale.SaleGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,15 +13,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import org.sales_management.entity.SaleArticleEntity;
-import org.sales_management.entity.SaleEntity;
 import org.sales_management.service.SaleService;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class SaleLayoutController implements Initializable {
@@ -43,17 +40,23 @@ public class SaleLayoutController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         exit.setOnAction(event->setExit());
         this.putIcons();
-        payementLabel.setText("Versement : "+ this.getMoneyTotalByDay() + " Ar");
-        int size = saleService.getAcceptedAndPayedOrUnPayedSalesByDate(LocalDate.now(),true).size();
+        payementLabel.setText("Versement : "+ Payment.getPaymentByDay(LocalDate.now()) + " Ar");
+        int size = saleService.getAcceptedSalesByDate(LocalDate.now()).size();
         if (size != 0){
             saleNumberLabel.setText("Vous avez effectué "+ size + " Vente(s)");
         }
         else {
             saleNumberLabel.setText(null);
         }
-//        this.setPayedSales();
+        this.setPayedSales();
         this.setPayedSalesLabel();
         this.setUnPayedSalesLabel();
+    }
+    public void initializeForPayed(){
+        setPayedSales();
+    }
+    public void initializeForUnPayed(){
+        setUnPayedSales();
     }
     private void setPayedSalesLabel(){
         payedSalesLabel.setOnMouseClicked(event->{
@@ -67,11 +70,11 @@ public class SaleLayoutController implements Initializable {
     }
 
     private void setPayedSales(){
-        GridPane saleGridPane = new SaleGridPane().getGridPane(saleService.getAcceptedAndPayedOrUnPayedSalesByDate(LocalDate.now(),true),4);
+        GridPane saleGridPane = new SaleGridPane().getGridPane(saleService.getAcceptedAndPayedSalesByDate(LocalDate.now()),4);
         saleLayoutScrollpane.setContent(saleGridPane);
     }
     private void setUnPayedSales(){
-        GridPane saleGridPane = new SaleGridPane().getGridPane(saleService.getAcceptedAndPayedOrUnPayedSalesByDate(LocalDate.now(),false),4);
+        GridPane saleGridPane = new SaleGridPane().getGridPane(saleService.getAcceptedAndUnPayedSales(),4);
         saleLayoutScrollpane.setContent(saleGridPane);
     }
 
@@ -82,16 +85,7 @@ public class SaleLayoutController implements Initializable {
     private void putIcons(){
         this.saleIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/SaleIcon.png"))));
     }
-    private String getMoneyTotalByDay(){
-        double money = 0;
-        for (SaleEntity sale : saleService.getAcceptedAndPayedOrUnPayedSalesByDate(LocalDate.now(),true)){
-            for (SaleArticleEntity saleArticle : sale.getSaleArticles()){
-                money += saleArticle.getArticle().getPrice() * saleArticle.getQuantity();
-            }
-        }
-        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
-        return decimalFormat.format(money);
-    }
+
     private GridPane getToolbar(){
         FXMLLoader toolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/seller/sellerToolbar.fxml"));
         GridPane toolbar;

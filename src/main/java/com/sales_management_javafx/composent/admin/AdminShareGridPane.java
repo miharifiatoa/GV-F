@@ -2,6 +2,7 @@ package com.sales_management_javafx.composent.admin;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.controller.admin.AdminShareBoxController;
+import com.sales_management_javafx.controller.share.ShareBoxController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -28,7 +29,7 @@ public class AdminShareGridPane {
         int col = 0;
         int row = 0;
         for (ShareEntity share : shares) {
-            gridPane.add(this.getAdminShareBox(share), col, row);
+            gridPane.add(this.getShareBox(share), col, row);
             col++;
             if (col == colSize) {
                 col = 0;
@@ -39,16 +40,17 @@ public class AdminShareGridPane {
         gridPane.setId("share");
         return gridPane;
     }
-    private StackPane getAdminShareBox(ShareEntity share){
-        FXMLLoader adminShareBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/admin/adminShareBox.fxml"));
-        StackPane adminShareBox;
+    private StackPane getShareBox(ShareEntity share){
+        FXMLLoader shareBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/share/shareBox.fxml"));
+        StackPane shareBox;
         try {
-            adminShareBox = adminShareBoxLoader.load();
-            AdminShareBoxController adminShareBoxController = adminShareBoxLoader.getController();
-            adminShareBoxController.initialize(share);
-        } catch (IOException e) {
+            shareBox = shareBoxLoader.load();
+            ShareBoxController shareBoxController = shareBoxLoader.getController();
+            shareBoxController.initializeForAdmin(share);
+        }
+        catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return adminShareBox;
+        return shareBox;
     }
 }

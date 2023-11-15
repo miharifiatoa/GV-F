@@ -4,10 +4,10 @@ import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.DecimalFormat;
 import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.classes.NumberTextField;
-import com.sales_management_javafx.composent.ArticleInfoGridPane;
-import com.sales_management_javafx.composent.SaleArticlesGridPane;
 import com.sales_management_javafx.composent.SellerArticleGridPane;
 import com.sales_management_javafx.controller.sale.SaleLayoutController;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,8 +17,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import org.sales_management.entity.ArticleEntity;
 import org.sales_management.entity.ClientEntity;
 import org.sales_management.entity.PaymentEntity;
@@ -39,6 +39,7 @@ public class SellerPaymentController implements Initializable {
     @FXML private Button newPayment;
     @FXML private Button saveUnPayed;
     @FXML private Button savePayed;
+    @FXML private Button exit;
     @FXML private Label priceTotal;
     @FXML private Label pay;
     @FXML private Label rest;
@@ -49,6 +50,8 @@ public class SellerPaymentController implements Initializable {
     private final ClientService clientService;
     private final PaymentService paymentService;
     private final Collection<SellerPaymentBoxController> sellerPaymentBoxControllers = new HashSet<>();
+    private SaleLayoutController saleLayoutController;
+    private double delivery = 0.0;
 
     public SellerPaymentController() {
         this.clientService = new ClientService();
@@ -59,17 +62,32 @@ public class SellerPaymentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.setNewPayment();
+        this.priceTotal.setText("Prix total : "+FileIO.getPriceTotal("sales.dat") + "Ar");
+        this.setSavePayed();
+        this.setSaveUnPayed();
+        this.setDelivery();
+        this.setExit();
         savePayed.setDisable(true);
-        this.priceTotal.setText(FileIO.getPriceTotal("sales.dat") + "Ar");
+//        saveUnPayed.setDisable(true);
         NumberTextField.requireDouble(deliveryTextfield);
+        NumberTextField.requireIntegerOnly(clientContactTextfield,999999999);
     }
     public void initialize(SaleEntity sale){
-
+        deliveryTextfield.setText(String.valueOf(sale.getDelivery()));
+        clientNameTextfield.setText(sale.getClient().getName());
+        clientContactTextfield.setText(sale.getClient().getTelephone());
     }
 
     private void setNewPayment(){
         newPayment.setOnAction(event->{
             paymentVBox.getChildren().add(getSellerPaymentBox());
+        });
+    }
+    private void setExit(){
+        exit.setOnAction(event->{
+            BorderPane sellerLayout = (BorderPane) sellerPayment.getParent();
+            sellerLayout.setBottom(getPannierLayout());
+
         });
     }
     private Collection<PaymentEntity> getPayments(){
@@ -79,85 +97,139 @@ public class SellerPaymentController implements Initializable {
         }
         return payments;
     }
-    public void updateTotal() {
-        boolean isDeliveryDisabled = false;
-        double totalMontant = 0.0;
+    public void setPayTextField() {
+        boolean isEmpty = false;
+        double pay = 0.0;
         double priceTotal = FileIO.getPriceTotal("sales.dat");
-
         for (SellerPaymentBoxController sellerPaymentBoxController : sellerPaymentBoxControllers) {
             TextField payTextField = sellerPaymentBoxController.getPayTextField();
             if (!payTextField.getText().isEmpty()){
-                isDeliveryDisabled = true;
+                isEmpty = true;
                 break;
             }
         }
         for (SellerPaymentBoxController sellerPaymentBoxController : sellerPaymentBoxControllers) {
-            totalMontant += sellerPaymentBoxController.getPay();
+            pay += sellerPaymentBoxController.getPay();
         }
-        deliveryTextfield.setDisable(isDeliveryDisabled);
-        if (!deliveryTextfield.getText().isEmpty()){
-            rest.setText(totalMontant - (priceTotal - Double.parseDouble(deliveryTextfield.getText())) + "Ar");
-        }
-        else {
-            rest.setText(totalMontant - priceTotal + "Ar");
-        }
-        pay.setText(totalMontant + "Ar");
+        double totalToPay = priceTotal - delivery;
+        this.deliveryTextfield.setDisable(isEmpty);
+        this.savePayed.setDisable(!(totalToPay == pay));
+        this.saveUnPayed.setDisable(!(totalToPay >= pay));
+        this.rest.setText("Reste : " + DecimalFormat.format(pay - (totalToPay)) + "Ar");
+        this.pay.setText("Payé  : " + DecimalFormat.format(pay) + "Ar");
     }
-    public void setSaveTotally(){
-        ClientEntity client = new ClientEntity();
-        client.setName(clientNameTextfield.getText());
-        client.setTelephone(clientContactTextfield.getText());
-        ClientEntity clientResponse = clientService.create(client);
-        SaleEntity sale = new SaleEntity();
-        sale.setClient(clientResponse);
-        sale.setCanceled(false);
+    private void setSavePayed(){
+        savePayed.setOnAction(event->{
+            if (!clientNameTextfield.getText().isEmpty()){
+                savePayed();
+            }
+            else {
+                Timeline timeline = new Timeline(
+                        new KeyFrame(Duration.ZERO , e->{
+                            clientNameTextfield.setPromptText("Ce champ ne peut pas etre vide");
+                        }),
+                        new KeyFrame(Duration.seconds(2), e -> {
+                            clientNameTextfield.setPromptText(null);
+                        })
+                );
+                timeline.play();
+            }
+        });
+    }
+    private void setSaveUnPayed(){
+        saveUnPayed.setOnAction(event->{
+            if (!clientNameTextfield.getText().isEmpty() && !clientContactTextfield.getText().isEmpty()){
+                saveUnPayed();
+            }
+            else {
+                if (clientNameTextfield.getText().isEmpty()){
+                    Timeline timeline = new Timeline(
+                            new KeyFrame(Duration.ZERO , e->{
+                                clientNameTextfield.setPromptText("Ce champ ne peut pas etre vide");
+                            }),
+                            new KeyFrame(Duration.seconds(2), e -> {
+                                clientNameTextfield.setPromptText(null);
+                            })
+                    );
+                    timeline.play();
+                }
+                if (clientContactTextfield.getText().isEmpty()){
+                    Timeline timeline = new Timeline(
+                            new KeyFrame(Duration.ZERO , e->{
+                                clientContactTextfield.setPromptText("Ce champ ne peut pas etre vide");
+                            }),
+                            new KeyFrame(Duration.seconds(2), e -> {
+                                clientContactTextfield.setPromptText(null);
+                            })
+                    );
+                    timeline.play();
+                }
+            }
+        });
+    }
+    private void setDelivery(){
+        deliveryTextfield.textProperty().addListener(event->{
+            if (!deliveryTextfield.getText().isEmpty()){
+                try {
+                    delivery = Double.parseDouble(deliveryTextfield.getText());
+                } catch (NumberFormatException e) {
+                    delivery = 0.0;
+                }
+            }
+        });
+    }
+
+    public void savePayed(){
+        SaleEntity sale = setSale();
         sale.setPayed(true);
-        sale.setSaleDate(LocalDateTime.now());
-        sale.setUser(SessionManager.getSession().getCurrentUser());
         SaleEntity saleResponse = saleService.toSaleArticles(sale, FileIO.readArticleFromFile("sales.dat"));
         if (saleResponse != null){
             for (PaymentEntity payment : getPayments()){
-                payment.setSale(saleResponse);
+                payment.setSale(sale);
                 paymentService.create(payment);
             }
-            Collection<ArticleEntity> articles = FileIO.readArticleFromFile("sales.dat");
-            articles.clear();
-            FileIO.writeTo("sales.dat",articles);
-            BorderPane sellerLayoutBorderpane = (BorderPane) sellerPayment.getParent().getParent().getParent().getParent().getParent();
-            sellerLayoutBorderpane.setBottom(getToolbar());
-            GridPane sellerArticleGridPane = new SellerArticleGridPane().getGridPane(new ArticleService().getAll(),4);
-            ScrollPane sellerArticleScrollpane = (ScrollPane) sellerLayoutBorderpane.lookup("#sellerArticleScrollpane");
-            sellerArticleScrollpane.setContent(sellerArticleGridPane);
+            this.refreshData();
+            saleLayoutController.initializeForPayed();
         }
     }
-    public void setSavePartial(){
-        ClientEntity client = new ClientEntity();
-        client.setName(clientNameTextfield.getText());
-        client.setTelephone(clientContactTextfield.getText());
-        ClientEntity clientResponse = clientService.create(client);
-        SaleEntity sale = new SaleEntity();
-        sale.setClient(clientResponse);
-        sale.setCanceled(false);
+    public void saveUnPayed(){
+        SaleEntity sale = setSale();
         sale.setPayed(false);
-        sale.setSaleDate(LocalDateTime.now());
-        sale.setUser(SessionManager.getSession().getCurrentUser());
         SaleEntity saleResponse = saleService.toSaleArticles(sale, FileIO.readArticleFromFile("sales.dat"));
         if (saleResponse != null){
             for (PaymentEntity payment : getPayments()){
                 if (payment != null){
-                    payment.setSale(saleResponse);
+                    payment.setSale(sale);
                     paymentService.create(payment);
                 }
             }
-            Collection<ArticleEntity> articles = FileIO.readArticleFromFile("sales.dat");
-            articles.clear();
-            FileIO.writeTo("sales.dat",articles);
-            BorderPane sellerLayoutBorderpane = (BorderPane) sellerPayment.getParent().getParent().getParent().getParent().getParent();
-            sellerLayoutBorderpane.setBottom(getToolbar());
-            GridPane sellerArticleGridPane = new SellerArticleGridPane().getGridPane(new ArticleService().getAll(),4);
-            ScrollPane sellerArticleScrollpane = (ScrollPane) sellerLayoutBorderpane.lookup("#sellerArticleScrollpane");
-            sellerArticleScrollpane.setContent(sellerArticleGridPane);
+            this.refreshData();
+            saleLayoutController.initializeForUnPayed();
         }
+    }
+    private SaleEntity setSale(){
+        SaleEntity sale = new SaleEntity();
+        ClientEntity client = new ClientEntity();
+        client.setName(clientNameTextfield.getText());
+        client.setTelephone(clientContactTextfield.getText());
+        ClientEntity clientResponse = clientService.create(client);
+        sale.setClient(clientResponse);
+        sale.setCanceled(false);
+        sale.setPayed(false);
+        sale.setSaleDate(LocalDateTime.now());
+        sale.setDelivery(delivery);
+        sale.setUser(SessionManager.getSession().getCurrentUser());
+        return sale;
+    }
+    private void refreshData(){
+        Collection<ArticleEntity> articles = FileIO.readArticleFromFile("sales.dat");
+        articles.clear();
+        FileIO.writeTo("sales.dat",articles);
+        BorderPane sellerLayoutBorderpane = (BorderPane) sellerPayment.getParent();
+        sellerLayoutBorderpane.setBottom(getSaleLayout());
+        GridPane sellerArticleGridPane = new SellerArticleGridPane().getGridPane(new ArticleService().getAll(),4);
+        ScrollPane sellerArticleScrollpane = (ScrollPane) sellerLayoutBorderpane.lookup("#sellerArticleScrollpane");
+        sellerArticleScrollpane.setContent(sellerArticleGridPane);
     }
     private GridPane getSellerPaymentBox(){
         FXMLLoader sellerPaymentBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/seller/sellerPaymentBox.fxml"));
@@ -167,20 +239,32 @@ public class SellerPaymentController implements Initializable {
             SellerPaymentBoxController sellerPaymentBoxController = sellerPaymentBoxLoader.getController();
             sellerPaymentBoxController.setSellerPaymentController(this);
             sellerPaymentBoxController.initialize(paymentVBox);
+            sellerPaymentBoxController.initialize(new SaleEntity());
             sellerPaymentBoxControllers.add(sellerPaymentBoxController);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return sellerPaymentBox;
     }
-    private GridPane getToolbar(){
-        FXMLLoader pannierToolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/seller/sellerToolbar.fxml"));
-        GridPane pannierToolbar;
+    private BorderPane getSaleLayout(){
+        FXMLLoader saleLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/sale/saleLayout.fxml"));
+        BorderPane saleLayout;
         try {
-            pannierToolbar = pannierToolbarLoader.load();
+            saleLayout = saleLayoutLoader.load();
+            saleLayoutController = saleLayoutLoader.getController();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return pannierToolbar;
+        return saleLayout;
+    }
+    private BorderPane getPannierLayout(){
+        FXMLLoader pannierLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/seller/pannierLayout.fxml"));
+        BorderPane pannierLayout;
+        try {
+            pannierLayout = pannierLayoutLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return pannierLayout;
     }
 }

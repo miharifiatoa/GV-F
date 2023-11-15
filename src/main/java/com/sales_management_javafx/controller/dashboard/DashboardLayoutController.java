@@ -1,9 +1,10 @@
 package com.sales_management_javafx.controller.dashboard;
 
 import com.sales_management_javafx.SalesApplication;
+import com.sales_management_javafx.actions.Payment;
+import com.sales_management_javafx.classes.DecimalFormat;
 import com.sales_management_javafx.classes.MenuIcon;
 import com.sales_management_javafx.composent.MenuGridPane;
-import com.sales_management_javafx.composent.SaleArticlesGridPane;
 import com.sales_management_javafx.composent.admin.AdminArrivalGridPane;
 import com.sales_management_javafx.composent.admin.AdminSaleGridPane;
 import com.sales_management_javafx.composent.admin.AdminShareGridPane;
@@ -13,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -21,13 +23,13 @@ import javafx.util.Callback;
 import org.sales_management.entity.ArrivalEntity;
 import org.sales_management.entity.ShareEntity;
 import org.sales_management.service.ArrivalService;
+import org.sales_management.service.PaymentService;
 import org.sales_management.service.SaleService;
 import org.sales_management.service.ShareService;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 
 public class DashboardLayoutController implements Initializable {
@@ -98,9 +100,9 @@ public class DashboardLayoutController implements Initializable {
                     GridPane adminShareGridPane = new AdminShareGridPane().getGridPane(shareService.getAllSharesByDate(date),4);
                     dashboardLayoutScrollpane.setContent(adminShareGridPane);
                 }
-                else {
-                    System.out.println("hey");
-                }
+                Label payment = (Label) dashboardLayout.lookup("#payment");
+                payment.setText(DecimalFormat.format(Payment.getPaymentByDay(date)) + "Ar");
+                print(date);
             }
         });
         datePicker.setDayCellFactory(new Callback<>() {
@@ -124,14 +126,16 @@ public class DashboardLayoutController implements Initializable {
                                     System.out.println("arrival");
                                 }
                             }
-                            else {
-                                System.out.println("hey");
-                            }
                         }
                     }
 
                 };
             }
         });
+    }
+    private void print(LocalDate localDate){
+        for (Object[] result : new PaymentService().getPaymentsByModeAndDate("Espece",localDate)){
+            System.out.println(result[0] + " " + result[1]);
+        }
     }
 }

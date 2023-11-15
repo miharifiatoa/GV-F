@@ -51,8 +51,8 @@ public class NumberTextField {
             } else {
                 try {
                     if (!newValue.isEmpty()){
-                        double doubleValue = Float.parseFloat(newValue);
-                        if (doubleValue>1000000000){
+                        double doubleValue = Double.parseDouble(newValue);
+                        if (Double.isInfinite(doubleValue)){
                             double_field.setText(old);
                         }
                     }

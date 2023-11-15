@@ -2,7 +2,7 @@ package com.sales_management_javafx.controller.arrival;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
-import com.sales_management_javafx.composent.ArrivalGridPane;
+import com.sales_management_javafx.composent.arrival.ArrivalGridPane;
 import com.sales_management_javafx.composent.ArticleInfoGridPane;
 import com.sales_management_javafx.composent.StockistArticleGridPane;
 import javafx.fxml.FXML;

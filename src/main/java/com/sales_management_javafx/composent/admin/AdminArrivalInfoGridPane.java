@@ -42,7 +42,7 @@ public class AdminArrivalInfoGridPane {
         VBox adminArticleInfo;
         try {
             adminArticleInfo = adminArticleInfoLoader.load();
-            AdminArticleInfoController adminArticleInfoController = adminArticleInfoLoader.getController();
+            AdminArticleInfoController adminArticleInfoController = adminArticleInfoLoader.getController(); 
             adminArticleInfoController.initialize(arrivalArticle);
         } catch (IOException e) {
             throw new RuntimeException(e);

@@ -1,24 +1,25 @@
-package com.sales_management_javafx.composent;
+package com.sales_management_javafx.composent.sale;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.controller.admin.AdminArrivalBoxController;
-import com.sales_management_javafx.controller.arrival.ArrivalBoxController;
+import com.sales_management_javafx.controller.product_type.ProductTypeBoxController;
+import com.sales_management_javafx.controller.sale.SaleBoxController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
-import org.sales_management.entity.ArrivalEntity;
+import org.sales_management.entity.ProductTypeEntity;
+import org.sales_management.entity.SaleEntity;
 
 import java.io.IOException;
 import java.util.Collection;
 
-public class ArrivalGridPane {
+public class SaleGridPane {
     private final GridPane gridPane;
-    public ArrivalGridPane() {
+    public SaleGridPane() {
         this.gridPane = new GridPane();
     }
-    public GridPane getGridPane(Collection<ArrivalEntity> arrivals , int colSize) {
+    public GridPane getGridPane(Collection<SaleEntity> sales , int colSize) {
         for (int i = 0 ; i < colSize ; i++){
             ColumnConstraints constraints = new ColumnConstraints();
             constraints.setHgrow(Priority.ALWAYS);
@@ -28,28 +29,28 @@ public class ArrivalGridPane {
         }
         int col = 0;
         int row = 0;
-        for (ArrivalEntity arrival : arrivals) {
-            gridPane.add(this.getArrivalBox(arrival), col, row);
+        for (SaleEntity sale : sales) {
+            gridPane.add(this.getSaleBox(sale), col, row);
             col++;
             if (col == colSize) {
                 col = 0;
                 row++;
             }
+            System.out.println(sale.getPayed());
         }
         gridPane.getStyleClass().add("gridpane");
-        gridPane.setId("product-type-grid-pane");
         return gridPane;
     }
-    private StackPane getArrivalBox(ArrivalEntity arrival){
-        FXMLLoader arrivalBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/arrival/arrivalBox.fxml"));
-        StackPane arrivalBox;
+    private StackPane getSaleBox(SaleEntity sale){
+        FXMLLoader saleBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/sale/saleBox.fxml"));
+        StackPane saleBox;
         try {
-            arrivalBox = arrivalBoxLoader.load();
-            ArrivalBoxController arrivalBoxController = arrivalBoxLoader.getController();
-            arrivalBoxController.initialize(arrival);
+            saleBox = saleBoxLoader.load();
+            SaleBoxController saleBoxController = saleBoxLoader.getController();
+            saleBoxController.initializeForSale(sale);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return arrivalBox;
+        return saleBox;
     }
 }

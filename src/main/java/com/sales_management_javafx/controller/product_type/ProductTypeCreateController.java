@@ -76,8 +76,8 @@ public class ProductTypeCreateController implements Initializable {
             save.setDisable(true);
         }
         productTypeNameTextfield.textProperty().addListener((observable, oldValue, newValue) -> {
-            String typeName = newValue.trim();
-            if (!typeName.isEmpty()) {
+            String typeName = newValue.trim().toLowerCase();
+            if (!productTypeNameTextfield.getText().isEmpty()) {
                 ProductTypeEntity existingProductType = productTypeService.isUniqueValue(typeName);
                 if (existingProductType != null) {
                     nameWarning.setText(typeName + " existe déjà dans le type de produit " + existingProductType.getProduct().getName());
