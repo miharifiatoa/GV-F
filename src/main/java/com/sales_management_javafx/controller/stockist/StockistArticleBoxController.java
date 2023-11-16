@@ -3,7 +3,6 @@ package com.sales_management_javafx.controller.stockist;
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.classes.NumberTextField;
-import com.sales_management_javafx.composent.ArticleGridPane;
 import com.sales_management_javafx.composent.StockistArticleGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,14 +15,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import org.sales_management.entity.ArticleEntity;
-import org.sales_management.service.ArticleService;
-import org.sales_management.service.ProductTypeService;
+import org.sales_management.entity.ArticleTypeEntity;
+import org.sales_management.service.ArticleTypeService;
 
 import java.net.URL;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class StockistArticleBoxController implements Initializable {
@@ -52,10 +49,10 @@ public class StockistArticleBoxController implements Initializable {
     @FXML private VBox addVBox;
     @FXML private VBox retireVBox;
     @FXML private StackPane articleBox;
-    private final ArticleService articleService;
+    private final ArticleTypeService articleTypeService;
 
     public StockistArticleBoxController() {
-        this.articleService = new ArticleService();
+        this.articleTypeService = new ArticleTypeService();
     }
 
     @Override
@@ -72,13 +69,13 @@ public class StockistArticleBoxController implements Initializable {
         this.shareVBox.setVisible(false);
         NumberTextField.requireIntegerOnly(quantityAddedTextfield,1000);
     }
-    public void initialize(ArticleEntity article){
-        articleCodeLabel.setText(article.getCode());
-        articlePriceLabel.setText(String.valueOf(article.getPrice()));
+    public void initialize(ArticleTypeEntity article){
+        articleCodeLabel.setText(article.getArticle().getCode());
+        articlePriceLabel.setText(String.valueOf(article.getArticle().getPrice()));
         articleSizeLabel.setText(article.getSize());
         articleColorLabel.setText(article.getColor());
         articleQuantityLabel.setText(String.valueOf(article.getQuantity()));
-        productTypeNameLabel.setText(article.getProductType().getName());
+        productTypeNameLabel.setText(article.getArticle().getCode());
         if (article.getQuantity()<=0){
             share.setDisable(true);
         }
@@ -93,8 +90,6 @@ public class StockistArticleBoxController implements Initializable {
         this.onAddArticleInShareList(article);
         this.setArticleInArrivalList(article);
         this.setConfirmRetire(article);
-        NumberTextField.requireIntegerOnly(quantityRetireTextfield,article.getQuantity());
-        NumberTextField.requireIntegerOnly(quantitySharedTextfield,article.getQuantity());
     }
     private void setAdd(){
         add.setOnMouseClicked(event->{
@@ -102,16 +97,16 @@ public class StockistArticleBoxController implements Initializable {
             this.addVBox.setVisible(true);
         });
     }
-    private void setArticleInArrivalList(ArticleEntity article){
+    private void setArticleInArrivalList(ArticleTypeEntity article){
         confirmAdd.setOnAction(event->{
             if (!this.quantityAddedTextfield.getText().isEmpty() && article!=null){
                 try {
                     article.setQuantity(Integer.parseInt(quantityAddedTextfield.getText()));
-                    List<ArticleEntity> articles = (List<ArticleEntity>) FileIO.readArticleFromFile("arrivals.dat");
+                    List<ArticleTypeEntity> articles = (List<ArticleTypeEntity>) FileIO.readArticleFromFile("arrivals.dat");
                     articles.add(article);
                     FileIO.writeTo("arrivals.dat",articles);
                     ScrollPane stockistBoxLayoutScrollpane = (ScrollPane) articleBox.getParent().getParent().getParent().getParent();
-                    GridPane gridPane = new StockistArticleGridPane().getGridPane(new ArticleService().getAll(), 4);
+                    GridPane gridPane = new StockistArticleGridPane().getGridPane(new ArticleTypeService().getAll(), 4);
                     stockistBoxLayoutScrollpane.setContent(gridPane);
                 } catch (NumberFormatException e) {
                     throw new RuntimeException(e);
@@ -127,14 +122,14 @@ public class StockistArticleBoxController implements Initializable {
             this.addVBox.setVisible(false);
         });
     }
-    private void setConfirmRetire(ArticleEntity article){
+    private void setConfirmRetire(ArticleTypeEntity article){
         this.confirmRetire.setOnAction(event->{
             if (!quantityRetireTextfield.getText().isEmpty() && article!=null){
                 article.setQuantity(article.getQuantity() - Integer.parseInt(quantityRetireTextfield.getText()));
-                ArticleEntity productResponse = this.articleService.update(article);
+                ArticleTypeEntity productResponse = this.articleTypeService.update(article);
                 if (productResponse!=null){
                     ScrollPane productBoxLayoutScrollpane = (ScrollPane) articleBox.getParent().getParent().getParent().getParent();
-                    GridPane gridPane = new StockistArticleGridPane().getGridPane(new ArticleService().getAll(), 4);
+                    GridPane gridPane = new StockistArticleGridPane().getGridPane(new ArticleTypeService().getAll(), 4);
                     productBoxLayoutScrollpane.setContent(gridPane);
                 }
             }
@@ -152,14 +147,14 @@ public class StockistArticleBoxController implements Initializable {
             this.articleVBox.setVisible(false);
         });
     }
-    private void onAddArticleInShareList(ArticleEntity article){
+    private void onAddArticleInShareList(ArticleTypeEntity article){
         addInList.setOnAction(event->{
             article.setQuantity(Integer.parseInt(quantitySharedTextfield.getText()));
-            Collection<ArticleEntity> existingPrices = FileIO.readArticleFromFile("shares.dat");
+            Collection<ArticleTypeEntity> existingPrices = FileIO.readArticleFromFile("shares.dat");
             existingPrices.add(article);
             FileIO.writeTo("shares.dat", existingPrices);
             ScrollPane productBoxLayoutScrollpane = (ScrollPane) articleBox.getParent().getParent().getParent().getParent();
-            GridPane gridPane = new StockistArticleGridPane().getGridPane(new ArticleService().getAll(), 4);
+            GridPane gridPane = new StockistArticleGridPane().getGridPane(new ArticleTypeService().getAll(), 4);
             productBoxLayoutScrollpane.setContent(gridPane);
         });
     }

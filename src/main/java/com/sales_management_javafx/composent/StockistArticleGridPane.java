@@ -4,7 +4,7 @@ import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.controller.stockist.StockistArticleBoxController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.*;
-import org.sales_management.entity.ArticleEntity;
+import org.sales_management.entity.ArticleTypeEntity;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -16,7 +16,7 @@ public class StockistArticleGridPane {
         this.gridPane = new GridPane();
     }
 
-    public GridPane getGridPane(Collection<ArticleEntity> articles, int colSize){
+    public GridPane getGridPane(Collection<ArticleTypeEntity> articles, int colSize){
         for (int i = 0 ; i < colSize ; i++){
             ColumnConstraints constraints = new ColumnConstraints();
             constraints.setHgrow(Priority.ALWAYS);
@@ -26,7 +26,7 @@ public class StockistArticleGridPane {
         }
         int col = 0;
         int row = 0;
-        for (ArticleEntity article : articles) {
+        for (ArticleTypeEntity article : articles) {
             gridPane.add(this.getBox(article), col, row);
             col++;
             if (col == colSize) {
@@ -37,7 +37,7 @@ public class StockistArticleGridPane {
         gridPane.getStyleClass().add("gridpane");
         return gridPane;
     }
-    private StackPane getBox(ArticleEntity article){
+    private StackPane getBox(ArticleTypeEntity article){
         FXMLLoader boxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/stockist/stockistArticleBox.fxml"));
         StackPane box;
         try {

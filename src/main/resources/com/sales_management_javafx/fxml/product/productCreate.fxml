@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<StackPane fx:id="productCreate" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product.ProductCreateController">
+<StackPane fx:id="productCreate" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product_type.ProductCreateController">
    <children>
       <VBox maxHeight="160.0" maxWidth="400.0" spacing="5.0" styleClass="box">
          <children>

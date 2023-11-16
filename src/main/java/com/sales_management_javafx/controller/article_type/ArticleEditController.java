@@ -1,6 +1,5 @@
-package com.sales_management_javafx.controller.article;
+package com.sales_management_javafx.controller.article_type;
 
-import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.classes.NumberTextField;
 import com.sales_management_javafx.composent.ProductGridPane;
 import com.sales_management_javafx.composent.ArticleGridPane;
@@ -11,15 +10,12 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import org.sales_management.entity.ArticleEntity;
-import org.sales_management.entity.ProductEntity;
-import org.sales_management.entity.ProductTypeEntity;
-import org.sales_management.service.ProductCategoryService;
-import org.sales_management.service.ArticleService;
+import org.sales_management.entity.ArticleTypeEntity;
 import org.sales_management.service.ProductService;
+import org.sales_management.service.ArticleTypeService;
+import org.sales_management.service.ProductTypeService;
 
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
 public class ArticleEditController implements Initializable {
@@ -39,14 +35,14 @@ public class ArticleEditController implements Initializable {
     private VBox articleEditVBox;
     @FXML
     ProductGridPane productGridPane = new ProductGridPane();
+    private final ProductTypeService productTypeService;
     private final ProductService productService;
-    private final ProductCategoryService productCategoryService;
-    private final ArticleService articleService;
+    private final ArticleTypeService articleTypeService;
 
     public ArticleEditController() {
-        this.articleService = new ArticleService();
-        this.productCategoryService = new ProductCategoryService();
+        this.articleTypeService = new ArticleTypeService();
         this.productService = new ProductService();
+        this.productTypeService = new ProductTypeService();
     }
 
     @Override
@@ -65,10 +61,7 @@ public class ArticleEditController implements Initializable {
         });
     }
 
-    public void initialize(ArticleEntity article){
-        Double price = article.getPrice();
-        DecimalFormat decimalFormat = new DecimalFormat("0.##");
-        this.articlePriceTextfield.setText(decimalFormat.format(price));
+    public void initialize(ArticleTypeEntity article){
         this.articleSizeTextfield.setText(article.getSize());
         this.articleColorTextfield.setText(article.getColor());
         this.setSave(article.getId());
@@ -76,18 +69,17 @@ public class ArticleEditController implements Initializable {
     public void setSave(Long article_id){
         save.setOnAction(actionEvent -> {
             if (!articlePriceTextfield.getText().isEmpty()){
-                if (this.articleService.update(this.getNewArticle(article_id))!=null){
-                    GridPane gridPane = new ArticleGridPane().getGridPane(new ArticleService().getById(article_id).getProductType().getArticles(), 4,false);
+                if (this.articleTypeService.update(this.getNewArticle(article_id))!=null){
+                    GridPane gridPane = new ArticleGridPane().getGridPane(new ArticleTypeService().getById(article_id).getArticle().getArticleTypeEntities(), 4,false);
                     ScrollPane productBoxLayoutScrollpane = (ScrollPane) articleEditVBox.getParent().getParent().getParent().getParent().getParent();
                     productBoxLayoutScrollpane.setContent(gridPane);
                 }
             }
         });
     }
-    private ArticleEntity getNewArticle(Long article_id){
-        ArticleEntity article = this.articleService.getById(article_id);
+    private ArticleTypeEntity getNewArticle(Long article_id){
+        ArticleTypeEntity article = this.articleTypeService.getById(article_id);
         article.setSize(this.articleSizeTextfield.getText());
-        article.setPrice(Double.valueOf(this.articlePriceTextfield.getText()));
         article.setColor(this.articleColorTextfield.getText());
         return article;
     }

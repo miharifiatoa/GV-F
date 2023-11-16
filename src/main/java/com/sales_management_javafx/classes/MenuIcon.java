@@ -11,9 +11,9 @@ public class MenuIcon {
     }
 
     public Map<String, String> getMenuIcons() {
-        menuIcons.put("ACCOUNT" , "AccountIcon.png");
-        menuIcons.put("SHOP" , "ShopIcon.png");
-        menuIcons.put("PAYMENT" , "MoneyIcon.png");
+//        menuIcons.put("ACCOUNT" , "AccountIcon.png");
+//        menuIcons.put("SHOP" , "ShopIcon.png");
+//        menuIcons.put("PAYMENT" , "MoneyIcon.png");
         menuIcons.put("SALE" , "SaleIcon.png");
         menuIcons.put("ARRIVAL" , "ArrivalIcon.png");
         menuIcons.put("STOCK" , "InventoryIcon.png");

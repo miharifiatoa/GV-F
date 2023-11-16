@@ -1,24 +1,20 @@
-package com.sales_management_javafx.controller.product;
+package com.sales_management_javafx.controller.product_type;
 
-import com.sales_management_javafx.classes.FileIO;
-import com.sales_management_javafx.classes.NumberTextField;
 import com.sales_management_javafx.composent.ProductCategoryGridPane;
-import com.sales_management_javafx.composent.ProductGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import org.sales_management.entity.InventoryEntity;
-import org.sales_management.entity.ProductCategoryEntity;
 import org.sales_management.entity.ProductEntity;
+import org.sales_management.entity.ProductTypeEntity;
 import org.sales_management.service.InventoryService;
-import org.sales_management.service.ProductCategoryService;
 import org.sales_management.service.ProductService;
+import org.sales_management.service.ProductTypeService;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -46,13 +42,13 @@ public class ProductCreateController implements Initializable {
     private Label productCategoryNameLabel;
 
     private final InventoryService inventoryService;
+    private final ProductTypeService productTypeService;
     private final ProductService productService;
-    private final ProductCategoryService productCategoryService;
 
     public ProductCreateController() {
         this.inventoryService = new InventoryService();
+        this.productTypeService = new ProductTypeService();
         this.productService = new ProductService();
-        this.productCategoryService = new ProductCategoryService();
     }
 
     @Override
@@ -60,7 +56,7 @@ public class ProductCreateController implements Initializable {
         this.formValidation();
         this.setExitCreateProduct();
     }
-    public void initialize(ProductCategoryEntity productCategory){
+    public void initialize(ProductEntity productCategory){
         productCategoryNameLabel.setText("Nouveau " + productCategory.getName());
         this.setSave(productCategory);
     }
@@ -71,7 +67,7 @@ public class ProductCreateController implements Initializable {
         productNameTextfield.textProperty().addListener((observable, oldValue, newValue) -> {
             String productName = newValue.trim().toLowerCase();
             if (!productNameTextfield.getText().isEmpty()) {
-                ProductEntity existingProduct = productService.isProductNameExists(productName);
+                ProductTypeEntity existingProduct = productTypeService.isProductNameExists(productName);
                 if (existingProduct != null) {
                     nameWarning.setText(productName + " existe déjà dans la liste de " + existingProduct.getProductCategory().getName());
                     save.setDisable(true);
@@ -91,22 +87,22 @@ public class ProductCreateController implements Initializable {
             productCreate.getParent().setVisible(false);
         });
     }
-    private void setSave(ProductCategoryEntity productCategory){
+    private void setSave(ProductEntity productCategory){
         save.setOnAction(event->{
-            ProductEntity product = productService.create(getProduct(productCategory));
+            ProductTypeEntity product = productTypeService.create(getProduct(productCategory));
             if (product != null){
                 StackPane productBoxLayout = (StackPane) productCreate.getParent().getParent();
                 ScrollPane productBoxLayoutScrollpane = (ScrollPane) productBoxLayout.lookup("#productBoxLayoutScrollpane");
-                GridPane productCategoryGridpane = new ProductCategoryGridPane().getGridPane(new ProductCategoryService().getAll(),4);
+                GridPane productCategoryGridpane = new ProductCategoryGridPane().getGridPane(new ProductService().getAll(),4);
                 productBoxLayoutScrollpane.setContent(productCategoryGridpane);
                 productCreate.getParent().setVisible(false);
             }
         });
     }
-    private ProductEntity getProduct(ProductCategoryEntity productCategory){
-        ProductEntity product = new ProductEntity();
+    private ProductTypeEntity getProduct(ProductEntity productCategory){
+        ProductTypeEntity product = new ProductTypeEntity();
         InventoryEntity inventory = inventoryService.getById(1L);
-        ProductCategoryEntity productCategoryPersisted = productCategoryService.getById(productCategory.getId());
+        ProductEntity productCategoryPersisted = productService.getById(productCategory.getId());
         product.setName(productNameTextfield.getText());
         product.setInventory(inventory);
         product.setProductCategory(productCategoryPersisted);

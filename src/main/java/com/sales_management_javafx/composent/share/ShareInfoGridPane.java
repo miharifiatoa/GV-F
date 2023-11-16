@@ -1,7 +1,7 @@
 package com.sales_management_javafx.composent.share;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.controller.article.ArticleCodeController;
+import com.sales_management_javafx.controller.article_type.ArticleCodeController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.*;
 import org.sales_management.entity.ShareArticleEntity;

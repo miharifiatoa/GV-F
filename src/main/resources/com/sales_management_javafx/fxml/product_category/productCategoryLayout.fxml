@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.BorderPane?>
 
 
-<BorderPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product_category.ProductCategoryLayoutController">
+<BorderPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product.ProductCategoryLayoutController">
    <center>
       <BorderPane fx:id="articleLayoutBorderpane" prefHeight="229.0" prefWidth="425.0" styleClass="layout">
          <padding>

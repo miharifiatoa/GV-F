@@ -16,7 +16,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import org.sales_management.entity.SaleArticleEntity;
 import org.sales_management.entity.SaleEntity;
-import org.sales_management.service.ArticleService;
+import org.sales_management.service.ArticleTypeService;
 import org.sales_management.service.SaleService;
 
 import java.io.IOException;
@@ -41,10 +41,10 @@ public class SaleBoxController implements Initializable {
     @FXML private HBox saleHBox;
     @FXML private StackPane saleBox;
     private final SaleService saleService;
-    private final ArticleService articleService;
+    private final ArticleTypeService articleTypeService;
 
     public SaleBoxController() {
-        this.articleService = new ArticleService();
+        this.articleTypeService = new ArticleTypeService();
         this.saleService = new SaleService();
     }
 
@@ -117,7 +117,7 @@ public class SaleBoxController implements Initializable {
                 else {
                     gridPane = new SaleGridPane().getGridPane(saleService.getAcceptedAndUnPayedSales(),4);
                 }
-                GridPane sellerArticleGridPane = new SellerArticleGridPane().getGridPane(articleService.getAll(),4);
+                GridPane sellerArticleGridPane = new SellerArticleGridPane().getGridPane(articleTypeService.getAll(),4);
                 sellerArticleScrollpane.setContent(sellerArticleGridPane);
                 getSaleLayoutScrollpane().setContent(gridPane);
             }

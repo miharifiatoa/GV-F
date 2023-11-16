@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import org.sales_management.entity.ArticleEntity;
+import org.sales_management.entity.ArticleTypeEntity;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,13 +23,13 @@ public class AdminArticleBoxController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
-    public void initialize(ArticleEntity article){
-        articleCodeLabel.setText(article.getCode());
-        productTypeNameLabel.setText(article.getProductType().getName());
+    public void initialize(ArticleTypeEntity article){
+        articleCodeLabel.setText(article.getArticle().getCode());
+        productTypeNameLabel.setText(article.getArticle().getProductTypeEntity().getName());
         articleQuantityLabel.setText(String.valueOf(article.getQuantity()));
         setArticleInfoVBox(article);
     }
-    private void setArticleInfoVBox(ArticleEntity article){
+    private void setArticleInfoVBox(ArticleTypeEntity article){
         articleInfoVBox.setOnMouseClicked(event->{
             getDashboardLayoutScrollpane().setContent(getArticleStory(article));
         });
@@ -37,7 +37,7 @@ public class AdminArticleBoxController implements Initializable {
     private ScrollPane getDashboardLayoutScrollpane(){
         return (ScrollPane) articleInfoVBox.getParent().getParent().getParent().getParent();
     }
-    public StackPane getArticleStory(ArticleEntity article){
+    public StackPane getArticleStory(ArticleTypeEntity article){
         FXMLLoader articleStoryLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/admin/articleStory.fxml"));
         StackPane articleStory;
         try {

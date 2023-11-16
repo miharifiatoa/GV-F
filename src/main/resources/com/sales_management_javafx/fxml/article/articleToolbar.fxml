@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.StackPane?>
 
 
-<StackPane fx:id="priceVariationToolbar" prefHeight="57.0" prefWidth="316.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.article.ArticleToolbarController">
+<StackPane fx:id="priceVariationToolbar" prefHeight="57.0" prefWidth="316.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.article_type.ArticleToolbarController">
    <children>
       <AnchorPane>
          <children>

@@ -9,7 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
 import org.sales_management.entity.ArrivalArticleEntity;
-import org.sales_management.entity.ArticleEntity;
+import org.sales_management.entity.ArticleTypeEntity;
 import org.sales_management.entity.SaleArticleEntity;
 import org.sales_management.entity.ShareArticleEntity;
 import org.sales_management.service.ArrivalArticleService;
@@ -35,49 +35,49 @@ public class ArticleStoryController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
-    public void initialize(ArticleEntity article){
+    public void initialize(ArticleTypeEntity article){
         this.setSaleInfoScrollpane(article);
         this.setArrivalInfoScrollpane(article);
         this.setShareInfoScrollpane(article);
         this.setArrivalDatePicker(article);
         this.setSaleDatePicker(article);
         this.setShareDatePicker(article);
-        title.setText(article.getProductType().getName() + " : " + article.getCode());
+        title.setText(article.getArticle().getCode() + " : " + article.getArticle().getCode());
     }
-    private void setSaleInfoScrollpane(ArticleEntity article){
+    private void setSaleInfoScrollpane(ArticleTypeEntity article){
         GridPane saleArticlesGridPane = new SaleArticlesGridPane().getGridPane(article.getSaleArticles(),1);
         saleInfoScrollpane.setContent(saleArticlesGridPane);
     }
-    private void setArrivalInfoScrollpane(ArticleEntity article){
+    private void setArrivalInfoScrollpane(ArticleTypeEntity article){
         GridPane arrivalArticlesGridPane = new ArrivalArticlesGridPane().getGridPane(article.getArrivalArticles(),1);
         arrivalInfoScrollpane.setContent(arrivalArticlesGridPane);
     }
-    private void setShareInfoScrollpane(ArticleEntity article){
+    private void setShareInfoScrollpane(ArticleTypeEntity article){
         GridPane saleArticlesGridPane = new ShareArticlesGridPane().getGridPane(article.getShareArticles(),1);
         shareInfoScrollpane.setContent(saleArticlesGridPane);
     }
-    private Collection<LocalDate> getArrivalsArticleDate(ArticleEntity article){
+    private Collection<LocalDate> getArrivalsArticleDate(ArticleTypeEntity article){
         Collection<LocalDate> localDates = new HashSet<>();
         for (ArrivalArticleEntity arrivalArticle : article.getArrivalArticles()){
             localDates.add(arrivalArticle.getArrivalDate().toLocalDate());
         }
         return localDates;
     }
-    private Collection<LocalDate> getSalesArticleDate(ArticleEntity article){
+    private Collection<LocalDate> getSalesArticleDate(ArticleTypeEntity article){
         Collection<LocalDate> localDates = new HashSet<>();
         for (SaleArticleEntity saleArticle : article.getSaleArticles()){
             localDates.add(saleArticle.getSaleDate().toLocalDate());
         }
         return localDates;
     }
-    private Collection<LocalDate> getSharesArticleDate(ArticleEntity article){
+    private Collection<LocalDate> getSharesArticleDate(ArticleTypeEntity article){
         Collection<LocalDate> localDates = new HashSet<>();
         for (ShareArticleEntity shareArticle : article.getShareArticles()){
             localDates.add(shareArticle.getShareDate().toLocalDate());
         }
         return localDates;
     }
-    private void setArrivalDatePicker(ArticleEntity article){
+    private void setArrivalDatePicker(ArticleTypeEntity article){
         arrivalDatePicker.setOnAction(event->{
             LocalDate date = arrivalDatePicker.getValue();
             GridPane arrivalArticlesGridPane = new ArrivalArticlesGridPane().getGridPane(new ArrivalArticleService().getArrivalsArticleInArticleByDate(article,date),1);
@@ -99,7 +99,7 @@ public class ArticleStoryController implements Initializable {
             }
         });
     }
-    private void setSaleDatePicker(ArticleEntity article){
+    private void setSaleDatePicker(ArticleTypeEntity article){
         saleDatePicker.setOnAction(event->{
             LocalDate date = saleDatePicker.getValue();
             GridPane saleArticlesGridPane = new SaleArticlesGridPane().getGridPane(new SaleArticleService().getSalesArticleInArticleByDate(article,date),1);
@@ -121,7 +121,7 @@ public class ArticleStoryController implements Initializable {
             }
         });
     }
-    private void setShareDatePicker(ArticleEntity article){
+    private void setShareDatePicker(ArticleTypeEntity article){
         shareDatePicker.setOnAction(event->{
             LocalDate date = shareDatePicker.getValue();
             GridPane shareArticlesGridPane = new ShareArticlesGridPane().getGridPane(new ShareArticleService().getSharesArticleInArticleByDate(article,date),1);

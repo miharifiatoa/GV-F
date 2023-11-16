@@ -1,13 +1,13 @@
 package com.sales_management_javafx.composent;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.controller.product_type.ProductTypeBoxController;
+import com.sales_management_javafx.controller.article.ProductTypeBoxController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
-import org.sales_management.entity.ProductTypeEntity;
+import org.sales_management.entity.ArticleEntity;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -19,7 +19,7 @@ public class ProductTypeGridPane {
         this.gridPane = new GridPane();
     }
 
-    public GridPane getGridPane(Collection<ProductTypeEntity> productTypes , int colSize) {
+    public GridPane getGridPane(Collection<ArticleEntity> productTypes , int colSize) {
         for (int i = 0 ; i < colSize ; i++){
             ColumnConstraints constraints = new ColumnConstraints();
             constraints.setHgrow(Priority.ALWAYS);
@@ -29,7 +29,7 @@ public class ProductTypeGridPane {
         }
         int col = 0;
         int row = 0;
-        for (ProductTypeEntity productType : productTypes) {
+        for (ArticleEntity productType : productTypes) {
             gridPane.add(this.getProductTypeBox(productType), col, row);
             col++;
             if (col == colSize) {
@@ -40,7 +40,7 @@ public class ProductTypeGridPane {
         gridPane.getStyleClass().add("gridpane");
         return gridPane;
     }
-    private StackPane getProductTypeBox(ProductTypeEntity productType){
+    private StackPane getProductTypeBox(ArticleEntity productType){
         FXMLLoader productTypeBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_type/productTypeBox.fxml"));
         StackPane productTypeBox;
         try {

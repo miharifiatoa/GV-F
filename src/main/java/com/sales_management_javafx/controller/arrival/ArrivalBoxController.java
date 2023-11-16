@@ -21,7 +21,7 @@ import javafx.scene.layout.VBox;
 import org.sales_management.entity.ArrivalArticleEntity;
 import org.sales_management.entity.ArrivalEntity;
 import org.sales_management.service.ArrivalService;
-import org.sales_management.service.ArticleService;
+import org.sales_management.service.ArticleTypeService;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -110,7 +110,7 @@ public class ArrivalBoxController implements Initializable {
                 arrivalVBox.setVisible(false);
                 cancelArrivalVBox.setVisible(true);
                 ScrollPane stockistBoxLayoutScrollpane = (ScrollPane) getArrivalLayoutScrollpane().getParent().getParent().getParent().getParent().lookup("#stockistBoxLayoutScrollpane");
-                GridPane stockistArticleGridPane = new StockistArticleGridPane().getGridPane(new ArticleService().getAll(),4);
+                GridPane stockistArticleGridPane = new StockistArticleGridPane().getGridPane(new ArticleTypeService().getAll(),4);
                 GridPane arrivalGridPane = new ArrivalGridPane().getGridPane(arrivalService.getArrivalsByDate(LocalDate.now()) , 4);
                 stockistBoxLayoutScrollpane.setContent(stockistArticleGridPane);
                 getArrivalLayoutScrollpane().setContent(arrivalGridPane);

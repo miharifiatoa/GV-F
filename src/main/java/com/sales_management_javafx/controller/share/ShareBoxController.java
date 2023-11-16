@@ -20,7 +20,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.sales_management.entity.ShareArticleEntity;
 import org.sales_management.entity.ShareEntity;
-import org.sales_management.service.ArticleService;
+import org.sales_management.service.ArticleTypeService;
 import org.sales_management.service.ShareService;
 
 import java.net.URL;
@@ -119,7 +119,7 @@ public class ShareBoxController implements Initializable {
             if (shareService.toCancelShare(share) != null){
                 shareVBox.setVisible(true);
                 cancelShareVBox.setVisible(false);
-                GridPane stockistArticleGridPane = new StockistArticleGridPane().getGridPane(new ArticleService().getAll(),4);
+                GridPane stockistArticleGridPane = new StockistArticleGridPane().getGridPane(new ArticleTypeService().getAll(),4);
                 GridPane shareGridPane = new ShareGridPane().getGridPane(shareService.getSharesByDate(LocalDate.now()),4);
                 ScrollPane stockistBoxLayoutScrollpane = (ScrollPane) getShareLayoutScrollpane().getParent().getParent().getParent().getParent().lookup("#stockistBoxLayoutScrollpane");
                 stockistBoxLayoutScrollpane.setContent(stockistArticleGridPane);

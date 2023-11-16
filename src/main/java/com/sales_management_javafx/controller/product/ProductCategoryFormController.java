@@ -1,4 +1,4 @@
-package com.sales_management_javafx.controller.product_category;
+package com.sales_management_javafx.controller.product;
 
 import com.sales_management_javafx.SalesApplication;
 import javafx.collections.FXCollections;
@@ -12,8 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import org.sales_management.entity.ProductCategoryEntity;
-import org.sales_management.service.ProductCategoryService;
+import org.sales_management.entity.ProductEntity;
+import org.sales_management.service.ProductService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,10 +29,10 @@ public class ProductCategoryFormController implements Initializable {
     @FXML
     private Button exit;
     @FXML private Label nameWarning;
-    private final ProductCategoryService productCategoryService;
+    private final ProductService productService;
 
     public ProductCategoryFormController() {
-        this.productCategoryService = new ProductCategoryService();
+        this.productService = new ProductService();
     }
 
     @Override
@@ -56,7 +56,7 @@ public class ProductCategoryFormController implements Initializable {
             String categoryName = newValue.trim().toLowerCase();
 
             if (!categoryName.isEmpty()) {
-                ProductCategoryEntity existingCategory = productCategoryService.isUniqueValue(categoryName);
+                ProductEntity existingCategory = productService.isUniqueValue(categoryName);
 
                 if (existingCategory != null) {
                     nameWarning.setText(categoryName + " existe déjà dans la liste de catégories de produits");
@@ -79,17 +79,17 @@ public class ProductCategoryFormController implements Initializable {
                 BorderPane account_layout = (BorderPane) this.articleFormBox.getParent();
                 BorderPane account_table_borderpane = (BorderPane) account_layout.getCenter();
                 @SuppressWarnings("unchecked")
-                TableView<ProductCategoryEntity> articleTable = (TableView<ProductCategoryEntity>) account_table_borderpane.getCenter();
-                articleTable.setItems(FXCollections.observableArrayList(this.productCategoryService.getAll()));
+                TableView<ProductEntity> articleTable = (TableView<ProductEntity>) account_table_borderpane.getCenter();
+                articleTable.setItems(FXCollections.observableArrayList(this.productService.getAll()));
                 parent.setBottom(this.getToolbar());
             }
         });
     }
-    private ProductCategoryEntity createArticle(){
-        ProductCategoryEntity article = new ProductCategoryEntity();
+    private ProductEntity createArticle(){
+        ProductEntity article = new ProductEntity();
         if (!this.productCategoryNameTextfield.getText().isEmpty()){
             article.setName(this.productCategoryNameTextfield.getText());
-            return this.productCategoryService.create(article);
+            return this.productService.create(article);
         }
         else {
             return null;

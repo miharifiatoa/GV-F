@@ -1,4 +1,4 @@
-package com.sales_management_javafx.controller.product_category;
+package com.sales_management_javafx.controller.product;
 
 import com.sales_management_javafx.SalesApplication;
 import javafx.collections.FXCollections;
@@ -7,8 +7,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.jetbrains.annotations.NotNull;
-import org.sales_management.entity.ProductCategoryEntity;
-import org.sales_management.service.ProductCategoryService;
+import org.sales_management.entity.ProductEntity;
+import org.sales_management.service.ProductService;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,15 +18,15 @@ import java.util.ResourceBundle;
 
 public class ProductCategoryTableController implements Initializable {
     @FXML
-    private TableView<ProductCategoryEntity> articleTableView;
+    private TableView<ProductEntity> articleTableView;
     @FXML
-    private TableColumn<ProductCategoryEntity,Long> articleIdTableColumn;
+    private TableColumn<ProductEntity,Long> articleIdTableColumn;
     @FXML
-    private TableColumn<ProductCategoryEntity,String> articleLabelTableColumn;
-    private final ProductCategoryService productCategoryService;
+    private TableColumn<ProductEntity,String> articleLabelTableColumn;
+    private final ProductService productService;
 
     public ProductCategoryTableController() {
-        this.productCategoryService = new ProductCategoryService();
+        this.productService = new ProductService();
     }
 
     @Override
@@ -37,27 +37,27 @@ public class ProductCategoryTableController implements Initializable {
         this.setArticleColumnValue();
         articleTableView.setFocusTraversable(false);
         articleTableView.setFixedCellSize(40);
-        articleTableView.getItems().addAll(this.productCategoryService.getAll());
+        articleTableView.getItems().addAll(this.productService.getAll());
     }
     public void setArticleColumnValue(){
         articleIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         articleLabelTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     }
-    public void onDeleteArticle(TableRow<ProductCategoryEntity> tableRow){
+    public void onDeleteArticle(TableRow<ProductEntity> tableRow){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Suppression!");
         alert.setHeaderText("Voulez vous supprimer");
         alert.showAndWait().ifPresent(rs -> {
             if (rs == ButtonType.OK) {
-                ProductCategoryEntity article = tableRow.getItem();
-                if (this.productCategoryService.deleteById(article.getId()) != null){
-                    articleTableView.setItems(FXCollections.observableArrayList(new ProductCategoryService().getAll()));
+                ProductEntity article = tableRow.getItem();
+                if (this.productService.deleteById(article.getId()) != null){
+                    articleTableView.setItems(FXCollections.observableArrayList(new ProductService().getAll()));
                 }
             }
         });
     }
-    public void onShowInformation(@NotNull TableRow<ProductCategoryEntity> tableRow){
-        ProductCategoryEntity article = tableRow.getItem();
+    public void onShowInformation(@NotNull TableRow<ProductEntity> tableRow){
+        ProductEntity article = tableRow.getItem();
         try(FileOutputStream fileOutputStream = new FileOutputStream(String.valueOf(SalesApplication.class.getResource("/file/data.dat")))) {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(article);

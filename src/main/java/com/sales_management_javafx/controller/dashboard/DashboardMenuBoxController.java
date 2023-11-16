@@ -87,7 +87,7 @@ public class DashboardMenuBoxController implements Initializable {
                 dashboardLayoutScrollpane.setContent(arrivalGridPane);
             }
             case "STOCK" -> {
-                GridPane adminArticleGridPane = new AdminArticleGridPane().getGridPane(new ArticleService().getAll(),4);
+                GridPane adminArticleGridPane = new AdminArticleGridPane().getGridPane(new ArticleTypeService().getAll(),4);
                 dashboardLayoutScrollpane.setContent(adminArticleGridPane);
             }
         }

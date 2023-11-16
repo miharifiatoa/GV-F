@@ -11,9 +11,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import org.sales_management.entity.ArticleEntity;
+import org.sales_management.entity.ArticleTypeEntity;
 import org.sales_management.entity.UserEntity;
-import org.sales_management.service.ArticleService;
+import org.sales_management.service.ArticleTypeService;
 import org.sales_management.session.SessionManager;
 
 import java.io.IOException;
@@ -31,10 +31,10 @@ public class SellerLayoutController implements Initializable {
     private ScrollPane sellerArticleScrollpane;
 
     @FXML private TextField searchTextfield;
-    private final ArticleService articleService;
+    private final ArticleTypeService articleTypeService;
     public SellerLayoutController() {
         this.user = SessionManager.getSession().getCurrentUser();
-        this.articleService = new ArticleService();
+        this.articleTypeService = new ArticleTypeService();
     }
 
     @Override
@@ -48,18 +48,18 @@ public class SellerLayoutController implements Initializable {
     }
 
     private void setProducts(){
-        GridPane gridPane = new SellerArticleGridPane().getGridPane(articleService.getAll(),4);
+        GridPane gridPane = new SellerArticleGridPane().getGridPane(articleTypeService.getAll(),4);
         sellerArticleScrollpane.setContent(gridPane);
     }
     private void setSearchTextfield(){
         searchTextfield.textProperty().addListener(event->{
             if (!searchTextfield.getText().isEmpty()){
-                Collection<ArticleEntity> articles = articleService.searchArticleByByCode(searchTextfield.getText());
+                Collection<ArticleTypeEntity> articles = articleTypeService.searchArticleByByCode(searchTextfield.getText());
                 GridPane sellerArticleGridPane = new SellerArticleGridPane().getGridPane(articles,4);
                 sellerArticleScrollpane.setContent(sellerArticleGridPane);
             }
             else {
-                GridPane sellerArticleGridPane = new SellerArticleGridPane().getGridPane(articleService.getAll(),4);
+                GridPane sellerArticleGridPane = new SellerArticleGridPane().getGridPane(articleTypeService.getAll(),4);
                 sellerArticleScrollpane.setContent(sellerArticleGridPane);
             }
         });

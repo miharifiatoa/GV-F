@@ -1,10 +1,10 @@
-package com.sales_management_javafx.controller.product_category;
+package com.sales_management_javafx.controller.product;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.composent.ProductCategoryGridPane;
 import com.sales_management_javafx.composent.ProductGridPane;
-import com.sales_management_javafx.controller.product.ProductCreateController;
+import com.sales_management_javafx.controller.product_type.ProductCreateController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,10 +12,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import org.sales_management.entity.ProductCategoryEntity;
-import org.sales_management.service.ProductCategoryService;
+import org.sales_management.entity.ProductEntity;
+import org.sales_management.service.ProductService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,19 +27,19 @@ public class ProductCategoryBoxController implements Initializable {
     private Label createProductCategoryLabel;
     @FXML
     private StackPane productCategoryBoxStackPane;
-    private final ProductCategoryService productCategoryService;
+    private final ProductService productService;
     private final ProductCategoryGridPane productCategoryGridPane;
 
     public ProductCategoryBoxController() {
         this.productCategoryGridPane = new ProductCategoryGridPane();
-        this.productCategoryService = new ProductCategoryService();
+        this.productService = new ProductService();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
-    public void initialize(ProductCategoryEntity productCategory){
+    public void initialize(ProductEntity productCategory){
         if (productCategory.getProducts().isEmpty()){
             productCategoryNameLabel.setDisable(true);
         }
@@ -52,19 +51,19 @@ public class ProductCategoryBoxController implements Initializable {
     public StackPane getProductBoxLayout(){
         return (StackPane) productCategoryBoxStackPane.getParent().getParent().getParent().getParent().getParent().getParent().getParent();
     }
-    private void onShowProducts(ProductCategoryEntity productCategory){
+    private void onShowProducts(ProductEntity productCategory){
         productCategoryNameLabel.setOnMouseClicked(event->{
             StackPane product = this.getProductBoxLayout();
             System.out.println(product);
             BorderPane productBoxLayoutBorderpane = (BorderPane) product.lookup("#productBoxLayoutBorderpane");
             ScrollPane productBoxLayoutScrollpane = (ScrollPane) product.lookup("#productBoxLayoutScrollpane");
-            GridPane productGridPane = new ProductGridPane().getGridPane(this.productCategoryService.getById(productCategory.getId()).getProducts(),4,false);
+            GridPane productGridPane = new ProductGridPane().getGridPane(this.productService.getById(productCategory.getId()).getProducts(),4,false);
             FileIO.writeTo("product_category.dat",productCategory);
             productBoxLayoutScrollpane.setContent(productGridPane);
             productBoxLayoutBorderpane.setCenter(productBoxLayoutScrollpane);
         });
     }
-    private void onCreateProduct(ProductCategoryEntity productCategory){
+    private void onCreateProduct(ProductEntity productCategory){
         createProductCategoryLabel.setOnMouseClicked(event->{
             StackPane productBoxLayout = this.getProductBoxLayout();
             BorderPane modal = (BorderPane) productBoxLayout.lookup("#modal");
@@ -83,7 +82,7 @@ public class ProductCategoryBoxController implements Initializable {
         }
         return toolbar;
     }
-    private StackPane getCreateProductBox(ProductCategoryEntity productCategory){
+    private StackPane getCreateProductBox(ProductEntity productCategory){
         FXMLLoader createProductBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productCreate.fxml"));
         StackPane createProductBox;
         try {

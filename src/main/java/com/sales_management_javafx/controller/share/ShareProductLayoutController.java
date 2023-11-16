@@ -16,11 +16,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import org.sales_management.entity.ArticleEntity;
+import org.sales_management.entity.ArticleTypeEntity;
 import org.sales_management.entity.ShareEntity;
 import org.sales_management.entity.ShopEntity;
 import org.sales_management.entity.UserEntity;
-import org.sales_management.service.ArticleService;
+import org.sales_management.service.ArticleTypeService;
 import org.sales_management.service.ShareService;
 import org.sales_management.service.ShopService;
 import org.sales_management.session.SessionManager;
@@ -111,11 +111,11 @@ public class ShareProductLayoutController implements Initializable {
                 share.setUser(user);
             }
             share.setShareDate(LocalDateTime.now());
-            Collection<ArticleEntity> articles = FileIO.readArticleFromFile("shares.dat");
+            Collection<ArticleTypeEntity> articles = FileIO.readArticleFromFile("shares.dat");
             if (shareService.toShareArticles(share , articles) != null){
                 articles.clear();
                 FileIO.writeTo("shares.dat",articles);
-                GridPane gridPane = new StockistArticleGridPane().getGridPane(new ArticleService().getAll(),4);
+                GridPane gridPane = new StockistArticleGridPane().getGridPane(new ArticleTypeService().getAll(),4);
                 ScrollPane stockistBoxLayoutScrollpane = (ScrollPane) shareArticleLayoutStackpane.getParent().getParent().lookup("#stockistBoxLayoutScrollpane");
                 stockistBoxLayoutScrollpane.setContent(gridPane);
                 this.setCloseShareListButton();

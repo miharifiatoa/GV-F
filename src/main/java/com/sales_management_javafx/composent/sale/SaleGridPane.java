@@ -1,14 +1,12 @@
 package com.sales_management_javafx.composent.sale;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.controller.product_type.ProductTypeBoxController;
 import com.sales_management_javafx.controller.sale.SaleBoxController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
-import org.sales_management.entity.ProductTypeEntity;
 import org.sales_management.entity.SaleEntity;
 
 import java.io.IOException;

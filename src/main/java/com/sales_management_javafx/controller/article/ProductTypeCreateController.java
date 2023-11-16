@@ -1,4 +1,4 @@
-package com.sales_management_javafx.controller.product_type;
+package com.sales_management_javafx.controller.article;
 
 import com.sales_management_javafx.composent.ProductGridPane;
 import javafx.fxml.FXML;
@@ -10,11 +10,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import org.sales_management.entity.ProductEntity;
 import org.sales_management.entity.ProductTypeEntity;
-import org.sales_management.service.ProductCategoryService;
-import org.sales_management.service.ProductService;
+import org.sales_management.entity.ArticleEntity;
 import org.sales_management.service.ProductTypeService;
+import org.sales_management.service.ArticleService;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,27 +28,27 @@ public class ProductTypeCreateController implements Initializable {
     @FXML private Button exit;
     @FXML private Label productNameLabel;
     @FXML private Label nameWarning;
-    private final ProductTypeService productTypeService;
+    private final ArticleService articleService;
 
     public ProductTypeCreateController() {
-        this.productTypeService = new ProductTypeService();
+        this.articleService = new ArticleService();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         formValidation();
     }
-    public void initialize(ProductEntity product){
+    public void initialize(ProductTypeEntity product){
         productNameLabel.setText("Nouveau type du produit " + product.getName());
         this.setSave(product);
         this.setExit();
     }
-    private void setSave(ProductEntity product){
+    private void setSave(ProductTypeEntity product){
         save.setOnAction(event->{
-            if (this.productTypeService.create(getProductType(product)) != null){
+            if (this.articleService.create(getProductType(product)) != null){
                 StackPane productBoxLayout = (StackPane) productTypeCreate.getParent().getParent();
                 ScrollPane productBoxLayoutScrollpane = (ScrollPane) productBoxLayout.lookup("#productBoxLayoutScrollpane");
-                GridPane productGridPane = new ProductGridPane().getGridPane(new ProductService().getById(product.getId()).getProductCategory().getProducts(), 4,false);
+                GridPane productGridPane = new ProductGridPane().getGridPane(new ProductTypeService().getById(product.getId()).getProductCategory().getProducts(), 4,false);
                 productBoxLayoutScrollpane.setContent(productGridPane);
                 productTypeCreate.getParent().setVisible(false);
             }
@@ -62,14 +61,12 @@ public class ProductTypeCreateController implements Initializable {
             modal.setVisible(false);
         });
     }
-    private ProductTypeEntity getProductType(ProductEntity product){
-        ProductTypeEntity productType = new ProductTypeEntity();
-        productType.setName(productTypeNameTextfield.getText());
-        productType.setReference(productTypeReferenceTextfield.getText());
-        productType.setBrand(productTypeBrandTextfield.getText());
-        productType.setQuality(productTypeQualityTextfield.getText());
-        productType.setProduct(product);
-        return productType;
+    private ArticleEntity getProductType(ProductTypeEntity productType){
+        ArticleEntity article = new ArticleEntity();
+        article.setPrice(Double.valueOf(productTypeNameTextfield.getText()));
+        article.setCode(productTypeReferenceTextfield.getText());
+        article.setProductTypeEntity(productType);
+        return article;
     }
     private void formValidation(){
         if (productTypeNameTextfield.getText().isEmpty()){
@@ -78,9 +75,9 @@ public class ProductTypeCreateController implements Initializable {
         productTypeNameTextfield.textProperty().addListener((observable, oldValue, newValue) -> {
             String typeName = newValue.trim().toLowerCase();
             if (!productTypeNameTextfield.getText().isEmpty()) {
-                ProductTypeEntity existingProductType = productTypeService.isUniqueValue(typeName);
+                ArticleEntity existingProductType = articleService.isUniqueValue(typeName);
                 if (existingProductType != null) {
-                    nameWarning.setText(typeName + " existe déjà dans le type de produit " + existingProductType.getProduct().getName());
+                    nameWarning.setText(typeName + " existe déjà dans le type de produit " + existingProductType.getProductTypeEntity().getName());
                     save.setDisable(true);
                 } else {
                     nameWarning.setText(null);

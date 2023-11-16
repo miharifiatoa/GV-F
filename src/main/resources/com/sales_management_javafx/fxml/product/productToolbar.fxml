@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="toolbar" prefHeight="44.0" prefWidth="527.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product.ProductToolbarController">
+<StackPane fx:id="toolbar" prefHeight="44.0" prefWidth="527.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product_type.ProductToolbarController">
    <children>
       <GridPane hgap="10.0" styleClass="box">
          <columnConstraints>

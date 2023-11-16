@@ -1,4 +1,4 @@
-package com.sales_management_javafx.controller.product_category;
+package com.sales_management_javafx.controller.product;
 
 import com.sales_management_javafx.SalesApplication;
 import javafx.fxml.FXML;

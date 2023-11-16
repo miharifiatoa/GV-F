@@ -14,8 +14,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import org.sales_management.entity.ArticleEntity;
-import org.sales_management.service.ArticleService;
+import org.sales_management.entity.ArticleTypeEntity;
+import org.sales_management.service.ArticleTypeService;
 
 import java.net.URL;
 import java.util.Collection;
@@ -38,10 +38,10 @@ public class SellerArticleBoxController implements Initializable {
     @FXML private VBox saleBox;
     @FXML private VBox articleBox;
     @FXML private StackPane sellerArticleBox;
-    private final ArticleService articleService;
+    private final ArticleTypeService articleTypeService;
 
     public SellerArticleBoxController() {
-        this.articleService = new ArticleService();
+        this.articleTypeService = new ArticleTypeService();
     }
 
     @Override
@@ -52,23 +52,23 @@ public class SellerArticleBoxController implements Initializable {
         this.setExit();
         this.formValidation();
     }
-    public void initialize(ArticleEntity article){
-        text.setText("Vous pouvez vendre " + article.getQuantity() + " " + article.getProductType().getName() + " au max");
-        if (article.getQuantity() == 0){
+    public void initialize(ArticleTypeEntity articleType){
+        text.setText("Vous pouvez vendre " + articleType.getQuantity() + " " + articleType.getArticle().getProductTypeEntity().getName() + " au max");
+        if (articleType.getQuantity() == 0){
             sale.setDisable(true);
         }
-        if (FileIO.readArticleFromFile("sales.dat").contains(article)){
+        if (FileIO.readArticleFromFile("sales.dat").contains(articleType)){
             sellerArticleBox.setDisable(true);
         }
-        title.setText("Vente de : " + article.getProductType().getProduct().getProductCategory().getName());
-        productTypeNameLabel.setText(article.getProductType().getName());
-        codeLabel.setText(article.getCode());
-        priceLabel.setText(article.getPrice() +"Ar");
-        colorLabel.setText(article.getColor());
-        sizeLabel.setText(article.getSize());
-        quantityLabel.setText(String.valueOf(article.getQuantity()));
-        NumberTextField.requireIntegerOnly(quantityToSaleTextfield,article.getQuantity());
-        this.setSave(article);
+        title.setText("Vente de : " + articleType.getArticle().getProductTypeEntity().getProductCategory().getName());
+        productTypeNameLabel.setText(articleType.getArticle().getProductTypeEntity().getName());
+        codeLabel.setText(articleType.getArticle().getCode());
+        priceLabel.setText(articleType.getArticle().getPrice() +"Ar");
+        colorLabel.setText(articleType.getColor());
+        sizeLabel.setText(articleType.getSize());
+        quantityLabel.setText(String.valueOf(articleType.getQuantity()));
+        NumberTextField.requireIntegerOnly(quantityToSaleTextfield,articleType.getQuantity());
+        this.setSave(articleType);
     }
     private void setSale(){
         sale.setOnAction(event->{
@@ -82,14 +82,14 @@ public class SellerArticleBoxController implements Initializable {
             articleBox.setVisible(true);
         });
     }
-    private void setSave(ArticleEntity article){
+    private void setSave(ArticleTypeEntity article){
         save.setOnAction(event->{
             article.setQuantity(Integer.parseInt(quantityToSaleTextfield.getText()));
             article.setId(article.getId());
-            Collection<ArticleEntity> articles = FileIO.readArticleFromFile("sales.dat");
+            Collection<ArticleTypeEntity> articles = FileIO.readArticleFromFile("sales.dat");
             articles.add(article);
             FileIO.writeTo("sales.dat",articles);
-            GridPane sellerArticleGridPane = new SellerArticleGridPane().getGridPane(articleService.getAll(),4);
+            GridPane sellerArticleGridPane = new SellerArticleGridPane().getGridPane(articleTypeService.getAll(),4);
             GridPane pannierArticleGridPane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("sales.dat"),2);
             ScrollPane sellerArticleScrollpane = (ScrollPane) sellerArticleBox.getParent().getParent().getParent().getParent();
             sellerArticleScrollpane.setContent(sellerArticleGridPane);

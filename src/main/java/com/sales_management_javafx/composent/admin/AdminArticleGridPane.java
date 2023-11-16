@@ -1,12 +1,10 @@
 package com.sales_management_javafx.composent.admin;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.controller.admin.AdminArrivalBoxController;
 import com.sales_management_javafx.controller.admin.AdminArticleBoxController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.*;
-import org.sales_management.entity.ArrivalEntity;
-import org.sales_management.entity.ArticleEntity;
+import org.sales_management.entity.ArticleTypeEntity;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -16,7 +14,7 @@ public class AdminArticleGridPane {
     public AdminArticleGridPane() {
         this.gridPane = new GridPane();
     }
-    public GridPane getGridPane(Collection<ArticleEntity> articles , int colSize) {
+    public GridPane getGridPane(Collection<ArticleTypeEntity> articles , int colSize) {
         for (int i = 0 ; i < colSize ; i++){
             ColumnConstraints constraints = new ColumnConstraints();
             constraints.setHgrow(Priority.ALWAYS);
@@ -26,7 +24,7 @@ public class AdminArticleGridPane {
         }
         int col = 0;
         int row = 0;
-        for (ArticleEntity article : articles) {
+        for (ArticleTypeEntity article : articles) {
             gridPane.add(this.getAdminArticleBox(article), col, row);
             col++;
             if (col == colSize) {
@@ -38,7 +36,7 @@ public class AdminArticleGridPane {
         gridPane.setId("product-type-grid-pane");
         return gridPane;
     }
-    private VBox getAdminArticleBox(ArticleEntity article){
+    private VBox getAdminArticleBox(ArticleTypeEntity article){
         FXMLLoader adminArticleBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/admin/adminArticleBox.fxml"));
         VBox adminArticleBox;
         try {

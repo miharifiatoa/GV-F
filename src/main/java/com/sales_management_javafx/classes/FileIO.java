@@ -1,6 +1,6 @@
 package com.sales_management_javafx.classes;
 
-import org.sales_management.entity.ArticleEntity;
+import org.sales_management.entity.ArticleTypeEntity;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -17,13 +17,13 @@ public class FileIO {
             throw new RuntimeException(e);
         }
     }
-    public static Collection<ArticleEntity> readArticleFromFile(String filename) {
-        Collection<ArticleEntity> articles = new ArrayList<>();
+    public static Collection<ArticleTypeEntity> readArticleFromFile(String filename) {
+        Collection<ArticleTypeEntity> articles = new ArrayList<>();
         Object object = readFrom(filename);
         if (object instanceof List<?> list) {
             for (Object item : list) {
-                if (item instanceof ArticleEntity) {
-                    articles.add((ArticleEntity) item);
+                if (item instanceof ArticleTypeEntity) {
+                    articles.add((ArticleTypeEntity) item);
                 }
             }
         }
@@ -31,8 +31,8 @@ public class FileIO {
     }
     public static double getPriceTotal(String filename){
         double price = 0;
-        for (ArticleEntity article : readArticleFromFile(filename)){
-            price += article.getPrice() * article.getQuantity();
+        for (ArticleTypeEntity article : readArticleFromFile(filename)){
+            price += article.getArticle().getPrice() * article.getQuantity();
         }
         return price;
     }

@@ -1,8 +1,7 @@
-package com.sales_management_javafx.controller.article;
+package com.sales_management_javafx.controller.article_type;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
-import com.sales_management_javafx.classes.NumberTextField;
 import com.sales_management_javafx.composent.ArticleGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,20 +9,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import org.sales_management.entity.ArticleTypeEntity;
 import org.sales_management.entity.ArticleEntity;
-import org.sales_management.entity.ProductEntity;
-import org.sales_management.entity.ProductTypeEntity;
+import org.sales_management.service.ArticleTypeService;
 import org.sales_management.service.ArticleService;
-import org.sales_management.service.ProductService;
-import org.sales_management.service.ProductTypeService;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -46,11 +41,11 @@ public class ArticleBoxController implements Initializable {
     @FXML private VBox deleteVBox;
     @FXML private ImageView DeleteIcon;
     @FXML private ImageView EditIcon;
-    private final ArticleService articleService;
+    private final ArticleTypeService articleTypeService;
 
     public ArticleBoxController() {
 
-        this.articleService = new ArticleService();
+        this.articleTypeService = new ArticleTypeService();
     }
 
     @Override
@@ -62,26 +57,19 @@ public class ArticleBoxController implements Initializable {
         this.setEdit();
         this.putIcons();
     }
-    public void initialize(ArticleEntity article){
-        Double price = article.getPrice();
+    public void initialize(ArticleTypeEntity articleType){
+        Double price = articleType.getArticle().getPrice();
         DecimalFormat decimalFormat = new DecimalFormat("0.##");
-        this.productTypeNameLabel.setText(article.getProductType().getName());
-        this.articleCodeLabel.setText(String.valueOf(article.getCode()));
+        this.articleCodeLabel.setText(String.valueOf(articleType.getArticle().getCode()));
         this.articlePriceLabel.setText(decimalFormat.format(price)+ " Ar");
-        this.articleSizeLabel.setText(String.valueOf(article.getSize()));
-        this.articleQuantityLabel.setText(String.valueOf(article.getQuantity()));
-        this.articleColorLabel.setText(article.getColor());
-        this.articleBox.getChildren().add(this.getArticleEdit(article));
-        this.deleteText.setText("Voulez vous vraiment supprimer l' article " + article.getCode() + " dans la type du produit " + article.getProductType().getName() + "?");
-        this.setConfirmDelete(article.getId());
-        if (FileIO.readArticleFromFile("articles.dat").contains(article)){
+        this.articleBox.getChildren().add(this.getArticleEdit(articleType));
+        this.deleteText.setText("Voulez vous vraiment supprimer l' article " + articleType.getArticle().getCode() + " dans la type du produit " + articleType.getArticle().getProductTypeEntity().getName() + "?");
+        this.setConfirmDelete(articleType.getId());
+        if (FileIO.readArticleFromFile("articles.dat").contains(articleType)){
             articleBox.setDisable(true);
         }
-        if (FileIO.readArticleFromFile("arrivals.dat").contains(article)){
+        if (FileIO.readArticleFromFile("arrivals.dat").contains(articleType)){
             articleBox.setDisable(true);
-        }
-        if (article.getQuantity() != 0){
-            delete.setDisable(true);
         }
     }
     private void setDelete(){
@@ -92,10 +80,10 @@ public class ArticleBoxController implements Initializable {
     }
     private void setConfirmDelete(Long id){
         confirmDelete.setOnAction(event->{
-            if (this.articleService.deleteById(id) != null){
-                ProductTypeEntity productType = (ProductTypeEntity) FileIO.readFrom("product-type.dat");
+            if (this.articleTypeService.deleteById(id) != null){
+                ArticleEntity productType = (ArticleEntity) FileIO.readFrom("product-type.dat");
                 ScrollPane productBoxLayoutScrollpane = (ScrollPane) articleBox.getParent().getParent().getParent().getParent();
-                GridPane gridPane = new ArticleGridPane().getGridPane(new ProductTypeService().getById(productType.getId()).getArticles(), 4,false);
+                GridPane gridPane = new ArticleGridPane().getGridPane(new ArticleService().getById(productType.getId()).getArticleTypeEntities(), 4,false);
                 productBoxLayoutScrollpane.setContent(gridPane);
                 System.out.println(id);
             }
@@ -118,7 +106,7 @@ public class ArticleBoxController implements Initializable {
         DeleteIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/DeleteIcon.png"))));
         EditIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/EditIcon.png"))));
     }
-    private VBox getArticleEdit(ArticleEntity priceVariation){
+    private VBox getArticleEdit(ArticleTypeEntity priceVariation){
         FXMLLoader productVariationEditLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article/articleEdit.fxml"));
         VBox productVariationEditVbox;
         try {

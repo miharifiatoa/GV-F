@@ -11,7 +11,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.sales_management.entity.SaleArticleEntity;
 import org.sales_management.entity.SaleEntity;
-import org.sales_management.service.ArticleService;
+import org.sales_management.service.ArticleTypeService;
 import org.sales_management.service.SaleService;
 
 import java.net.URL;
@@ -26,10 +26,10 @@ public class AdminSaleBoxController implements Initializable {
     @FXML private VBox saleVBox;
     @FXML private StackPane saleBox;
     private final SaleService saleService;
-    private final ArticleService articleService;
+    private final ArticleTypeService articleTypeService;
 
     public AdminSaleBoxController() {
-        this.articleService = new ArticleService();
+        this.articleTypeService = new ArticleTypeService();
         this.saleService = new SaleService();
     }
 
@@ -80,7 +80,7 @@ public class AdminSaleBoxController implements Initializable {
     private String getSum(SaleEntity sale){
         double sum = 0;
         for (SaleArticleEntity saleArticle : sale.getSaleArticles()){
-            sum += saleArticle.getArticle().getPrice() * saleArticle.getQuantity();
+            sum += saleArticle.getArticleType().getArticle().getPrice() * saleArticle.getQuantity();
         }
         DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
         return decimalFormat.format(sum);

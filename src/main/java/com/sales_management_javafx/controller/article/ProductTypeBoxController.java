@@ -1,10 +1,10 @@
-package com.sales_management_javafx.controller.product_type;
+package com.sales_management_javafx.controller.article;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.composent.ArticleGridPane;
 import com.sales_management_javafx.composent.ProductTypeGridPane;
-import com.sales_management_javafx.controller.article.ArticleCreateController;
+import com.sales_management_javafx.controller.article_type.ArticleCreateController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,14 +17,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import org.sales_management.entity.ProductEntity;
 import org.sales_management.entity.ProductTypeEntity;
-import org.sales_management.service.ProductService;
+import org.sales_management.entity.ArticleEntity;
 import org.sales_management.service.ProductTypeService;
+import org.sales_management.service.ArticleService;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class ProductTypeBoxController implements Initializable {
@@ -44,12 +43,12 @@ public class ProductTypeBoxController implements Initializable {
     @FXML private Label add;
     @FXML private ImageView editIcon;
     @FXML private ImageView deleteIcon;
+    private final ArticleService articleService;
     private final ProductTypeService productTypeService;
-    private final ProductService productService;
 
     public ProductTypeBoxController() {
-        this.productService = new ProductService();
         this.productTypeService = new ProductTypeService();
+        this.articleService = new ArticleService();
     }
 
     @Override
@@ -60,36 +59,35 @@ public class ProductTypeBoxController implements Initializable {
         this.setDelete();
         this.setExit();
     }
-    public void initialize(ProductTypeEntity productType){
-        if (productType.getArticles().isEmpty()){
+    public void initialize(ArticleEntity article){
+        if (article.getArticleTypeEntities().isEmpty()){
             productTypeNameLabel.setDisable(true);
         }
         else {
             delete.setDisable(true);
         }
-        deleteText.setText("Voulez vous supprimer " + productType.getName() + " dans la liste des produits " + productType.getProduct().getName());
-        productTypeNameLabel.setText(productType.getName());
-        productTypeReferenceLabel.setText(productType.getReference());
-        productTypeBrandLabel.setText(productType.getBrand());
-        productTypeQualiteLabel.setText(productType.getQuality());
-        articleQuantityLabel.setText(productType.getArticles().size() + " article(s)");
-        this.setProductTypeNameLabel(productType);
-        this.setAdd(productType);
-        this.setConfirmDelete(productType);
-        this.setEdit(productType);
+        deleteText.setText("Voulez vous supprimer " + article.getCode() + " dans la liste des produits " + article.getProductTypeEntity().getName());
+        productTypeNameLabel.setText(article.getCode());
+//        productTypeReferenceLabel.setText(productType.getReference());
+//        productTypeBrandLabel.setText(productType.getBrand());
+        articleQuantityLabel.setText(article.getArticleTypeEntities().size() + " types d' article");
+        this.setProductTypeNameLabel(article);
+        this.setAdd(article);
+        this.setConfirmDelete(article);
+        this.setEdit(article);
     }
     private void putIcons(){
         this.editIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/EditIcon.png"))));
         this.deleteIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/DeleteIcon.png"))));
     }
-    private void setProductTypeNameLabel(ProductTypeEntity productType){
+    private void setProductTypeNameLabel(ArticleEntity productType){
         productTypeNameLabel.setOnMouseClicked(event->{
             FileIO.writeTo("product-type.dat",productType);
-            GridPane articleGridpane = new ArticleGridPane().getGridPane(productType.getArticles(),4,false);
+            GridPane articleGridpane = new ArticleGridPane().getGridPane(productType.getArticleTypeEntities(),4,false);
             getProductBoxLayoutScrollpane().setContent(articleGridpane);
         });
     }
-    private void setAdd(ProductTypeEntity productType){
+    private void setAdd(ArticleEntity productType){
         add.setOnMouseClicked(event->{
             StackPane productBoxLayout = this.getProductBoxLayout();
             BorderPane modal = (BorderPane) productBoxLayout.lookup("#modal");
@@ -103,11 +101,11 @@ public class ProductTypeBoxController implements Initializable {
             deleteVBox.setVisible(true);
         });
     }
-    private void setConfirmDelete(ProductTypeEntity productType) {
+    private void setConfirmDelete(ArticleEntity productType) {
         confirmDelete.setOnAction(event -> {
-            if (productTypeService.deleteById(productType.getId()) != null){
-                ProductEntity product = (ProductEntity) FileIO.readFrom("product.dat");
-                GridPane productTypeGridPane = new ProductTypeGridPane().getGridPane(new ProductService().getById(product.getId()).getProductTypes(),4);
+            if (articleService.deleteById(productType.getId()) != null){
+                ProductTypeEntity product = (ProductTypeEntity) FileIO.readFrom("product.dat");
+                GridPane productTypeGridPane = new ProductTypeGridPane().getGridPane(new ProductTypeService().getById(product.getId()).getArticles(),4);
                 getProductBoxLayoutScrollpane().setContent(productTypeGridPane);
             }
 
@@ -120,7 +118,7 @@ public class ProductTypeBoxController implements Initializable {
             deleteVBox.setVisible(false);
         });
     }
-    private void setEdit(ProductTypeEntity productType){
+    private void setEdit(ArticleEntity productType){
         edit.setOnAction(event->{
             productTypeBox.getChildren().add(this.getProductTypeEdit(productType));
         });
@@ -132,7 +130,7 @@ public class ProductTypeBoxController implements Initializable {
         return (ScrollPane) productTypeBox.getParent().getParent().getParent().getParent();
     }
 
-    private StackPane getArticleCreate(ProductTypeEntity productType){
+    private StackPane getArticleCreate(ArticleEntity productType){
         FXMLLoader articleCreateLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article/articleCreate.fxml"));
         StackPane articleCreate;
         try {
@@ -144,7 +142,7 @@ public class ProductTypeBoxController implements Initializable {
         }
         return articleCreate;
     }
-    private VBox getProductTypeEdit(ProductTypeEntity productType){
+    private VBox getProductTypeEdit(ArticleEntity productType){
         FXMLLoader productTypeEditLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_type/productTypeEdit.fxml"));
         VBox productTypeEdit;
         try {

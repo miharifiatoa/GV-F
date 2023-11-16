@@ -1,4 +1,4 @@
-package com.sales_management_javafx.controller.product;
+package com.sales_management_javafx.controller.product_type;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.MenuIcon;
@@ -14,11 +14,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-import org.sales_management.entity.ProductEntity;
-import org.sales_management.service.ArticleService;
-import org.sales_management.service.ProductCategoryService;
+import org.sales_management.entity.ProductTypeEntity;
+import org.sales_management.service.ArticleTypeService;
 import org.sales_management.service.ProductService;
 import org.sales_management.service.ProductTypeService;
+import org.sales_management.service.ArticleService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,21 +38,21 @@ public class ProductBoxLayoutController implements Initializable {
     @FXML private Label articles;
     @FXML private ImageView articleIcon;
     @FXML private Button exit;
-    private final ProductService productService;
-    private final ProductCategoryService productCategoryService;
     private final ProductTypeService productTypeService;
+    private final ProductService productService;
     private final ArticleService articleService;
+    private final ArticleTypeService articleTypeService;
     private final ProductGridPane productGridPane;
     private final MenuGridPane menuGridPane;
     private final MenuIcon menuIcon;
 
     public ProductBoxLayoutController() {
-        this.productTypeService = new ProductTypeService();
         this.articleService = new ArticleService();
+        this.articleTypeService = new ArticleTypeService();
         this.menuIcon = new MenuIcon();
         this.menuGridPane = new MenuGridPane();
-        this.productCategoryService = new ProductCategoryService();
         this.productService = new ProductService();
+        this.productTypeService = new ProductTypeService();
         this.productGridPane = new ProductGridPane();
     }
 
@@ -75,33 +75,33 @@ public class ProductBoxLayoutController implements Initializable {
         this.searchProductTextfield.setPromptText("Recherche");
         searchProductTextfield.textProperty().addListener((observableValue, s, t1) -> {
             if (!searchProductTextfield.getText().isEmpty()){
-                Collection<ProductEntity> products = this.productService.searchProductsByName(searchProductTextfield.getText());
+                Collection<ProductTypeEntity> products = this.productTypeService.searchProductsByName(searchProductTextfield.getText());
                 this.productBoxLayoutScrollpane.setContent(new ProductGridPane().getGridPane(products,4,false));
                 System.out.println(productBoxLayoutScrollpane);
             }
             else {
-                this.productBoxLayoutScrollpane.setContent(new ProductGridPane().getGridPane(this.productService.getAll(), 4,false));
+                this.productBoxLayoutScrollpane.setContent(new ProductGridPane().getGridPane(this.productTypeService.getAll(), 4,false));
             }
         });
     }
     private void setCategories(){
         categories.setOnMouseClicked(event->{
-            this.productBoxLayoutScrollpane.setContent(new ProductCategoryGridPane().getGridPane(productCategoryService.getAll(),4));
+            this.productBoxLayoutScrollpane.setContent(new ProductCategoryGridPane().getGridPane(productService.getAll(),4));
         });
     }
     private void setProducts(){
         products.setOnMouseClicked(event->{
-            this.productBoxLayoutScrollpane.setContent(new ProductGridPane().getGridPane(productService.getAll(),4,false));
+            this.productBoxLayoutScrollpane.setContent(new ProductGridPane().getGridPane(productTypeService.getAll(),4,false));
         });
     }
     private void setTypes(){
         types.setOnMouseClicked(event->{
-            this.productBoxLayoutScrollpane.setContent(new ProductTypeGridPane().getGridPane(productTypeService.getAll(),4));
+            this.productBoxLayoutScrollpane.setContent(new ProductTypeGridPane().getGridPane(articleService.getAll(),4));
         });
     }
     private void setArticles(){
         articles.setOnMouseClicked(event->{
-            this.productBoxLayoutScrollpane.setContent(new ArticleGridPane().getGridPane(articleService.getAll(),4,false));
+            this.productBoxLayoutScrollpane.setContent(new ArticleGridPane().getGridPane(articleTypeService.getAll(),4,false));
         });
     }
     public void setExit(){

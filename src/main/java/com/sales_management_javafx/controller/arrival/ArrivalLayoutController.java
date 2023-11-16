@@ -17,10 +17,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import org.sales_management.entity.ArrivalEntity;
-import org.sales_management.entity.ArticleEntity;
+import org.sales_management.entity.ArticleTypeEntity;
 import org.sales_management.entity.UserEntity;
 import org.sales_management.service.ArrivalService;
-import org.sales_management.service.ArticleService;
+import org.sales_management.service.ArticleTypeService;
 import org.sales_management.session.SessionManager;
 
 import java.io.IOException;
@@ -40,14 +40,14 @@ public class ArrivalLayoutController implements Initializable {
     @FXML private ImageView arrivalIcon;
     @FXML private ImageView listArrivalIcon;
     @FXML private TextField arrivalDescriptionTextfield;
-    private final ArticleService articleService;
+    private final ArticleTypeService articleTypeService;
     private final ArrivalService arrivalService;
     private final UserEntity user;
 
     public ArrivalLayoutController() {
         this.user = SessionManager.getSession().getCurrentUser();
         this.arrivalService = new ArrivalService();
-        this.articleService = new ArticleService();
+        this.articleTypeService = new ArticleTypeService();
     }
 
     @Override
@@ -79,7 +79,7 @@ public class ArrivalLayoutController implements Initializable {
     }
     private void setSave(){
         save.setOnAction(event->{
-            Collection<ArticleEntity> articles = FileIO.readArticleFromFile("arrivals.dat");
+            Collection<ArticleTypeEntity> articles = FileIO.readArticleFromFile("arrivals.dat");
             ArrivalEntity arrival = new ArrivalEntity();
             arrival.setArrivalDate(LocalDateTime.now());
             arrival.setDescription(arrivalDescriptionTextfield.getText());
@@ -89,7 +89,7 @@ public class ArrivalLayoutController implements Initializable {
             if (arrivalService.toSaveArrival(arrival,articles)!=null){
                 articles.clear();
                 FileIO.writeTo("arrivals.dat",articles);
-                GridPane stockistArticleGridPane = new StockistArticleGridPane().getGridPane(new ArticleService().getAll(),4);
+                GridPane stockistArticleGridPane = new StockistArticleGridPane().getGridPane(new ArticleTypeService().getAll(),4);
                 GridPane articleInfoGridPane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("arrivals.dat"),2);
                 getStockistBoxLayoutScrollpane().setContent(stockistArticleGridPane);
                 arrivalLayoutScrollpane.setContent(articleInfoGridPane);

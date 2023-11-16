@@ -19,7 +19,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import org.sales_management.entity.ArticleEntity;
+import org.sales_management.entity.ArticleTypeEntity;
 import org.sales_management.entity.ClientEntity;
 import org.sales_management.entity.PaymentEntity;
 import org.sales_management.entity.SaleEntity;
@@ -228,12 +228,12 @@ public class SellerPaymentController implements Initializable {
         return client;
     }
     private void refreshData(){
-        Collection<ArticleEntity> articles = FileIO.readArticleFromFile("sales.dat");
+        Collection<ArticleTypeEntity> articles = FileIO.readArticleFromFile("sales.dat");
         articles.clear();
         FileIO.writeTo("sales.dat",articles);
         BorderPane sellerLayoutBorderpane = (BorderPane) sellerPayment.getParent();
         sellerLayoutBorderpane.setBottom(getSaleLayout());
-        GridPane sellerArticleGridPane = new SellerArticleGridPane().getGridPane(new ArticleService().getAll(),4);
+        GridPane sellerArticleGridPane = new SellerArticleGridPane().getGridPane(new ArticleTypeService().getAll(),4);
         ScrollPane sellerArticleScrollpane = (ScrollPane) sellerLayoutBorderpane.lookup("#sellerArticleScrollpane");
         sellerArticleScrollpane.setContent(sellerArticleGridPane);
     }

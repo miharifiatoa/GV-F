@@ -32,7 +32,7 @@ public class Payment {
     public static Double getTotalToPay(SaleEntity sale){
         double money = 0.0;
         for (SaleArticleEntity saleArticle : sale.getSaleArticles()){
-            money += saleArticle.getArticle().getPrice() * saleArticle.getQuantity();
+            money += saleArticle.getArticleType().getArticle().getPrice() * saleArticle.getQuantity();
         }
         return money;
     }

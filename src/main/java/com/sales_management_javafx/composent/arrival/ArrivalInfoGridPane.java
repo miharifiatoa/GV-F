@@ -1,7 +1,7 @@
 package com.sales_management_javafx.composent.arrival;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.controller.article.ArticleCodeController;
+import com.sales_management_javafx.controller.article_type.ArticleCodeController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -9,8 +9,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import org.sales_management.entity.ArrivalArticleEntity;
 import org.sales_management.entity.ArrivalEntity;
-import org.sales_management.entity.ShareArticleEntity;
-import org.sales_management.entity.ShareEntity;
 
 import java.io.IOException;
 

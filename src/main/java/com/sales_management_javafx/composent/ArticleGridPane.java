@@ -1,14 +1,13 @@
 package com.sales_management_javafx.composent;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.classes.FileIO;
-import com.sales_management_javafx.controller.article.ArticleBoxController;
+import com.sales_management_javafx.controller.article_type.ArticleBoxController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
-import org.sales_management.entity.ArticleEntity;
+import org.sales_management.entity.ArticleTypeEntity;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -20,7 +19,7 @@ public class ArticleGridPane {
         this.gridPane = new GridPane();
     }
 
-    public GridPane getGridPane(Collection<ArticleEntity> priceVariations, int colSize, boolean show){
+    public GridPane getGridPane(Collection<ArticleTypeEntity> priceVariations, int colSize, boolean show){
         for (int i = 0 ; i < colSize ; i++){
             ColumnConstraints constraints = new ColumnConstraints();
             constraints.setHgrow(Priority.ALWAYS);
@@ -34,7 +33,7 @@ public class ArticleGridPane {
             gridPane.add(this.getCreatePriceBox(),col,row);
             col++;
         }
-        for (ArticleEntity priceVariation : priceVariations) {
+        for (ArticleTypeEntity priceVariation : priceVariations) {
             try {
                 gridPane.add(this.getArticleBox(priceVariation), col, row);
                 col++;
@@ -49,7 +48,7 @@ public class ArticleGridPane {
         gridPane.getStyleClass().add("gridpane");
         return gridPane;
     }
-    private StackPane getArticleBox(ArticleEntity article){
+    private StackPane getArticleBox(ArticleTypeEntity article){
         FXMLLoader articleBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article/articleBox.fxml"));
         StackPane productBoxStackpane;
         try {

@@ -1,4 +1,4 @@
-package com.sales_management_javafx.controller.article;
+package com.sales_management_javafx.controller.article_type;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

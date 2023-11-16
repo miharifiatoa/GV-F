@@ -150,7 +150,7 @@ public class SaleAddPaymentController implements Initializable {
     private double getPriceTotal(SaleEntity sale){
         double priceTotal = 0.0;
         for (SaleArticleEntity saleArticle : sale.getSaleArticles()){
-            priceTotal += saleArticle.getArticle().getPrice();
+            priceTotal += saleArticle.getArticleType().getArticle().getPrice();
         }
         return priceTotal;
     }

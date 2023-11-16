@@ -2,11 +2,9 @@ package com.sales_management_javafx.composent;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.controller.account.AccountBoxController;
-import com.sales_management_javafx.controller.article.ArticleInfoController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.*;
 import org.sales_management.entity.AccountEntity;
-import org.sales_management.entity.ArticleEntity;
 
 import java.io.IOException;
 import java.util.Collection;

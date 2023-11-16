@@ -55,7 +55,7 @@ public class DashboardLayoutController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        dashboardLayoutBorderpane.setTop(this.menuGridPane.getGridPane(menuIcon.getMenuIcons(),5));
+        dashboardLayoutBorderpane.setTop(this.menuGridPane.getGridPane(menuIcon.getMenuIcons(),4));
         dashboardLayoutBorderpane.setBottom(getDashboardToolbar());
         datePicker.setValue(LocalDate.now());
         this.setDatePicker();

@@ -1,9 +1,9 @@
 package com.sales_management_javafx.composent;
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.controller.article.ArticleInfoController;
+import com.sales_management_javafx.controller.article_type.ArticleInfoController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.*;
-import org.sales_management.entity.ArticleEntity;
+import org.sales_management.entity.ArticleTypeEntity;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -15,7 +15,7 @@ public class ArticleInfoGridPane {
         this.gridPane = new GridPane();
     }
 
-    public GridPane getGridPane(Collection<ArticleEntity> priceVariations, int colSize){
+    public GridPane getGridPane(Collection<ArticleTypeEntity> priceVariations, int colSize){
         for (int i = 0 ; i < colSize ; i++){
             ColumnConstraints constraints = new ColumnConstraints();
             constraints.setHgrow(Priority.ALWAYS);
@@ -25,7 +25,7 @@ public class ArticleInfoGridPane {
         }
         int col = 0;
         int row = 0;
-        for (ArticleEntity priceVariation : priceVariations) {
+        for (ArticleTypeEntity priceVariation : priceVariations) {
             gridPane.add(this.getArticleShareBox(priceVariation), col, row);
             col++;
             if (col == colSize) {
@@ -37,7 +37,7 @@ public class ArticleInfoGridPane {
         gridPane.setId("articleShareGridpane");
         return gridPane;
     }
-    private VBox getArticleShareBox(ArticleEntity article){
+    private VBox getArticleShareBox(ArticleTypeEntity article){
         FXMLLoader productShareListLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article/articleInfo.fxml"));
         VBox productShareList;
         try {

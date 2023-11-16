@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="productBoxLayout" prefHeight="392.0" prefWidth="608.0" styleClass="box" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product.ProductBoxLayoutController">
+<StackPane fx:id="productBoxLayout" prefHeight="392.0" prefWidth="608.0" styleClass="box" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product_type.ProductBoxLayoutController">
    <children>
       <BorderPane fx:id="product">
          <center>

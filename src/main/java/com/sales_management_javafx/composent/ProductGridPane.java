@@ -1,10 +1,10 @@
 package com.sales_management_javafx.composent;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.controller.product.ProductBoxController;
+import com.sales_management_javafx.controller.product_type.ProductBoxController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.*;
-import org.sales_management.entity.ProductEntity;
+import org.sales_management.entity.ProductTypeEntity;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -15,7 +15,7 @@ public class ProductGridPane{
     public ProductGridPane() {
         this.gridPane = new GridPane();
     }
-    public GridPane getGridPane(Collection<ProductEntity> products, int colSize, boolean isShowCreateBox){
+    public GridPane getGridPane(Collection<ProductTypeEntity> products, int colSize, boolean isShowCreateBox){
         for (int i = 0 ; i < colSize ; i++){
             ColumnConstraints constraints = new ColumnConstraints();
             constraints.setHgrow(Priority.ALWAYS);
@@ -29,7 +29,7 @@ public class ProductGridPane{
 //            gridPane.add(this.getProductCreateFormBox(), 0, row);
         }
         else col = 0;
-        for (ProductEntity product : products) {
+        for (ProductTypeEntity product : products) {
 //            if (!ProductFile.readProductsFromFile().contains(product)){
                 gridPane.add(this.getProductBox(product), col, row);
                 col++;
@@ -43,7 +43,7 @@ public class ProductGridPane{
         gridPane.setId("productGridPane");
         return gridPane;
     }
-    private StackPane getProductBox(ProductEntity product){
+    private StackPane getProductBox(ProductTypeEntity product){
         FXMLLoader productBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productBox.fxml"));
         StackPane productBoxStackpane;
         try {

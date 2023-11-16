@@ -1,11 +1,10 @@
-package com.sales_management_javafx.controller.product;
+package com.sales_management_javafx.controller.product_type;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
-import com.sales_management_javafx.composent.ArticleGridPane;
 import com.sales_management_javafx.composent.ProductGridPane;
 import com.sales_management_javafx.composent.ProductTypeGridPane;
-import com.sales_management_javafx.controller.product_type.ProductTypeCreateController;
+import com.sales_management_javafx.controller.article.ProductTypeCreateController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,10 +16,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import org.sales_management.entity.ProductEntity;
 import org.sales_management.entity.ProductTypeEntity;
-import org.sales_management.service.ProductCategoryService;
 import org.sales_management.service.ProductService;
+import org.sales_management.service.ProductTypeService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -46,12 +44,12 @@ public class ProductBoxController implements Initializable {
     @FXML
     private Button deleteProduct;
     @FXML private Label add;
+    private final ProductTypeService productTypeService;
     private final ProductService productService;
-    private final ProductCategoryService productCategoryService;
 
     public ProductBoxController() {
-        this.productCategoryService = new ProductCategoryService();
         this.productService = new ProductService();
+        this.productTypeService = new ProductTypeService();
     }
 
     @Override
@@ -62,9 +60,9 @@ public class ProductBoxController implements Initializable {
         this.setExit();
         this.setDeleteProduct();
     }
-    public void initialize(ProductEntity product){
+    public void initialize(ProductTypeEntity product){
         productNameLabel.setText(product.getName());
-        if (!product.getProductTypes().isEmpty()){
+        if (!product.getArticles().isEmpty()){
             deleteProduct.setDisable(true);
         }
         else {
@@ -92,21 +90,21 @@ public class ProductBoxController implements Initializable {
     }
     private void setDelete(Long id){
         delete.setOnMouseClicked(event->{
-            ProductEntity product = productService.deleteById(id);
+            ProductTypeEntity product = productTypeService.deleteById(id);
             if (product != null){
-                GridPane productGridpane = new ProductGridPane().getGridPane(productCategoryService.getById(product.getProductCategory().getId()).getProducts(),4,false);
+                GridPane productGridpane = new ProductGridPane().getGridPane(productService.getById(product.getProductCategory().getId()).getProducts(),4,false);
                 getProductBoxLayoutScrollpane().setContent(productGridpane);
             }
         });
     }
-    private void showProductType(ProductEntity product){
+    private void showProductType(ProductTypeEntity productType){
         productNameLabel.setOnMouseClicked(event->{
-            FileIO.writeTo("product.dat",product);
-            GridPane gridPane = new ProductTypeGridPane().getGridPane(product.getProductTypes(),4);
+            FileIO.writeTo("product.dat",productType);
+            GridPane gridPane = new ProductTypeGridPane().getGridPane(productType.getArticles(),4);
             getProductBoxLayoutScrollpane().setContent(gridPane);
         });
     }
-    private void setAdd(ProductEntity product){
+    private void setAdd(ProductTypeEntity product){
         add.setOnMouseClicked(event->{
             StackPane productBoxLayout = this.getProductBoxLayout();
             BorderPane modal = (BorderPane) productBoxLayout.lookup("#modal");
@@ -114,7 +112,7 @@ public class ProductBoxController implements Initializable {
             modal.setVisible(true);
         });
     }
-    private StackPane getProductTypeCreate(ProductEntity product){
+    private StackPane getProductTypeCreate(ProductTypeEntity product){
         FXMLLoader productTypeCreateLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_type/productTypeCreate.fxml"));
         StackPane productTypeCreate;
         try {

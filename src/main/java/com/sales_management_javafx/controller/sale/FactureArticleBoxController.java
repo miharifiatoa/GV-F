@@ -3,12 +3,9 @@ package com.sales_management_javafx.controller.sale;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import org.sales_management.entity.ArticleEntity;
 import org.sales_management.entity.SaleArticleEntity;
-import org.sales_management.entity.SaleEntity;
 
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
 public class FactureArticleBoxController implements Initializable {
@@ -21,8 +18,8 @@ public class FactureArticleBoxController implements Initializable {
 
     }
     public void initialize(SaleArticleEntity saleArticle){
-        productTypeNameLabel.setText(saleArticle.getArticle().getProductType().getName());
-        articlePriceLabel.setText(saleArticle.getArticle().getPrice() + "Ar");
+        productTypeNameLabel.setText(saleArticle.getArticleType().getArticle().getProductTypeEntity().getName());
+        articlePriceLabel.setText(saleArticle.getArticleType().getArticle().getPrice() + "Ar");
         articleQuantityLabel.setText(String.valueOf(saleArticle.getQuantity()));
     }
 }
