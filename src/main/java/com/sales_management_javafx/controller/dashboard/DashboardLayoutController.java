@@ -147,7 +147,7 @@ public class DashboardLayoutController implements Initializable {
     }
     private void setPrint(){
         print.setOnAction(event->{
-            Printer.print(dashboardLayoutScrollpane.getContent());
+            Printer.print(dashboardLayoutScrollpane);
         });
     }
 }

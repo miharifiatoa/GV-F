@@ -42,21 +42,7 @@
       <artifactId>Sales_management</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
-    <dependency>
-      <groupId>com.github.lbovolini</groupId>
-      <artifactId>ObjectMapper</artifactId>
-      <version>0.2.3</version>
-    </dependency>
-    <dependency>
-      <groupId>de.jensd</groupId>
-      <artifactId>fontawesomefx</artifactId>
-      <version>8.9</version>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars.npm</groupId>
-      <artifactId>fontawesome</artifactId>
-      <version>5.6.3</version>
-    </dependency>
+
       <dependency>
           <groupId>commons-codec</groupId>
           <artifactId>commons-codec</artifactId>
@@ -83,25 +69,20 @@
                 </configuration>
             </plugin>
             <plugin>
-                  <groupId>org.openjfx</groupId>
-                  <artifactId>javafx-maven-plugin</artifactId>
-                  <version>0.0.8</version>
-                  <executions>
-                        <execution>
-                              <id>default-cli</id>
-                              <configuration>
-                                  <mainClass>com.sales_management_javafx/com.sales_management_javafx.SalesApplication</mainClass>
-                                  <launcher>app</launcher>
-                                  <jlinkZipName>app</jlinkZipName>
-                                  <jlinkImageName>app</jlinkImageName>
-                                  <noManPages>true</noManPages>
-                                  <stripDebug>true</stripDebug>
-                                  <noHeaderFiles>true</noHeaderFiles>
-                              </configuration>
-                        </execution>
-                  </executions>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <executions>
+                    <execution>
+                        <id>default-cli</id>
+                        <configuration>
+                            <mainClass>com.sales_management_javafx.SalesApplication</mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
-          <plugin>
+
+            <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-resources-plugin</artifactId>
             <version>3.3.1</version>
