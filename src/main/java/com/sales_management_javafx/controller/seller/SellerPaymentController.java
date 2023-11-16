@@ -182,21 +182,27 @@ public class SellerPaymentController implements Initializable {
     public void savePayed(){
         SaleEntity sale = setSale();
         sale.setPayed(true);
-        SaleEntity saleResponse = saleService.toSaleArticles(sale, FileIO.readArticleFromFile("sales.dat"));
-        if (saleResponse != null){
-            for (PaymentEntity payment : getPayments()){
-                payment.setSale(sale);
-                paymentService.create(payment);
-            }
-            this.refreshData();
-            saleLayoutController.initializeForPayed();
-        }
+        this.save(sale);
+        saleLayoutController.initializeForPayed();
     }
     public void saveUnPayed(){
         SaleEntity sale = setSale();
         sale.setPayed(false);
+        this.save(sale);
+        saleLayoutController.initializeForUnPayed();
+    }
+    private void save(SaleEntity sale){
         SaleEntity saleResponse = saleService.toSaleArticles(sale, FileIO.readArticleFromFile("sales.dat"));
         if (saleResponse != null){
+            ClientEntity client = clientService.getByPhone(getClient().getTelephone());
+            if (client != null) {
+                sale.setClient(client);
+                saleService.update(sale);
+            } else {
+                ClientEntity clientEntity = clientService.create(getClient());
+                sale.setClient(clientEntity);
+                saleService.update(sale);
+            }
             for (PaymentEntity payment : getPayments()){
                 if (payment != null){
                     payment.setSale(sale);
@@ -204,22 +210,22 @@ public class SellerPaymentController implements Initializable {
                 }
             }
             this.refreshData();
-            saleLayoutController.initializeForUnPayed();
         }
     }
     private SaleEntity setSale(){
         SaleEntity sale = new SaleEntity();
-        ClientEntity client = new ClientEntity();
-        client.setName(clientNameTextfield.getText());
-        client.setTelephone(clientContactTextfield.getText());
-        ClientEntity clientResponse = clientService.create(client);
-        sale.setClient(clientResponse);
         sale.setCanceled(false);
         sale.setPayed(false);
         sale.setSaleDate(LocalDateTime.now());
         sale.setDelivery(delivery);
         sale.setUser(SessionManager.getSession().getCurrentUser());
         return sale;
+    }
+    private ClientEntity getClient(){
+        ClientEntity client = new ClientEntity();
+        client.setName(clientNameTextfield.getText());
+        client.setTelephone(clientContactTextfield.getText());
+        return client;
     }
     private void refreshData(){
         Collection<ArticleEntity> articles = FileIO.readArticleFromFile("sales.dat");

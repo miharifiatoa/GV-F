@@ -3,11 +3,13 @@ package com.sales_management_javafx.controller.dashboard;
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.actions.Payment;
 import com.sales_management_javafx.classes.DecimalFormat;
+import com.sales_management_javafx.composent.admin.AdminPaymentGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -15,13 +17,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.sales_management.entity.UserEntity;
+import org.sales_management.service.PaymentModeService;
 import org.sales_management.service.PaymentService;
 import org.sales_management.session.SessionManager;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class DashboardToolbarController implements Initializable {
@@ -31,10 +33,17 @@ public class DashboardToolbarController implements Initializable {
     @FXML private Button newAccount;
     @FXML private Button newShop;
     @FXML private Button logout;
+    @FXML private Button exit;
     @FXML private Label payment;
+    @FXML private GridPane dashboardToolbarGridpane;
+    @FXML private GridPane paymentGridpane;
+    @FXML private ScrollPane paymentScrollPane;
     private final UserEntity user;
-
+    private final PaymentService paymentService;
+    private final PaymentModeService paymentModeService;
     public DashboardToolbarController() {
+        this.paymentService = new PaymentService();
+        this.paymentModeService = new PaymentModeService();
         this.user = SessionManager.getSession().getCurrentUser();
     }
 
@@ -44,10 +53,31 @@ public class DashboardToolbarController implements Initializable {
         this.setNewAccount();
         this.putIcons();
         this.logout.setOnAction(event->setLogout());
-        this.payment.setText(DecimalFormat.format(Payment.getPaymentByDay(LocalDate.now())) + "Ar");
+        this.payment.setText("Versement : " + DecimalFormat.format(Payment.getPaymentByDay(LocalDate.now()))  + "Ar");
+        this.dashboardToolbarGridpane.setVisible(true);
+        this.paymentGridpane.setVisible(false);
+        this.setPayment();
+        this.setExit();
+        this.setPaymentScrollPane();
         if (user == null){
             this.setLogout();
         }
+    }
+    private void setPaymentScrollPane(){
+        GridPane adminPaymentGridPane = new AdminPaymentGridPane().getGridPane(LocalDate.now());
+        paymentScrollPane.setContent(adminPaymentGridPane);
+    }
+    private void setPayment(){
+        this.payment.setOnMouseClicked(event->{
+            this.dashboardToolbarGridpane.setVisible(false);
+            this.paymentGridpane.setVisible(true);
+        });
+    }
+    private void setExit(){
+        this.exit.setOnMouseClicked(event->{
+            this.dashboardToolbarGridpane.setVisible(true);
+            this.paymentGridpane.setVisible(false);
+        });
     }
     private void setNewShop(){
         newShop.setOnAction(event->{

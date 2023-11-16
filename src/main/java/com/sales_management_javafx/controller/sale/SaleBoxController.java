@@ -66,7 +66,7 @@ public class SaleBoxController implements Initializable {
         }
     }
     public void initializeForAdmin(SaleEntity sale){
-        saleVBox.setOnMouseClicked(event->{
+        saleText.setOnMouseClicked(event->{
             GridPane adminSaleInfoGridPane = new AdminSaleInfoGridPane().getGridPane(sale,1);
             ScrollPane dashboardLayoutScrollpane = (ScrollPane) saleBox.getParent().getParent().getParent().getParent();
             dashboardLayoutScrollpane.setContent(adminSaleInfoGridPane);

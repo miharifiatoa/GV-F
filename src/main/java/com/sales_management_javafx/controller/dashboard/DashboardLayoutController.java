@@ -4,28 +4,26 @@ import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.actions.Payment;
 import com.sales_management_javafx.classes.DecimalFormat;
 import com.sales_management_javafx.classes.MenuIcon;
+import com.sales_management_javafx.classes.Printer;
 import com.sales_management_javafx.composent.MenuGridPane;
 import com.sales_management_javafx.composent.admin.AdminArrivalGridPane;
+import com.sales_management_javafx.composent.admin.AdminPaymentGridPane;
 import com.sales_management_javafx.composent.admin.AdminSaleGridPane;
 import com.sales_management_javafx.composent.admin.AdminShareGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.DateCell;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 import org.sales_management.entity.ArrivalEntity;
 import org.sales_management.entity.ShareEntity;
-import org.sales_management.service.ArrivalService;
-import org.sales_management.service.PaymentService;
-import org.sales_management.service.SaleService;
-import org.sales_management.service.ShareService;
+import org.sales_management.service.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -37,13 +35,17 @@ public class DashboardLayoutController implements Initializable {
     @FXML private BorderPane dashboardLayoutBorderpane;
     @FXML private ScrollPane dashboardLayoutScrollpane;
     @FXML private DatePicker datePicker;
+    @FXML private ImageView printIcon;
+    @FXML private Button print;
     private final MenuGridPane menuGridPane;
     private final MenuIcon menuIcon;
     private final ArrivalService arrivalService;
     private final SaleService saleService;
     private final ShareService shareService;
+    private final PaymentService paymentService;
 
     public DashboardLayoutController() {
+        this.paymentService = new PaymentService();
         this.saleService = new SaleService();
         this.shareService = new ShareService();
         this.arrivalService = new ArrivalService();
@@ -57,6 +59,8 @@ public class DashboardLayoutController implements Initializable {
         dashboardLayoutBorderpane.setBottom(getDashboardToolbar());
         datePicker.setValue(LocalDate.now());
         this.setDatePicker();
+        this.putIcons();
+        this.setPrint();
     }
 
     private StackPane getDashboardToolbar(){
@@ -100,10 +104,8 @@ public class DashboardLayoutController implements Initializable {
                     GridPane adminShareGridPane = new AdminShareGridPane().getGridPane(shareService.getAllSharesByDate(date),4);
                     dashboardLayoutScrollpane.setContent(adminShareGridPane);
                 }
-                Label payment = (Label) dashboardLayout.lookup("#payment");
-                payment.setText(DecimalFormat.format(Payment.getPaymentByDay(date)) + "Ar");
-                print(date);
             }
+            initialize(date);
         });
         datePicker.setDayCellFactory(new Callback<>() {
             @Override
@@ -133,9 +135,19 @@ public class DashboardLayoutController implements Initializable {
             }
         });
     }
-    private void print(LocalDate localDate){
-        for (Object[] result : new PaymentService().getPaymentsByModeAndDate("Espece",localDate)){
-            System.out.println(result[0] + " " + result[1]);
-        }
+    private void initialize(LocalDate localDate){
+        Label payment = (Label) dashboardLayout.lookup("#payment");
+        payment.setText("Versement : " + DecimalFormat.format(Payment.getPaymentByDay(localDate)) + "Ar");
+        ScrollPane paymentScrollPane = (ScrollPane) dashboardLayout.lookup("#paymentScrollPane");
+        GridPane adminPaymentGridPane = new AdminPaymentGridPane().getGridPane(localDate);
+        paymentScrollPane.setContent(adminPaymentGridPane);
+    }
+    private void putIcons(){
+        this.printIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/PrintIcon.png"))));
+    }
+    private void setPrint(){
+        print.setOnAction(event->{
+            Printer.print(dashboardLayoutScrollpane.getContent());
+        });
     }
 }
