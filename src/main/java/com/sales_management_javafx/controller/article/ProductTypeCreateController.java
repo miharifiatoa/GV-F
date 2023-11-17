@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import org.sales_management.entity.ProductEntity;
 import org.sales_management.entity.ProductTypeEntity;
 import org.sales_management.entity.ArticleEntity;
 import org.sales_management.service.ProductTypeService;
@@ -34,12 +35,13 @@ public class ProductTypeCreateController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        formValidation();
+
     }
-    public void initialize(ProductTypeEntity product){
-        productNameLabel.setText("Nouveau type du produit " + product.getName());
-        this.setSave(product);
+    public void initialize(ProductTypeEntity productType){
+        productNameLabel.setText("Nouveau " + productType.getName());
+        this.setSave(productType);
         this.setExit();
+        this.formValidation(productType);
     }
     private void setSave(ProductTypeEntity product){
         save.setOnAction(event->{
@@ -66,30 +68,40 @@ public class ProductTypeCreateController implements Initializable {
         article.setProductTypeEntity(productType);
         return article;
     }
-    private void formValidation(){
+    private void formValidation(ProductTypeEntity productType){
         if (this.articlePrice.getText().isEmpty() || this.articleCode.getText().isEmpty()){
             this.save.setDisable(true);
         }
         this.articleCode.textProperty().addListener((event,oldValue, newValue)->{
-            if (!articleCode.getText().isEmpty()){
-                save.setDisable(false);
-                if (articlePrice.getText().isEmpty()){
-                    save.setDisable(true);
-                }
-            }
-            else{
+            if (articlePrice.getText().isEmpty() || articleCode.getText().isEmpty()){
                 save.setDisable(true);
-                nameWarning.setText("Champ obligatoire");
-            }
-        });
-        articlePrice.textProperty().addListener(event->{
-            if (!articlePrice.getText().isEmpty()){
-                save.setDisable(false);
-                nameWarning.setText(null);
             }
             else {
+                String code = newValue.trim().toLowerCase();
+                if(articleService.isUniqueValue(code) != null){
+                    save.setDisable(true);
+                    nameWarning.setText(newValue + " existe deja dans le type de produit " + productType.getName());
+                }
+                else {
+                    save.setDisable(false);
+                    nameWarning.setText(null);
+                }
+            }
+        });
+        this.articlePrice.textProperty().addListener((event,oldValue, newValue)->{
+            if (articlePrice.getText().isEmpty() || articleCode.getText().isEmpty()){
                 save.setDisable(true);
-                nameWarning.setText("Champ obligatoire");
+            }
+            else {
+                String code = articleCode.getText().trim().toLowerCase();
+                if(articleService.isUniqueValue(code) != null){
+                    save.setDisable(true);
+                    nameWarning.setText(articleCode.getText() + " existe deja dans le type de produit " + productType.getName());
+                }
+                else {
+                    save.setDisable(false);
+                    nameWarning.setText(null);
+                }
             }
         });
     }

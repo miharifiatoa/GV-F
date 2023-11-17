@@ -65,7 +65,7 @@ public class ProductTypeBoxController implements Initializable {
         else {
             delete.setDisable(true);
         }
-        deleteText.setText("Voulez vous supprimer " + article.getCode() + " dans la liste des produits " + article.getProductTypeEntity().getName());
+        deleteText.setText("Voulez vous vraiment supprimer cet article dans le type de produit " + article.getProductTypeEntity().getName() + " ?");
         productTypeNameLabel.setText(article.getCode());
         articlePrice.setText(article.getPrice() + "Ar");
         productTypeName.setText(article.getProductTypeEntity().getName());

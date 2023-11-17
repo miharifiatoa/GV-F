@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="dashboardMenuBox" prefHeight="40.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.dashboard.DashboardMenuBoxController">
+<StackPane fx:id="dashboardMenuBox" prefHeight="45.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.dashboard.DashboardMenuBoxController">
    <children>
       <GridPane fx:id="dashboardMenu" prefHeight="45.0" prefWidth="319.0">
         <columnConstraints>

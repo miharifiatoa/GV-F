@@ -75,7 +75,7 @@
                                        <children>
                                           <AnchorPane GridPane.columnIndex="1">
                                              <children>
-                                                <Label fx:id="nameWarning" alignment="CENTER_RIGHT" prefHeight="17.6" prefWidth="378.4" text="Champ obligatoire" textFill="#ff9c00" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <Label fx:id="nameWarning" alignment="CENTER_RIGHT" prefHeight="17.6" prefWidth="378.4" textFill="#ff9c00" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <font>
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>

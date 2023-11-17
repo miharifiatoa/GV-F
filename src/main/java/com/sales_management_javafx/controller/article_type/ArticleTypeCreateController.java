@@ -51,6 +51,7 @@ public class ArticleTypeCreateController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.setExit();
+        this.validation();
     }
     public void initialize(ArticleEntity productType){
         this.productTypeLabel.setText("Nouveau " + productType.getCode());
@@ -85,5 +86,16 @@ public class ArticleTypeCreateController implements Initializable {
         articleType.setColor(this.articleColorTextfield.getText());
         articleType.setArticle(article);
         return articleType;
+    }
+    private void validation(){
+        save.setDisable(true);
+        articleSizeTextfield.textProperty().addListener(event->{
+            if (articleColorTextfield.getText().isEmpty() || articleSizeTextfield.getText().isEmpty()){
+                save.setDisable(true);
+            }
+        });
+        articleColorTextfield.textProperty().addListener(event->{
+            save.setDisable(articleColorTextfield.getText().isEmpty() || articleSizeTextfield.getText().isEmpty());
+        });
     }
 }

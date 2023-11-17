@@ -75,7 +75,7 @@ public class ProductCreateController implements Initializable {
                 }
             } else {
                 save.setDisable(true);
-                nameWarning.setText("Champ obligatoire");
+                nameWarning.setText(null);
             }
         });
 

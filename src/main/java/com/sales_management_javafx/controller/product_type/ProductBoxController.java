@@ -33,8 +33,10 @@ public class ProductBoxController implements Initializable {
     @FXML private Label productNameLabel;
     @FXML private Button exit;
     @FXML private Button delete;
+    @FXML private Label deleteText;
     @FXML private Label productTypeBrandLabel;
     @FXML private Label productTypeReferenceLabel;
+    @FXML private Label articleQuantityLabel;
     @FXML private Button save;
     @FXML private Label add;
     private final ProductTypeService productTypeService;
@@ -57,6 +59,8 @@ public class ProductBoxController implements Initializable {
         productNameLabel.setText(productType.getName());
         productTypeBrandLabel.setText(productType.getBrand());
         productTypeReferenceLabel.setText(productType.getReference());
+        articleQuantityLabel.setText(productType.getArticles().size() + " article(s)");
+        deleteText.setText("Voulez vous vraiment supprimer cet type dans la liste de produit " + productType.getProduct().getName() + " ?");
         if (!productType.getArticles().isEmpty()){
             delete.setDisable(true);
         }

@@ -62,7 +62,7 @@ public class ArticleTypeBoxController implements Initializable {
         this.articleTypeColorLabel.setText(articleType.getColor());
         this.articleTypeQuantityLabel.setText(String.valueOf(articleType.getQuantity()));
         this.articleBox.getChildren().add(this.getArticleEdit(articleType));
-        this.deleteText.setText("Voulez vous vraiment supprimer l' article " + articleType.getArticle().getCode() + " dans la type du produit " + articleType.getArticle().getProductTypeEntity().getName() + "?");
+        this.deleteText.setText("Voulez vous vraiment supprimer cet type dans la liste d'article " + articleType.getArticle().getCode() + " ?");
         this.setConfirmDelete(articleType.getId());
         if (FileIO.readArticleFromFile("articles.dat").contains(articleType)){
             articleBox.setDisable(true);

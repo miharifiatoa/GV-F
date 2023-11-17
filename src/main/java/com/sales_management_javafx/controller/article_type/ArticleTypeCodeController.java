@@ -12,6 +12,8 @@ import java.util.ResourceBundle;
 public class ArticleTypeCodeController implements Initializable {
     @FXML private Label codeLabel;
     @FXML private Label quantityLabel;
+    @FXML private Label sizeLabel;
+    @FXML private Label colorLabel;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -19,9 +21,13 @@ public class ArticleTypeCodeController implements Initializable {
     public void initialize(ShareArticleEntity shareArticle){
         quantityLabel.setText(String.valueOf(shareArticle.getQuantity()));
         codeLabel.setText(shareArticle.getArticleType().getArticle().getCode());
+        colorLabel.setText(shareArticle.getArticleType().getColor());
+        sizeLabel.setText(shareArticle.getArticleType().getSize());
     }
     public void initialize(ArrivalArticleEntity arrivalArticle){
         quantityLabel.setText(String.valueOf(arrivalArticle.getQuantity()));
         codeLabel.setText(arrivalArticle.getArticleType().getArticle().getCode());
+        colorLabel.setText(arrivalArticle.getArticleType().getColor());
+        sizeLabel.setText(arrivalArticle.getArticleType().getSize());
     }
 }
