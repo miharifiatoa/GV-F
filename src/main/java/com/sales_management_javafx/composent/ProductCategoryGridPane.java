@@ -40,7 +40,7 @@ public class ProductCategoryGridPane {
         return gridPane;
     }
     private StackPane getArticleBox(ProductEntity article){
-        FXMLLoader articleBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_category/productCategoryBox.fxml"));
+        FXMLLoader articleBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productCategoryBox.fxml"));
         StackPane stackPane;
         try {
             stackPane = articleBoxLoader.load();

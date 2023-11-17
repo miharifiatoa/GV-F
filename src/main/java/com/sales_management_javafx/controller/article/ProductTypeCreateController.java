@@ -20,10 +20,8 @@ import java.util.ResourceBundle;
 
 public class ProductTypeCreateController implements Initializable {
     @FXML private StackPane productTypeCreate;
-    @FXML private TextField productTypeNameTextfield;
-    @FXML private TextField productTypeReferenceTextfield;
-    @FXML private TextField productTypeBrandTextfield;
-    @FXML private TextField productTypeQualityTextfield;
+    @FXML private TextField articleCode;
+    @FXML private TextField articlePrice;
     @FXML private Button save;
     @FXML private Button exit;
     @FXML private Label productNameLabel;
@@ -48,7 +46,7 @@ public class ProductTypeCreateController implements Initializable {
             if (this.articleService.create(getProductType(product)) != null){
                 StackPane productBoxLayout = (StackPane) productTypeCreate.getParent().getParent();
                 ScrollPane productBoxLayoutScrollpane = (ScrollPane) productBoxLayout.lookup("#productBoxLayoutScrollpane");
-                GridPane productGridPane = new ProductGridPane().getGridPane(new ProductTypeService().getById(product.getId()).getProductCategory().getProducts(), 4,false);
+                GridPane productGridPane = new ProductGridPane().getGridPane(new ProductTypeService().getById(product.getId()).getProduct().getProductTypes(), 4,false);
                 productBoxLayoutScrollpane.setContent(productGridPane);
                 productTypeCreate.getParent().setVisible(false);
             }
@@ -63,31 +61,36 @@ public class ProductTypeCreateController implements Initializable {
     }
     private ArticleEntity getProductType(ProductTypeEntity productType){
         ArticleEntity article = new ArticleEntity();
-        article.setPrice(Double.valueOf(productTypeNameTextfield.getText()));
-        article.setCode(productTypeReferenceTextfield.getText());
+        article.setPrice(Double.valueOf(articlePrice.getText()));
+        article.setCode(articleCode.getText());
         article.setProductTypeEntity(productType);
         return article;
     }
     private void formValidation(){
-        if (productTypeNameTextfield.getText().isEmpty()){
-            save.setDisable(true);
+        if (this.articlePrice.getText().isEmpty() || this.articleCode.getText().isEmpty()){
+            this.save.setDisable(true);
         }
-        productTypeNameTextfield.textProperty().addListener((observable, oldValue, newValue) -> {
-            String typeName = newValue.trim().toLowerCase();
-            if (!productTypeNameTextfield.getText().isEmpty()) {
-                ArticleEntity existingProductType = articleService.isUniqueValue(typeName);
-                if (existingProductType != null) {
-                    nameWarning.setText(typeName + " existe déjà dans le type de produit " + existingProductType.getProductTypeEntity().getName());
+        this.articleCode.textProperty().addListener((event,oldValue, newValue)->{
+            if (!articleCode.getText().isEmpty()){
+                save.setDisable(false);
+                if (articlePrice.getText().isEmpty()){
                     save.setDisable(true);
-                } else {
-                    nameWarning.setText(null);
-                    save.setDisable(false);
                 }
-            } else {
-                nameWarning.setText("Champ obligatoire");
+            }
+            else{
                 save.setDisable(true);
+                nameWarning.setText("Champ obligatoire");
             }
         });
-
+        articlePrice.textProperty().addListener(event->{
+            if (!articlePrice.getText().isEmpty()){
+                save.setDisable(false);
+                nameWarning.setText(null);
+            }
+            else {
+                save.setDisable(true);
+                nameWarning.setText("Champ obligatoire");
+            }
+        });
     }
 }

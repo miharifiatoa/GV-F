@@ -35,7 +35,7 @@ public class ArrivalArticlesGridPane {
                 row++;
             }
         }
-        gridPane.getStyleClass().add("box");
+        gridPane.getStyleClass().add("gridpane");
         return gridPane;
     }
     private StackPane getAdminStoryBox(ArrivalArticleEntity arrivalArticle){

@@ -49,7 +49,7 @@ public class DashboardMenuBoxController implements Initializable {
     public void initialize(){
         FXMLLoader accountLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountLayout.fxml"));
         FXMLLoader shopLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/shop/shopLayout.fxml"));
-        FXMLLoader articleLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_category/productCategoryLayout.fxml"));
+        FXMLLoader articleLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productCategoryLayout.fxml"));
         try {
             this.account = accountLoader.load();
             this.shop = shopLoader.load();

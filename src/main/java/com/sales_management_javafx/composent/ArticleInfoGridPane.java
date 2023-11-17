@@ -1,6 +1,6 @@
 package com.sales_management_javafx.composent;
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.controller.article_type.ArticleInfoController;
+import com.sales_management_javafx.controller.article_type.ArticleTypeInfoController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.*;
 import org.sales_management.entity.ArticleTypeEntity;
@@ -37,13 +37,13 @@ public class ArticleInfoGridPane {
         gridPane.setId("articleShareGridpane");
         return gridPane;
     }
-    private VBox getArticleShareBox(ArticleTypeEntity article){
-        FXMLLoader productShareListLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article/articleInfo.fxml"));
+    private VBox getArticleShareBox(ArticleTypeEntity articleType){
+        FXMLLoader productShareListLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article_type/articleInfo.fxml"));
         VBox productShareList;
         try {
             productShareList = productShareListLoader.load();
-            ArticleInfoController productSharedListController = productShareListLoader.getController();
-            productSharedListController.initialize(article);
+            ArticleTypeInfoController productSharedListController = productShareListLoader.getController();
+            productSharedListController.initialize(articleType);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -22,13 +22,9 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
-public class ArticleCreateController implements Initializable {
-    @FXML
-    private TextField articlePriceTextfield;
+public class ArticleTypeCreateController implements Initializable {
     @FXML
     private TextField articleSizeTextfield;
-    @FXML
-    private TextField articleCodeTextfield;
     @FXML
     private TextField articleColorTextfield;
     @FXML
@@ -47,67 +43,37 @@ public class ArticleCreateController implements Initializable {
     private final ArticleService articleService;
     private final ArticleTypeService articleTypeService;
 
-    public ArticleCreateController() {
+    public ArticleTypeCreateController() {
         this.articleService = new ArticleService();
         this.articleTypeService = new ArticleTypeService();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.formValidation();
         this.setExit();
-        NumberTextField.requireDouble(this.articlePriceTextfield);
     }
     public void initialize(ArticleEntity productType){
         this.productTypeLabel.setText("Nouveau " + productType.getCode());
         this.setSave(productType);
     }
-    private void formValidation(){
-        if (this.articlePriceTextfield.getText().isEmpty() || this.articleCodeTextfield.getText().isEmpty()){
-            this.save.setDisable(true);
-        }
-        this.articleCodeTextfield.textProperty().addListener((event,oldValue, newValue)->{
-            if (!articleCodeTextfield.getText().isEmpty()){
-                save.setDisable(false);
-                if (articlePriceTextfield.getText().isEmpty()){
-                    save.setDisable(true);
-                }
-            }
-            else{
-                save.setDisable(true);
-                identifyWarning.setText("Champ obligatoire");
-            }
-        });
-        articlePriceTextfield.textProperty().addListener(event->{
-            if (!articlePriceTextfield.getText().isEmpty()){
-                save.setDisable(false);
-                identifyWarning.setText(null);
-            }
-            else {
-                save.setDisable(true);
-                identifyWarning.setText("Champ obligatoire");
-            }
-        });
-    }
+
     private void setExit(){
         exit.setOnAction(actionEvent -> {
             BorderPane modal = (BorderPane) articleCreate.getParent();
             modal.setVisible(false);
         });
     }
-    private void setSave(ArticleEntity productType){
+    private void setSave(ArticleEntity article){
         save.setOnAction(actionEvent -> {
-            if (!articlePriceTextfield.getText().isEmpty()){
-                if (this.articleTypeService.create(this.getArticle(productType))!=null){
-                    StackPane  productBoxLayout = (StackPane) articleCreate.getParent().getParent();
-                    ScrollPane stockistBoxLayoutScrollpane = (ScrollPane) productBoxLayout.getParent().getParent().lookup("#stockistBoxLayoutScrollpane");
-                    ScrollPane productBoxLayoutScrollpane = (ScrollPane) productBoxLayout.lookup("#productBoxLayoutScrollpane");
-                    GridPane stockistArticleGridPane = new StockistArticleGridPane().getGridPane(new ArticleTypeService().getAll(),4);
-                    GridPane productTypeGridPane = new ProductTypeGridPane().getGridPane(new ArticleService().getById(productType.getId()).getProductTypeEntity().getArticles(), 4);
-                    stockistBoxLayoutScrollpane.setContent(stockistArticleGridPane);
-                    productBoxLayoutScrollpane.setContent(productTypeGridPane);
-                    articleCreate.getParent().setVisible(false);
-                }
+            if (this.articleTypeService.create(this.getArticle(article))!=null){
+                StackPane  productBoxLayout = (StackPane) articleCreate.getParent().getParent();
+                ScrollPane stockistBoxLayoutScrollpane = (ScrollPane) productBoxLayout.getParent().getParent().lookup("#stockistBoxLayoutScrollpane");
+                ScrollPane productBoxLayoutScrollpane = (ScrollPane) productBoxLayout.lookup("#productBoxLayoutScrollpane");
+                GridPane stockistArticleGridPane = new StockistArticleGridPane().getGridPane(new ArticleTypeService().getAll(),4);
+                GridPane productTypeGridPane = new ProductTypeGridPane().getGridPane(new ArticleService().getById(article.getId()).getProductTypeEntity().getArticles(), 4);
+                stockistBoxLayoutScrollpane.setContent(stockistArticleGridPane);
+                productBoxLayoutScrollpane.setContent(productTypeGridPane);
+                articleCreate.getParent().setVisible(false);
             }
         });
     }

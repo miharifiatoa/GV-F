@@ -4,7 +4,7 @@ import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.composent.ArticleGridPane;
 import com.sales_management_javafx.composent.ProductTypeGridPane;
-import com.sales_management_javafx.controller.article_type.ArticleCreateController;
+import com.sales_management_javafx.controller.article_type.ArticleTypeCreateController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,10 +30,9 @@ public class ProductTypeBoxController implements Initializable {
     @FXML private StackPane productTypeBox;
     @FXML private VBox productTypeVBox;
     @FXML private VBox deleteVBox;
-    @FXML private Label productTypeReferenceLabel;
-    @FXML private Label productTypeBrandLabel;
-    @FXML private Label productTypeQualiteLabel;
+    @FXML private Label articlePrice;
     @FXML private Label productTypeNameLabel;
+    @FXML private Label productTypeName;
     @FXML private Label articleQuantityLabel;
     @FXML private Label deleteText;
     @FXML private Button edit;
@@ -68,8 +67,8 @@ public class ProductTypeBoxController implements Initializable {
         }
         deleteText.setText("Voulez vous supprimer " + article.getCode() + " dans la liste des produits " + article.getProductTypeEntity().getName());
         productTypeNameLabel.setText(article.getCode());
-//        productTypeReferenceLabel.setText(productType.getReference());
-//        productTypeBrandLabel.setText(productType.getBrand());
+        articlePrice.setText(article.getPrice() + "Ar");
+        productTypeName.setText(article.getProductTypeEntity().getName());
         articleQuantityLabel.setText(article.getArticleTypeEntities().size() + " types d' article");
         this.setProductTypeNameLabel(article);
         this.setAdd(article);
@@ -131,19 +130,19 @@ public class ProductTypeBoxController implements Initializable {
     }
 
     private StackPane getArticleCreate(ArticleEntity productType){
-        FXMLLoader articleCreateLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article/articleCreate.fxml"));
+        FXMLLoader articleCreateLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article_type/articleCreate.fxml"));
         StackPane articleCreate;
         try {
             articleCreate = articleCreateLoader.load();
-            ArticleCreateController articleCreateController = articleCreateLoader.getController();
-            articleCreateController.initialize(productType);
+            ArticleTypeCreateController articleTypeCreateController = articleCreateLoader.getController();
+            articleTypeCreateController.initialize(productType);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return articleCreate;
     }
     private VBox getProductTypeEdit(ArticleEntity productType){
-        FXMLLoader productTypeEditLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_type/productTypeEdit.fxml"));
+        FXMLLoader productTypeEditLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article/productTypeEdit.fxml"));
         VBox productTypeEdit;
         try {
             productTypeEdit = productTypeEditLoader.load();

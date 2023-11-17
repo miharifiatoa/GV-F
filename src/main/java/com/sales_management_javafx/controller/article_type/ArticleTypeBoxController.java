@@ -24,14 +24,12 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.*;
 
-public class ArticleBoxController implements Initializable {
+public class ArticleTypeBoxController implements Initializable {
     @FXML private StackPane articleBox;
-    @FXML private Label articlePriceLabel;
     @FXML private Label articleCodeLabel;
-    @FXML private Label articleColorLabel;
-    @FXML private Label articleSizeLabel;
-    @FXML private Label articleQuantityLabel;
-    @FXML private Label productTypeNameLabel;
+    @FXML private Label articleTypeColorLabel;
+    @FXML private Label articleTypeSizeLabel;
+    @FXML private Label articleTypeQuantityLabel;
     @FXML private Label deleteText;
     @FXML private Button delete;
     @FXML private Button confirmDelete;
@@ -43,7 +41,7 @@ public class ArticleBoxController implements Initializable {
     @FXML private ImageView EditIcon;
     private final ArticleTypeService articleTypeService;
 
-    public ArticleBoxController() {
+    public ArticleTypeBoxController() {
 
         this.articleTypeService = new ArticleTypeService();
     }
@@ -58,10 +56,11 @@ public class ArticleBoxController implements Initializable {
         this.putIcons();
     }
     public void initialize(ArticleTypeEntity articleType){
-        Double price = articleType.getArticle().getPrice();
-        DecimalFormat decimalFormat = new DecimalFormat("0.##");
         this.articleCodeLabel.setText(String.valueOf(articleType.getArticle().getCode()));
-        this.articlePriceLabel.setText(decimalFormat.format(price)+ " Ar");
+        this.articleCodeLabel.setText(articleType.getArticle().getCode());
+        this.articleTypeSizeLabel.setText(articleType.getSize());
+        this.articleTypeColorLabel.setText(articleType.getColor());
+        this.articleTypeQuantityLabel.setText(String.valueOf(articleType.getQuantity()));
         this.articleBox.getChildren().add(this.getArticleEdit(articleType));
         this.deleteText.setText("Voulez vous vraiment supprimer l' article " + articleType.getArticle().getCode() + " dans la type du produit " + articleType.getArticle().getProductTypeEntity().getName() + "?");
         this.setConfirmDelete(articleType.getId());
@@ -107,12 +106,12 @@ public class ArticleBoxController implements Initializable {
         EditIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/EditIcon.png"))));
     }
     private VBox getArticleEdit(ArticleTypeEntity priceVariation){
-        FXMLLoader productVariationEditLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article/articleEdit.fxml"));
+        FXMLLoader productVariationEditLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article_type/articleEdit.fxml"));
         VBox productVariationEditVbox;
         try {
             productVariationEditVbox = productVariationEditLoader.load();
-            ArticleEditController articleEditController = productVariationEditLoader.getController();
-            articleEditController.initialize(priceVariation);
+            ArticleTypeEditController articleTypeEditController = productVariationEditLoader.getController();
+            articleTypeEditController.initialize(priceVariation);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -24,17 +24,30 @@ public class AdminArticleStoryBoxController implements Initializable {
             text.setText(saleArticle.getSale().getUser().getAccount().getUsername()
                     + " a annulé(e) la vente de "
                     + saleArticle.getQuantity()
-                    + " produit(s) au client "
+                    + " "
+                    + saleArticle.getArticleType().getArticle().getProductTypeEntity().getName()
+                    + " "
+                    + saleArticle.getArticleType().getColor()
+                    + " , taille : "
+                    + saleArticle.getArticleType().getSize()
+                    + " au client "
                     + saleArticle.getSale().getClient().getName()
                     + " qui a passé le "
                     + DateTimeFormatter.format(saleArticle.getSaleDate()));
         }
         else{
             text.setText(saleArticle.getSale().getUser().getAccount().getUsername()
-                    + " a vendu " + saleArticle.getQuantity()
-                    + " produit(s) au client "
+                    + " a vendu "
+                    + saleArticle.getQuantity()
+                    + " "
+                    + saleArticle.getArticleType().getArticle().getProductTypeEntity().getName()
+                    + " "
+                    + saleArticle.getArticleType().getColor()
+                    + " , taille : "
+                    + saleArticle.getArticleType().getSize()
+                    + " au client "
                     + saleArticle.getSale().getClient().getName()
-                    + " le "
+                    + " qui le "
                     + DateTimeFormatter.format(saleArticle.getSaleDate()));
         }
     }
@@ -43,16 +56,28 @@ public class AdminArticleStoryBoxController implements Initializable {
             text.setDisable(true);
             text.getStyleClass().add("canceled-text");
             text.setText(arrivalArticle.getArrival().getUser().getAccount().getUsername()
-                    + " a annulé l' ajout de "
+                    + " a annulé(e) l ' ajout de "
                     + arrivalArticle.getQuantity()
-                    + " produit(s) qui arrive au stock le "
+                    + " "
+                    + arrivalArticle.getArticleType().getArticle().getProductTypeEntity().getName()
+                    + " "
+                    + arrivalArticle.getArticleType().getColor()
+                    + " , taille : "
+                    + arrivalArticle.getArticleType().getSize()
+                    + " qui arrive au stock le "
                     + DateTimeFormatter.format(arrivalArticle.getArrivalDate()));
         }
         else {
             text.setText(arrivalArticle.getArrival().getUser().getAccount().getUsername()
-                    + " a ajouté "
+                    + " a ajouté(e) "
                     + arrivalArticle.getQuantity()
-                    + " produit(s) au stock le "
+                    + " "
+                    + arrivalArticle.getArticleType().getArticle().getProductTypeEntity().getName()
+                    + " "
+                    + arrivalArticle.getArticleType().getColor()
+                    + " , taille : "
+                    + arrivalArticle.getArticleType().getSize()
+                    + "  au stock le "
                     + DateTimeFormatter.format(arrivalArticle.getArrivalDate()));
         }
     }
@@ -63,7 +88,13 @@ public class AdminArticleStoryBoxController implements Initializable {
             text.setText(shareArticle.getShare().getUser().getAccount().getUsername()
                     + " a annulé(e) le partage de "
                     + shareArticle.getQuantity()
-                    + " produit(s) vers le boutique "
+                    + " "
+                    + shareArticle.getArticleType().getArticle().getProductTypeEntity().getName()
+                    + " "
+                    + shareArticle.getArticleType().getColor()
+                    + " , taille : "
+                    + shareArticle.getArticleType().getSize()
+                    + " vers le boutique "
                     + shareArticle.getShare().getShop().getName()
                     + " à "
                     + shareArticle.getShare().getShop().getAddress()
@@ -74,7 +105,13 @@ public class AdminArticleStoryBoxController implements Initializable {
             text.setText(shareArticle.getShare().getUser().getAccount().getUsername()
                     + " a partagé "
                     + shareArticle.getQuantity()
-                    + " produit(s) vers le boutique "
+                    + " "
+                    + shareArticle.getArticleType().getArticle().getProductTypeEntity().getName()
+                    + " "
+                    + shareArticle.getArticleType().getColor()
+                    + " , taille : "
+                    + shareArticle.getArticleType().getSize()
+                    + " vers le boutique "
                     + shareArticle.getShare().getShop().getName()
                     + " à " + shareArticle.getShare().getShop().getAddress()
                     + " le " + DateTimeFormatter.format(shareArticle.getShareDate()));

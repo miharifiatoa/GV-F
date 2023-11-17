@@ -18,9 +18,7 @@ import org.sales_management.service.ProductTypeService;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ArticleEditController implements Initializable {
-    @FXML
-    private TextField articlePriceTextfield;
+public class ArticleTypeEditController implements Initializable {
     @FXML
     private TextField articleSizeTextfield;
     @FXML
@@ -39,7 +37,7 @@ public class ArticleEditController implements Initializable {
     private final ProductService productService;
     private final ArticleTypeService articleTypeService;
 
-    public ArticleEditController() {
+    public ArticleTypeEditController() {
         this.articleTypeService = new ArticleTypeService();
         this.productService = new ProductService();
         this.productTypeService = new ProductTypeService();
@@ -48,17 +46,7 @@ public class ArticleEditController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.articleEditVBox.setVisible(false);
-        this.formValidation();
         this.setExit();
-        NumberTextField.requireDouble(this.articlePriceTextfield);
-    }
-    private void formValidation(){
-        if (articlePriceTextfield.getText().isEmpty()){
-            save.setDisable(true);
-        }
-        articlePriceTextfield.textProperty().addListener(event->{
-            save.setDisable(articlePriceTextfield.getText().isEmpty());
-        });
     }
 
     public void initialize(ArticleTypeEntity article){
@@ -68,12 +56,10 @@ public class ArticleEditController implements Initializable {
     }
     public void setSave(Long article_id){
         save.setOnAction(actionEvent -> {
-            if (!articlePriceTextfield.getText().isEmpty()){
-                if (this.articleTypeService.update(this.getNewArticle(article_id))!=null){
-                    GridPane gridPane = new ArticleGridPane().getGridPane(new ArticleTypeService().getById(article_id).getArticle().getArticleTypeEntities(), 4,false);
-                    ScrollPane productBoxLayoutScrollpane = (ScrollPane) articleEditVBox.getParent().getParent().getParent().getParent().getParent();
-                    productBoxLayoutScrollpane.setContent(gridPane);
-                }
+            if (this.articleTypeService.update(this.getNewArticle(article_id))!=null){
+                GridPane gridPane = new ArticleGridPane().getGridPane(new ArticleTypeService().getById(article_id).getArticle().getArticleTypeEntities(), 4,false);
+                ScrollPane productBoxLayoutScrollpane = (ScrollPane) articleEditVBox.getParent().getParent().getParent().getParent().getParent();
+                productBoxLayoutScrollpane.setContent(gridPane);
             }
         });
     }

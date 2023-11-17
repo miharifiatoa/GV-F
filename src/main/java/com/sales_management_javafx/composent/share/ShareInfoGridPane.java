@@ -1,7 +1,7 @@
 package com.sales_management_javafx.composent.share;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.controller.article_type.ArticleCodeController;
+import com.sales_management_javafx.controller.article_type.ArticleTypeCodeController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.*;
 import org.sales_management.entity.ShareArticleEntity;
@@ -38,12 +38,12 @@ public class ShareInfoGridPane {
         return gridPane;
     }
     private StackPane getArticleCode(ShareArticleEntity shareArticle){
-        FXMLLoader articleCodeLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article/articleCode.fxml"));
+        FXMLLoader articleCodeLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article_type/articleCode.fxml"));
         StackPane articleCode;
         try {
             articleCode = articleCodeLoader.load();
-            ArticleCodeController articleCodeController = articleCodeLoader.getController();
-            articleCodeController.initialize(shareArticle);
+            ArticleTypeCodeController articleTypeCodeController = articleCodeLoader.getController();
+            articleTypeCodeController.initialize(shareArticle);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

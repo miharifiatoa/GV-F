@@ -27,13 +27,11 @@ public class ProductCreateController implements Initializable {
     @FXML
     private Button save;
     @FXML
-    private TextField productNameTextfield;
+    private TextField productTypeNameTextfield;
     @FXML
-    private TextField productReferenceTextfield;
+    private TextField productTypeReferenceTextfield;
     @FXML
-    private TextField productQualityTextfield;
-    @FXML
-    private TextField productBrandTextfield;
+    private TextField productTypeBrandTextfield;
     @FXML
     private Label identifyWarning;
     @FXML
@@ -61,15 +59,15 @@ public class ProductCreateController implements Initializable {
         this.setSave(productCategory);
     }
     private void formValidation(){
-        if (productNameTextfield.getText().isEmpty()){
+        if (productTypeNameTextfield.getText().isEmpty()){
             save.setDisable(true);
         }
-        productNameTextfield.textProperty().addListener((observable, oldValue, newValue) -> {
+        productTypeNameTextfield.textProperty().addListener((observable, oldValue, newValue) -> {
             String productName = newValue.trim().toLowerCase();
-            if (!productNameTextfield.getText().isEmpty()) {
+            if (!productTypeNameTextfield.getText().isEmpty()) {
                 ProductTypeEntity existingProduct = productTypeService.isProductNameExists(productName);
                 if (existingProduct != null) {
-                    nameWarning.setText(productName + " existe déjà dans la liste de " + existingProduct.getProductCategory().getName());
+                    nameWarning.setText(productName + " existe déjà dans la liste de " + existingProduct.getProduct().getName());
                     save.setDisable(true);
                 } else {
                     nameWarning.setText(null);
@@ -99,13 +97,15 @@ public class ProductCreateController implements Initializable {
             }
         });
     }
-    private ProductTypeEntity getProduct(ProductEntity productCategory){
-        ProductTypeEntity product = new ProductTypeEntity();
+    private ProductTypeEntity getProduct(ProductEntity product){
+        ProductTypeEntity productType = new ProductTypeEntity();
         InventoryEntity inventory = inventoryService.getById(1L);
-        ProductEntity productCategoryPersisted = productService.getById(productCategory.getId());
-        product.setName(productNameTextfield.getText());
-        product.setInventory(inventory);
-        product.setProductCategory(productCategoryPersisted);
-        return product;
+        ProductEntity productCategoryPersisted = productService.getById(product.getId());
+        productType.setName(productTypeNameTextfield.getText());
+        productType.setReference(productTypeReferenceTextfield.getText());
+        productType.setBrand(productTypeBrandTextfield.getText());
+        productType.setInventory(inventory);
+        productType.setProduct(productCategoryPersisted);
+        return productType;
     }
 }

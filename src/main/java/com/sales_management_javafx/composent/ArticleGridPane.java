@@ -1,7 +1,7 @@
 package com.sales_management_javafx.composent;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.controller.article_type.ArticleBoxController;
+import com.sales_management_javafx.controller.article_type.ArticleTypeBoxController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -29,10 +29,6 @@ public class ArticleGridPane {
         }
         int col = 0;
         int row = 0;
-        if (show){
-            gridPane.add(this.getCreatePriceBox(),col,row);
-            col++;
-        }
         for (ArticleTypeEntity priceVariation : priceVariations) {
             try {
                 gridPane.add(this.getArticleBox(priceVariation), col, row);
@@ -42,26 +38,26 @@ public class ArticleGridPane {
                     row++;
                 }
             } catch (Exception e) {
-                System.out.println(e.getMessage());;
+                e.printStackTrace();
             }
         }
         gridPane.getStyleClass().add("gridpane");
         return gridPane;
     }
-    private StackPane getArticleBox(ArticleTypeEntity article){
-        FXMLLoader articleBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article/articleBox.fxml"));
+    private StackPane getArticleBox(ArticleTypeEntity articleType){
+        FXMLLoader articleBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article_type/articleBox.fxml"));
         StackPane productBoxStackpane;
         try {
             productBoxStackpane = articleBoxLoader.load();
-            ArticleBoxController articleBoxController = articleBoxLoader.getController();
-            articleBoxController.initialize(article);
+            ArticleTypeBoxController articleTypeBoxController = articleBoxLoader.getController();
+            articleTypeBoxController.initialize(articleType);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return productBoxStackpane;
     }
     private StackPane getCreatePriceBox(){
-        FXMLLoader createPriceBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article/articleCreate.fxml"));
+        FXMLLoader createPriceBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article_type/articleCreate.fxml"));
         StackPane priceVariationCreateStackPane;
         try {
             priceVariationCreateStackPane = createPriceBoxLoader.load();

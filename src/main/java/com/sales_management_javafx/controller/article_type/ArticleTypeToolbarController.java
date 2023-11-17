@@ -8,7 +8,7 @@ import javafx.scene.layout.StackPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ArticleToolbarController implements Initializable {
+public class ArticleTypeToolbarController implements Initializable {
     @FXML
     private Button createProductButton;
     @FXML

@@ -35,7 +35,7 @@ public class ShareArticlesGridPane {
                 row++;
             }
         }
-        gridPane.getStyleClass().add("box");
+        gridPane.getStyleClass().add("gridpane");
         return gridPane;
     }
     private StackPane getAdminStoryBox(ShareArticleEntity shareArticle){

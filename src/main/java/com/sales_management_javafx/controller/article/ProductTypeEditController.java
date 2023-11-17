@@ -16,9 +16,7 @@ import java.util.ResourceBundle;
 
 public class ProductTypeEditController implements Initializable {
     @FXML private VBox productTypeEditVBox;
-    @FXML private TextField productTypeReferenceTextfield;
-    @FXML private TextField productTypeBrandTextfield;
-    @FXML private TextField productTypeQualityTextfield;
+    @FXML private TextField articlePrice;
     @FXML private Button exit;
     @FXML private Button save;
     private final ArticleService articleService;
@@ -30,31 +28,36 @@ public class ProductTypeEditController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.setExit();
+        this.formValidation();
     }
-    public void initialize(ArticleEntity productType){
-//        productTypeReferenceTextfield.setText(productType.getReference());
-//        productTypeBrandTextfield.setText(productType.getBrand());
-//        productTypeQualityTextfield.setText(productType.getQuality());
-        this.setSave(productType);
+    public void initialize(ArticleEntity article){
+        articlePrice.setText(String.valueOf(article.getPrice()));
+        this.setSave(article);
     }
     private void setExit(){
         exit.setOnAction(event->{
             productTypeEditVBox.setVisible(false);
         });
     }
-    private void setSave(ArticleEntity productType){
+    private void setSave(ArticleEntity article){
         save.setOnAction(event->{
-            ArticleEntity articleEntity = articleService.getById(productType.getId());
+            ArticleEntity articleEntity = articleService.getById(article.getId());
             if (articleEntity != null){
-//                productTypeEntity.setReference(productTypeReferenceTextfield.getText());
-//                productTypeEntity.setBrand(productTypeBrandTextfield.getText());
-//                productTypeEntity.setQuality(productTypeQualityTextfield.getText());
+                articleEntity.setPrice(Double.valueOf(articlePrice.getText()));
                 if (articleService.update(articleEntity) != null){
-                    GridPane productTypeGridPane = new ProductTypeGridPane().getGridPane(new ArticleService().getById(productType.getId()).getProductTypeEntity().getArticles(), 4);
+                    GridPane productTypeGridPane = new ProductTypeGridPane().getGridPane(new ArticleService().getById(article.getId()).getProductTypeEntity().getArticles(), 4);
                     ScrollPane productBoxLayoutScrollPane = (ScrollPane) productTypeEditVBox.getParent().getParent().getParent().getParent().getParent();
                     productBoxLayoutScrollPane.setContent(productTypeGridPane);
                 }
             }
+        });
+    }
+    private void formValidation(){
+        if (articlePrice.getText().isEmpty()){
+            save.setDisable(true);
+        }
+        articlePrice.textProperty().addListener(event->{
+            save.setDisable(articlePrice.getText().isEmpty());
         });
     }
 }

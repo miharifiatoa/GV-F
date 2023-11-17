@@ -40,7 +40,7 @@ public class ProductCategoryBoxController implements Initializable {
 
     }
     public void initialize(ProductEntity productCategory){
-        if (productCategory.getProducts().isEmpty()){
+        if (productCategory.getProductTypes().isEmpty()){
             productCategoryNameLabel.setDisable(true);
         }
         productCategoryNameLabel.setText(productCategory.getName());
@@ -57,7 +57,7 @@ public class ProductCategoryBoxController implements Initializable {
             System.out.println(product);
             BorderPane productBoxLayoutBorderpane = (BorderPane) product.lookup("#productBoxLayoutBorderpane");
             ScrollPane productBoxLayoutScrollpane = (ScrollPane) product.lookup("#productBoxLayoutScrollpane");
-            GridPane productGridPane = new ProductGridPane().getGridPane(this.productService.getById(productCategory.getId()).getProducts(),4,false);
+            GridPane productGridPane = new ProductGridPane().getGridPane(this.productService.getById(productCategory.getId()).getProductTypes(),4,false);
             FileIO.writeTo("product_category.dat",productCategory);
             productBoxLayoutScrollpane.setContent(productGridPane);
             productBoxLayoutBorderpane.setCenter(productBoxLayoutScrollpane);
@@ -83,7 +83,7 @@ public class ProductCategoryBoxController implements Initializable {
         return toolbar;
     }
     private StackPane getCreateProductBox(ProductEntity productCategory){
-        FXMLLoader createProductBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productCreate.fxml"));
+        FXMLLoader createProductBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_type/productCreate.fxml"));
         StackPane createProductBox;
         try {
             createProductBox = createProductBoxLoader.load();

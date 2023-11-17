@@ -9,7 +9,7 @@ import org.sales_management.entity.ShareArticleEntity;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ArticleCodeController implements Initializable {
+public class ArticleTypeCodeController implements Initializable {
     @FXML private Label codeLabel;
     @FXML private Label quantityLabel;
     @Override

@@ -60,7 +60,7 @@ public class SellerArticleBoxController implements Initializable {
         if (FileIO.readArticleFromFile("sales.dat").contains(articleType)){
             sellerArticleBox.setDisable(true);
         }
-        title.setText("Vente de : " + articleType.getArticle().getProductTypeEntity().getProductCategory().getName());
+        title.setText("Vente de : " + articleType.getArticle().getProductTypeEntity().getProduct().getName());
         productTypeNameLabel.setText(articleType.getArticle().getProductTypeEntity().getName());
         codeLabel.setText(articleType.getArticle().getCode());
         priceLabel.setText(articleType.getArticle().getPrice() +"Ar");

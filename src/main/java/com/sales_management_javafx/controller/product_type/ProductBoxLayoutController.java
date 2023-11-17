@@ -32,9 +32,9 @@ public class ProductBoxLayoutController implements Initializable {
     @FXML private ScrollPane productBoxLayoutScrollpane;
     @FXML private BorderPane productBoxLayoutBorderpane;
     @FXML private TextField searchProductTextfield;
-    @FXML private Label categories;
+    @FXML private Label productTypes;
     @FXML private Label products;
-    @FXML private Label types;
+    @FXML private Label articleTypes;
     @FXML private Label articles;
     @FXML private ImageView articleIcon;
     @FXML private Button exit;
@@ -59,13 +59,12 @@ public class ProductBoxLayoutController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.initializeSearchTextField();
-        this.setCategories();
+        this.setArticleTypes();
         this.product.setVisible(true);
         this.modal.setVisible(false);
         this.putIcons();
-        this.setCategories();
         this.setProducts();
-        this.setTypes();
+        this.setProductTypes();
         this.setArticles();
         this.exit.setOnAction(event->{
             this.setExit();
@@ -84,23 +83,23 @@ public class ProductBoxLayoutController implements Initializable {
             }
         });
     }
-    private void setCategories(){
-        categories.setOnMouseClicked(event->{
+    private void setProducts(){
+        products.setOnMouseClicked(event->{
             this.productBoxLayoutScrollpane.setContent(new ProductCategoryGridPane().getGridPane(productService.getAll(),4));
         });
     }
-    private void setProducts(){
-        products.setOnMouseClicked(event->{
+    private void setProductTypes(){
+        productTypes.setOnMouseClicked(event->{
             this.productBoxLayoutScrollpane.setContent(new ProductGridPane().getGridPane(productTypeService.getAll(),4,false));
-        });
-    }
-    private void setTypes(){
-        types.setOnMouseClicked(event->{
-            this.productBoxLayoutScrollpane.setContent(new ProductTypeGridPane().getGridPane(articleService.getAll(),4));
         });
     }
     private void setArticles(){
         articles.setOnMouseClicked(event->{
+            this.productBoxLayoutScrollpane.setContent(new ProductTypeGridPane().getGridPane(articleService.getAll(),4));
+        });
+    }
+    private void setArticleTypes(){
+        articleTypes.setOnMouseClicked(event->{
             this.productBoxLayoutScrollpane.setContent(new ArticleGridPane().getGridPane(articleTypeService.getAll(),4,false));
         });
     }

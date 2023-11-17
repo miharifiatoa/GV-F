@@ -86,7 +86,7 @@ public class StockistToolbarController implements Initializable {
         return shareProductLayout;
     }
     private StackPane getProductBoxLayout(){
-        FXMLLoader productBoxLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productBoxLayout.fxml"));
+        FXMLLoader productBoxLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_type/productBoxLayout.fxml"));
         StackPane productBoxLayout;
         try {
             productBoxLayout = productBoxLayoutLoader.load();

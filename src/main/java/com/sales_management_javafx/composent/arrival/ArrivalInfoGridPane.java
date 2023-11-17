@@ -1,7 +1,7 @@
 package com.sales_management_javafx.composent.arrival;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.controller.article_type.ArticleCodeController;
+import com.sales_management_javafx.controller.article_type.ArticleTypeCodeController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -41,12 +41,12 @@ public class ArrivalInfoGridPane {
         return gridPane;
     }
     private StackPane getArticleCode(ArrivalArticleEntity arrivalArticle){
-        FXMLLoader articleCodeLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article/articleCode.fxml"));
+        FXMLLoader articleCodeLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article_type/articleCode.fxml"));
         StackPane articleCode;
         try {
             articleCode = articleCodeLoader.load();
-            ArticleCodeController articleCodeController = articleCodeLoader.getController();
-            articleCodeController.initialize(arrivalArticle);
+            ArticleTypeCodeController articleTypeCodeController = articleCodeLoader.getController();
+            articleTypeCodeController.initialize(arrivalArticle);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

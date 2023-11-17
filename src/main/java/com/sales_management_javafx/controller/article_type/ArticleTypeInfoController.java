@@ -22,7 +22,7 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class ArticleInfoController implements Initializable {
+public class ArticleTypeInfoController implements Initializable {
     @FXML private VBox articleInfoVBox;
     @FXML private Label productTypeNameLabel;
     @FXML private Label articleQuantityLabel;
@@ -37,7 +37,7 @@ public class ArticleInfoController implements Initializable {
     private final ProductService productService;
     private final ProductTypeService productTypeService;
 
-    public ArticleInfoController() {
+    public ArticleTypeInfoController() {
         this.productTypeService = new ProductTypeService();
         this.productService = new ProductService();
     }

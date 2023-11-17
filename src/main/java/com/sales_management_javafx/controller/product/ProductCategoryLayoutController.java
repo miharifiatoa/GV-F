@@ -21,7 +21,7 @@ public class ProductCategoryLayoutController implements Initializable {
         this.articleLayoutBorderpane.setBottom(this.getToolbar());
     }
     public GridPane getToolbar(){
-        FXMLLoader toolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_category/productCategoryToolbar.fxml"));
+        FXMLLoader toolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productCategoryToolbar.fxml"));
         GridPane toolbar;
         try {
             toolbar = toolbarLoader.load();
@@ -31,7 +31,7 @@ public class ProductCategoryLayoutController implements Initializable {
         return toolbar;
     }
     public BorderPane getTable(){
-        FXMLLoader toolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_category/productCategoryTable.fxml"));
+        FXMLLoader toolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productCategoryTable.fxml"));
         BorderPane table;
         try {
             table = toolbarLoader.load();
