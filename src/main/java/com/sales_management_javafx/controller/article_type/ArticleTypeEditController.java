@@ -1,8 +1,7 @@
 package com.sales_management_javafx.controller.article_type;
 
-import com.sales_management_javafx.classes.NumberTextField;
-import com.sales_management_javafx.composent.ProductGridPane;
-import com.sales_management_javafx.composent.ArticleGridPane;
+import com.sales_management_javafx.composent.ProductTypeGridPane;
+import com.sales_management_javafx.composent.ArticleTypeGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -32,7 +31,7 @@ public class ArticleTypeEditController implements Initializable {
     @FXML
     private VBox articleEditVBox;
     @FXML
-    ProductGridPane productGridPane = new ProductGridPane();
+    ProductTypeGridPane productTypeGridPane = new ProductTypeGridPane();
     private final ProductTypeService productTypeService;
     private final ProductService productService;
     private final ArticleTypeService articleTypeService;
@@ -57,7 +56,7 @@ public class ArticleTypeEditController implements Initializable {
     public void setSave(Long article_id){
         save.setOnAction(actionEvent -> {
             if (this.articleTypeService.update(this.getNewArticle(article_id))!=null){
-                GridPane gridPane = new ArticleGridPane().getGridPane(new ArticleTypeService().getById(article_id).getArticle().getArticleTypeEntities(), 4,false);
+                GridPane gridPane = new ArticleTypeGridPane().getGridPane(new ArticleTypeService().getById(article_id).getArticle().getArticleTypeEntities(), 4,false);
                 ScrollPane productBoxLayoutScrollpane = (ScrollPane) articleEditVBox.getParent().getParent().getParent().getParent().getParent();
                 productBoxLayoutScrollpane.setContent(gridPane);
             }

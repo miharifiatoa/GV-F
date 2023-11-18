@@ -62,4 +62,7 @@ module com.sales_management_javafx {
 
     exports com.sales_management_javafx.controller.admin;
     opens com.sales_management_javafx.controller.admin to javafx.fxml;
+
+    exports com.sales_management_javafx.controller.product_category;
+    opens com.sales_management_javafx.controller.product_category to javafx.fxml;
 }

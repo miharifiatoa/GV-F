@@ -1,6 +1,6 @@
 package com.sales_management_javafx.controller.article_type;
 
-import com.sales_management_javafx.composent.ProductTypeGridPane;
+import com.sales_management_javafx.composent.ArticleGridPane;
 import com.sales_management_javafx.composent.StockistArticleTypeGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -70,7 +70,7 @@ public class ArticleTypeCreateController implements Initializable {
                 ScrollPane stockistBoxLayoutScrollpane = (ScrollPane) productBoxLayout.getParent().getParent().lookup("#stockistBoxLayoutScrollpane");
                 ScrollPane productBoxLayoutScrollpane = (ScrollPane) productBoxLayout.lookup("#productBoxLayoutScrollpane");
                 GridPane stockistArticleGridPane = new StockistArticleTypeGridPane().getGridPane(new ArticleTypeService().getAll(),4);
-                GridPane productTypeGridPane = new ProductTypeGridPane().getGridPane(new ArticleService().getById(article.getId()).getProductTypeEntity().getArticles(), 4);
+                GridPane productTypeGridPane = new ArticleGridPane().getGridPane(new ArticleService().getById(article.getId()).getProductTypeEntity().getArticles(), 4);
                 stockistBoxLayoutScrollpane.setContent(stockistArticleGridPane);
                 productBoxLayoutScrollpane.setContent(productTypeGridPane);
                 articleCreate.getParent().setVisible(false);

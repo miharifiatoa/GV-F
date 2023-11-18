@@ -1,6 +1,6 @@
 package com.sales_management_javafx.controller.product_type;
 
-import com.sales_management_javafx.composent.ProductCategoryGridPane;
+import com.sales_management_javafx.composent.ProductGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -91,7 +91,7 @@ public class ProductTypeCreateController implements Initializable {
             if (product != null){
                 StackPane productBoxLayout = (StackPane) productCreate.getParent().getParent();
                 ScrollPane productBoxLayoutScrollpane = (ScrollPane) productBoxLayout.lookup("#productBoxLayoutScrollpane");
-                GridPane productCategoryGridpane = new ProductCategoryGridPane().getGridPane(new ProductService().getAll(),4);
+                GridPane productCategoryGridpane = new ProductGridPane().getGridPane(new ProductService().getAll(),4);
                 productBoxLayoutScrollpane.setContent(productCategoryGridpane);
                 productCreate.getParent().setVisible(false);
             }

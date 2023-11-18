@@ -2,7 +2,7 @@ package com.sales_management_javafx.controller.article_type;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
-import com.sales_management_javafx.composent.ArticleGridPane;
+import com.sales_management_javafx.composent.ArticleTypeGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,7 +21,6 @@ import org.sales_management.service.ArticleService;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.*;
 
 public class ArticleTypeBoxController implements Initializable {
@@ -64,7 +63,7 @@ public class ArticleTypeBoxController implements Initializable {
         this.articleBox.getChildren().add(this.getArticleEdit(articleType));
         this.deleteText.setText("Voulez vous vraiment supprimer cet type dans la liste d'article " + articleType.getArticle().getCode() + " ?");
         this.setConfirmDelete(articleType.getId());
-        if (FileIO.readArticleFromFile("articles.dat").contains(articleType)){
+        if (FileIO.readArticleFromFile("shares.dat").contains(articleType)){
             articleBox.setDisable(true);
         }
         if (FileIO.readArticleFromFile("arrivals.dat").contains(articleType)){
@@ -82,7 +81,7 @@ public class ArticleTypeBoxController implements Initializable {
             if (this.articleTypeService.deleteById(id) != null){
                 ArticleEntity productType = (ArticleEntity) FileIO.readFrom("product-type.dat");
                 ScrollPane productBoxLayoutScrollpane = (ScrollPane) articleBox.getParent().getParent().getParent().getParent();
-                GridPane gridPane = new ArticleGridPane().getGridPane(new ArticleService().getById(productType.getId()).getArticleTypeEntities(), 4,false);
+                GridPane gridPane = new ArticleTypeGridPane().getGridPane(new ArticleService().getById(productType.getId()).getArticleTypeEntities(), 4,false);
                 productBoxLayoutScrollpane.setContent(gridPane);
                 System.out.println(id);
             }

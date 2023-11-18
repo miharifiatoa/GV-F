@@ -2,8 +2,8 @@ package com.sales_management_javafx.controller.product_type;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
-import com.sales_management_javafx.composent.ProductGridPane;
 import com.sales_management_javafx.composent.ProductTypeGridPane;
+import com.sales_management_javafx.composent.ArticleGridPane;
 import com.sales_management_javafx.controller.article.ArticleCreateController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -67,7 +67,7 @@ public class ProductTypeBoxController implements Initializable {
         else {
             productNameLabel.setDisable(true);
         }
-        this.showProductType(productType);
+        this.showArticles(productType);
         this.setDelete(productType.getId());
         this.setAdd(productType);
     }
@@ -91,15 +91,15 @@ public class ProductTypeBoxController implements Initializable {
         save.setOnAction(event->{
             ProductTypeEntity product = productTypeService.deleteById(id);
             if (product != null){
-                GridPane productGridpane = new ProductGridPane().getGridPane(productService.getById(product.getProduct().getId()).getProductTypes(),4,false);
+                GridPane productGridpane = new ProductTypeGridPane().getGridPane(productService.getById(product.getProduct().getId()).getProductTypes(),4,false);
                 getProductBoxLayoutScrollpane().setContent(productGridpane);
             }
         });
     }
-    private void showProductType(ProductTypeEntity productType){
+    private void showArticles(ProductTypeEntity productType){
         productNameLabel.setOnMouseClicked(event->{
-            FileIO.writeTo("product.dat",productType);
-            GridPane gridPane = new ProductTypeGridPane().getGridPane(productType.getArticles(),4);
+            FileIO.writeTo("product_type.dat",productType);
+            GridPane gridPane = new ArticleGridPane().getGridPane(productType.getArticles(),4);
             getProductBoxLayoutScrollpane().setContent(gridPane);
         });
     }

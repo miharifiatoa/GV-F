@@ -15,10 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import org.sales_management.entity.ProductTypeEntity;
-import org.sales_management.service.ArticleTypeService;
-import org.sales_management.service.ProductService;
-import org.sales_management.service.ProductTypeService;
-import org.sales_management.service.ArticleService;
+import org.sales_management.service.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,36 +35,40 @@ public class ProductTypeBoxLayoutController implements Initializable {
     @FXML private Label products;
     @FXML private Label articleTypes;
     @FXML private Label articles;
+    @FXML private Label categories;
     @FXML private ImageView articleIcon;
     @FXML private Button exit;
     private final ProductTypeService productTypeService;
     private final ProductService productService;
+    private final ProductCategoryService productCategoryService;
     private final ArticleService articleService;
     private final ArticleTypeService articleTypeService;
-    private final ProductGridPane productGridPane;
+    private final ProductTypeGridPane productTypeGridPane;
     private final MenuGridPane menuGridPane;
     private final MenuIcon menuIcon;
 
     public ProductTypeBoxLayoutController() {
+        this.productCategoryService = new ProductCategoryService();
         this.articleService = new ArticleService();
         this.articleTypeService = new ArticleTypeService();
         this.menuIcon = new MenuIcon();
         this.menuGridPane = new MenuGridPane();
         this.productService = new ProductService();
         this.productTypeService = new ProductTypeService();
-        this.productGridPane = new ProductGridPane();
+        this.productTypeGridPane = new ProductTypeGridPane();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.initializeSearchTextField();
-        this.setArticleTypes();
         this.product.setVisible(true);
         this.modal.setVisible(false);
         this.putIcons();
+        this.setProductCategories();
         this.setProducts();
         this.setProductTypes();
         this.setArticles();
+        this.setArticleTypes();
         this.exit.setOnAction(event->{
             this.setExit();
         });
@@ -80,38 +81,38 @@ public class ProductTypeBoxLayoutController implements Initializable {
                 switch (id) {
                     case "products":
                         Collection<ProductEntity> productEntity = this.productService.searchProductsByName(searchProductTextfield.getText());
-                        this.productBoxLayoutScrollpane.setContent(new ProductCategoryGridPane().getGridPane(productEntity,4));
+                        this.productBoxLayoutScrollpane.setContent(new ProductGridPane().getGridPane(productEntity,4));
                         break;
                 
                     case "productTypes":
                         Collection<ProductTypeEntity> products = this.productTypeService.searchProductsByName(searchProductTextfield.getText());
-                        this.productBoxLayoutScrollpane.setContent(new ProductGridPane().getGridPane(products,4,false));
+                        this.productBoxLayoutScrollpane.setContent(new ProductTypeGridPane().getGridPane(products,4,false));
                         break;
                     
                     case "articles":
                         Collection<ArticleEntity> articles = this.articleService.searchArticleByCode(searchProductTextfield.getText());
-                        this.productBoxLayoutScrollpane.setContent(new ProductTypeGridPane().getGridPane(articles,4));
+                        this.productBoxLayoutScrollpane.setContent(new ArticleGridPane().getGridPane(articles,4));
                         break;
                     default:
                         throw new AssertionError();
                 }
             }
             else {
-                String id = searchProductTextfield.getId();
-                switch (id) {
+                    String id = searchProductTextfield.getId();
+                    switch (id) {
                     case "products":
                         Collection<ProductEntity> productEntity = this.productService.searchProductsByName(searchProductTextfield.getText());
-                        this.productBoxLayoutScrollpane.setContent(new ProductCategoryGridPane().getGridPane(productEntity,4));
+                        this.productBoxLayoutScrollpane.setContent(new ProductGridPane().getGridPane(productEntity,4));
                         break;
                 
                     case "productTypes":
-                        Collection<ProductTypeEntity> productTypes = this.productTypeService.searchProductsByName(searchProductTextfield.getText());
-                        this.productBoxLayoutScrollpane.setContent(new ProductGridPane().getGridPane(productTypes,4,false));
+                        Collection<ProductTypeEntity> products = this.productTypeService.searchProductsByName(searchProductTextfield.getText());
+                        this.productBoxLayoutScrollpane.setContent(new ProductTypeGridPane().getGridPane(products,4,false));
                         break;
                     
                     case "articles":
                         Collection<ArticleEntity> articles = this.articleService.searchArticleByCode(searchProductTextfield.getText());
-                        this.productBoxLayoutScrollpane.setContent(new ProductTypeGridPane().getGridPane(articles,4));
+                        this.productBoxLayoutScrollpane.setContent(new ArticleGridPane().getGridPane(articles,4));
                         break;
                     default:
                         throw new AssertionError();
@@ -119,28 +120,30 @@ public class ProductTypeBoxLayoutController implements Initializable {
             }
         });
     }
+    private void setProductCategories(){
+        categories.setOnMouseClicked(event->{
+            this.productBoxLayoutScrollpane.setContent(new ProductCategoryGridPane().getGridPane(productCategoryService.getAll(),4));
+        });
+    }
     private void setProducts(){
         products.setOnMouseClicked(event->{
-            this.productBoxLayoutScrollpane.setContent(new ProductCategoryGridPane().getGridPane(productService.getAll(),4));
-            searchProductTextfield.setId("products");
+
+            this.productBoxLayoutScrollpane.setContent(new ProductGridPane().getGridPane(productService.getAll(),4));
         });
     }
     private void setProductTypes(){
         productTypes.setOnMouseClicked(event->{
-            this.productBoxLayoutScrollpane.setContent(new ProductGridPane().getGridPane(productTypeService.getAll(),4,false));
-            searchProductTextfield.setId("productTypes");
+            this.productBoxLayoutScrollpane.setContent(new ProductTypeGridPane().getGridPane(productTypeService.getAll(),4,false));
         });
     }
     private void setArticles(){
         articles.setOnMouseClicked(event->{
-            this.productBoxLayoutScrollpane.setContent(new ProductTypeGridPane().getGridPane(articleService.getAll(),4));
-            searchProductTextfield.setId("articles");
+            this.productBoxLayoutScrollpane.setContent(new ArticleGridPane().getGridPane(articleService.getAll(),4));
         });
     }
     private void setArticleTypes(){
         articleTypes.setOnMouseClicked(event->{
-            this.productBoxLayoutScrollpane.setContent(new ArticleGridPane().getGridPane(articleTypeService.getAll(),4,false));
-            searchProductTextfield.setId("articleTypes");
+            this.productBoxLayoutScrollpane.setContent(new ArticleTypeGridPane().getGridPane(articleTypeService.getAll(),4,false));
         });
     }
     public void setExit(){

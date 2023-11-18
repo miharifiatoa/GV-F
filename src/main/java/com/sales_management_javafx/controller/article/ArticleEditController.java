@@ -1,6 +1,6 @@
 package com.sales_management_javafx.controller.article;
 
-import com.sales_management_javafx.composent.ProductTypeGridPane;
+import com.sales_management_javafx.composent.ArticleGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -45,7 +45,7 @@ public class ArticleEditController implements Initializable {
             if (articleEntity != null){
                 articleEntity.setPrice(Double.valueOf(articlePrice.getText()));
                 if (articleService.update(articleEntity) != null){
-                    GridPane productTypeGridPane = new ProductTypeGridPane().getGridPane(new ArticleService().getById(article.getId()).getProductTypeEntity().getArticles(), 4);
+                    GridPane productTypeGridPane = new ArticleGridPane().getGridPane(new ArticleService().getById(article.getId()).getProductTypeEntity().getArticles(), 4);
                     ScrollPane productBoxLayoutScrollPane = (ScrollPane) productTypeEditVBox.getParent().getParent().getParent().getParent().getParent();
                     productBoxLayoutScrollPane.setContent(productTypeGridPane);
                 }

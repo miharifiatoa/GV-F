@@ -1,13 +1,13 @@
 package com.sales_management_javafx.composent;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.controller.article_type.ArticleTypeBoxController;
+import com.sales_management_javafx.controller.article.ArticleBoxController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
-import org.sales_management.entity.ArticleTypeEntity;
+import org.sales_management.entity.ArticleEntity;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -19,7 +19,7 @@ public class ArticleGridPane {
         this.gridPane = new GridPane();
     }
 
-    public GridPane getGridPane(Collection<ArticleTypeEntity> priceVariations, int colSize, boolean show){
+    public GridPane getGridPane(Collection<ArticleEntity> productTypes , int colSize) {
         for (int i = 0 ; i < colSize ; i++){
             ColumnConstraints constraints = new ColumnConstraints();
             constraints.setHgrow(Priority.ALWAYS);
@@ -29,51 +29,27 @@ public class ArticleGridPane {
         }
         int col = 0;
         int row = 0;
-        for (ArticleTypeEntity priceVariation : priceVariations) {
-            try {
-                gridPane.add(this.getArticleBox(priceVariation), col, row);
-                col++;
-                if (col == colSize) {
-                    col = 0;
-                    row++;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+        for (ArticleEntity productType : productTypes) {
+            gridPane.add(this.getProductTypeBox(productType), col, row);
+            col++;
+            if (col == colSize) {
+                col = 0;
+                row++;
             }
         }
         gridPane.getStyleClass().add("gridpane");
         return gridPane;
     }
-    private StackPane getArticleBox(ArticleTypeEntity articleType){
-        FXMLLoader articleBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article_type/articleTypeBox.fxml"));
-        StackPane productBoxStackpane;
+    private StackPane getProductTypeBox(ArticleEntity productType){
+        FXMLLoader productTypeBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article/articleBox.fxml"));
+        StackPane productTypeBox;
         try {
-            productBoxStackpane = articleBoxLoader.load();
-            ArticleTypeBoxController articleTypeBoxController = articleBoxLoader.getController();
-            articleTypeBoxController.initialize(articleType);
+            productTypeBox = productTypeBoxLoader.load();
+            ArticleBoxController articleBoxController = productTypeBoxLoader.getController();
+            articleBoxController.initialize(productType);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return productBoxStackpane;
-    }
-    private StackPane getCreatePriceBox(){
-        FXMLLoader createPriceBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article_type/articleTypeCreate.fxml"));
-        StackPane priceVariationCreateStackPane;
-        try {
-            priceVariationCreateStackPane = createPriceBoxLoader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return priceVariationCreateStackPane;
-    }
-    private StackPane getToolbar(){
-        FXMLLoader createPriceBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_variation/productToolbar.fxml"));
-        StackPane priceVariationToolbar;
-        try {
-            priceVariationToolbar = createPriceBoxLoader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return priceVariationToolbar;
+        return productTypeBox;
     }
 }

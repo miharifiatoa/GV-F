@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="productBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product.ProductBoxController">
+<StackPane fx:id="productCategoryBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product_category.ProductCategoryBoxController">
    <children>
-      <GridPane fx:id="productBoxGridpane" styleClass="box" visible="false">
+      <GridPane fx:id="productCategoryBoxGridpane" styleClass="box" visible="false">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -24,7 +24,7 @@
             <RowConstraints vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label fx:id="productNameLabel" text="Product" wrapText="true">
+            <Label fx:id="productCategoryNameLabel" text="Product" wrapText="true">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
@@ -48,7 +48,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Label fx:id="createProductTypeLabel" alignment="CENTER" text="+" textFill="#45cc00">
+                  <Label fx:id="createProductLabel" alignment="CENTER" text="+" textFill="#45cc00">
                      <font>
                         <Font name="Arial" size="22.0" />
                      </font>
