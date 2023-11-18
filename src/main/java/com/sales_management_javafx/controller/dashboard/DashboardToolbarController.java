@@ -3,7 +3,6 @@ package com.sales_management_javafx.controller.dashboard;
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.actions.Payment;
 import com.sales_management_javafx.classes.DecimalFormat;
-import com.sales_management_javafx.composent.admin.AdminPaymentGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,7 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import org.sales_management.entity.UserEntity;
 import org.sales_management.service.PaymentModeService;
 import org.sales_management.service.PaymentService;
@@ -30,8 +28,10 @@ public class DashboardToolbarController implements Initializable {
     @FXML private StackPane dashboardToolbar;
     @FXML private ImageView newAccountIcon;
     @FXML private ImageView newShopIcon;
+    @FXML private ImageView MoneyIcon;
     @FXML private Button newAccount;
     @FXML private Button newShop;
+    @FXML private Button newPayment;
     @FXML private Button logout;
     @FXML private Button exit;
     @FXML private Label payment;
@@ -49,8 +49,9 @@ public class DashboardToolbarController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.setNewShop();
-        this.setNewAccount();
+        this.setShopLayout();
+        this.setAccountLayout();
+        this.setPaymentLayout();
         this.putIcons();
         this.logout.setOnAction(event->setLogout());
         this.payment.setText("Versement : " + DecimalFormat.format(Payment.getPaymentByDay(LocalDate.now()))  + "Ar");
@@ -58,15 +59,12 @@ public class DashboardToolbarController implements Initializable {
         this.paymentGridpane.setVisible(false);
         this.setPayment();
         this.setExit();
-        this.setPaymentScrollPane();
+//        this.setPaymentScrollPane();
         if (user == null){
             this.setLogout();
         }
     }
-    private void setPaymentScrollPane(){
-        GridPane adminPaymentGridPane = new AdminPaymentGridPane().getGridPane(LocalDate.now());
-        paymentScrollPane.setContent(adminPaymentGridPane);
-    }
+    
     private void setPayment(){
         this.payment.setOnMouseClicked(event->{
             this.dashboardToolbarGridpane.setVisible(false);
@@ -79,41 +77,58 @@ public class DashboardToolbarController implements Initializable {
             this.paymentGridpane.setVisible(false);
         });
     }
-    private void setNewShop(){
+    private void setShopLayout(){
         newShop.setOnAction(event->{
             BorderPane dashboardLayout = (BorderPane) dashboardToolbar.getParent();
-            dashboardLayout.setBottom(getShopForm());
+            dashboardLayout.setBottom(getShopLayout());
         });
     }
-    private void setNewAccount(){
+    private void setAccountLayout(){
         newAccount.setOnAction(event->{
             BorderPane dashboardLayout = (BorderPane) dashboardToolbar.getParent();
-            dashboardLayout.setBottom(getUserForm());
+            dashboardLayout.setBottom(getAccountLayout());
+        });
+    }
+    private void setPaymentLayout(){
+        newPayment.setOnAction(event->{
+            BorderPane dashboardLayout = (BorderPane) dashboardToolbar.getParent();
+            dashboardLayout.setBottom(getPaymentLayout());
         });
     }
     private void putIcons(){
         this.newAccountIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/NewAccountIcon.png"))));
         this.newShopIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/NewShopIcon.png"))));
+        this.MoneyIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/MoneyIcon.png"))));
     }
-    private VBox getShopForm(){
-        FXMLLoader shopFormLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/shop/shopForm.fxml"));
-        VBox shopForm;
+    private BorderPane getShopLayout(){
+        FXMLLoader shopLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/shop/shop2Layout.fxml"));
+        BorderPane shoplayout;
         try {
-            shopForm = shopFormLoader.load();
+            shoplayout = shopLayoutLoader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return shopForm;
+        return shoplayout;
     }
-    private VBox getUserForm(){
-        FXMLLoader userFormLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/user/userForm.fxml"));
-        VBox userForm;
+    private BorderPane getAccountLayout(){
+        FXMLLoader accountLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/account2Layout.fxml"));
+        BorderPane accountLayout;
         try {
-            userForm = userFormLoader.load();
+            accountLayout = accountLayoutLoader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return userForm;
+        return accountLayout;
+    }
+    private BorderPane getPaymentLayout(){
+        FXMLLoader paymentModeLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/admin/PaymentLayout.fxml"));
+        BorderPane paymentModeLayout;
+        try {
+            paymentModeLayout = paymentModeLayoutLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return paymentModeLayout;
     }
 
     private GridPane getLogin(){

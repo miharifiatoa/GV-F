@@ -9,17 +9,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.sales_management.entity.PersonEntity;
 import org.sales_management.entity.UserEntity;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 
 public class UserFormController implements Initializable {
     @FXML
@@ -37,25 +37,59 @@ public class UserFormController implements Initializable {
     @FXML
     private TextField user_email;
     @FXML
+    private RadioButton manSexType;
+    @FXML
+    private RadioButton womenSexType;
+    @FXML
     private Button cancel_button;
     @FXML
     private Button next_button;
-
+    private ToggleGroup sexeToggleGroup = new ToggleGroup();
+    private BooleanProperty isNextButtonDisabled = new SimpleBooleanProperty(true);
+    private char sexe;
+    
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.closeForm();
-        this.dataValidator();
         this.next();
-        NumberTextField.requireIntegerOnly(user_phone,999999);
-        NumberTextField.requireIntegerOnly(user_cin,999999);
+    
+    manSexType.setToggleGroup(sexeToggleGroup);
+    womenSexType.setToggleGroup(sexeToggleGroup);
+    
+    NumberTextField.requireNumber(user_phone);
+    NumberTextField.requireNumber(user_cin);
+
+    user_lastname.textProperty().addListener((observable, oldValue, newValue) -> updateNextButtonState());
+    user_cin.textProperty().addListener((observable, oldValue, newValue) -> updateNextButtonState());
+    sexeToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> updateNextButtonState());
+    accountRoleProperty();
+    updateNextButtonState();
+        
     }
-    public void dataValidator(){
-        if (user_lastname.getText().isEmpty()){
-            this.next_button.setDisable(true);
+    public char accountRoleProperty() {
+        char sex = 0;
+            if (manSexType.isSelected()) {
+            sex = 'M';
+            } else if (womenSexType.isSelected()) {
+            sex = 'F';
         }
-        user_lastname.textProperty().addListener((observable, oldValue, newValue) -> next_button.setDisable(user_lastname.getText().isEmpty() || user_cin.getText().isEmpty()));
-        user_cin.textProperty().addListener((observable, oldValue, newValue) -> next_button.setDisable(user_lastname.getText().isEmpty() || user_cin.getText().isEmpty()));
+        return sex;
     }
+
+    private void updateNextButtonState() {
+    boolean isRadioSelected = sexeToggleGroup.getSelectedToggle() != null;
+    boolean isUserLastnameFilled = !user_lastname.getText().isEmpty();
+    boolean isUserCinFilled = !user_cin.getText().isEmpty();
+    accountRoleProperty();
+    next_button.setDisable(!isRadioSelected || !isUserLastnameFilled || !isUserCinFilled);
+}
+
+    
+    public BooleanProperty nextButtonDisabledProperty() {
+    return isNextButtonDisabled;
+    }
+    
+        
     public void closeForm(){
         cancel_button.setOnAction(actionEvent -> {
             BorderPane dashboardLayout = (BorderPane) user_form.getParent();
@@ -63,11 +97,12 @@ public class UserFormController implements Initializable {
         });
     }
     public PersonEntity createPerson(){
+        
         PersonEntity person = new PersonEntity();
         person.setLastname(user_lastname.getText());
         person.setFirstname(user_firstname.getText());
         person.setAddress(user_address.getText());
-        person.setGender('M');
+        person.setGender(accountRoleProperty());
         return person;
     }
     public UserEntity createUser(){
@@ -79,7 +114,7 @@ public class UserFormController implements Initializable {
             user.setCin(Long.valueOf(user_cin.getText()));
         }
         user.setEmail(user_email.getText());
-        user.setRole("SELLER");
+
         user.setPerson(this.createPerson());
         return user;
     }
@@ -96,14 +131,14 @@ public class UserFormController implements Initializable {
             }
         });
     }
-    private StackPane getDashboardToolbar(){
-        FXMLLoader dashboardToolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/dashboard/dashboardToolbar.fxml"));
-        StackPane dashboardToolbar;
-        try {
-            dashboardToolbar = dashboardToolbarLoader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return dashboardToolbar;
+    private BorderPane getDashboardToolbar(){
+        FXMLLoader accountLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/account2Layout.fxml"));
+                    BorderPane accountLayout;
+                    try {
+                        accountLayout = accountLayoutLoader.load();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+        return accountLayout;
     }
-}
+}    

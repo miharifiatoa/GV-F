@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -12,164 +13,184 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="user_form" prefHeight="89.0" prefWidth="553.0" spacing="10.0" styleClass="form" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.user.UserFormController">
+<VBox fx:id="user_form" prefHeight="255.0" prefWidth="546.0" spacing="10.0" styleClass="form" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.user.UserFormController">
    <children>
-      <AnchorPane prefHeight="232.0" prefWidth="591.0">
+      <GridPane hgap="10.0" prefHeight="200.0" prefWidth="538.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="60.0" minHeight="40.0" prefHeight="50.0" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
-            <GridPane hgap="10.0" AnchorPane.bottomAnchor="-5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                  <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                <RowConstraints vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                  <RowConstraints vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                  <RowConstraints vgrow="SOMETIMES" />
-              </rowConstraints>
+            <AnchorPane GridPane.rowIndex="1">
                <children>
-                  <AnchorPane GridPane.rowIndex="1">
+                  <TextField fx:id="user_lastname" maxHeight="30.0" minHeight="30.0" prefHeight="35.2" prefWidth="267.2" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <TextField fx:id="user_firstname" maxHeight="30.0" minHeight="30.0" prefHeight="35.2" prefWidth="267.2" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane GridPane.columnIndex="1">
+               <children>
+                  <Label alignment="BOTTOM_LEFT" prefHeight="36.8" prefWidth="300.0" text="Prénom" textFill="DIMGRAY" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <GridPane>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="40.0" minWidth="40.0" prefWidth="57.59996719360352" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.9999656677246" minWidth="10.0" prefWidth="233.60003280639648" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <AnchorPane prefHeight="34.0" prefWidth="27.0">
                      <children>
-                        <TextField fx:id="user_lastname" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <children>
-                        <TextField fx:id="user_firstname" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Label alignment="BOTTOM_LEFT" prefHeight="33.6" prefWidth="79.2" text="Nom" textFill="DIMGRAY" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                   <AnchorPane GridPane.columnIndex="1">
                      <children>
-                        <Label alignment="BOTTOM_LEFT" prefHeight="36.8" prefWidth="300.0" text="Prénom" textFill="DIMGRAY" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <padding>
-                              <Insets top="5.0" />
-                           </padding>
+                        <Label alignment="BOTTOM_LEFT" prefHeight="33.6" prefWidth="166.4" text="(Champ obligatoire)" textFill="#ff9c00" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <font>
-                              <Font name="System Italic" size="12.0" />
-                           </font></Label>
-                     </children>
-                  </AnchorPane>
-                  <GridPane>
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="40.0" minWidth="40.0" prefWidth="57.59996719360352" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.9999656677246" minWidth="10.0" prefWidth="233.60003280639648" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <AnchorPane prefHeight="34.0" prefWidth="27.0">
-                           <children>
-                              <Label alignment="BOTTOM_LEFT" prefHeight="33.6" prefWidth="79.2" text="Nom" textFill="DIMGRAY" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Italic" size="12.0" />
-                                 </font></Label>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane GridPane.columnIndex="1">
-                           <children>
-                              <Label alignment="BOTTOM_LEFT" prefHeight="33.6" prefWidth="166.4" text="(Champ obligatoire)" textFill="#ff9c00" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Italic" size="11.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                     </children>
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
-                  </GridPane>
-                  <AnchorPane GridPane.rowIndex="2">
-                     <children>
-                        <Label alignment="BOTTOM_LEFT" prefHeight="36.8" prefWidth="300.0" text="Adresse " textFill="DIMGRAY" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <padding>
-                              <Insets top="5.0" />
-                           </padding>
-                           <font>
-                              <Font name="System Italic" size="12.0" />
-                           </font></Label>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="4">
-                     <children>
-                        <Label alignment="BOTTOM_LEFT" prefHeight="36.0" prefWidth="600.0" text="Telephone" textFill="DIMGRAY" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <padding>
-                              <Insets top="5.0" />
-                           </padding>
-                           <font>
-                              <Font name="System Italic" size="12.0" />
-                           </font></Label>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane GridPane.rowIndex="3">
-                     <children>
-                        <TextField fx:id="user_address" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="10.0" layoutY="92.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <children>
-                        <Label alignment="BOTTOM_LEFT" prefHeight="36.8" prefWidth="300.0" text="E-mail" textFill="DIMGRAY" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <padding>
-                              <Insets top="5.0" />
-                           </padding>
-                           <font>
-                              <Font name="System Italic" size="12.0" />
-                           </font></Label>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="3">
-                     <children>
-                        <TextField fx:id="user_email" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                     </children>
-                  </AnchorPane>
-                  <GridPane layoutX="10.0" layoutY="10.0" GridPane.rowIndex="4">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="40.0" minWidth="40.0" prefWidth="57.59996719360352" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.9999656677246" minWidth="10.0" prefWidth="233.60003280639648" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <AnchorPane prefHeight="34.0" prefWidth="27.0">
-                           <children>
-                              <Label alignment="BOTTOM_LEFT" prefHeight="33.6" prefWidth="79.2" text="N CIN" textFill="DIMGRAY" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Italic" size="12.0" />
-                                 </font></Label>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane GridPane.columnIndex="1">
-                           <children>
-                              <Label alignment="BOTTOM_LEFT" prefHeight="33.6" prefWidth="166.4" text="(Champ obligatoire)" textFill="#ff9c00" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Italic" size="11.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                     </children>
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
-                  </GridPane>
-                  <AnchorPane GridPane.rowIndex="5">
-                     <children>
-                        <TextField fx:id="user_cin" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="5">
-                     <children>
-                        <TextField fx:id="user_phone" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <Font name="System Italic" size="11.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </children>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </GridPane>
+            <AnchorPane GridPane.rowIndex="2">
+               <children>
+                  <Label alignment="BOTTOM_LEFT" prefHeight="36.8" prefWidth="300.0" text="Adresse " textFill="DIMGRAY" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <children>
+                  <Label alignment="BOTTOM_LEFT" prefHeight="36.0" prefWidth="600.0" text="Telephone" textFill="DIMGRAY" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane GridPane.rowIndex="3">
+               <children>
+                  <TextField fx:id="user_address" maxHeight="30.0" minHeight="30.0" prefHeight="35.2" prefWidth="267.2" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="10.0" layoutY="92.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <Label alignment="BOTTOM_LEFT" prefHeight="36.8" prefWidth="300.0" text="E-mail" textFill="DIMGRAY" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <children>
+                  <TextField fx:id="user_email" maxHeight="30.0" minHeight="30.0" prefHeight="35.2" prefWidth="267.2" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+            <GridPane layoutX="10.0" layoutY="10.0" GridPane.rowIndex="4">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="40.0" minWidth="40.0" prefWidth="57.59996719360352" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.9999656677246" minWidth="10.0" prefWidth="233.60003280639648" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <AnchorPane prefHeight="34.0" prefWidth="27.0">
+                     <children>
+                        <Label alignment="BOTTOM_LEFT" prefHeight="33.6" prefWidth="79.2" text="N CIN" textFill="DIMGRAY" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane GridPane.columnIndex="1">
+                     <children>
+                        <Label alignment="BOTTOM_LEFT" prefHeight="33.6" prefWidth="166.4" text="(Champ obligatoire)" textFill="#ff9c00" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font name="System Italic" size="11.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </children>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </GridPane>
+            <AnchorPane GridPane.rowIndex="5">
+               <children>
+                  <TextField fx:id="user_cin" maxHeight="30.0" minHeight="16.0" prefHeight="16.0" prefWidth="264.0" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <children>
+                  <TextField fx:id="user_phone" maxHeight="30.0" minHeight="30.0" prefHeight="35.2" prefWidth="267.2" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6">
+               <children>
+                  <Label layoutY="12.0" prefHeight="23.0" prefWidth="58.0" text="Sexe" textFill="DIMGRAY" />
+               </children>
+            </AnchorPane>
+            <GridPane prefHeight="20.0" prefWidth="264.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" prefWidth="66.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="198.0" minWidth="10.0" prefWidth="198.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+            </GridPane>
+            <GridPane prefHeight="11.0" prefWidth="263.0" GridPane.rowIndex="7">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <RadioButton fx:id="manSexType" mnemonicParsing="false" text="Homme" textFill="DIMGRAY" />
+                  <RadioButton fx:id="womenSexType" mnemonicParsing="false" text="Femme" textFill="DIMGRAY" GridPane.columnIndex="1" />
+               </children>
+            </GridPane>
+            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="7">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
             </GridPane>
          </children>
-      </AnchorPane>
+      </GridPane>
       <GridPane styleClass="box">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="917.5999908447266" minWidth="10.0" prefWidth="408.8000244140625" />

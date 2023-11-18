@@ -3,17 +3,14 @@ package com.sales_management_javafx.controller.shop;
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.NumberTextField;
 import com.sales_management_javafx.composent.ShopGridPane;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.sales_management.entity.ShopEntity;
 import org.sales_management.service.ShopService;
@@ -51,10 +48,13 @@ public class ShopFormController implements Initializable {
         NumberTextField.requireNumber(shopContactTextfield);
     }
     private void formValidation(){
-        if (this.shopNameTextfield.getText().isEmpty()){
+        if (this.shopNameTextfield.getText().isEmpty()
+            || this.shopContactTextfield.getText().isEmpty()    
+                ){
             createShopButton.setDisable(true);
         }
-        shopNameTextfield.textProperty().addListener((observableValue, s, t1) -> createShopButton.setDisable(this.shopNameTextfield.getText().isEmpty()));
+        shopNameTextfield.textProperty().addListener((observableValue, s, t1) -> createShopButton.setDisable(this.shopNameTextfield.getText().isEmpty() || this.shopContactTextfield.getText().isEmpty()));
+        shopContactTextfield.textProperty().addListener((observableValue, s, t1) -> createShopButton.setDisable(this.shopNameTextfield.getText().isEmpty() || this.shopContactTextfield.getText().isEmpty()));
     }
     private void onCreateShop(){
         createShopButton.setOnAction(actionEvent -> {
@@ -82,14 +82,14 @@ public class ShopFormController implements Initializable {
             dashboardLayout.setBottom(this.getDashboardToolbar());
         });
     }
-    private StackPane getDashboardToolbar(){
-        FXMLLoader dashboardToolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/dashboard/dashboardToolbar.fxml"));
-        StackPane dashboardToolbar;
+    private BorderPane getDashboardToolbar(){
+        FXMLLoader shopLayotLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/shop/shop2Layout.fxml"));
+        BorderPane shopLayout;
         try {
-            dashboardToolbar = dashboardToolbarLoader.load();
+            shopLayout = shopLayotLoader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return dashboardToolbar;
+        return shopLayout;
     }
 }

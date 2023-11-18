@@ -13,18 +13,18 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.sales_management.entity.AccountEntity;
 import org.sales_management.entity.UserEntity;
 import org.sales_management.service.UserService;
-import org.sales_management.session.HibernateUtil;
 import org.sales_management.session.SessionManager;
 import org.sales_management.session.UserSession;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
+import javafx.scene.control.Label;
 
 public class LoginController implements Initializable {
     @FXML private GridPane loginGridpane;
     @FXML private Button connectionButton;
+    @FXML private Label errorLabel;
     @FXML private TextField passwordTextfield;
     @FXML private TextField usernameTextfield;
     private final UserService userService;
@@ -39,33 +39,11 @@ public class LoginController implements Initializable {
 
     public void connect() {
         connectionButton.setOnAction(event->{
+            
             String username = usernameTextfield.getText();
             String password = passwordTextfield.getText();
             AccountEntity account = this.authenticate(username,password);
-            BorderPane salesManagementBorderpane = (BorderPane) loginGridpane.getParent();
-            if (account != null){
-                UserEntity user = account.getUser();
-                if (user != null){
-                    this.setUserInSession(username,password);
-                    if (Objects.equals(user.getRole(), "ADMIN")){
-                        salesManagementBorderpane.setCenter(this.getDashboard());
-                    }
-                    else if (Objects.equals(user.getRole(), "SELLER")){
-                        salesManagementBorderpane.setCenter(this.getSellerLayout());
-                    }
-                    else if (Objects.equals(user.getRole(), "STOCKIST")){
-                        salesManagementBorderpane.setCenter(this.getStockistLayout());
-                    }
-                    else {
-                        System.out.println("no ...");
-                    }
-                }
-                else SessionManager.clearSession();
-            }
-            else {
-                System.out.println("username or password incorrect");
-                SessionManager.clearSession();
-            }
+
         });
     }
     private BorderPane getDashboard(){
@@ -99,23 +77,45 @@ public class LoginController implements Initializable {
         }
         return stockistLayout;
     }
+    
     private AccountEntity authenticate(String username , String password){
+        BorderPane salesManagementBorderpane = (BorderPane) loginGridpane.getParent();
         AccountEntity account = new AccountEntity();
-        try {
-            AccountEntity accountEntity = new UserService().getAccountByUsername(username);
-            if (accountEntity != null){
-                if (DigestUtils.sha256Hex(password).equals(accountEntity.getPassword())){
-                    account = accountEntity;
+        if (username.isEmpty()){
+            errorLabel.setText("Saisir une Nom d'utilisateur !");
+
+            }
+            else {
+            AccountEntity inSession = this.userService.getAccountByUsername(username);
+            if(inSession.getUsername()!=null){
+                if(DigestUtils.sha256Hex(password).equals(inSession.getPassword())) {
+                    String Role = inSession.getUser().getRole();
+                    account = inSession;
+                    setUserInSession(inSession.getUser());
+                    switch (Role) {
+                        case "ADMIN": 
+                        salesManagementBorderpane.setCenter(this.getDashboard());    
+                            break;
+
+                        case "SELLER": 
+                        salesManagementBorderpane.setCenter(this.getSellerLayout());
+                            break;
+                        case "STOCKIST": 
+                        salesManagementBorderpane.setCenter(this.getStockistLayout());
+                            break;    
+                        default:
+                            throw new AssertionError();
+                        }
+                    } else {
+                    errorLabel.setText("Mot de passe incorrecte !");
+                    }
+                } else {
+                errorLabel.setText("Utilisateur non trouver !");
                 }
             }
-        } catch (Exception e) {
-            System.out.println("Username or password incorrect");
-        }
         return account;
     }
-    private void setUserInSession(String username , String password){
-        AccountEntity account = authenticate(username , password);
-        UserEntity user = account.getUser();
+    private void setUserInSession(UserEntity user){
         UserSession userSession = new UserSession();
         userSession.setCurrentUser(user);
         SessionManager.setSession(userSession);
