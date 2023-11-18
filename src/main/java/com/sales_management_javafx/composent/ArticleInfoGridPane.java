@@ -38,7 +38,7 @@ public class ArticleInfoGridPane {
         return gridPane;
     }
     private VBox getArticleShareBox(ArticleTypeEntity articleType){
-        FXMLLoader productShareListLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article_type/articleInfo.fxml"));
+        FXMLLoader productShareListLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article_type/articleTypeInfo.fxml"));
         VBox productShareList;
         try {
             productShareList = productShareListLoader.load();

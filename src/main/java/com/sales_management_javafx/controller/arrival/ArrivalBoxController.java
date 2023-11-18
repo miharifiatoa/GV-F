@@ -5,7 +5,7 @@ import com.sales_management_javafx.classes.DateTimeFormatter;
 import com.sales_management_javafx.classes.Printer;
 import com.sales_management_javafx.composent.arrival.ArrivalGridPane;
 import com.sales_management_javafx.composent.arrival.ArrivalInfoGridPane;
-import com.sales_management_javafx.composent.StockistArticleGridPane;
+import com.sales_management_javafx.composent.StockistArticleTypeGridPane;
 import com.sales_management_javafx.composent.admin.AdminArrivalInfoGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -110,7 +110,7 @@ public class ArrivalBoxController implements Initializable {
                 arrivalVBox.setVisible(false);
                 cancelArrivalVBox.setVisible(true);
                 ScrollPane stockistBoxLayoutScrollpane = (ScrollPane) getArrivalLayoutScrollpane().getParent().getParent().getParent().getParent().lookup("#stockistBoxLayoutScrollpane");
-                GridPane stockistArticleGridPane = new StockistArticleGridPane().getGridPane(new ArticleTypeService().getAll(),4);
+                GridPane stockistArticleGridPane = new StockistArticleTypeGridPane().getGridPane(new ArticleTypeService().getAll(),4);
                 GridPane arrivalGridPane = new ArrivalGridPane().getGridPane(arrivalService.getArrivalsByDate(LocalDate.now()) , 4);
                 stockistBoxLayoutScrollpane.setContent(stockistArticleGridPane);
                 getArrivalLayoutScrollpane().setContent(arrivalGridPane);

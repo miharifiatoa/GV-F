@@ -4,7 +4,7 @@ import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.composent.arrival.ArrivalGridPane;
 import com.sales_management_javafx.composent.ArticleInfoGridPane;
-import com.sales_management_javafx.composent.StockistArticleGridPane;
+import com.sales_management_javafx.composent.StockistArticleTypeGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -89,7 +89,7 @@ public class ArrivalLayoutController implements Initializable {
             if (arrivalService.toSaveArrival(arrival,articles)!=null){
                 articles.clear();
                 FileIO.writeTo("arrivals.dat",articles);
-                GridPane stockistArticleGridPane = new StockistArticleGridPane().getGridPane(new ArticleTypeService().getAll(),4);
+                GridPane stockistArticleGridPane = new StockistArticleTypeGridPane().getGridPane(new ArticleTypeService().getAll(),4);
                 GridPane articleInfoGridPane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("arrivals.dat"),2);
                 getStockistBoxLayoutScrollpane().setContent(stockistArticleGridPane);
                 arrivalLayoutScrollpane.setContent(articleInfoGridPane);

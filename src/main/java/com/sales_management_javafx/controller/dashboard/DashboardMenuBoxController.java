@@ -49,7 +49,7 @@ public class DashboardMenuBoxController implements Initializable {
     public void initialize(){
         FXMLLoader accountLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountLayout.fxml"));
         FXMLLoader shopLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/shop/shopLayout.fxml"));
-        FXMLLoader articleLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productCategoryLayout.fxml"));
+        FXMLLoader articleLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productLayout.fxml"));
         try {
             this.account = accountLoader.load();
             this.shop = shopLoader.load();
@@ -102,7 +102,7 @@ public class DashboardMenuBoxController implements Initializable {
         event.consume();
     }
     public StackPane getProductBoxLayout(){
-        FXMLLoader productBoxLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productBoxLayout.fxml"));
+        FXMLLoader productBoxLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productTypeBoxLayout.fxml"));
         StackPane productBoxLayout;
         try {
             productBoxLayout = productBoxLayoutLoader.load();

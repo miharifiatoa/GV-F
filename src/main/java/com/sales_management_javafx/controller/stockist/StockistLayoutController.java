@@ -10,7 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import org.sales_management.entity.ArticleTypeEntity;
+import org.sales_management.entity.ArticleEntity;
+import org.sales_management.service.ArticleService;
 import org.sales_management.service.ArticleTypeService;
 
 import java.io.IOException;
@@ -24,8 +25,10 @@ public class StockistLayoutController implements Initializable {
     @FXML private BorderPane modal;
     @FXML private TextField searchArticleTextfield;
     private final ArticleTypeService articleTypeService;
+    private final ArticleService articleService;
 
     public StockistLayoutController() {
+        this.articleService = new ArticleService();
         this.articleTypeService = new ArticleTypeService();
     }
 
@@ -37,7 +40,7 @@ public class StockistLayoutController implements Initializable {
         this.setSearchArticleTextfield();
     }
     private void setArticles(){
-        GridPane articleGridpane = new StockistArticleGridPane().getGridPane(articleTypeService.getAll(),4);
+        GridPane articleGridpane = new StockistArticleGridPane().getGridPane(articleService.getAll(),4);
         stockistBoxLayoutScrollpane.setContent(articleGridpane);
     }
     private StackPane getToolbar(){
@@ -53,12 +56,12 @@ public class StockistLayoutController implements Initializable {
     private void setSearchArticleTextfield(){
         searchArticleTextfield.textProperty().addListener(event->{
             if (!searchArticleTextfield.getText().isEmpty()){
-                Collection<ArticleTypeEntity> articles = articleTypeService.searchArticleByByCode(searchArticleTextfield.getText());
+                Collection<ArticleEntity> articles = articleService.searchArticleByCode(searchArticleTextfield.getText());
                 GridPane stockistArticleGridPane = new StockistArticleGridPane().getGridPane(articles,4);
                 stockistBoxLayoutScrollpane.setContent(stockistArticleGridPane);
             }
             else {
-                GridPane stockistArticleGridPane = new StockistArticleGridPane().getGridPane(articleTypeService.getAll(),4);
+                GridPane stockistArticleGridPane = new StockistArticleGridPane().getGridPane(articleService.getAll(),4);
                 stockistBoxLayoutScrollpane.setContent(stockistArticleGridPane);
             }
         });

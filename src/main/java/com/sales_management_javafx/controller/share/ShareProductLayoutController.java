@@ -5,7 +5,7 @@ import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.composent.ArticleInfoGridPane;
 import com.sales_management_javafx.composent.share.ShareGridPane;
 import com.sales_management_javafx.composent.ShopGridPane;
-import com.sales_management_javafx.composent.StockistArticleGridPane;
+import com.sales_management_javafx.composent.StockistArticleTypeGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -115,7 +115,7 @@ public class ShareProductLayoutController implements Initializable {
             if (shareService.toShareArticles(share , articles) != null){
                 articles.clear();
                 FileIO.writeTo("shares.dat",articles);
-                GridPane gridPane = new StockistArticleGridPane().getGridPane(new ArticleTypeService().getAll(),4);
+                GridPane gridPane = new StockistArticleTypeGridPane().getGridPane(new ArticleTypeService().getAll(),4);
                 ScrollPane stockistBoxLayoutScrollpane = (ScrollPane) shareArticleLayoutStackpane.getParent().getParent().lookup("#stockistBoxLayoutScrollpane");
                 stockistBoxLayoutScrollpane.setContent(gridPane);
                 this.setCloseShareListButton();

@@ -5,7 +5,7 @@ import com.sales_management_javafx.classes.DateTimeFormatter;
 import com.sales_management_javafx.classes.Printer;
 import com.sales_management_javafx.composent.share.ShareInfoGridPane;
 import com.sales_management_javafx.composent.share.ShareGridPane;
-import com.sales_management_javafx.composent.StockistArticleGridPane;
+import com.sales_management_javafx.composent.StockistArticleTypeGridPane;
 import com.sales_management_javafx.composent.admin.AdminShareInfoGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -119,7 +119,7 @@ public class ShareBoxController implements Initializable {
             if (shareService.toCancelShare(share) != null){
                 shareVBox.setVisible(true);
                 cancelShareVBox.setVisible(false);
-                GridPane stockistArticleGridPane = new StockistArticleGridPane().getGridPane(new ArticleTypeService().getAll(),4);
+                GridPane stockistArticleGridPane = new StockistArticleTypeGridPane().getGridPane(new ArticleTypeService().getAll(),4);
                 GridPane shareGridPane = new ShareGridPane().getGridPane(shareService.getSharesByDate(LocalDate.now()),4);
                 ScrollPane stockistBoxLayoutScrollpane = (ScrollPane) getShareLayoutScrollpane().getParent().getParent().getParent().getParent().lookup("#stockistBoxLayoutScrollpane");
                 stockistBoxLayoutScrollpane.setContent(stockistArticleGridPane);

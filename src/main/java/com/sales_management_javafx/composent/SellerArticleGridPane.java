@@ -2,11 +2,13 @@ package com.sales_management_javafx.composent;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.controller.seller.SellerArticleBoxController;
+import com.sales_management_javafx.controller.seller.SellerArticleTypeBoxController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
+import org.sales_management.entity.ArticleEntity;
 import org.sales_management.entity.ArticleTypeEntity;
 
 import java.io.IOException;
@@ -19,7 +21,7 @@ public class SellerArticleGridPane {
         this.gridPane = new GridPane();
     }
 
-    public GridPane getGridPane(Collection<ArticleTypeEntity> priceVariations, int colSize){
+    public GridPane getGridPane(Collection<ArticleEntity> articleEntities, int colSize){
         for (int i = 0 ; i < colSize ; i++){
             ColumnConstraints constraints = new ColumnConstraints();
             constraints.setHgrow(Priority.ALWAYS);
@@ -29,8 +31,8 @@ public class SellerArticleGridPane {
         }
         int col = 0;
         int row = 0;
-        for (ArticleTypeEntity priceVariation : priceVariations) {
-            gridPane.add(this.getProductBox(priceVariation), col, row);
+        for (ArticleEntity article : articleEntities) {
+            gridPane.add(this.getSellerArticleBox(article), col, row);
             col++;
             if (col == colSize) {
                 col = 0;
@@ -40,16 +42,16 @@ public class SellerArticleGridPane {
         gridPane.getStyleClass().add("gridpane");
         return gridPane;
     }
-    private StackPane getProductBox(ArticleTypeEntity priceVariation){
-        FXMLLoader productVariationBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/seller/sellerArticleBox.fxml"));
-        StackPane productBoxStackpane;
+    private StackPane getSellerArticleBox(ArticleEntity article){
+        FXMLLoader sellerArticleBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/seller/sellerArticleBox.fxml"));
+        StackPane sellerArticleBox;
         try {
-            productBoxStackpane = productVariationBoxLoader.load();
-            SellerArticleBoxController sellerArticleBoxController = productVariationBoxLoader.getController();
-            sellerArticleBoxController.initialize(priceVariation);
+            sellerArticleBox = sellerArticleBoxLoader.load();
+            SellerArticleBoxController sellerArticleBoxController = sellerArticleBoxLoader.getController();
+            sellerArticleBoxController.initializeForSeller(article);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return productBoxStackpane;
+        return sellerArticleBox;
     }
 }

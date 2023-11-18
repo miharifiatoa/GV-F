@@ -45,7 +45,7 @@ public class ArticleGridPane {
         return gridPane;
     }
     private StackPane getArticleBox(ArticleTypeEntity articleType){
-        FXMLLoader articleBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article_type/articleBox.fxml"));
+        FXMLLoader articleBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article_type/articleTypeBox.fxml"));
         StackPane productBoxStackpane;
         try {
             productBoxStackpane = articleBoxLoader.load();
@@ -57,7 +57,7 @@ public class ArticleGridPane {
         return productBoxStackpane;
     }
     private StackPane getCreatePriceBox(){
-        FXMLLoader createPriceBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article_type/articleCreate.fxml"));
+        FXMLLoader createPriceBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article_type/articleTypeCreate.fxml"));
         StackPane priceVariationCreateStackPane;
         try {
             priceVariationCreateStackPane = createPriceBoxLoader.load();
@@ -67,7 +67,7 @@ public class ArticleGridPane {
         return priceVariationCreateStackPane;
     }
     private StackPane getToolbar(){
-        FXMLLoader createPriceBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_variation/productCategoryToolbar.fxml"));
+        FXMLLoader createPriceBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_variation/productToolbar.fxml"));
         StackPane priceVariationToolbar;
         try {
             priceVariationToolbar = createPriceBoxLoader.load();

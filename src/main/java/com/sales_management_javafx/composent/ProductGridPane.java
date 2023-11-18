@@ -1,7 +1,8 @@
 package com.sales_management_javafx.composent;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.controller.product_type.ProductBoxController;
+import com.sales_management_javafx.controller.product.ProductBoxController;
+import com.sales_management_javafx.controller.product_type.ProductTypeBoxController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.*;
 import org.sales_management.entity.ProductTypeEntity;
@@ -44,15 +45,15 @@ public class ProductGridPane{
         return gridPane;
     }
     private StackPane getProductBox(ProductTypeEntity product){
-        FXMLLoader productBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_type/productBox.fxml"));
-        StackPane productBoxStackpane;
+        FXMLLoader productTypeBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_type/productTypeBox.fxml"));
+        StackPane productTypeBoxStackpane;
         try {
-            productBoxStackpane = productBoxLoader.load();
-            ProductBoxController productBoxController = productBoxLoader.getController();
-            productBoxController.initialize(product);
+            productTypeBoxStackpane = productTypeBoxLoader.load();
+            ProductTypeBoxController productTypeBoxController = productTypeBoxLoader.getController();
+            productTypeBoxController.initialize(product);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return productBoxStackpane;
+        return productTypeBoxStackpane;
     }
 }
