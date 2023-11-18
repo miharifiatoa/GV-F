@@ -4,7 +4,7 @@ import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.DecimalFormat;
 import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.classes.NumberTextField;
-import com.sales_management_javafx.composent.SellerArticleGridPane;
+import com.sales_management_javafx.composent.SellerArticleTypeGridPane;
 import com.sales_management_javafx.controller.sale.SaleLayoutController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -233,7 +233,7 @@ public class SellerPaymentController implements Initializable {
         FileIO.writeTo("sales.dat",articles);
         BorderPane sellerLayoutBorderpane = (BorderPane) sellerPayment.getParent();
         sellerLayoutBorderpane.setBottom(getSaleLayout());
-        GridPane sellerArticleGridPane = new SellerArticleGridPane().getGridPane(new ArticleTypeService().getAll(),4);
+        GridPane sellerArticleGridPane = new SellerArticleTypeGridPane().getGridPane(new ArticleTypeService().getAll(),4);
         ScrollPane sellerArticleScrollpane = (ScrollPane) sellerLayoutBorderpane.lookup("#sellerArticleScrollpane");
         sellerArticleScrollpane.setContent(sellerArticleGridPane);
     }

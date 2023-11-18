@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="productCreate" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product_type.ProductCreateController">
+<StackPane fx:id="productCreate" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product_type.ProductTypeCreateController">
    <children>
-      <VBox maxHeight="200.0" maxWidth="400.0" spacing="5.0" styleClass="box">
+      <VBox maxHeight="220.0" maxWidth="400.0" spacing="5.0" styleClass="box">
          <children>
             <GridPane prefHeight="0.0" styleClass="box">
               <columnConstraints>
@@ -75,7 +75,7 @@
                                        <children>
                                           <AnchorPane GridPane.columnIndex="1">
                                              <children>
-                                                <Label fx:id="nameWarning" alignment="CENTER_RIGHT" prefHeight="17.6" prefWidth="378.4" textFill="#ff9c00" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <Label fx:id="nameWarning" alignment="CENTER_RIGHT" prefHeight="17.6" prefWidth="378.4" text="Champ obligatoire" textFill="#ff9c00" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <font>
                                                       <Font name="System Italic" size="10.0" />
                                                    </font>

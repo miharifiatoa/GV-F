@@ -15,7 +15,7 @@
 
 <StackPane fx:id="articleCreate" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.article_type.ArticleTypeCreateController">
    <children>
-      <VBox fx:id="articleCreateVBox" maxHeight="155.0" maxWidth="400.0" spacing="5.0" styleClass="box">
+      <VBox fx:id="articleCreateVBox" maxHeight="170.0" maxWidth="400.0" spacing="5.0" styleClass="box">
          <children>
             <GridPane styleClass="box">
                <columnConstraints>
@@ -77,7 +77,7 @@
                                                 <ColumnConstraints hgrow="SOMETIMES" prefWidth="100.0" />
                                              </columnConstraints>
                                              <rowConstraints>
-                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                                <RowConstraints vgrow="SOMETIMES" />
                                              </rowConstraints>
                                              <children>
                                                 <AnchorPane>

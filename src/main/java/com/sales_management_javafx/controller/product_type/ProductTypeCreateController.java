@@ -19,7 +19,7 @@ import org.sales_management.service.ProductTypeService;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ProductCreateController implements Initializable {
+public class ProductTypeCreateController implements Initializable {
     @FXML
     private StackPane productCreate;
     @FXML
@@ -43,7 +43,7 @@ public class ProductCreateController implements Initializable {
     private final ProductTypeService productTypeService;
     private final ProductService productService;
 
-    public ProductCreateController() {
+    public ProductTypeCreateController() {
         this.inventoryService = new InventoryService();
         this.productTypeService = new ProductTypeService();
         this.productService = new ProductService();

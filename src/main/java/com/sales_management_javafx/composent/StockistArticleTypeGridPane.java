@@ -1,6 +1,7 @@
 package com.sales_management_javafx.composent;
+
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.controller.article_type.ArticleTypeInfoController;
+import com.sales_management_javafx.controller.stockist.StockistArticleTypeBoxController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.*;
 import org.sales_management.entity.ArticleTypeEntity;
@@ -8,14 +9,14 @@ import org.sales_management.entity.ArticleTypeEntity;
 import java.io.IOException;
 import java.util.Collection;
 
-public class ArticleInfoGridPane {
+public class StockistArticleTypeGridPane {
     private final GridPane gridPane;
 
-    public ArticleInfoGridPane() {
+    public StockistArticleTypeGridPane() {
         this.gridPane = new GridPane();
     }
 
-    public GridPane getGridPane(Collection<ArticleTypeEntity> priceVariations, int colSize){
+    public GridPane getGridPane(Collection<ArticleTypeEntity> articles, int colSize){
         for (int i = 0 ; i < colSize ; i++){
             ColumnConstraints constraints = new ColumnConstraints();
             constraints.setHgrow(Priority.ALWAYS);
@@ -25,8 +26,8 @@ public class ArticleInfoGridPane {
         }
         int col = 0;
         int row = 0;
-        for (ArticleTypeEntity priceVariation : priceVariations) {
-            gridPane.add(this.getArticleShareBox(priceVariation), col, row);
+        for (ArticleTypeEntity article : articles) {
+            gridPane.add(this.getBox(article), col, row);
             col++;
             if (col == colSize) {
                 col = 0;
@@ -34,19 +35,18 @@ public class ArticleInfoGridPane {
             }
         }
         gridPane.getStyleClass().add("gridpane");
-        gridPane.setId("articleShareGridpane");
         return gridPane;
     }
-    private VBox getArticleShareBox(ArticleTypeEntity articleType){
-        FXMLLoader productShareListLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article_type/articleTypeInfo.fxml"));
-        VBox productShareList;
+    private StackPane getBox(ArticleTypeEntity article){
+        FXMLLoader boxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/stockist/stockistArticleTypeBox.fxml"));
+        StackPane box;
         try {
-            productShareList = productShareListLoader.load();
-            ArticleTypeInfoController productSharedListController = productShareListLoader.getController();
-            productSharedListController.initialize(articleType);
+            box = boxLoader.load();
+            StockistArticleTypeBoxController stockistArticleTypeBoxController = boxLoader.getController();
+            stockistArticleTypeBoxController.initialize(article);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return productShareList;
+        return box;
     }
 }

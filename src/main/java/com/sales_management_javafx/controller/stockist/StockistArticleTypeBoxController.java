@@ -3,7 +3,7 @@ package com.sales_management_javafx.controller.stockist;
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.classes.NumberTextField;
-import com.sales_management_javafx.composent.StockistArticleGridPane;
+import com.sales_management_javafx.composent.StockistArticleTypeGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -23,7 +23,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class StockistArticleBoxController implements Initializable {
+public class StockistArticleTypeBoxController implements Initializable {
     @FXML private Label articleCodeLabel;
     @FXML private Label articlePriceLabel;
     @FXML private Label articleSizeLabel;
@@ -51,7 +51,7 @@ public class StockistArticleBoxController implements Initializable {
     @FXML private StackPane articleBox;
     private final ArticleTypeService articleTypeService;
 
-    public StockistArticleBoxController() {
+    public StockistArticleTypeBoxController() {
         this.articleTypeService = new ArticleTypeService();
     }
 
@@ -106,7 +106,7 @@ public class StockistArticleBoxController implements Initializable {
                     articles.add(article);
                     FileIO.writeTo("arrivals.dat",articles);
                     ScrollPane stockistBoxLayoutScrollpane = (ScrollPane) articleBox.getParent().getParent().getParent().getParent();
-                    GridPane gridPane = new StockistArticleGridPane().getGridPane(new ArticleTypeService().getAll(), 4);
+                    GridPane gridPane = new StockistArticleTypeGridPane().getGridPane(new ArticleTypeService().getAll(), 4);
                     stockistBoxLayoutScrollpane.setContent(gridPane);
                 } catch (NumberFormatException e) {
                     throw new RuntimeException(e);
@@ -129,7 +129,7 @@ public class StockistArticleBoxController implements Initializable {
                 ArticleTypeEntity productResponse = this.articleTypeService.update(article);
                 if (productResponse!=null){
                     ScrollPane productBoxLayoutScrollpane = (ScrollPane) articleBox.getParent().getParent().getParent().getParent();
-                    GridPane gridPane = new StockistArticleGridPane().getGridPane(new ArticleTypeService().getAll(), 4);
+                    GridPane gridPane = new StockistArticleTypeGridPane().getGridPane(new ArticleTypeService().getAll(), 4);
                     productBoxLayoutScrollpane.setContent(gridPane);
                 }
             }
@@ -154,7 +154,7 @@ public class StockistArticleBoxController implements Initializable {
             existingPrices.add(article);
             FileIO.writeTo("shares.dat", existingPrices);
             ScrollPane productBoxLayoutScrollpane = (ScrollPane) articleBox.getParent().getParent().getParent().getParent();
-            GridPane gridPane = new StockistArticleGridPane().getGridPane(new ArticleTypeService().getAll(), 4);
+            GridPane gridPane = new StockistArticleTypeGridPane().getGridPane(new ArticleTypeService().getAll(), 4);
             productBoxLayoutScrollpane.setContent(gridPane);
         });
     }

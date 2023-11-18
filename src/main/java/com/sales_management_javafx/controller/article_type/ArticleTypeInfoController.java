@@ -2,8 +2,8 @@ package com.sales_management_javafx.controller.article_type;
 
 import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.composent.ArticleInfoGridPane;
-import com.sales_management_javafx.composent.SellerArticleGridPane;
-import com.sales_management_javafx.composent.StockistArticleGridPane;
+import com.sales_management_javafx.composent.SellerArticleTypeGridPane;
+import com.sales_management_javafx.composent.StockistArticleTypeGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -64,7 +64,7 @@ public class ArticleTypeInfoController implements Initializable {
                 arrivals.remove(article);
                 FileIO.writeTo("arrivals.dat",arrivals);
                 GridPane arrivalArticleGridpane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("arrivals.dat"),2);
-                GridPane stockistArticleGridPane = new StockistArticleGridPane().getGridPane(new ArticleTypeService().getAll(), 4);
+                GridPane stockistArticleGridPane = new StockistArticleTypeGridPane().getGridPane(new ArticleTypeService().getAll(), 4);
                 ScrollPane stockistBoxLayoutScrollpane = (ScrollPane) getArticleLayoutScrollpane().getParent().getParent().getParent().getParent().lookup("#stockistBoxLayoutScrollpane");
                 stockistBoxLayoutScrollpane.setContent(stockistArticleGridPane);
                 getArticleLayoutScrollpane().setContent(arrivalArticleGridpane);
@@ -74,7 +74,7 @@ public class ArticleTypeInfoController implements Initializable {
                 shares.remove(article);
                 FileIO.writeTo("shares.dat",shares);
                 GridPane shareArticleGridpane  = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("articles.dat"),2);
-                GridPane stockistArticleGridPane = new StockistArticleGridPane().getGridPane(new ArticleTypeService().getAll(),4);
+                GridPane stockistArticleGridPane = new StockistArticleTypeGridPane().getGridPane(new ArticleTypeService().getAll(),4);
                 ScrollPane stockistBoxLayoutScrollpane = (ScrollPane) getArticleLayoutScrollpane().getParent().getParent().getParent().getParent().lookup("#stockistBoxLayoutScrollpane");
                 stockistBoxLayoutScrollpane.setContent(stockistArticleGridPane);
                 getArticleLayoutScrollpane().setContent(shareArticleGridpane);
@@ -84,7 +84,7 @@ public class ArticleTypeInfoController implements Initializable {
                 articles.remove(article);
                 FileIO.writeTo("sales.dat",articles);
                 GridPane pannierGridpane  = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("sales.dat"),2);
-                GridPane sellerArticleGridPane = new SellerArticleGridPane().getGridPane(new ArticleTypeService().getAll(),4);
+                GridPane sellerArticleGridPane = new SellerArticleTypeGridPane().getGridPane(new ArticleTypeService().getAll(),4);
                 ScrollPane sellerArticleScrollpane = (ScrollPane) getArticleLayoutScrollpane().getParent().getParent().lookup("#sellerArticleScrollpane");
                 Label priceTotal = (Label) getArticleLayoutScrollpane().getParent().getParent().lookup("#priceTotal");
                 priceTotal.setText("Prix total : " + FileIO.getPriceTotal("sales.dat") +"Ar");

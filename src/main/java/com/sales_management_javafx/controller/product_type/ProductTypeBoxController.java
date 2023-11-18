@@ -4,7 +4,7 @@ import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.composent.ProductGridPane;
 import com.sales_management_javafx.composent.ProductTypeGridPane;
-import com.sales_management_javafx.controller.article.ProductTypeCreateController;
+import com.sales_management_javafx.controller.article.ArticleCreateController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,7 +24,7 @@ import org.sales_management.service.ProductTypeService;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-public class ProductBoxController implements Initializable {
+public class ProductTypeBoxController implements Initializable {
     @FXML private StackPane productBox;
     @FXML private VBox productInfoVBox;
     @FXML private VBox deleteVBox;
@@ -42,7 +42,7 @@ public class ProductBoxController implements Initializable {
     private final ProductTypeService productTypeService;
     private final ProductService productService;
 
-    public ProductBoxController() {
+    public ProductTypeBoxController() {
         this.productService = new ProductService();
         this.productTypeService = new ProductTypeService();
     }
@@ -112,12 +112,12 @@ public class ProductBoxController implements Initializable {
         });
     }
     private StackPane getProductTypeCreate(ProductTypeEntity product){
-        FXMLLoader productTypeCreateLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article/productTypeCreate.fxml"));
+        FXMLLoader productTypeCreateLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article/articleCreate.fxml"));
         StackPane productTypeCreate;
         try {
             productTypeCreate = productTypeCreateLoader.load();
-            ProductTypeCreateController productTypeCreateController = productTypeCreateLoader.getController();
-            productTypeCreateController.initialize(product);
+            ArticleCreateController articleCreateController = productTypeCreateLoader.getController();
+            articleCreateController.initialize(product);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

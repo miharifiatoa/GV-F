@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="articleBox" prefHeight="173.0" prefWidth="392.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.stockist.StockistArticleBoxController">
+<StackPane fx:id="articleBox" prefHeight="173.0" prefWidth="392.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.stockist.StockistArticleTypeBoxController">
    <children>
       <VBox fx:id="articleVBox" spacing="5.0" styleClass="box">
          <children>

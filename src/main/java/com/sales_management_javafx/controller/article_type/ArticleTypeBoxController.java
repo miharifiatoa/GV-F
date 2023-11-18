@@ -106,7 +106,7 @@ public class ArticleTypeBoxController implements Initializable {
         EditIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/EditIcon.png"))));
     }
     private VBox getArticleEdit(ArticleTypeEntity priceVariation){
-        FXMLLoader productVariationEditLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article_type/articleEdit.fxml"));
+        FXMLLoader productVariationEditLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article_type/articleTypeEdit.fxml"));
         VBox productVariationEditVbox;
         try {
             productVariationEditVbox = productVariationEditLoader.load();

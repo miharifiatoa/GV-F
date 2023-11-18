@@ -25,7 +25,7 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.ResourceBundle;
 
-public class ProductBoxLayoutController implements Initializable {
+public class ProductTypeBoxLayoutController implements Initializable {
     @FXML private StackPane productBoxLayout;
     @FXML private BorderPane product;
     @FXML private BorderPane modal;
@@ -46,7 +46,7 @@ public class ProductBoxLayoutController implements Initializable {
     private final MenuGridPane menuGridPane;
     private final MenuIcon menuIcon;
 
-    public ProductBoxLayoutController() {
+    public ProductTypeBoxLayoutController() {
         this.articleService = new ArticleService();
         this.articleTypeService = new ArticleTypeService();
         this.menuIcon = new MenuIcon();

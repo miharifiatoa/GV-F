@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ProductCategoryFormController implements Initializable {
+public class ProductFormController implements Initializable {
     @FXML
     private VBox articleFormBox;
     @FXML
@@ -31,7 +31,7 @@ public class ProductCategoryFormController implements Initializable {
     @FXML private Label nameWarning;
     private final ProductService productService;
 
-    public ProductCategoryFormController() {
+    public ProductFormController() {
         this.productService = new ProductService();
     }
 
@@ -97,7 +97,7 @@ public class ProductCategoryFormController implements Initializable {
     }
     private GridPane getToolbar(){
         GridPane toolbarGridpane;
-        FXMLLoader toolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_category/productCategoryToolbar.fxml"));
+        FXMLLoader toolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_category/productToolbar.fxml"));
         try {
             toolbarGridpane = toolbarLoader.load();
         } catch (IOException e) {

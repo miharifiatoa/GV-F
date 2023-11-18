@@ -10,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import org.sales_management.entity.ProductEntity;
 import org.sales_management.entity.ProductTypeEntity;
 import org.sales_management.entity.ArticleEntity;
 import org.sales_management.service.ProductTypeService;
@@ -19,7 +18,7 @@ import org.sales_management.service.ArticleService;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ProductTypeCreateController implements Initializable {
+public class ArticleCreateController implements Initializable {
     @FXML private StackPane productTypeCreate;
     @FXML private TextField articleCode;
     @FXML private TextField articlePrice;
@@ -29,7 +28,7 @@ public class ProductTypeCreateController implements Initializable {
     @FXML private Label nameWarning;
     private final ArticleService articleService;
 
-    public ProductTypeCreateController() {
+    public ArticleCreateController() {
         this.articleService = new ArticleService();
     }
 

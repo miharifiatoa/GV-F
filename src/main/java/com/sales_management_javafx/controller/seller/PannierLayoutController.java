@@ -3,9 +3,7 @@ package com.sales_management_javafx.controller.seller;
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.DecimalFormat;
 import com.sales_management_javafx.classes.FileIO;
-import com.sales_management_javafx.classes.NumberTextField;
 import com.sales_management_javafx.composent.ArticleInfoGridPane;
-import com.sales_management_javafx.composent.SellerArticleGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,17 +12,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import org.sales_management.entity.*;
-import org.sales_management.service.*;
-import org.sales_management.session.SessionManager;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class PannierLayoutController implements Initializable {

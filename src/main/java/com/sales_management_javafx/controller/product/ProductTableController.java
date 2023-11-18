@@ -16,7 +16,7 @@ import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ProductCategoryTableController implements Initializable {
+public class ProductTableController implements Initializable {
     @FXML
     private TableView<ProductEntity> articleTableView;
     @FXML
@@ -25,7 +25,7 @@ public class ProductCategoryTableController implements Initializable {
     private TableColumn<ProductEntity,String> articleLabelTableColumn;
     private final ProductService productService;
 
-    public ProductCategoryTableController() {
+    public ProductTableController() {
         this.productService = new ProductService();
     }
 

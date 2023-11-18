@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ProductCategoryLayoutController implements Initializable {
+public class ProductLayoutController implements Initializable {
     @FXML
     private BorderPane articleLayoutBorderpane;
 
@@ -21,7 +21,7 @@ public class ProductCategoryLayoutController implements Initializable {
         this.articleLayoutBorderpane.setBottom(this.getToolbar());
     }
     public GridPane getToolbar(){
-        FXMLLoader toolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productCategoryToolbar.fxml"));
+        FXMLLoader toolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productToolbar.fxml"));
         GridPane toolbar;
         try {
             toolbar = toolbarLoader.load();
@@ -31,7 +31,7 @@ public class ProductCategoryLayoutController implements Initializable {
         return toolbar;
     }
     public BorderPane getTable(){
-        FXMLLoader toolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productCategoryTable.fxml"));
+        FXMLLoader toolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productTable.fxml"));
         BorderPane table;
         try {
             table = toolbarLoader.load();

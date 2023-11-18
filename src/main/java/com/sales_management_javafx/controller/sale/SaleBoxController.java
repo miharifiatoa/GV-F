@@ -5,7 +5,7 @@ import com.sales_management_javafx.actions.Payment;
 import com.sales_management_javafx.classes.DateTimeFormatter;
 import com.sales_management_javafx.classes.DecimalFormat;
 import com.sales_management_javafx.composent.sale.SaleGridPane;
-import com.sales_management_javafx.composent.SellerArticleGridPane;
+import com.sales_management_javafx.composent.SellerArticleTypeGridPane;
 import com.sales_management_javafx.composent.admin.AdminSaleInfoGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -117,7 +117,7 @@ public class SaleBoxController implements Initializable {
                 else {
                     gridPane = new SaleGridPane().getGridPane(saleService.getAcceptedAndUnPayedSales(),4);
                 }
-                GridPane sellerArticleGridPane = new SellerArticleGridPane().getGridPane(articleTypeService.getAll(),4);
+                GridPane sellerArticleGridPane = new SellerArticleTypeGridPane().getGridPane(articleTypeService.getAll(),4);
                 sellerArticleScrollpane.setContent(sellerArticleGridPane);
                 getSaleLayoutScrollpane().setContent(gridPane);
             }

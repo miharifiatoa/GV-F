@@ -4,7 +4,7 @@ import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.composent.ProductCategoryGridPane;
 import com.sales_management_javafx.composent.ProductGridPane;
-import com.sales_management_javafx.controller.product_type.ProductCreateController;
+import com.sales_management_javafx.controller.product_type.ProductTypeCreateController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ProductCategoryBoxController implements Initializable {
+public class ProductBoxController implements Initializable {
     @FXML
     private Label productCategoryNameLabel;
     @FXML
@@ -30,7 +30,7 @@ public class ProductCategoryBoxController implements Initializable {
     private final ProductService productService;
     private final ProductCategoryGridPane productCategoryGridPane;
 
-    public ProductCategoryBoxController() {
+    public ProductBoxController() {
         this.productCategoryGridPane = new ProductCategoryGridPane();
         this.productService = new ProductService();
     }
@@ -73,7 +73,7 @@ public class ProductCategoryBoxController implements Initializable {
         });
     }
     private StackPane getToolbar(){
-        FXMLLoader toolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productToolbar.fxml"));
+        FXMLLoader toolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productTypeToolbar.fxml"));
         StackPane toolbar;
         try {
             toolbar = toolbarLoader.load();
@@ -83,12 +83,12 @@ public class ProductCategoryBoxController implements Initializable {
         return toolbar;
     }
     private StackPane getCreateProductBox(ProductEntity productCategory){
-        FXMLLoader createProductBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_type/productCreate.fxml"));
+        FXMLLoader createProductBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_type/productTypeCreate.fxml"));
         StackPane createProductBox;
         try {
             createProductBox = createProductBoxLoader.load();
-            ProductCreateController productCreateController = createProductBoxLoader.getController();
-            productCreateController.initialize(productCategory);
+            ProductTypeCreateController productTypeCreateController = createProductBoxLoader.getController();
+            productTypeCreateController.initialize(productCategory);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

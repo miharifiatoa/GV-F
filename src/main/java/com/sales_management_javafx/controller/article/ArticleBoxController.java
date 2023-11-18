@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ProductTypeBoxController implements Initializable {
+public class ArticleBoxController implements Initializable {
     @FXML private StackPane productTypeBox;
     @FXML private VBox productTypeVBox;
     @FXML private VBox deleteVBox;
@@ -45,7 +45,7 @@ public class ProductTypeBoxController implements Initializable {
     private final ArticleService articleService;
     private final ProductTypeService productTypeService;
 
-    public ProductTypeBoxController() {
+    public ArticleBoxController() {
         this.productTypeService = new ProductTypeService();
         this.articleService = new ArticleService();
     }
@@ -130,7 +130,7 @@ public class ProductTypeBoxController implements Initializable {
     }
 
     private StackPane getArticleCreate(ArticleEntity productType){
-        FXMLLoader articleCreateLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article_type/articleCreate.fxml"));
+        FXMLLoader articleCreateLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article_type/articleTypeCreate.fxml"));
         StackPane articleCreate;
         try {
             articleCreate = articleCreateLoader.load();
@@ -142,12 +142,12 @@ public class ProductTypeBoxController implements Initializable {
         return articleCreate;
     }
     private VBox getProductTypeEdit(ArticleEntity productType){
-        FXMLLoader productTypeEditLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article/productTypeEdit.fxml"));
+        FXMLLoader productTypeEditLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article/articleEdit.fxml"));
         VBox productTypeEdit;
         try {
             productTypeEdit = productTypeEditLoader.load();
-            ProductTypeEditController productTypeEditController = productTypeEditLoader.getController();
-            productTypeEditController.initialize(productType);
+            ArticleEditController articleEditController = productTypeEditLoader.getController();
+            articleEditController.initialize(productType);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

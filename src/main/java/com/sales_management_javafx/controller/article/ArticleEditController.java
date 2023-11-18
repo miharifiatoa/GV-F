@@ -14,14 +14,14 @@ import org.sales_management.service.ArticleService;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ProductTypeEditController implements Initializable {
+public class ArticleEditController implements Initializable {
     @FXML private VBox productTypeEditVBox;
     @FXML private TextField articlePrice;
     @FXML private Button exit;
     @FXML private Button save;
     private final ArticleService articleService;
 
-    public ProductTypeEditController() {
+    public ArticleEditController() {
         this.articleService = new ArticleService();
     }
 

@@ -14,7 +14,7 @@ import javafx.scene.layout.StackPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ProductToolbarController implements Initializable {
+public class ProductTypeToolbarController implements Initializable {
     @FXML
     private Button exitFromInventoryButton;
 
@@ -24,7 +24,7 @@ public class ProductToolbarController implements Initializable {
     private final MenuIcon menuIcon;
     @FXML
     private ImageView ExitInventoryIcon;
-    public ProductToolbarController() {
+    public ProductTypeToolbarController() {
         this.menuGridPane = new MenuGridPane();
         this.menuIcon = new MenuIcon();
     }
