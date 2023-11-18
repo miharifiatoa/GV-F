@@ -1,28 +1,24 @@
 package com.sales_management_javafx.controller.product;
 
-import com.sales_management_javafx.SalesApplication;
-import javafx.collections.FXCollections;
+import com.sales_management_javafx.composent.ProductCategoryGridPane;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.StackPane;
 import org.sales_management.entity.ProductCategoryEntity;
 import org.sales_management.entity.ProductEntity;
+import org.sales_management.service.ProductCategoryService;
 import org.sales_management.service.ProductService;
+import org.sales_management.service.ProductTypeService;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ProductCreateController implements Initializable {
     @FXML
-    private VBox articleCreate;
+    private StackPane productCreate;
     @FXML
     private TextField productNameTextfield;
     @FXML
@@ -32,25 +28,30 @@ public class ProductCreateController implements Initializable {
     @FXML private Label productCategoryLabel;
     @FXML private Label nameWarning;
     private final ProductService productService;
+    private final ProductCategoryService productCategoryService;
 
     public ProductCreateController() {
+        this.productCategoryService = new ProductCategoryService();
         this.productService = new ProductService();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.formValidation();
+        this.setExit();
     }
     public void initialize(ProductCategoryEntity productCategory){
         productCategoryLabel.setText("Nouveau " + productCategory.getName());
+        this.formValidation(productCategory);
+        this.setSave(productCategory);
     }
-    private void onCancelCreateArticle(){
+    private void setExit(){
         exit.setOnAction(event->{
-            BorderPane parent = (BorderPane) articleCreate.getParent();
+            BorderPane modal = (BorderPane) productCreate.getParent();
+            modal.setVisible(false);
         });
     }
 
-    public void formValidation(){
+    public void formValidation(ProductCategoryEntity productCategory){
         if (this.productNameTextfield.getText().isEmpty()){
             save.setDisable(true);
         }
@@ -61,7 +62,7 @@ public class ProductCreateController implements Initializable {
                 ProductEntity existingProduct = productService.isUniqueValue(productName);
 
                 if (existingProduct != null) {
-                    nameWarning.setText(productName + " existe déjà dans la liste de catégories de produits");
+                    nameWarning.setText(productName + " existe déjà dans la catégorie " + productCategory.getName());
                     save.setDisable(true);
                 } else {
                     nameWarning.setText(null);
@@ -74,14 +75,18 @@ public class ProductCreateController implements Initializable {
         });
 
     }
-    private ProductEntity createProduct(){
-        ProductEntity product = new ProductEntity();
-        if (!this.productNameTextfield.getText().isEmpty()){
-            product.setName(this.productNameTextfield.getText());
-            return this.productService.create(product);
-        }
-        else {
-            return null;
-        }
+    private void setSave(ProductCategoryEntity productCategory){
+        save.setOnAction(event->{
+            ProductEntity product = new ProductEntity();
+            product.setProductCategory(productCategory);
+            product.setName(productNameTextfield.getText());
+            if (productService.create(product) != null){
+                StackPane productBoxLayout = (StackPane) productCreate.getParent().getParent();
+                ScrollPane productBoxLayoutScrollpane = (ScrollPane) productBoxLayout.lookup("#productBoxLayoutScrollpane");
+                GridPane productCategoryGridPane = new ProductCategoryGridPane().getGridPane(productCategoryService.getAll(), 4);
+                productBoxLayoutScrollpane.setContent(productCategoryGridPane);
+                productCreate.getParent().setVisible(false);
+            }
+        });
     }
 }

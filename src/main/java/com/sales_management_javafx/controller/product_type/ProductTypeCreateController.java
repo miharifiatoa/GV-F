@@ -85,14 +85,14 @@ public class ProductTypeCreateController implements Initializable {
             productCreate.getParent().setVisible(false);
         });
     }
-    private void setSave(ProductEntity productCategory){
+    private void setSave(ProductEntity product){
         save.setOnAction(event->{
-            ProductTypeEntity product = productTypeService.create(getProduct(productCategory));
-            if (product != null){
+            ProductTypeEntity productType = productTypeService.create(getProduct(product));
+            if (productType != null){
                 StackPane productBoxLayout = (StackPane) productCreate.getParent().getParent();
                 ScrollPane productBoxLayoutScrollpane = (ScrollPane) productBoxLayout.lookup("#productBoxLayoutScrollpane");
-                GridPane productCategoryGridpane = new ProductGridPane().getGridPane(new ProductService().getAll(),4);
-                productBoxLayoutScrollpane.setContent(productCategoryGridpane);
+                GridPane productGridpane = new ProductGridPane().getGridPane(new ProductService().getAll(),4);
+                productBoxLayoutScrollpane.setContent(productGridpane);
                 productCreate.getParent().setVisible(false);
             }
         });

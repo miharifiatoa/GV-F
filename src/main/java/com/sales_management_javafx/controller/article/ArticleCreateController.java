@@ -42,12 +42,12 @@ public class ArticleCreateController implements Initializable {
         this.setExit();
         this.formValidation(productType);
     }
-    private void setSave(ProductTypeEntity product){
+    private void setSave(ProductTypeEntity productType){
         save.setOnAction(event->{
-            if (this.articleService.create(getProductType(product)) != null){
+            if (this.articleService.create(getProductType(productType)) != null){
                 StackPane productBoxLayout = (StackPane) productTypeCreate.getParent().getParent();
                 ScrollPane productBoxLayoutScrollpane = (ScrollPane) productBoxLayout.lookup("#productBoxLayoutScrollpane");
-                GridPane productGridPane = new ProductTypeGridPane().getGridPane(new ProductTypeService().getById(product.getId()).getProduct().getProductTypes(), 4,false);
+                GridPane productGridPane = new ProductTypeGridPane().getGridPane(new ProductTypeService().getById(productType.getId()).getProduct().getProductTypes(), 4,false);
                 productBoxLayoutScrollpane.setContent(productGridPane);
                 productTypeCreate.getParent().setVisible(false);
             }
