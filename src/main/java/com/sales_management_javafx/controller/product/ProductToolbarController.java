@@ -30,7 +30,7 @@ public class ProductToolbarController implements Initializable {
     }
     private VBox getForm(){
         VBox toolbarBox;
-        FXMLLoader toolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_category/productForm.fxml"));
+        FXMLLoader toolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_category/productCreate.fxml"));
         try {
             toolbarBox = toolbarLoader.load();
         } catch (IOException e) {

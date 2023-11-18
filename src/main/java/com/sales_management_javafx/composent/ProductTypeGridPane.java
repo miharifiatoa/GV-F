@@ -1,13 +1,10 @@
 package com.sales_management_javafx.composent;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.controller.article.ArticleBoxController;
+import com.sales_management_javafx.controller.product_type.ProductTypeBoxController;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import org.sales_management.entity.ArticleEntity;
+import javafx.scene.layout.*;
+import org.sales_management.entity.ProductTypeEntity;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -18,8 +15,7 @@ public class ProductTypeGridPane {
     public ProductTypeGridPane() {
         this.gridPane = new GridPane();
     }
-
-    public GridPane getGridPane(Collection<ArticleEntity> productTypes , int colSize) {
+    public GridPane getGridPane(Collection<ProductTypeEntity> products, int colSize, boolean isShowCreateBox){
         for (int i = 0 ; i < colSize ; i++){
             ColumnConstraints constraints = new ColumnConstraints();
             constraints.setHgrow(Priority.ALWAYS);
@@ -27,29 +23,36 @@ public class ProductTypeGridPane {
             constraints.setPercentWidth((double) 100 /colSize);
             gridPane.getColumnConstraints().add(constraints);
         }
-        int col = 0;
+        int col = 1;
         int row = 0;
-        for (ArticleEntity productType : productTypes) {
-            gridPane.add(this.getProductTypeBox(productType), col, row);
-            col++;
-            if (col == colSize) {
-                col = 0;
-                row++;
-            }
+        if (isShowCreateBox){
+//            gridPane.add(this.getProductCreateFormBox(), 0, row);
+        }
+        else col = 0;
+        for (ProductTypeEntity product : products) {
+//            if (!ProductFile.readProductsFromFile().contains(product)){
+                gridPane.add(this.getProductBox(product), col, row);
+                col++;
+                if (col == colSize) {
+                    col = 0;
+                    row++;
+                }
+//            }
         }
         gridPane.getStyleClass().add("gridpane");
+        gridPane.setId("productGridPane");
         return gridPane;
     }
-    private StackPane getProductTypeBox(ArticleEntity productType){
-        FXMLLoader productTypeBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article/articleBox.fxml"));
-        StackPane productTypeBox;
+    private StackPane getProductBox(ProductTypeEntity product){
+        FXMLLoader productBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_type/productTypeBox.fxml"));
+        StackPane productBoxStackpane;
         try {
-            productTypeBox = productTypeBoxLoader.load();
-            ArticleBoxController articleBoxController = productTypeBoxLoader.getController();
-            articleBoxController.initialize(productType);
+            productBoxStackpane = productBoxLoader.load();
+            ProductTypeBoxController productTypeBoxController = productBoxLoader.getController();
+            productTypeBoxController.initialize(product);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return productTypeBox;
+        return productBoxStackpane;
     }
 }

@@ -1,31 +1,18 @@
 package com.sales_management_javafx.controller.seller;
 
-import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.classes.FileIO;
-import com.sales_management_javafx.composent.ArticleGridPane;
-import com.sales_management_javafx.composent.ProductTypeGridPane;
 import com.sales_management_javafx.composent.SellerArticleTypeGridPane;
 import com.sales_management_javafx.composent.StockistArticleTypeGridPane;
-import com.sales_management_javafx.controller.article.ArticleEditController;
-import com.sales_management_javafx.controller.article_type.ArticleTypeCreateController;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.sales_management.entity.ArticleEntity;
-import org.sales_management.entity.ProductTypeEntity;
 import org.sales_management.service.ArticleService;
 import org.sales_management.service.ProductTypeService;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
