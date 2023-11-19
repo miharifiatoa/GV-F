@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class SalesApplication extends Application {
+    private static Stage primaryStage;
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(SalesApplication.class.getResource("sales-management.fxml"));
@@ -17,6 +19,12 @@ public class SalesApplication extends Application {
         stage.setMinHeight(500);
         stage.setScene(scene);
         stage.show();
+
+        primaryStage = stage;
+    }
+
+    public static Stage getPrimaryStage() {
+        return primaryStage;
     }
 
     public static void main(String[] args) {

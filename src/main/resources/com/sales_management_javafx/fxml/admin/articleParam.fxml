@@ -17,40 +17,6 @@
 <StackPane fx:id="articleParam" prefHeight="515.0" prefWidth="731.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.admin.ParamController">
    <children>
       <BorderPane fx:id="ArticleDetail" prefHeight="200.0" prefWidth="200.0">
-         <top>
-            <GridPane prefHeight="23.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="686.0" minWidth="10.0" prefWidth="686.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="93.0" minWidth="0.0" prefWidth="15.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <Label fx:id="codeAtircle" alignment="CENTER" layoutX="38.0" layoutY="4.0" prefHeight="23.0" prefWidth="515.0" text="Label" textFill="#0aa691" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <font>
-                              <Font name="System Bold Italic" size="13.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane prefHeight="23.0" prefWidth="36.0" GridPane.columnIndex="1">
-                     <children>
-                        <Label fx:id="fermer" alignment="CENTER" layoutX="8.0" layoutY="4.0" prefHeight="23.0" prefWidth="27.0" text="X" textFill="#f80303" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-               </children>
-            </GridPane>
-         </top>
          <center>
             <GridPane prefHeight="289.0" prefWidth="320.0" BorderPane.alignment="CENTER">
                <columnConstraints>
@@ -403,45 +369,6 @@
          </bottom>
       </BorderPane>
       <BorderPane fx:id="liste" prefHeight="200.0" prefWidth="200.0" visible="false">
-         <top>
-            <GridPane prefHeight="23.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="690.0" minWidth="10.0" prefWidth="690.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="93.0" minWidth="0.0" prefWidth="11.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <Label fx:id="codeAtircle1" alignment="CENTER" layoutX="38.0" layoutY="4.0" prefHeight="23.0" prefWidth="164.0" text="Journal" textFill="#0aa691" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <font>
-                              <Font name="System Bold Italic" size="13.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="126.0" layoutY="15.0" prefHeight="31.0" prefWidth="690.0" text="Listes des modifications apporter au stock" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <font>
-                              <Font name="System Bold Italic" size="13.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane prefHeight="23.0" prefWidth="20.0" GridPane.columnIndex="1">
-                     <children>
-                        <Label fx:id="fermer1" alignment="CENTER" layoutY="4.0" prefHeight="23.0" prefWidth="36.0" text="X" textFill="#f80303" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-               </children>
-            </GridPane>
-         </top>
          <bottom>
             <GridPane alignment="CENTER" prefHeight="37.0" prefWidth="544.0" BorderPane.alignment="CENTER">
                <columnConstraints>

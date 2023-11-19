@@ -9,7 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.sales_management.entity.ShopEntity;
 import org.sales_management.service.ShopService;
@@ -98,11 +97,11 @@ public class ShopEditFormController implements Initializable {
            
             ShopEntity newShop = this.shopService.update(shop);
            if(newShop.getId()>0){
-                BorderPane dashboardLayout = (BorderPane) this.shopEditFormVBox.getParent();
-            ScrollPane dashboardLayoutScrollpane = (ScrollPane) dashboardLayout.lookup("#dashboardLayoutScrollpane");
-            GridPane shopGridPane = new ShopGridPane().getGridPane(new ShopService().getAll(),4);
-            dashboardLayoutScrollpane.setContent(shopGridPane);
-            dashboardLayout.setBottom(this.getDashboardToolbar());
+                BorderPane dashboardLayout = (BorderPane) this.shopEditFormVBox.getParent().getParent();
+                ScrollPane dashboardLayoutScrollpane = (ScrollPane) dashboardLayout.lookup("#dashboardLayoutScrollpane");
+                GridPane shopGridPane = new ShopGridPane().getGridPane(new ShopService().getAll(),4);
+                dashboardLayoutScrollpane.setContent(shopGridPane);
+                dashboardLayout.setBottom(this.getDashboardToolbar());
            }
             
         });
