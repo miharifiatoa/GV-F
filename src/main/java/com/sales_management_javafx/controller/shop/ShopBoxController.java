@@ -2,6 +2,7 @@ package com.sales_management_javafx.controller.shop;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
+import com.sales_management_javafx.composent.admin.AdminShopGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -16,6 +17,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
+import org.sales_management.service.ShopService;
 
 public class ShopBoxController implements Initializable {
     @FXML
@@ -37,8 +39,11 @@ public class ShopBoxController implements Initializable {
     @FXML private Button edit;
     @FXML private Button delete;
     @FXML private Button exit;
-    @FXML private Button save;
-
+    @FXML private Button del;
+    private ShopService shopService;
+    public ShopBoxController(){
+        this.shopService = new ShopService();
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -55,6 +60,7 @@ public class ShopBoxController implements Initializable {
         deleteVBox.setVisible(false);
         this.initialize(shop);
         onUpdateShop(shop);
+        onDeleteShop(shop);
         getEditShopForm(shop);
         this.setDelete();
         this.setExit();
@@ -85,6 +91,20 @@ public class ShopBoxController implements Initializable {
         this.edit.setOnAction(event->{
             ScrollPane scrollPane = (ScrollPane) shopBoxStackpane.getParent().getParent().getParent().getParent();
             scrollPane.setContent(getEditShopForm(shop));
+        });
+    }
+    public void onDeleteShop(ShopEntity shop){
+        this.del.setOnAction(event->{
+            
+            if(shop.getId()>0){
+                ShopEntity dropedSop = this.shopService.deleteById(shop.getId());
+                if(dropedSop!=null){
+                ScrollPane shopLayoutScrollpane = (ScrollPane) this.shopBoxStackpane.getParent().getParent().getParent().getParent();
+                GridPane shopGridPane = new AdminShopGridPane().getGridPane(shopService.getAll(),4);
+                shopLayoutScrollpane.setContent(shopGridPane);
+                }
+            }
+            
         });
     }
     public VBox getEditShopForm(ShopEntity shop){

@@ -47,9 +47,9 @@ public class ShopEditFormController implements Initializable {
         if(shop!=null){
         shopNameTextfield.setText(shop.getName());
         shopAddressTextfield.setText(shop.getAddress());
-        shopContactTextfield.setText(shop.getContact().toString());
+        shopContactTextfield.setText(shop.getContact());
         shopEmailTextfield.setText(shop.getEmail());
-        }
+        } 
         
         this.formValidation();
         this.onUpdateShop(shop);
@@ -87,7 +87,17 @@ public class ShopEditFormController implements Initializable {
     
     private void onUpdateShop(ShopEntity shop){
         editShopButton.setOnAction(actionEvent -> {
-            
+            if(!shopNameTextfield.getText().isEmpty()) shop.setName(shopNameTextfield.getText());
+            if(!shopAddressTextfield.getText().isEmpty()) shop.setAddress(shopAddressTextfield.getText());
+            if(!shopContactTextfield.getText().isEmpty()) shop.setContact(shopContactTextfield.getText());
+            if(!shopEmailTextfield.getText().isEmpty()) shop.setEmail(shopEmailTextfield.getText());
+           
+            ShopEntity newShop = this.shopService.update(shop);
+           if(newShop.getId()>0){
+            ScrollPane shopLayoutScrollpane = (ScrollPane) shopEditFormVBox.getParent().getParent().getParent();
+            GridPane shopGridPane = new StockistShopGridPane().getGridPane(new ShopService().getAll(),4);
+            shopLayoutScrollpane.setContent(shopGridPane);
+            }
         });
     }
     private BorderPane getDashboardToolbar(){
