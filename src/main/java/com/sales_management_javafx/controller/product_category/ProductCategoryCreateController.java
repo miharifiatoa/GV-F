@@ -1,4 +1,4 @@
-package com.sales_management_javafx.controller.product;
+package com.sales_management_javafx.controller.product_category;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,61 +10,55 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import org.sales_management.entity.ProductCategoryEntity;
-import org.sales_management.entity.ProductEntity;
 import org.sales_management.service.ProductCategoryService;
-import org.sales_management.service.ProductService;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.scene.layout.StackPane;
 
-public class ProductCreateController implements Initializable {
+public class ProductCategoryCreateController implements Initializable {
     @FXML
-    private StackPane productCreate;
+    private StackPane productCategoryCreate;
     @FXML
-    private TextField productNameTextfield;
+    private TextField productCategoryNameTextfield;
     @FXML
     private Button save;
     @FXML
     private Button exit;
     @FXML private Label productCategoryLabel;
     @FXML private Label nameWarning;
-    private final ProductService productService;
     private final ProductCategoryService productCategoryService;
 
-    public ProductCreateController() {
+    public ProductCategoryCreateController() {
         this.productCategoryService = new ProductCategoryService();
-        this.productService = new ProductService();
-    }
+        }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.setExit();
-    }
-    public void initialize(ProductCategoryEntity productCategory){
-        productCategoryLabel.setText("Nouveau " + productCategory.getName());
-        this.formValidation(productCategory);
-        this.setSave(productCategory);
+                productCategoryLabel.setText("Nouveau " + productCategoryNameTextfield.getText());
+                this.formValidation();
+                this.setSave();
     }
     private void setExit(){
         exit.setOnAction(event->{
-            BorderPane modal = (BorderPane) productCreate.getParent();
+            BorderPane modal = (BorderPane) productCategoryCreate.getParent();
             modal.setVisible(false);
         });
     }
 
-    public void formValidation(ProductCategoryEntity productCategory){
-        if (this.productNameTextfield.getText().isEmpty()){
+    public void formValidation(){
+        if (this.productCategoryNameTextfield.getText().isEmpty()){
             save.setDisable(true);
         }
-        productNameTextfield.textProperty().addListener((observable, oldValue, newValue) -> {
+        productCategoryNameTextfield.textProperty().addListener((observable, oldValue, newValue) -> {
             String productName = newValue.trim().toLowerCase();
 
             if (!productName.isEmpty()) {
-                ProductEntity existingProduct = productService.isUniqueValue(productName);
+                ProductCategoryEntity existingCategory = productCategoryService.isUniqueValue(productName);
 
-                if (existingProduct != null) {
-                    nameWarning.setText(productName + " existe déjà dans la catégorie " + productCategory.getName());
+                if (existingCategory != null) {
+                    nameWarning.setText(productName + " existe déjà dans la catégorie " + existingCategory.getName());
                     save.setDisable(true);
                 } else {
                     nameWarning.setText(null);
@@ -77,17 +71,16 @@ public class ProductCreateController implements Initializable {
         });
 
     }
-    private void setSave(ProductCategoryEntity productCategory){
+    private void setSave(){
         save.setOnAction(event->{
-            ProductEntity product = new ProductEntity();
-            product.setProductCategory(productCategory);
-            product.setName(productNameTextfield.getText());
-            if (productService.create(product) != null){
-                StackPane productBoxLayout = (StackPane) productCreate.getParent().getParent();
+            ProductCategoryEntity newProductCategory = new ProductCategoryEntity();
+            newProductCategory.setName(productCategoryNameTextfield.getText());
+            if (productCategoryService.create(newProductCategory) != null){
+                StackPane productBoxLayout = (StackPane) productCategoryCreate.getParent().getParent();
                 ScrollPane productBoxLayoutScrollpane = (ScrollPane) productBoxLayout.lookup("#productBoxLayoutScrollpane");
                 GridPane productCategoryGridPane = new ProductCategoryGridPane().getGridPane(productCategoryService.getAll(), 4);
                 productBoxLayoutScrollpane.setContent(productCategoryGridPane);
-                productCreate.getParent().setVisible(false);
+                productCategoryCreate.getParent().setVisible(false);
             }
         });
     }
