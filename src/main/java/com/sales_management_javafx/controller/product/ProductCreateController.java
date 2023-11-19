@@ -1,6 +1,5 @@
 package com.sales_management_javafx.controller.product;
 
-<<<<<<< HEAD
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -8,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-=======
 import com.sales_management_javafx.composent.ProductCategoryGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,7 +14,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
->>>>>>> 12a8e92f38a6b90d905bd7a90c03b8e5508f216e
 import org.sales_management.entity.ProductCategoryEntity;
 import org.sales_management.entity.ProductEntity;
 import org.sales_management.service.ProductCategoryService;
@@ -29,11 +26,7 @@ import javafx.scene.layout.StackPane;
 
 public class ProductCreateController implements Initializable {
     @FXML
-<<<<<<< HEAD
-    private StackPane categoryCreate;
-=======
     private StackPane productCreate;
->>>>>>> 12a8e92f38a6b90d905bd7a90c03b8e5508f216e
     @FXML
     private TextField productNameTextfield;
     @FXML
@@ -61,12 +54,8 @@ public class ProductCreateController implements Initializable {
     }
     private void setExit(){
         exit.setOnAction(event->{
-<<<<<<< HEAD
-            BorderPane parent = (BorderPane) categoryCreate.getParent();
-=======
             BorderPane modal = (BorderPane) productCreate.getParent();
             modal.setVisible(false);
->>>>>>> 12a8e92f38a6b90d905bd7a90c03b8e5508f216e
         });
     }
 
