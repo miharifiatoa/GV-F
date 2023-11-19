@@ -3,6 +3,7 @@ package com.sales_management_javafx.controller.product_type;
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.MenuIcon;
 import com.sales_management_javafx.composent.*;
+import com.sales_management_javafx.controller.product_category.ProductCategoryCreateController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -37,6 +38,7 @@ public class ProductTypeBoxLayoutController implements Initializable {
     @FXML private Label articleTypes;
     @FXML private Label articles;
     @FXML private Label categories;
+    @FXML private Label newCategoryLabel;
     @FXML private ImageView articleIcon;
     @FXML private Button exit;
     private final ProductTypeService productTypeService;
@@ -70,8 +72,9 @@ public class ProductTypeBoxLayoutController implements Initializable {
         this.setProductTypes();
         this.setArticles();
         this.setArticleTypes();
+        this.onCreateProductCategory();
         this.exit.setOnAction(event->{
-            this.setExit();
+        this.setExit();
         });
     }
     
@@ -82,7 +85,7 @@ public class ProductTypeBoxLayoutController implements Initializable {
             if (!searchProductTextfield.getText().isEmpty()){
                 
                         switch (searchProductTextfield.getId()) {
-                            case "categorie" -> {
+                            case "category" -> {
                                 Collection<ProductCategoryEntity> productCategory = this.productCategoryService.searchCategoryByName(searchProductTextfield.getText());
                                 this.productBoxLayoutScrollpane.setContent(new ProductCategoryGridPane().getGridPane(productCategory,4));
                             }
@@ -105,7 +108,7 @@ public class ProductTypeBoxLayoutController implements Initializable {
             else {
                     String id = searchProductTextfield.getId();
                     switch (id) {
-                    case "categorie" -> {
+                    case "category" -> {
                         Collection<ProductCategoryEntity> productCategory = this.productCategoryService.searchCategoryByName(searchProductTextfield.getText());
                         this.productBoxLayoutScrollpane.setContent(new ProductCategoryGridPane().getGridPane(productCategory,4));
                     }
@@ -132,7 +135,7 @@ public class ProductTypeBoxLayoutController implements Initializable {
     private void setProductCategories(){
         categories.setOnMouseClicked(event->{
             this.productBoxLayoutScrollpane.setContent(new ProductCategoryGridPane().getGridPane(productCategoryService.getAll(),4));
-            searchProductTextfield.setId("categorie");
+            searchProductTextfield.setId("category");
         });
     }
     private void setProducts(){
@@ -166,6 +169,27 @@ public class ProductTypeBoxLayoutController implements Initializable {
     }
     private void putIcons(){
         this.articleIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/ArticleIcon.png"))));
+    }
+    
+    
+    private void onCreateProductCategory(){
+        newCategoryLabel.setOnMouseClicked(event->{
+            BorderPane modal = (BorderPane) productBoxLayout.lookup("#modal");
+            modal.setCenter(this.getProductCategoryCreateBox());
+            modal.setVisible(true);
+            event.consume();
+        });
+    }
+    
+    private StackPane getProductCategoryCreateBox(){
+        FXMLLoader createProductCategoryBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_category/productCategoryCreate.fxml"));
+        StackPane createProductCategoryBox;
+        try {
+            createProductCategoryBox = createProductCategoryBoxLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return createProductCategoryBox;
     }
 
     private StackPane getToolbar(){
