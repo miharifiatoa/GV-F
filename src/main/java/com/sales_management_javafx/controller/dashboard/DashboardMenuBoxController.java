@@ -30,11 +30,6 @@ public class DashboardMenuBoxController implements Initializable {
     private ImageView menuIcon;
     @FXML
     private Label menuLabel;
-    private BorderPane account;
-    private BorderPane shop;
-    private BorderPane article;
-    private BorderPane product;
-    private BorderPane sale;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -47,17 +42,7 @@ public class DashboardMenuBoxController implements Initializable {
         this.onShowContent();
     }
     public void initialize(){
-        FXMLLoader accountLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountLayout.fxml"));
-        FXMLLoader shopLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/shop/shopLayout.fxml"));
-        FXMLLoader articleLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productLayout.fxml"));
-        try {
-            this.account = accountLoader.load();
-            this.shop = shopLoader.load();
-            this.article = articleLoader.load();
-        } catch (IOException e) {
-            System.out.println("error");
-            e.printStackTrace();
-        }
+
     }
     public void onShowContent(){
         menuLabel.setOnMouseClicked(this::handleClickMenuItems);

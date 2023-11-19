@@ -151,7 +151,7 @@
     -fx-font-weight: bold;
 }
 .active .box{
-    -fx-background-color: #ff0000;
+    -fx-background-color: #ebebeb;
     -fx-font-weight: bold;
 }
 .scrollpane{

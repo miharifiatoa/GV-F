@@ -5,7 +5,7 @@ import com.sales_management_javafx.classes.DateTimeFormatter;
 import com.sales_management_javafx.classes.Printer;
 import com.sales_management_javafx.composent.arrival.ArrivalGridPane;
 import com.sales_management_javafx.composent.arrival.ArrivalInfoGridPane;
-import com.sales_management_javafx.composent.StockistArticleTypeGridPane;
+import com.sales_management_javafx.composent.stockist.StockistArticleTypeGridPane;
 import com.sales_management_javafx.composent.admin.AdminArrivalInfoGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

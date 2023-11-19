@@ -1,4 +1,4 @@
-package com.sales_management_javafx.composent;
+package com.sales_management_javafx.composent.stockist;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.controller.shop.ShopBoxController;
@@ -12,10 +12,10 @@ import org.sales_management.entity.ShopEntity;
 import java.io.IOException;
 import java.util.Collection;
 
-public class ShopGridPane {
+public class StockistShopGridPane {
     private final GridPane gridPane;
 
-    public ShopGridPane() {
+    public StockistShopGridPane() {
         this.gridPane = new GridPane();
     }
 
@@ -46,7 +46,7 @@ public class ShopGridPane {
         try {
             stackPane = shopBoxLoader.load();
             ShopBoxController shopBoxController = shopBoxLoader.getController();
-            shopBoxController.initialize(shop);
+            shopBoxController.initializeForStockist(shop);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

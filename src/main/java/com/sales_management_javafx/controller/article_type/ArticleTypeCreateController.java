@@ -1,7 +1,7 @@
 package com.sales_management_javafx.controller.article_type;
 
 import com.sales_management_javafx.composent.ArticleGridPane;
-import com.sales_management_javafx.composent.StockistArticleTypeGridPane;
+import com.sales_management_javafx.composent.stockist.StockistArticleTypeGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;

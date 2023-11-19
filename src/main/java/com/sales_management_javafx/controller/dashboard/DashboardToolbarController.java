@@ -101,7 +101,7 @@ public class DashboardToolbarController implements Initializable {
         this.MoneyIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/MoneyIcon.png"))));
     }
     private BorderPane getShopLayout(){
-        FXMLLoader shopLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/shop/shop2Layout.fxml"));
+        FXMLLoader shopLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/shop/shopLayout.fxml"));
         BorderPane shoplayout;
         try {
             shoplayout = shopLayoutLoader.load();

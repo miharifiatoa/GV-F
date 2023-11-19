@@ -1,7 +1,7 @@
 package com.sales_management_javafx.controller.shop;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.composent.ShopGridPane;
+import com.sales_management_javafx.composent.stockist.StockistShopGridPane;
 import java.io.IOException;
 import javafx.fxml.Initializable;
 
@@ -46,7 +46,7 @@ public class ConfirmDeleteShopController implements Initializable {
         if(dropedShop!=null){
             BorderPane dashboardLayout = (BorderPane) this.confirm_delete_shop_form.getParent();
             ScrollPane dashboardLayoutScrollpane = (ScrollPane) dashboardLayout.lookup("#dashboardLayoutScrollpane");
-            GridPane shopGridPane = new ShopGridPane().getGridPane(new ShopService().getAll(),4);
+            GridPane shopGridPane = new StockistShopGridPane().getGridPane(new ShopService().getAll(),4);
             dashboardLayoutScrollpane.setContent(shopGridPane);
             dashboardLayout.setBottom(this.getDashboardToolbar());
                 }
@@ -62,7 +62,7 @@ public class ConfirmDeleteShopController implements Initializable {
     }
     
     private BorderPane getDashboardToolbar(){
-    FXMLLoader shopLayotLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/shop/shop2Layout.fxml"));
+    FXMLLoader shopLayotLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/shop/shopLayout.fxml"));
         BorderPane shopLayout;
         try {
             shopLayout = shopLayotLoader.load();

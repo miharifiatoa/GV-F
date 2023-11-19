@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="shopEditFormVBox" prefHeight="133.0" prefWidth="600.0" spacing="5.0" styleClass="form" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.shop.ShopEditFormController">
+<VBox fx:id="shopEditFormVBox" prefHeight="133.0" prefWidth="600.0" spacing="5.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.shop.ShopEditFormController">
    <children>
       <GridPane hgap="10.0" prefHeight="201.6" prefWidth="591.0">
          <columnConstraints>
@@ -129,11 +129,6 @@
                <children>
                   <HBox alignment="CENTER_RIGHT" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button fx:id="cancelShopButton" mnemonicParsing="false" text="Annuler" textFill="#727206">
-                           <font>
-                              <Font name="System Bold Italic" size="12.0" />
-                           </font>
-                        </Button>
                         <Button fx:id="editShopButton" mnemonicParsing="false" text="Sauvegarder " textFill="#0e9128">
                            <font>
                               <Font name="System Bold Italic" size="12.0" />

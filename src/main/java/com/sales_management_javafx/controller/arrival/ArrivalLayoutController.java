@@ -4,7 +4,7 @@ import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.composent.arrival.ArrivalGridPane;
 import com.sales_management_javafx.composent.ArticleInfoGridPane;
-import com.sales_management_javafx.composent.StockistArticleTypeGridPane;
+import com.sales_management_javafx.composent.stockist.StockistArticleTypeGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -80,20 +80,22 @@ public class ArrivalLayoutController implements Initializable {
     private void setSave(){
         save.setOnAction(event->{
             Collection<ArticleTypeEntity> articles = FileIO.readArticleFromFile("arrivals.dat");
-            ArrivalEntity arrival = new ArrivalEntity();
-            arrival.setArrivalDate(LocalDateTime.now());
-            arrival.setDescription(arrivalDescriptionTextfield.getText());
-            if (user != null){
-                arrival.setUser(user);
-            }
-            if (arrivalService.toSaveArrival(arrival,articles)!=null){
-                articles.clear();
-                FileIO.writeTo("arrivals.dat",articles);
-                GridPane stockistArticleGridPane = new StockistArticleTypeGridPane().getGridPane(new ArticleTypeService().getAll(),4);
-                GridPane articleInfoGridPane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("arrivals.dat"),2);
-                getStockistBoxLayoutScrollpane().setContent(stockistArticleGridPane);
-                arrivalLayoutScrollpane.setContent(articleInfoGridPane);
-                setExit();
+            if (!articles.isEmpty()){
+                ArrivalEntity arrival = new ArrivalEntity();
+                arrival.setArrivalDate(LocalDateTime.now());
+                arrival.setDescription(arrivalDescriptionTextfield.getText());
+                if (user != null){
+                    arrival.setUser(user);
+                }
+                if (arrivalService.toSaveArrival(arrival,articles)!=null){
+                    articles.clear();
+                    FileIO.writeTo("arrivals.dat",articles);
+                    GridPane stockistArticleGridPane = new StockistArticleTypeGridPane().getGridPane(new ArticleTypeService().getAll(),4);
+                    GridPane articleInfoGridPane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("arrivals.dat"),2);
+                    getStockistBoxLayoutScrollpane().setContent(stockistArticleGridPane);
+                    arrivalLayoutScrollpane.setContent(articleInfoGridPane);
+                    setExit();
+                }
             }
         });
     }
@@ -125,13 +127,8 @@ public class ArrivalLayoutController implements Initializable {
         if (arrivalDescriptionTextfield.getText().isEmpty()){
             save.setDisable(true);
         }
-        if (FileIO.readArticleFromFile("arrivals.dat").isEmpty()){
-            save.setDisable(true);
-        }
         arrivalDescriptionTextfield.textProperty().addListener(event->{
-            if (!arrivalDescriptionTextfield.getText().isEmpty()){
-                save.setDisable(FileIO.readArticleFromFile("arrivals.dat").isEmpty());
-            }
+            save.setDisable(arrivalDescriptionTextfield.getText().isEmpty());
         });
     }
 }

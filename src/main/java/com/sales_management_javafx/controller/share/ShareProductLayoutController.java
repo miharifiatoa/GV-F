@@ -4,8 +4,8 @@ import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.composent.ArticleInfoGridPane;
 import com.sales_management_javafx.composent.share.ShareGridPane;
-import com.sales_management_javafx.composent.ShopGridPane;
-import com.sales_management_javafx.composent.StockistArticleTypeGridPane;
+import com.sales_management_javafx.composent.stockist.StockistShopGridPane;
+import com.sales_management_javafx.composent.stockist.StockistArticleTypeGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -97,8 +97,11 @@ public class ShareProductLayoutController implements Initializable {
     }
     private void onShareProduct(){
         this.sendProductButton.setOnAction(event->{
-            this.shareArticleLayoutBorderpane.setVisible(false);
-            this.shopLayoutBorderpane.setVisible(true);
+            if (!FileIO.readArticleFromFile("shares.dat").isEmpty()){
+
+                this.shareArticleLayoutBorderpane.setVisible(false);
+                this.shopLayoutBorderpane.setVisible(true);
+            }
         });
     }
     private void setShareProductButton(){
@@ -123,7 +126,7 @@ public class ShareProductLayoutController implements Initializable {
         });
     }
     private void setShops(){
-        GridPane gridPane = new ShopGridPane().getGridPane(shopService.getAll(),4);
+        GridPane gridPane = new StockistShopGridPane().getGridPane(shopService.getAll(),4);
         ScrollPane scrollPane = (ScrollPane) shopLayoutBorderpane.getCenter();
         scrollPane.setContent(gridPane);
     }

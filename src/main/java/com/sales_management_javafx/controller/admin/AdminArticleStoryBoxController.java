@@ -47,7 +47,7 @@ public class AdminArticleStoryBoxController implements Initializable {
                     + saleArticle.getArticleType().getSize()
                     + " au client "
                     + saleArticle.getSale().getClient().getName()
-                    + " qui le "
+                    + " le "
                     + DateTimeFormatter.format(saleArticle.getSaleDate()));
         }
     }

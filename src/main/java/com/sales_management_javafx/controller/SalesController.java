@@ -6,11 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import org.sales_management.entity.AccountEntity;
-import org.sales_management.entity.InventoryEntity;
-import org.sales_management.entity.UserEntity;
+import org.sales_management.entity.*;
 import org.sales_management.service.AccountService;
 import org.sales_management.service.InventoryService;
+import org.sales_management.service.ShopService;
 import org.sales_management.service.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -25,8 +24,10 @@ public class SalesController implements Initializable {
     private final InventoryService inventoryService;
     private final AccountService accountService;
     private final UserService userService;
+    private final ShopService shopService;
 
     public SalesController() {
+        this.shopService = new ShopService();
         this.accountService = new AccountService();
         this.userService = new UserService();
         this.inventoryService = new InventoryService();
@@ -55,7 +56,13 @@ public class SalesController implements Initializable {
             account.setUsername("admin");
             account.setUser(user);
             accountService.create(account);
-            System.out.println("fff");
+        }
+        if (shopService.getAll().isEmpty() || shopService.getAll().size() == 0){
+            ShopEntity shop = new ShopEntity();
+            shop.setContact("0340236845");
+            shop.setAddress("Ampasambazaha");
+            shop.setName("Boutique One");
+            shopService.create(shop);
         }
     }
     public String hashedPassword(String password){

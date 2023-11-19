@@ -3,7 +3,7 @@ package com.sales_management_javafx.controller.stockist;
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.classes.NumberTextField;
-import com.sales_management_javafx.composent.StockistArticleTypeGridPane;
+import com.sales_management_javafx.composent.stockist.StockistArticleTypeGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -147,12 +147,12 @@ public class StockistArticleTypeBoxController implements Initializable {
             this.articleVBox.setVisible(false);
         });
     }
-    private void onAddArticleInShareList(ArticleTypeEntity article){
+    private void onAddArticleInShareList(ArticleTypeEntity articleType){
         addInList.setOnAction(event->{
-            article.setQuantity(Integer.parseInt(quantitySharedTextfield.getText()));
-            Collection<ArticleTypeEntity> existingPrices = FileIO.readArticleFromFile("shares.dat");
-            existingPrices.add(article);
-            FileIO.writeTo("shares.dat", existingPrices);
+            articleType.setQuantity(Integer.parseInt(quantitySharedTextfield.getText()));
+            Collection<ArticleTypeEntity> existingTypes = FileIO.readArticleFromFile("shares.dat");
+            existingTypes.add(articleType);
+            FileIO.writeTo("shares.dat", existingTypes);
             ScrollPane productBoxLayoutScrollpane = (ScrollPane) articleBox.getParent().getParent().getParent().getParent();
             GridPane gridPane = new StockistArticleTypeGridPane().getGridPane(new ArticleTypeService().getAll(), 4);
             productBoxLayoutScrollpane.setContent(gridPane);

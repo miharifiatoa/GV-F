@@ -5,7 +5,7 @@ import com.sales_management_javafx.classes.DateTimeFormatter;
 import com.sales_management_javafx.classes.Printer;
 import com.sales_management_javafx.composent.share.ShareInfoGridPane;
 import com.sales_management_javafx.composent.share.ShareGridPane;
-import com.sales_management_javafx.composent.StockistArticleTypeGridPane;
+import com.sales_management_javafx.composent.stockist.StockistArticleTypeGridPane;
 import com.sales_management_javafx.composent.admin.AdminShareInfoGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

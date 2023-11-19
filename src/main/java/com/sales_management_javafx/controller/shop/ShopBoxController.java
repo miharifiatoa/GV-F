@@ -7,17 +7,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import org.sales_management.entity.ShopEntity;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
 
 public class ShopBoxController implements Initializable {
     @FXML
@@ -28,31 +26,45 @@ public class ShopBoxController implements Initializable {
     private Label shopContactlabel;
     @FXML
     private Label shopEmaillabel;
-    @FXML
-    private StackPane shopBoxStackpane;
+    @FXML private StackPane shopBoxStackpane;
+    @FXML private VBox shopVBox;
+    @FXML private VBox deleteVBox;
     @FXML
     private ImageView editIcon;
-    @FXML
-    private ImageView deleteIcon;
-    
+    @FXML private ImageView deleteIcon;
+    @FXML private HBox shopHBox;
     @FXML private Button edit;
     @FXML private Button delete;
+    @FXML private Button exit;
+    @FXML private Button save;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
     public void initialize(ShopEntity shop){
-        putIcons();
         this.shopNameLabel.setText(shop.getName());
         this.shopAddresslabel.setText(shop.getAddress());
         if(shop.getContact()!=null) this.shopContactlabel.setText(shop.getContact().toString());
         this.shopEmaillabel.setText(shop.getEmail());
-        
-        onUpdateShop(shop);
-        onDeleteShop(shop);
-        getEditShopForm(shop);
-        getDeleteShopForm(shop);
     }
+    public void initializeForAdmin(ShopEntity shop){
+        this.putIcons();
+        shopVBox.setVisible(true);
+        deleteVBox.setVisible(false);
+        this.initialize(shop);
+        this.onSelectShop(shop);
+        onUpdateShop(shop);
+        getEditShopForm(shop);
+        this.setDelete();
+        this.setExit();
+    }
+    public void initializeForStockist(ShopEntity shop){
+        this.shopHBox.setVisible(false);
+        this.initialize(shop);
+        this.onSelectShop(shop);
+    }
+
     public void putIcons(){
         deleteIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/DeleteIcon.png"))));
         editIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/EditIcon.png"))));
@@ -68,55 +80,38 @@ public class ShopBoxController implements Initializable {
             handleSelectShop();
         });
     }
-    
     public void onUpdateShop(ShopEntity shop){
         this.edit.setOnAction(event->{
-            BorderPane shop_borderPane = (BorderPane) this.shopBoxStackpane.getParent().getParent().getParent().getParent().getParent();
-            
-            shop_borderPane.setBottom(getEditShopForm(shop));
+            ScrollPane scrollPane = (ScrollPane) shopBoxStackpane.getParent().getParent().getParent().getParent();
+            scrollPane.setContent(getEditShopForm(shop));
         });
-        
     }
-    
     public VBox getEditShopForm(ShopEntity shop){
-            FXMLLoader shopEditFormLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/shop/shopEditForm.fxml"));
-            VBox shopEditFormVBox = null;
-            try{
-                shopEditFormVBox = shopEditFormLoader.load();
-                ShopEditFormController shopEditFormController = shopEditFormLoader.getController();
-                if(shop!=null){
-                    shopEditFormController.initialize(shop);
-                }
-
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+        FXMLLoader shopEditFormLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/shop/shopEditForm.fxml"));
+        VBox shopEditFormVBox = null;
+        try{
+            shopEditFormVBox = shopEditFormLoader.load();
+            ShopEditFormController shopEditFormController = shopEditFormLoader.getController();
+            if(shop!=null){
+                shopEditFormController.initialize(shop);
             }
-            return shopEditFormVBox;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return shopEditFormVBox;
     }
     
-    public void onDeleteShop(ShopEntity shop){
+    private void setDelete(){
         this.delete.setOnAction(event->{
-            BorderPane shop_borderPane = (BorderPane) this.shopBoxStackpane.getParent().getParent().getParent().getParent().getParent();
-            
-            shop_borderPane.setBottom(getDeleteShopForm(shop));
+            shopVBox.setVisible(false);
+            deleteVBox.setVisible(true);
         });
-        
     }
-    
-    public VBox getDeleteShopForm(ShopEntity shop){
-            FXMLLoader shopEditFormLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/shop/confirmDeleteShop.fxml"));
-            VBox deleteFormVBox = null;
-            try{
-                deleteFormVBox = shopEditFormLoader.load();
-                ConfirmDeleteShopController confirmDeleteShopController = shopEditFormLoader.getController();
-                if(shop!=null){
-                    confirmDeleteShopController.initialize(shop);
-                }
-
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-            return deleteFormVBox;
+    private void setExit(){
+        this.exit.setOnAction(event->{
+            shopVBox.setVisible(true);
+            deleteVBox.setVisible(false);
+        });
     }
     
     public void handleSelectShop(){
