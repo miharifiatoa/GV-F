@@ -47,9 +47,9 @@ public class ShopEditFormController implements Initializable {
         if(shop!=null){
         shopNameTextfield.setText(shop.getName());
         shopAddressTextfield.setText(shop.getAddress());
-        shopContactTextfield.setText(shop.getContact().toString());
+        shopContactTextfield.setText(shop.getContact());
         shopEmailTextfield.setText(shop.getEmail());
-        }
+        } 
         
         this.formValidation();
         this.onUpdateShop(shop);
@@ -94,21 +94,10 @@ public class ShopEditFormController implements Initializable {
            
             ShopEntity newShop = this.shopService.update(shop);
            if(newShop.getId()>0){
-<<<<<<< HEAD
-                BorderPane dashboardLayout = (BorderPane) this.shopEditFormVBox.getParent();
-            ScrollPane dashboardLayoutScrollpane = (ScrollPane) dashboardLayout.lookup("#dashboardLayoutScrollpane");
+            ScrollPane shopLayoutScrollpane = (ScrollPane) shopEditFormVBox.getParent().getParent().getParent();
             GridPane shopGridPane = new StockistShopGridPane().getGridPane(new ShopService().getAll(),4);
-            dashboardLayoutScrollpane.setContent(shopGridPane);
-            dashboardLayout.setBottom(this.getDashboardToolbar());
-=======
-                BorderPane dashboardLayout = (BorderPane) this.shopEditFormVBox.getParent().getParent();
-                ScrollPane dashboardLayoutScrollpane = (ScrollPane) dashboardLayout.lookup("#dashboardLayoutScrollpane");
-                GridPane shopGridPane = new ShopGridPane().getGridPane(new ShopService().getAll(),4);
-                dashboardLayoutScrollpane.setContent(shopGridPane);
-                dashboardLayout.setBottom(this.getDashboardToolbar());
->>>>>>> 5ebb530e4660d6fe91bccb2800c7c92a54e52333
-           }
-            
+            shopLayoutScrollpane.setContent(shopGridPane);
+            }
         });
     }
     private BorderPane getDashboardToolbar(){

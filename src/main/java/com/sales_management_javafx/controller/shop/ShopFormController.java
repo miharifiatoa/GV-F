@@ -64,11 +64,9 @@ public class ShopFormController implements Initializable {
                 shop.setAddress(this.shopAddressTextfield.getText());
                 shop.setEmail(this.shopEmailTextfield.getText());
                 if (this.shopService.create(shop)!=null){
-                    BorderPane dashboardLayout = (BorderPane) this.shopFormVBox.getParent();
-                    ScrollPane dashboardLayoutScrollpane = (ScrollPane) dashboardLayout.lookup("#dashboardLayoutScrollpane");
+                    ScrollPane shopLayoutScrollpane = (ScrollPane) shopFormVBox.getParent().getParent().getParent();
                     GridPane shopGridPane = new StockistShopGridPane().getGridPane(new ShopService().getAll(),4);
-                    dashboardLayoutScrollpane.setContent(shopGridPane);
-                    dashboardLayout.setBottom(this.getDashboardToolbar());
+                    shopLayoutScrollpane.setContent(shopGridPane);
                 }
             }
         });
