@@ -1,8 +1,10 @@
 package com.sales_management_javafx.controller.admin;
 
+import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.composent.arrival.ArrivalArticlesGridPane;
 import com.sales_management_javafx.composent.sale.SaleArticlesGridPane;
 import com.sales_management_javafx.composent.share.ShareArticlesGridPane;
+import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -21,6 +23,12 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.ResourceBundle;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class ArticleStoryController implements Initializable {
     @FXML private ScrollPane saleInfoScrollpane;
@@ -43,7 +51,42 @@ public class ArticleStoryController implements Initializable {
         this.setSaleDatePicker(article);
         this.setShareDatePicker(article);
         title.setText(article.getArticle().getCode() + " : " + article.getArticle().getCode());
+        this.infoBox(article);
     }
+    
+    public void infoBox(ArticleTypeEntity articleType){
+        action.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(SalesApplication.class.getResource("fxml/admin/articleParam.fxml"));
+
+                loader.setControllerFactory(controllerClass -> {
+                    try {
+                        return controllerClass.getConstructor(ArticleTypeEntity.class).newInstance(articleType);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage mainStage = SalesApplication.getPrimaryStage();
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle(articleType.getArticle().getCode()+" Color : "+
+                            articleType.getColor()+" Size : "+articleType.getSize());
+            stage.initOwner(mainStage);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        });
+    }
+    
+    
     private void setSaleInfoScrollpane(ArticleTypeEntity article){
         GridPane saleArticlesGridPane = new SaleArticlesGridPane().getGridPane(article.getSaleArticles(),1);
         saleInfoScrollpane.setContent(saleArticlesGridPane);
