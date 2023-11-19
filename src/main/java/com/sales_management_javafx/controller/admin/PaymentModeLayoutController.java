@@ -20,7 +20,7 @@ import javafx.scene.layout.StackPane;
 import org.sales_management.entity.PaymentModeEntity;
 import org.sales_management.service.PaymentModeService;
 
-public class modePaymentLayoutController implements Initializable {
+public class PaymentModeLayoutController implements Initializable {
     @FXML private BorderPane modePaymentBorderPane;
     @FXML private ImageView MoneyIcon;
     @FXML private ScrollPane modePaymentScroll;
@@ -28,7 +28,7 @@ public class modePaymentLayoutController implements Initializable {
     @FXML private Button confirm;
     @FXML private Button exit;
     private final PaymentModeService paymentModeService;
-    public modePaymentLayoutController(){
+    public PaymentModeLayoutController(){
         this.paymentModeService = new PaymentModeService();
     }
     
@@ -64,7 +64,7 @@ public class modePaymentLayoutController implements Initializable {
     }
     
     private void setPayLayout(){
-        GridPane gridPane = new AdminPaymentModeGridPane().getGridPane(paymentModeService.getAll(),1);
+        GridPane gridPane = new AdminPaymentModeGridPane().getGridPane(paymentModeService.getAll(),4);
         modePaymentScroll.setContent(gridPane);
     }
     

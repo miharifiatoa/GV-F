@@ -44,7 +44,9 @@ public class PaymentModeBoxController implements Initializable {
 
     }
     public void initialize(PaymentModeEntity mode){
-
+        if (!mode.getPayments().isEmpty()){
+            del.setDisable(true);
+        }
         NamePaymentLabel.setText(mode.getDescription());
         onClickX();
         onClickNon();
