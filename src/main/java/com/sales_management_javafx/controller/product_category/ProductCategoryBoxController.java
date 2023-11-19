@@ -16,13 +16,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import org.sales_management.entity.ProductCategoryEntity;
-import org.sales_management.entity.ProductEntity;
 import org.sales_management.service.ProductCategoryService;
 import org.sales_management.service.ProductService;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.layout.VBox;
 
 public class ProductCategoryBoxController implements Initializable {
     @FXML private StackPane productCategoryBox;

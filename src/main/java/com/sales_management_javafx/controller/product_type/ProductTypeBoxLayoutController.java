@@ -22,6 +22,7 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.ResourceBundle;
 import org.sales_management.entity.ArticleEntity;
+import org.sales_management.entity.ProductCategoryEntity;
 import org.sales_management.entity.ProductEntity;
 
 public class ProductTypeBoxLayoutController implements Initializable {
@@ -73,77 +74,89 @@ public class ProductTypeBoxLayoutController implements Initializable {
             this.setExit();
         });
     }
+    
     private void initializeSearchTextField(){
-        this.searchProductTextfield.setPromptText("Recherche");
+            this.searchProductTextfield.setPromptText("Recherche");
         searchProductTextfield.textProperty().addListener((observableValue, s, t1) -> {
+            System.out.println("id = "+searchProductTextfield.getId());
             if (!searchProductTextfield.getText().isEmpty()){
-                String id = searchProductTextfield.getId();
-                switch (id) {
-                    case "products":
-                        Collection<ProductEntity> productEntity = this.productService.searchProductsByName(searchProductTextfield.getText());
-                        this.productBoxLayoutScrollpane.setContent(new ProductGridPane().getGridPane(productEntity,4));
-                        break;
                 
-                    case "productTypes":
-                        Collection<ProductTypeEntity> products = this.productTypeService.searchProductsByName(searchProductTextfield.getText());
-                        this.productBoxLayoutScrollpane.setContent(new ProductTypeGridPane().getGridPane(products,4,false));
-                        break;
-                    
-                    case "articles":
-                        Collection<ArticleEntity> articles = this.articleService.searchArticleByCode(searchProductTextfield.getText());
-                        this.productBoxLayoutScrollpane.setContent(new ArticleGridPane().getGridPane(articles,4));
-                        break;
-                    default:
-                        throw new AssertionError();
-                }
+                        switch (searchProductTextfield.getId()) {
+                            case "categorie" -> {
+                                Collection<ProductCategoryEntity> productCategory = this.productCategoryService.searchCategoryByName(searchProductTextfield.getText());
+                                this.productBoxLayoutScrollpane.setContent(new ProductCategoryGridPane().getGridPane(productCategory,4));
+                            }
+                            case "product" -> {
+                                Collection<ProductEntity> productEntity = this.productService.searchProductsByName(searchProductTextfield.getText());
+                                this.productBoxLayoutScrollpane.setContent(new ProductGridPane().getGridPane(productEntity,4));
+                            }
+                            case "productType" -> {
+                                Collection<ProductTypeEntity> types = this.productTypeService.searchProductsByName(searchProductTextfield.getText());
+                                this.productBoxLayoutScrollpane.setContent(new ProductTypeGridPane().getGridPane(types,4,false));
+                            }
+                            case "article" -> {
+                                Collection<ArticleEntity> article = this.articleService.searchArticleByCode(searchProductTextfield.getText());
+                                this.productBoxLayoutScrollpane.setContent(new ArticleGridPane().getGridPane(article,4));
+                            }
+                            default -> {
+                            }
+                        }
             }
             else {
                     String id = searchProductTextfield.getId();
                     switch (id) {
-                    case "products":
+                    case "categorie" -> {
+                        Collection<ProductCategoryEntity> productCategory = this.productCategoryService.searchCategoryByName(searchProductTextfield.getText());
+                        this.productBoxLayoutScrollpane.setContent(new ProductCategoryGridPane().getGridPane(productCategory,4));
+                    }
+                
+                    case "product" -> {
                         Collection<ProductEntity> productEntity = this.productService.searchProductsByName(searchProductTextfield.getText());
                         this.productBoxLayoutScrollpane.setContent(new ProductGridPane().getGridPane(productEntity,4));
-                        break;
-                
-                    case "productTypes":
+                    }
+                    
+                    case "productType" -> {
                         Collection<ProductTypeEntity> products = this.productTypeService.searchProductsByName(searchProductTextfield.getText());
                         this.productBoxLayoutScrollpane.setContent(new ProductTypeGridPane().getGridPane(products,4,false));
-                        break;
+                    }
                     
-                    case "articles":
+                    case "article" -> {
                         Collection<ArticleEntity> articles = this.articleService.searchArticleByCode(searchProductTextfield.getText());
                         this.productBoxLayoutScrollpane.setContent(new ArticleGridPane().getGridPane(articles,4));
-                        break;
-                    default:
-                        throw new AssertionError();
+                    }   
                 }
             }
-        });
+        });        
     }
+    
     private void setProductCategories(){
         categories.setOnMouseClicked(event->{
             this.productBoxLayoutScrollpane.setContent(new ProductCategoryGridPane().getGridPane(productCategoryService.getAll(),4));
+            searchProductTextfield.setId("categorie");
         });
     }
     private void setProducts(){
         products.setOnMouseClicked(event->{
-
             this.productBoxLayoutScrollpane.setContent(new ProductGridPane().getGridPane(productService.getAll(),4));
+            searchProductTextfield.setId("product");
         });
     }
     private void setProductTypes(){
         productTypes.setOnMouseClicked(event->{
             this.productBoxLayoutScrollpane.setContent(new ProductTypeGridPane().getGridPane(productTypeService.getAll(),4,false));
+            searchProductTextfield.setId("productType");
         });
     }
     private void setArticles(){
         articles.setOnMouseClicked(event->{
             this.productBoxLayoutScrollpane.setContent(new ArticleGridPane().getGridPane(articleService.getAll(),4));
+            searchProductTextfield.setId("article");
         });
     }
     private void setArticleTypes(){
         articleTypes.setOnMouseClicked(event->{
             this.productBoxLayoutScrollpane.setContent(new ArticleTypeGridPane().getGridPane(articleTypeService.getAll(),4,false));
+            searchProductTextfield.setId("articleType");
         });
     }
     public void setExit(){

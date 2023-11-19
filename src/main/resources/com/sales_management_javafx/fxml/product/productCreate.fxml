@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="articleCreate" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product.ProductCreateController">
+<StackPane fx:id="categoryCreate" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.product.ProductCreateController">
    <children>
       <VBox fx:id="articleCreateVBox" maxHeight="170.0" maxWidth="400.0" spacing="5.0" styleClass="box">
          <children>

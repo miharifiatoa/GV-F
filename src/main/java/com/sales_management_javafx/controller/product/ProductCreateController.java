@@ -1,28 +1,23 @@
 package com.sales_management_javafx.controller.product;
 
-import com.sales_management_javafx.SalesApplication;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.sales_management.entity.ProductCategoryEntity;
 import org.sales_management.entity.ProductEntity;
 import org.sales_management.service.ProductService;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.layout.StackPane;
 
 public class ProductCreateController implements Initializable {
     @FXML
-    private VBox articleCreate;
+    private StackPane categoryCreate;
     @FXML
     private TextField productNameTextfield;
     @FXML
@@ -46,7 +41,7 @@ public class ProductCreateController implements Initializable {
     }
     private void onCancelCreateArticle(){
         exit.setOnAction(event->{
-            BorderPane parent = (BorderPane) articleCreate.getParent();
+            BorderPane parent = (BorderPane) categoryCreate.getParent();
         });
     }
 
