@@ -6,8 +6,7 @@ import com.sales_management_javafx.classes.NumberTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import org.sales_management.entity.PersonEntity;
@@ -18,16 +17,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
 
 public class UserFormController implements Initializable {
     @FXML
     private VBox user_form;
     @FXML
     private TextField user_lastname;
-    @FXML
-    private TextField user_firstname;
     @FXML
     private TextField user_address;
     @FXML
@@ -41,16 +36,13 @@ public class UserFormController implements Initializable {
     @FXML
     private RadioButton womenSexType;
     @FXML
-    private Button cancel_button;
-    @FXML
     private Button next_button;
-    private ToggleGroup sexeToggleGroup = new ToggleGroup();
-    private BooleanProperty isNextButtonDisabled = new SimpleBooleanProperty(true);
+    private final ToggleGroup sexeToggleGroup = new ToggleGroup();
+    private final BooleanProperty isNextButtonDisabled = new SimpleBooleanProperty(true);
     private char sexe;
     
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.closeForm();
         this.next();
     
     manSexType.setToggleGroup(sexeToggleGroup);
@@ -75,32 +67,19 @@ public class UserFormController implements Initializable {
         }
         return sex;
     }
-
     private void updateNextButtonState() {
-    boolean isRadioSelected = sexeToggleGroup.getSelectedToggle() != null;
-    boolean isUserLastnameFilled = !user_lastname.getText().isEmpty();
-    boolean isUserCinFilled = !user_cin.getText().isEmpty();
-    accountRoleProperty();
-    next_button.setDisable(!isRadioSelected || !isUserLastnameFilled || !isUserCinFilled);
-}
-
-    
-    public BooleanProperty nextButtonDisabledProperty() {
-    return isNextButtonDisabled;
+        boolean isRadioSelected = sexeToggleGroup.getSelectedToggle() != null;
+        boolean isUserLastnameFilled = !user_lastname.getText().isEmpty();
+        boolean isUserCinFilled = !user_cin.getText().isEmpty();
+        accountRoleProperty();
+        next_button.setDisable(!isRadioSelected || !isUserLastnameFilled || !isUserCinFilled);
     }
-    
-        
-    public void closeForm(){
-        cancel_button.setOnAction(actionEvent -> {
-            BorderPane dashboardLayout = (BorderPane) user_form.getParent();
-            dashboardLayout.setBottom(getDashboardToolbar());
-        });
+    public BooleanProperty nextButtonDisabledProperty() {
+        return isNextButtonDisabled;
     }
     public PersonEntity createPerson(){
-        
         PersonEntity person = new PersonEntity();
         person.setLastname(user_lastname.getText());
-        person.setFirstname(user_firstname.getText());
         person.setAddress(user_address.getText());
         person.setGender(accountRoleProperty());
         return person;
@@ -120,25 +99,19 @@ public class UserFormController implements Initializable {
     }
     public void next(){
         next_button.setOnAction(actionEvent -> {
-            FXMLLoader fxmlLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountForm.fxml"));
-            try {
-                VBox accountForm = fxmlLoader.load();
-                BorderPane parent = (BorderPane) user_form.getParent();
-                FileIO.writeTo("user.dat",this.createUser());
-                parent.setBottom(accountForm);
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
+            ScrollPane scrollPane = (ScrollPane) user_form.getParent().getParent().getParent();
+            scrollPane.setContent(getAccountForm());
+            FileIO.writeTo("user.dat",this.createUser());
         });
     }
-    private BorderPane getDashboardToolbar(){
-        FXMLLoader accountLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/account2Layout.fxml"));
-                    BorderPane accountLayout;
-                    try {
-                        accountLayout = accountLayoutLoader.load();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-        return accountLayout;
+    private VBox getAccountForm(){
+        FXMLLoader fxmlLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountForm.fxml"));
+        VBox accountForm;
+        try {
+            accountForm = fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return accountForm;
     }
 }    

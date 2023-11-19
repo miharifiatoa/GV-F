@@ -26,6 +26,7 @@ public class ShopBoxController implements Initializable {
     private Label shopContactlabel;
     @FXML
     private Label shopEmaillabel;
+    @FXML private Label deleteText;
     @FXML private StackPane shopBoxStackpane;
     @FXML private VBox shopVBox;
     @FXML private VBox deleteVBox;
@@ -53,11 +54,11 @@ public class ShopBoxController implements Initializable {
         shopVBox.setVisible(true);
         deleteVBox.setVisible(false);
         this.initialize(shop);
-        this.onSelectShop(shop);
         onUpdateShop(shop);
         getEditShopForm(shop);
         this.setDelete();
         this.setExit();
+        this.deleteText.setText("Voulez vous vraiment supprimer ce boutique : " + shop.getName());
     }
     public void initializeForStockist(ShopEntity shop){
         this.shopHBox.setVisible(false);

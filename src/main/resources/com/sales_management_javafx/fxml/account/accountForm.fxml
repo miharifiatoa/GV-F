@@ -8,110 +8,86 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="account_form" maxHeight="348.0" prefHeight="348.0" prefWidth="643.0" styleClass="form" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.account.AccountFormController">
+<VBox fx:id="account_form" maxHeight="348.0" styleClass="form" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.account.AccountFormController">
    <children>
-      <BorderPane prefHeight="300.0" prefWidth="593.0">
-         <VBox.margin>
-            <Insets left="20.0" right="20.0" top="20.0" />
-         </VBox.margin>
-         <padding>
-            <Insets left="20.0" right="20.0" />
-         </padding>
-         <center>
-            <GridPane hgap="10.0" prefHeight="229.0" prefWidth="553.0" BorderPane.alignment="CENTER">
+      <GridPane hgap="10.0" vgap="5.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="60.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="60.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="20.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <AnchorPane>
+               <children>
+                  <VBox spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox spacing="10.0">
+                           <children>
+                              <RadioButton fx:id="VendeurRole" contentDisplay="CENTER" mnemonicParsing="false" text="Vendeur">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </RadioButton>
+                              <RadioButton fx:id="StokisteRole" mnemonicParsing="false" text="Stockist">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </RadioButton>
+                           </children>
+                        </HBox>
+                        <TextField fx:id="username" maxHeight="30.0" minHeight="30.0" prefHeight="35.2" prefWidth="312.0" styleClass="textfield" />
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+            <GridPane hgap="5.0" GridPane.rowIndex="1">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" />
+                  <ColumnConstraints hgrow="SOMETIMES" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="59.0" minHeight="35.0" prefHeight="36.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="75.0" minHeight="30.0" prefHeight="74.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="40.0" minHeight="4.0" prefHeight="19.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="83.0" minHeight="31.0" prefHeight="37.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="75.0" minHeight="15.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="106.0" minHeight="31.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="106.0" minHeight="31.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <AnchorPane GridPane.rowIndex="1">
-                     <children>
-                        <TextField fx:id="username" maxHeight="30.0" minHeight="30.0" prefHeight="35.2" prefWidth="312.0" styleClass="textfield" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                     </children>
-                  </AnchorPane>
-                  <GridPane>
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="57.59996719360352" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.9999656677246" minWidth="10.0" prefWidth="233.60003280639648" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
-                     <children>
-                        <AnchorPane prefHeight="34.0" prefWidth="27.0">
-                           <children>
-                              <Label alignment="BOTTOM_LEFT" prefHeight="16.0" prefWidth="551.0" text="Nom d'utilisateur " textFill="#696969" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-451.0" AnchorPane.topAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="21.0" prefWidth="554.0">
-                           <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" prefHeight="14.0" prefWidth="555.0" text="(Champ obligatoire)" textFill="#ff9c00">
-                                 <font>
-                                    <Font name="System Italic" size="11.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                     </children>
-                  </GridPane>
-                  <Label alignment="BOTTOM_LEFT" text="Mot de passe" textFill="#696969" GridPane.rowIndex="3" />
-                  <Label alignment="CENTER" contentDisplay="RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="15.0" prefWidth="555.0" text="(Champ obligatoire)" textFill="#ff9c00" GridPane.rowIndex="3">
+                  <PasswordField fx:id="password" prefHeight="35.0" prefWidth="633.0" styleClass="textfield" GridPane.rowIndex="1" />
+                  <PasswordField fx:id="confirmPassword" prefHeight="35.0" prefWidth="633.0" styleClass="textfield" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label alignment="BOTTOM_LEFT" text="Mot de passe" textFill="#696969">
                      <font>
-                        <Font name="System Italic" size="11.0" />
+                        <Font name="System Italic" size="12.0" />
                      </font>
                   </Label>
-                  <PasswordField fx:id="password" prefHeight="35.0" prefWidth="633.0" styleClass="textfield" GridPane.rowIndex="4" />
-                  <Label alignment="BOTTOM_LEFT" prefHeight="16.0" prefWidth="215.0" text="Confirmation" textFill="#696969" GridPane.rowIndex="5" />
-                  <Label alignment="CENTER" prefHeight="15.0" prefWidth="553.0" text="(Resaisir le mot de passe)" textFill="#ff9c00" GridPane.rowIndex="5">
+                  <Label alignment="BOTTOM_LEFT" prefHeight="16.0" prefWidth="215.0" text="Confirmer le mot de passe" textFill="#696969" GridPane.columnIndex="1">
                      <font>
-                        <Font name="System Italic" size="11.0" />
-                     </font>
-                  </Label>
-                  <PasswordField fx:id="confirmPassword" prefHeight="35.0" prefWidth="633.0" styleClass="textfield" GridPane.rowIndex="6" />
-                  <GridPane prefHeight="51.0" prefWidth="553.0" GridPane.rowIndex="2">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <RadioButton fx:id="VendeurRole" contentDisplay="CENTER" mnemonicParsing="false" text="Vendeur" GridPane.columnIndex="2" />
-                        <RadioButton fx:id="StokisteRole" mnemonicParsing="false" text="Stockist" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <Label alignment="BOTTOM_LEFT" prefHeight="24.0" prefWidth="99.0" text="Fonction" textFill="#696969" GridPane.columnIndex="1" />
-                     </children>
-                  </GridPane>
-                  <Label fx:id="Message" prefHeight="32.0" prefWidth="584.0" textFill="#f20202" GridPane.rowIndex="7">
-                     <font>
-                        <Font name="System Bold Italic" size="13.0" />
+                        <Font name="System Italic" size="12.0" />
                      </font>
                   </Label>
                </children>
             </GridPane>
-         </center>
-      </BorderPane>
+            <AnchorPane GridPane.rowIndex="2">
+               <children>
+                  <Label fx:id="message" textFill="RED" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </GridPane>
       <GridPane alignment="BOTTOM_LEFT" maxHeight="40.0" minHeight="40.0" prefHeight="40.0" styleClass="toolbar">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="917.5999908447266" minWidth="10.0" prefWidth="408.8000244140625" />
@@ -125,11 +101,6 @@
                <children>
                   <ButtonBar focusTraversable="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="410.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <buttons>
-                        <Button fx:id="previous_button" layoutX="116.0" layoutY="15.0" maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: #fbff00;" text="Précédent" textFill="#7a7b09">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Button>
                         <Button fx:id="confirm_button" maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: #0e9128;" text="Enregistrer" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="12.0" />

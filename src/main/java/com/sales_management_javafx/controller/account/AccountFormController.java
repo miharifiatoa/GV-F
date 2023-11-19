@@ -34,8 +34,6 @@ public class AccountFormController implements Initializable {
     @FXML
     private Button confirm_button;
     @FXML
-    private Button previous_button;
-    @FXML
     private TextField username;
     @FXML
     private TextField password;
@@ -48,7 +46,7 @@ public class AccountFormController implements Initializable {
     @FXML
     private Label error;
     @FXML
-    private Label Message;
+    private Label message;
     private ToggleGroup foctionToggleGroup = new ToggleGroup();
     private final PersonService personService;
     private final UserService userService;
@@ -70,10 +68,9 @@ public class AccountFormController implements Initializable {
         password.textProperty().addListener(((observable, oldValue, newValue) -> formValidation()));
         confirmPassword.textProperty().addListener(((observable, oldValue, newValue) -> formValidation()));
         foctionToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> formValidation());
-        this.setMessage();
+        this.setmessage();
         this.formValidation();
         this.createAccount();
-        this.previous();
     }
 
     public void formValidation(){
@@ -84,24 +81,24 @@ public class AccountFormController implements Initializable {
                     || (confirmPassword.getText() == null ? password.getText() != null : 
                 !confirmPassword.getText().equals(password.getText())));
         
-            setMessage();
+            setmessage();
         
     }
     
-    public void setMessage(){
+    public void setmessage(){
     
         if(username.getText().isEmpty()){
-            Message.setText("Veuiller saisir une nom d'utilisateur !");
+            message.setText("Veuiller saisir une nom d'utilisateur !");
         } else if(accountRoleProperty().getValue().contains(" ")){
-            Message.setText("Selectionner le fonction du nouveau utilisateur !");
+            message.setText("Selectionner le fonction du nouveau utilisateur !");
         } else if(password.getText().isEmpty()){
-            Message.setText("Vous devez fournir une nouveau mot de passe pour le nouveau utilisateur !");
+            message.setText("Vous devez fournir une nouveau mot de passe pour le nouveau utilisateur !");
         } else if(confirmPassword.getText().isEmpty()){
-            Message.setText("Confirmer le mot de passe !");
+            message.setText("Confirmer le mot de passe !");
         } else if(!confirmPassword.getText().equals(password.getText())){
-            Message.setText("Le mot de passe saisie n'est pas identique !");
+            message.setText("Le mot de passe saisie n'est pas identique !");
         } else if(confirmPassword.getText().equals(password.getText())){
-            Message.setText("Donnee complet !");
+            message.setText("Donnee complet !");
         }        
     }
     
@@ -139,7 +136,7 @@ public class AccountFormController implements Initializable {
                         account.setPassword(DigestUtils.sha256Hex(password.getText()));
                         account.setUser(user);
                         if (this.accountService.create(account)!=null){
-                        FXMLLoader accountLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/account2Layout.fxml"));
+                        FXMLLoader accountLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountLayout.fxml"));
                     BorderPane accountLayout;
                     try { accountLayout = accountLayoutLoader.load();
                         
@@ -153,27 +150,10 @@ public class AccountFormController implements Initializable {
                 }
             }
             else {
-                error.setText("Nom d'utilisateur deja existe");
-                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2),action -> error.setText("")));
+                message.setText("Nom d'utilisateur deja existe");
+                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2),action -> message.setText(null)));
                 timeline.play();
             }
         });
-    }
-    public void previous(){
-        previous_button.setOnAction(actionEvent -> {
-            BorderPane dashboardLayout = (BorderPane) account_form.getParent();
-            dashboardLayout.setBottom(getDashboardToolbar());
-        });
-    }
-    
-    private BorderPane getDashboardToolbar(){
-        FXMLLoader accountLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/account2Layout.fxml"));
-                    BorderPane accountLayout;
-                    try {
-                        accountLayout = accountLayoutLoader.load();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-        return accountLayout;
     }
 }

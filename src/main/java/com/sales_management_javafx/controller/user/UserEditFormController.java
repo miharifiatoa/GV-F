@@ -185,7 +185,7 @@ public class UserEditFormController implements Initializable {
         });
     }
     private BorderPane getDashboardToolbar(){
-        FXMLLoader accountLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/account2Layout.fxml"));
+        FXMLLoader accountLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountLayout.fxml"));
                     BorderPane accountLayout;
                     try {
                         accountLayout = accountLayoutLoader.load();

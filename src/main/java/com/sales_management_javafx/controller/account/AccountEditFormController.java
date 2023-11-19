@@ -169,7 +169,7 @@ public class AccountEditFormController implements Initializable {
                 new_account.setUser(user);
                    new_account = this.accountService.update(account);    
                 if (new_account!=null){
-                    FXMLLoader accountLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/account2Layout.fxml"));
+                    FXMLLoader accountLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountLayout.fxml"));
                     BorderPane accountLayout;
                     try {
                         accountLayout = accountLayoutLoader.load();
@@ -228,7 +228,7 @@ public class AccountEditFormController implements Initializable {
         return userForm;
     }
     private BorderPane getDashboardToolbar(){
-        FXMLLoader accountLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/account2Layout.fxml"));
+        FXMLLoader accountLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountLayout.fxml"));
                     BorderPane accountLayout;
                     try {
                         accountLayout = accountLayoutLoader.load();

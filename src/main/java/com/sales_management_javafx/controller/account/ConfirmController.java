@@ -51,7 +51,7 @@ public class ConfirmController implements Initializable {
                     try {
                         AccountEntity dropedAccount = this.accountService.deleteById(account.getId());
                         if(dropedAccount!=null){
-                        FXMLLoader accountLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/account2Layout.fxml"));
+                        FXMLLoader accountLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountLayout.fxml"));
                         BorderPane accountLayout;
                             try {
                                 accountLayout = accountLayoutLoader.load();
@@ -76,7 +76,7 @@ public class ConfirmController implements Initializable {
     }
     
     private BorderPane getDashboardToolbar(){
-        FXMLLoader accountLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/account2Layout.fxml"));
+        FXMLLoader accountLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountLayout.fxml"));
                     BorderPane accountLayout;
                     try {
                         accountLayout = accountLayoutLoader.load();
