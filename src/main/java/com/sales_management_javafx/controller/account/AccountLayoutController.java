@@ -40,7 +40,7 @@ public class AccountLayoutController implements Initializable {
     }
     
     private void setAccounts(){
-        GridPane gridPane = new AccountGridPane().getGridPane(accountService.getAll(),1);
+        GridPane gridPane = new AccountGridPane().getGridPane(accountService.getAll(),3);
         accountLayoutScrollpane.setContent(gridPane);
     }
     public GridPane getToolbar(){

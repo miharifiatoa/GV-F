@@ -28,12 +28,9 @@ public class AccountBoxController implements Initializable {
     @FXML private Label userRoleLabel;
     @FXML private Label userCinLabel;
     @FXML private Label userEmailLabel;
-    @FXML private Label firstname;
     @FXML private Label lastname;
-    
     @FXML private ImageView DeleteIcon;
     @FXML private ImageView EditIcon;
-    
     @FXML private Button delete;
     @FXML private Button edit;
 
@@ -47,7 +44,6 @@ public class AccountBoxController implements Initializable {
         if(account.getUser().getPerson() != null){
         userNameLabel.setText(account.getUser().getPerson().getLastname() + " " + 
                                 account.getUser().getPerson().getFirstname());
-        firstname.setText(account.getUser().getPerson().getFirstname());
         lastname.setText(account.getUser().getPerson().getLastname());
         userAddresslabel.setText(account.getUser().getPerson().getAddress());
         userContactLabel.setText(String.valueOf(account.getUser().getNumber()));

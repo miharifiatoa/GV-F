@@ -45,7 +45,11 @@
                               </RadioButton>
                            </children>
                         </HBox>
-                        <TextField fx:id="username" maxHeight="30.0" minHeight="30.0" prefHeight="35.2" prefWidth="312.0" styleClass="textfield" />
+                        <TextField fx:id="username" maxHeight="35.0" minHeight="35.0" promptText="Nom d' utilisateur" styleClass="textfield">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font>
+                        </TextField>
                      </children>
                   </VBox>
                </children>
@@ -57,11 +61,11 @@
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints vgrow="SOMETIMES" />
-                  <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <PasswordField fx:id="password" prefHeight="35.0" prefWidth="633.0" styleClass="textfield" GridPane.rowIndex="1" />
-                  <PasswordField fx:id="confirmPassword" prefHeight="35.0" prefWidth="633.0" styleClass="textfield" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <PasswordField fx:id="password" maxHeight="35.0" minHeight="35.0" styleClass="textfield" GridPane.rowIndex="1" />
+                  <PasswordField fx:id="confirmPassword" maxHeight="35.0" minHeight="35.0" styleClass="textfield" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label alignment="BOTTOM_LEFT" text="Mot de passe" textFill="#696969">
                      <font>
                         <Font name="System Italic" size="12.0" />
@@ -74,34 +78,22 @@
                   </Label>
                </children>
             </GridPane>
-            <AnchorPane GridPane.rowIndex="2">
-               <children>
-                  <Label fx:id="message" textFill="RED" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <font>
-                        <Font name="System Italic" size="12.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </Label>
-               </children>
-            </AnchorPane>
          </children>
       </GridPane>
-      <GridPane alignment="BOTTOM_LEFT" maxHeight="40.0" minHeight="40.0" prefHeight="40.0" styleClass="toolbar">
+      <GridPane alignment="BOTTOM_LEFT" styleClass="toolbar">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="917.5999908447266" minWidth="10.0" prefWidth="408.8000244140625" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="917.5999908447266" minWidth="10.0" prefWidth="411.9999755859375" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
             <AnchorPane GridPane.columnIndex="1">
                <children>
-                  <ButtonBar focusTraversable="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="410.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <ButtonBar focusTraversable="false" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <buttons>
-                        <Button fx:id="confirm_button" maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: #0e9128;" text="Enregistrer" textFill="WHITE">
+                        <Button fx:id="confirm_button" mnemonicParsing="false" style="-fx-background-color: #0e9128;" text="Enregistrer" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -110,7 +102,18 @@
                   </ButtonBar>
                </children>
             </AnchorPane>
+            <Label fx:id="message" textFill="RED">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </Label>
          </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
       </GridPane>
    </children>
    <padding>
