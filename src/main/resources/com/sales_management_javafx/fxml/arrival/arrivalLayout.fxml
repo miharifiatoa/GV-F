@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="arrivalLayout" styleClass="bg-white" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.arrival.ArrivalLayoutController">
+   <children>
+      <BorderPane>
+         <center>
+            <ScrollPane fx:id="arrivalLayoutScrollpane" fitToHeight="true" fitToWidth="true" prefHeight="183.0" prefWidth="502.0" styleClass="box" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </ScrollPane>
+         </center>
+         <top>
+            <GridPane maxHeight="45.0" minHeight="45.0" prefHeight="45.0" prefWidth="502.0" styleClass="box">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" />
+                  <ColumnConstraints hgrow="SOMETIMES" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Button fx:id="arrival" mnemonicParsing="false" styleClass="buttons" text="Listes des produits arrivé">
+                           <graphic>
+                              <ImageView fx:id="arrivalIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic>
+                           <font>
+                              <Font name="System Bold Italic" size="12.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="listArrival" layoutX="10.0" layoutY="14.0" mnemonicParsing="false" styleClass="buttons" text="Arrivages">
+                           <graphic>
+                              <ImageView fx:id="listArrivalIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic>
+                           <font>
+                              <Font name="System Bold Italic" size="12.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
+                     <children>
+                        <Button fx:id="exit" alignment="CENTER" contentDisplay="CENTER" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #acacac;" textFill="RED">
+                           <font>
+                              <Font name="Algerian" size="13.0" />
+                           </font>
+                           <graphic>
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="x" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+               <BorderPane.margin>
+                  <Insets bottom="5.0" />
+               </BorderPane.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </GridPane>
+         </top>
+         <bottom>
+            <GridPane styleClass="box" BorderPane.alignment="CENTER">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <ButtonBar GridPane.columnIndex="1">
+                     <buttons>
+                        <Button fx:id="save" focusTraversable="false" mnemonicParsing="false" styleClass="buttons" text="Enregistrer au stock" textFill="#12b700">
+                           <font>
+                              <Font name="System Bold Italic" size="12.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fx:id="sendIcon" fitHeight="13.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </buttons>
+                  </ButtonBar>
+                  <AnchorPane>
+                     <children>
+                        <TextField fx:id="arrivalDescriptionTextfield" prefHeight="30.4" prefWidth="246.4" promptText="Description" styleClass="no-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </AnchorPane>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <BorderPane.margin>
+                  <Insets top="5.0" />
+               </BorderPane.margin>
+            </GridPane>
+         </bottom>
+      </BorderPane>
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</StackPane>
