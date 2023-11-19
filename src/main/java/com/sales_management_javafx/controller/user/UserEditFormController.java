@@ -28,8 +28,6 @@ public class UserEditFormController implements Initializable {
     @FXML
     private TextField user_lastname;
     @FXML
-    private TextField user_firstname;
-    @FXML
     private TextField user_address;
     @FXML
     private TextField user_cin;
@@ -42,14 +40,10 @@ public class UserEditFormController implements Initializable {
     @FXML
     private RadioButton womenSexType;
     @FXML
-    private Button cancel_button;
-    @FXML
     private Button next_button;
     private ToggleGroup sexeToggleGroup = new ToggleGroup();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.closeForm();
-        
         updateNextButtonState();
         manSexType.setToggleGroup(sexeToggleGroup);
         womenSexType.setToggleGroup(sexeToggleGroup);
@@ -70,34 +64,18 @@ public class UserEditFormController implements Initializable {
         updatePerson(account.getUser().getPerson());
         loadData(account);
     });
-    user_firstname.textProperty().addListener((observable, oldValue, newValue) -> { 
-        updateNextButtonState(); 
-        updatePerson(account.getUser().getPerson());
-        loadData(account);
-    });
     user_address.textProperty().addListener((observable, oldValue, newValue) -> { 
-        
-//        updateUser(account.getUser());
         loadData(account);
-        
     });
     user_phone.textProperty().addListener((observable, oldValue, newValue) -> { 
-        
-//        updateUser(account.getUser());
         loadData(account);
-        
     });
     user_email.textProperty().addListener((observable, oldValue, newValue) -> { 
-        
-//        updateUser(account.getUser());
         loadData(account);
-        
     });
     user_cin.textProperty().addListener((observable, oldValue, newValue) -> { 
         updateNextButtonState();
-//        updateUser(account.getUser());
         loadData(account);
-//        
     });
     this.updateUser(account.getUser());
     this.next(loadData(account));
@@ -106,7 +84,6 @@ public class UserEditFormController implements Initializable {
     public void setDataOnForm(AccountEntity account){
         if(account.getUser() != null){
         user_lastname.setText(account.getUser().getPerson().getLastname());
-        user_firstname.setText(account.getUser().getPerson().getFirstname());
         user_address.setText(account.getUser().getPerson().getAddress());
         user_email.setText(account.getUser().getEmail());
         if(account.getUser().getCin()!=null) { user_cin.setText(account.getUser().getCin().toString()); }
@@ -138,16 +115,9 @@ public class UserEditFormController implements Initializable {
     next_button.setDisable( !isUserLastnameFilled || !isUserCinFilled);
 }
         
-    public void closeForm(){
-        cancel_button.setOnAction(actionEvent -> {
-            BorderPane dashboardLayout = (BorderPane) user_edit_form.getParent();
-            dashboardLayout.setBottom(getDashboardToolbar());
-        });
-    }
     public PersonEntity updatePerson(PersonEntity person){
             
             person.setLastname(user_lastname.getText());
-            person.setFirstname(user_firstname.getText());
             person.setAddress(user_address.getText());
         
         if( Objects.equals(manSexType.selectedProperty().getValue(), "true")){
@@ -180,18 +150,8 @@ public class UserEditFormController implements Initializable {
                 FileIO.writeTo("editUser.dat",account.getUser());
                 parent.setBottom(accountEditForm);
             } catch (IOException e) {
-                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
         });
-    }
-    private BorderPane getDashboardToolbar(){
-        FXMLLoader accountLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountLayout.fxml"));
-                    BorderPane accountLayout;
-                    try {
-                        accountLayout = accountLayoutLoader.load();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-        return accountLayout;
     }
 }
