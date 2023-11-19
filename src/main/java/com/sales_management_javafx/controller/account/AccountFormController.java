@@ -27,6 +27,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.skin.ScrollPaneSkin;
 
 public class AccountFormController implements Initializable {
     @FXML
@@ -136,15 +137,9 @@ public class AccountFormController implements Initializable {
                         account.setPassword(DigestUtils.sha256Hex(password.getText()));
                         account.setUser(user);
                         if (this.accountService.create(account)!=null){
-                        FXMLLoader accountLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountLayout.fxml"));
-                    BorderPane accountLayout;
-                    try { accountLayout = accountLayoutLoader.load();
-                        
-                    } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                            BorderPane dashboardLayout = (BorderPane) account_form.getParent();
-                            dashboardLayout.setBottom(accountLayout);    
+                                ScrollPane accountLayoutScrollpane = (ScrollPane) account_form.getParent().getParent().getParent();
+                                GridPane gridPane = new AccountGridPane().getGridPane(accountService.getAll(),1);
+                                accountLayoutScrollpane.setContent(gridPane);
                         }
                     }
                 }
