@@ -30,7 +30,7 @@
                <children>
                   <HBox>
                      <children>
-                        <Label fx:id="userNameLabel" prefHeight="25.6" prefWidth="57.6" text="Username">
+                        <Label fx:id="userNameLabel" prefHeight="26.0" prefWidth="159.0" text="Username">
                            <font>
                               <Font name="System Italic" size="13.0" />
                            </font>

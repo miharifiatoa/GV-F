@@ -59,11 +59,11 @@ public class ArticleBoxController implements Initializable {
         this.setExit();
     }
     public void initialize(ArticleEntity article){
-        if (article.getArticleTypeEntities().isEmpty()){
-            articleNameLabel.setDisable(true);
+        if (!article.getArticleTypeEntities().isEmpty()){
+            delete.setDisable(true);
         }
         else {
-            delete.setDisable(true);
+            articleNameLabel.setDisable(true);
         }
         deleteText.setText("Voulez vous vraiment supprimer cet article dans le type de produit " + article.getProductTypeEntity().getName() + " ?");
         articleNameLabel.setText(article.getCode());
@@ -100,14 +100,13 @@ public class ArticleBoxController implements Initializable {
             deleteVBox.setVisible(true);
         });
     }
-    private void setConfirmDelete(ArticleEntity productType) {
+    private void setConfirmDelete(ArticleEntity article) {
         confirmDelete.setOnAction(event -> {
-            if (articleService.deleteById(productType.getId()) != null){
+            if (articleService.deleteById(article.getId()) != null){
                 ProductTypeEntity product = (ProductTypeEntity) FileIO.readFrom("product.dat");
                 GridPane productTypeGridPane = new ArticleGridPane().getGridPane(new ProductTypeService().getById(product.getId()).getArticles(),4);
                 getProductBoxLayoutScrollpane().setContent(productTypeGridPane);
             }
-
         });
     }
 

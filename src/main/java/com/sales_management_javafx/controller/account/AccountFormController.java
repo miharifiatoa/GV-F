@@ -11,7 +11,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -27,7 +26,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.control.skin.ScrollPaneSkin;
 
 public class AccountFormController implements Initializable {
     @FXML
@@ -138,7 +136,7 @@ public class AccountFormController implements Initializable {
                         account.setUser(user);
                         if (this.accountService.create(account)!=null){
                                 ScrollPane accountLayoutScrollpane = (ScrollPane) account_form.getParent().getParent().getParent();
-                                GridPane gridPane = new AccountGridPane().getGridPane(accountService.getAll(),1);
+                                GridPane gridPane = new AccountGridPane().getGridPane(accountService.getAll(),3);
                                 accountLayoutScrollpane.setContent(gridPane);
                         }
                     }

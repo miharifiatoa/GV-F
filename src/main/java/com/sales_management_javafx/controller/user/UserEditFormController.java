@@ -1,7 +1,6 @@
 package com.sales_management_javafx.controller.user;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.classes.NumberTextField;
 import com.sales_management_javafx.controller.account.AccountEditFormController;
 import java.io.IOException;
@@ -15,9 +14,8 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import org.sales_management.entity.AccountEntity;
 import org.sales_management.entity.PersonEntity;
 import org.sales_management.entity.UserEntity;
@@ -27,8 +25,6 @@ public class UserEditFormController implements Initializable {
     private VBox user_edit_form;
     @FXML
     private TextField user_lastname;
-    @FXML
-    private TextField user_firstname;
     @FXML
     private TextField user_address;
     @FXML
@@ -42,14 +38,10 @@ public class UserEditFormController implements Initializable {
     @FXML
     private RadioButton womenSexType;
     @FXML
-    private Button cancel_button;
-    @FXML
     private Button next_button;
     private ToggleGroup sexeToggleGroup = new ToggleGroup();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.closeForm();
-        
         updateNextButtonState();
         manSexType.setToggleGroup(sexeToggleGroup);
         womenSexType.setToggleGroup(sexeToggleGroup);
@@ -70,34 +62,18 @@ public class UserEditFormController implements Initializable {
         updatePerson(account.getUser().getPerson());
         loadData(account);
     });
-    user_firstname.textProperty().addListener((observable, oldValue, newValue) -> { 
-        updateNextButtonState(); 
-        updatePerson(account.getUser().getPerson());
-        loadData(account);
-    });
     user_address.textProperty().addListener((observable, oldValue, newValue) -> { 
-        
-//        updateUser(account.getUser());
         loadData(account);
-        
     });
     user_phone.textProperty().addListener((observable, oldValue, newValue) -> { 
-        
-//        updateUser(account.getUser());
         loadData(account);
-        
     });
     user_email.textProperty().addListener((observable, oldValue, newValue) -> { 
-        
-//        updateUser(account.getUser());
         loadData(account);
-        
     });
     user_cin.textProperty().addListener((observable, oldValue, newValue) -> { 
         updateNextButtonState();
-//        updateUser(account.getUser());
         loadData(account);
-//        
     });
     this.updateUser(account.getUser());
     this.next(loadData(account));
@@ -106,7 +82,6 @@ public class UserEditFormController implements Initializable {
     public void setDataOnForm(AccountEntity account){
         if(account.getUser() != null){
         user_lastname.setText(account.getUser().getPerson().getLastname());
-        user_firstname.setText(account.getUser().getPerson().getFirstname());
         user_address.setText(account.getUser().getPerson().getAddress());
         user_email.setText(account.getUser().getEmail());
         if(account.getUser().getCin()!=null) { user_cin.setText(account.getUser().getCin().toString()); }
@@ -138,16 +113,9 @@ public class UserEditFormController implements Initializable {
     next_button.setDisable( !isUserLastnameFilled || !isUserCinFilled);
 }
         
-    public void closeForm(){
-        cancel_button.setOnAction(actionEvent -> {
-            BorderPane dashboardLayout = (BorderPane) user_edit_form.getParent();
-            dashboardLayout.setBottom(getDashboardToolbar());
-        });
-    }
     public PersonEntity updatePerson(PersonEntity person){
             
             person.setLastname(user_lastname.getText());
-            person.setFirstname(user_firstname.getText());
             person.setAddress(user_address.getText());
         
         if( Objects.equals(manSexType.selectedProperty().getValue(), "true")){
@@ -171,27 +139,21 @@ public class UserEditFormController implements Initializable {
     }
     public void next(AccountEntity account){
         next_button.setOnAction(actionEvent -> {
-            FXMLLoader fxmlLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountEditForm.fxml"));
-            try {
-                VBox accountEditForm = fxmlLoader.load();
-                AccountEditFormController accountEditFormController = fxmlLoader.getController();
-                accountEditFormController.initialize(account);
-                BorderPane parent = (BorderPane) user_edit_form.getParent();
-                FileIO.writeTo("editUser.dat",account.getUser());
-                parent.setBottom(accountEditForm);
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
+            ScrollPane scrollPane = (ScrollPane) user_edit_form.getParent().getParent().getParent();
+            scrollPane.setContent(getAccountForm(account));
+            
         });
     }
-    private BorderPane getDashboardToolbar(){
-        FXMLLoader accountLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountLayout.fxml"));
-                    BorderPane accountLayout;
-                    try {
-                        accountLayout = accountLayoutLoader.load();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-        return accountLayout;
+    private VBox getAccountForm(AccountEntity account){
+        FXMLLoader fxmlLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountEditForm.fxml"));
+        VBox accountForm;
+        try {
+            accountForm = fxmlLoader.load();
+            AccountEditFormController accountEditFormController = fxmlLoader.getController();
+            accountEditFormController.initialize(account);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return accountForm;
     }
 }

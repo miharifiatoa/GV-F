@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.sales_management.entity.PersonEntity;
@@ -44,10 +45,9 @@ public class AccountBoxController implements Initializable {
     @FXML private Button save;
     private final AccountService accountService;
 
-    public AccountBoxController() {
+    public AccountBoxController(){
         this.accountService = new AccountService();
     }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         accountVBox.setVisible(true);
@@ -57,22 +57,29 @@ public class AccountBoxController implements Initializable {
         deleteText.setText("Voulez vous vraiment supprimer cet compte ?");
     }
     public void initialize(AccountEntity account){
-        putIcons();
         if(account.getUser().getPerson() != null){
-        userNameLabel.setText(account.getUser().getPerson().getLastname() + " " + account.getUser().getPerson().getFirstname());
-        lastname.setText(account.getUser().getPerson().getLastname());
-        userAddresslabel.setText(account.getUser().getPerson().getAddress());
-        userContactLabel.setText(String.valueOf(account.getUser().getNumber()));
-        userRoleLabel.setText(account.getUser().getRole());
-        userCinLabel.setText(String.valueOf(account.getUser().getCin()));
-        userEmailLabel.setText(account.getUser().getEmail());
+            userNameLabel.setText(account.getUser().getPerson().getLastname() + " " + account.getUser().getPerson().getFirstname());
+            if(account.getUser().getPerson() != null){
+                userNameLabel.setText(account.getUser().getPerson().getLastname());
+                lastname.setText(account.getUser().getPerson().getLastname());
+                userAddresslabel.setText(account.getUser().getPerson().getAddress());
+                userContactLabel.setText(String.valueOf(account.getUser().getNumber()));
+                userRoleLabel.setText(account.getUser().getRole());
+                userCinLabel.setText(String.valueOf(account.getUser().getCin()));
+                userEmailLabel.setText(account.getUser().getEmail());
+            }
+            if (!account.getUser().getSales().isEmpty() || !account.getUser().getArrivals().isEmpty() || !account.getUser().getShares().isEmpty()){
+                delete.setDisable(true);
+            }
+            if(!account.getUser().getArrivals().isEmpty() || !account.getUser().getSales().isEmpty() || !account.getUser().getShares().isEmpty()) {
+                delete.setDisable(true);
+            }
         }
-        admin(account);
-        onClickUpdate_button(account);
+        this.putIcons();
+        this.admin(account);
+        this.onClickUpdate_button(account);
         this.setSave(account);
-        if (!account.getUser().getSales().isEmpty() || !account.getUser().getArrivals().isEmpty() || !account.getUser().getShares().isEmpty()){
-            delete.setDisable(true);
-        }
+        this.admin(account);
     }
     private void putIcons(){
         DeleteIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/DeleteIcon.png"))));
@@ -96,18 +103,19 @@ public class AccountBoxController implements Initializable {
         });
     }
     private void setSave(AccountEntity account){
-        save.setOnAction(event->{
-            if (accountService.deleteById(account.getId()) != null){
-                ScrollPane scrollPane = (ScrollPane) accountBox.getParent().getParent().getParent().getParent();
-                GridPane gridPane = new AccountGridPane().getGridPane(accountService.getAll(),3);
-                scrollPane.setContent(gridPane);
-            }
-        });
-    }
+            save.setOnAction(event -> {
+                if (accountService.deleteById(account.getId()) != null){
+                    ScrollPane scrollPane = (ScrollPane) accountBox.getParent().getParent().getParent().getParent();
+                    GridPane gridPane = new AccountGridPane().getGridPane(accountService.getAll(),3);
+                    scrollPane.setContent(gridPane);
+                }
+            });
+        }
+
     public void onClickUpdate_button(AccountEntity account){
         edit.setOnAction(event->{
-            BorderPane user_borderpane = (BorderPane) this.accountBox.getParent().getParent().getParent().getParent().getParent().getParent();
-            user_borderpane.setBottom(getUserEditForm(account));
+            ScrollPane user_borderpane = (ScrollPane) this.accountBox.getParent().getParent().getParent().getParent();
+            user_borderpane.setContent(getUserEditForm(account));
         });
     }
     
@@ -127,6 +135,7 @@ public class AccountBoxController implements Initializable {
                 UserEntity user = new UserEntity();
                 user.setPerson(personne);
                 user.setRole("ADMIN");
+                assert account != null;
                 account.setUser(user);
             
                 userEditFormController.initialize(account);

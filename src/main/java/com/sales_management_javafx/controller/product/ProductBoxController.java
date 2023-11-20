@@ -61,7 +61,10 @@ public class ProductBoxController implements Initializable {
         });
     }
     public void initialize(ProductEntity product){
-        if (product.getProductTypes().isEmpty()){
+        if (!product.getProductTypes().isEmpty()){
+            delete.setDisable(true);
+        }
+        else {
             productNameLabel.setDisable(true);
         }
         productNameLabel.setText(product.getName());
