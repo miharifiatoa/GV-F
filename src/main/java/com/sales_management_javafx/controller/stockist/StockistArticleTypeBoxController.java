@@ -97,16 +97,16 @@ public class StockistArticleTypeBoxController implements Initializable {
             this.addVBox.setVisible(true);
         });
     }
-    private void setArticleInArrivalList(ArticleTypeEntity article){
+    private void setArticleInArrivalList(ArticleTypeEntity articleType){
         confirmAdd.setOnAction(event->{
-            if (!this.quantityAddedTextfield.getText().isEmpty() && article!=null){
+            if (!this.quantityAddedTextfield.getText().isEmpty() && articleType!=null){
                 try {
-                    article.setQuantity(Integer.parseInt(quantityAddedTextfield.getText()));
+                    articleType.setQuantity(Integer.parseInt(quantityAddedTextfield.getText()));
                     List<ArticleTypeEntity> articles = (List<ArticleTypeEntity>) FileIO.readArticleFromFile("arrivals.dat");
-                    articles.add(article);
+                    articles.add(articleType);
                     FileIO.writeTo("arrivals.dat",articles);
                     ScrollPane stockistBoxLayoutScrollpane = (ScrollPane) articleBox.getParent().getParent().getParent().getParent();
-                    GridPane gridPane = new StockistArticleTypeGridPane().getGridPane(new ArticleTypeService().getAll(), 4);
+                    GridPane gridPane = new StockistArticleTypeGridPane().getGridPane(new ArticleTypeService().getById(articleType.getId()).getArticle().getArticleTypeEntities(), 4);
                     stockistBoxLayoutScrollpane.setContent(gridPane);
                 } catch (NumberFormatException e) {
                     throw new RuntimeException(e);
@@ -154,7 +154,7 @@ public class StockistArticleTypeBoxController implements Initializable {
             existingTypes.add(articleType);
             FileIO.writeTo("shares.dat", existingTypes);
             ScrollPane productBoxLayoutScrollpane = (ScrollPane) articleBox.getParent().getParent().getParent().getParent();
-            GridPane gridPane = new StockistArticleTypeGridPane().getGridPane(new ArticleTypeService().getAll(), 4);
+            GridPane gridPane = new StockistArticleTypeGridPane().getGridPane(new ArticleTypeService().getById(articleType.getId()).getArticle().getArticleTypeEntities(), 4);
             productBoxLayoutScrollpane.setContent(gridPane);
         });
     }

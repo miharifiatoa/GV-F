@@ -82,15 +82,15 @@ public class SellerArticleTypeBoxController implements Initializable {
             articleBox.setVisible(true);
         });
     }
-    private void setSave(ArticleTypeEntity article){
+    private void setSave(ArticleTypeEntity articleType){
         save.setOnAction(event->{
-            article.setQuantity(Integer.parseInt(quantityToSaleTextfield.getText()));
-            article.setId(article.getId());
+            articleType.setQuantity(Integer.parseInt(quantityToSaleTextfield.getText()));
+            articleType.setId(articleType.getId());
             Collection<ArticleTypeEntity> articles = FileIO.readArticleFromFile("sales.dat");
-            articles.add(article);
+            articles.add(articleType);
             FileIO.writeTo("sales.dat",articles);
-            GridPane sellerArticleGridPane = new SellerArticleTypeGridPane().getGridPane(articleTypeService.getAll(),4);
-            GridPane pannierArticleGridPane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("sales.dat"),2);
+            GridPane sellerArticleGridPane = new SellerArticleTypeGridPane().getGridPane(articleTypeService.getById(articleType.getId()).getArticle().getArticleTypeEntities(), 4);
+            GridPane pannierArticleGridPane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("sales.dat"),1);
             ScrollPane sellerArticleScrollpane = (ScrollPane) sellerArticleBox.getParent().getParent().getParent().getParent();
             sellerArticleScrollpane.setContent(sellerArticleGridPane);
             BorderPane sellerLayout = (BorderPane) sellerArticleScrollpane.getParent().getParent().getParent();

@@ -57,34 +57,34 @@ public class ArticleTypeInfoController implements Initializable {
         productTypeReferenceLabel.setText(articleType.getArticle().getProductTypeEntity().getReference());
         this.setRemove(articleType);
     }
-    private void setRemove(ArticleTypeEntity article){
+    private void setRemove(ArticleTypeEntity articleType){
         remove.setOnAction(event->{
             if (Objects.equals(getArticleLayoutScrollpane().getId(), "arrivalLayoutScrollpane")){
                 Collection<ArticleTypeEntity> arrivals = FileIO.readArticleFromFile("arrivals.dat");
-                arrivals.remove(article);
+                arrivals.remove(articleType);
                 FileIO.writeTo("arrivals.dat",arrivals);
-                GridPane arrivalArticleGridpane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("arrivals.dat"),2);
-                GridPane stockistArticleGridPane = new StockistArticleTypeGridPane().getGridPane(new ArticleTypeService().getAll(), 4);
+                GridPane arrivalArticleGridpane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("arrivals.dat"),1);
+                GridPane stockistArticleGridPane = new StockistArticleTypeGridPane().getGridPane(new ArticleTypeService().getById(articleType.getId()).getArticle().getArticleTypeEntities(), 4);
                 ScrollPane stockistBoxLayoutScrollpane = (ScrollPane) getArticleLayoutScrollpane().getParent().getParent().getParent().getParent().lookup("#stockistBoxLayoutScrollpane");
                 stockistBoxLayoutScrollpane.setContent(stockistArticleGridPane);
                 getArticleLayoutScrollpane().setContent(arrivalArticleGridpane);
             }
             else if (Objects.equals(getArticleLayoutScrollpane().getId(),"shareArticleLayoutScrollpane")){
                 Collection<ArticleTypeEntity> shares = FileIO.readArticleFromFile("shares.dat");
-                shares.remove(article);
+                shares.remove(articleType);
                 FileIO.writeTo("shares.dat",shares);
-                GridPane shareArticleGridpane  = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("articles.dat"),2);
-                GridPane stockistArticleGridPane = new StockistArticleTypeGridPane().getGridPane(new ArticleTypeService().getAll(),4);
+                GridPane shareArticleGridpane  = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("articles.dat"),1);
+                GridPane stockistArticleGridPane = new StockistArticleTypeGridPane().getGridPane(new ArticleTypeService().getById(articleType.getId()).getArticle().getArticleTypeEntities(), 4);
                 ScrollPane stockistBoxLayoutScrollpane = (ScrollPane) getArticleLayoutScrollpane().getParent().getParent().getParent().getParent().lookup("#stockistBoxLayoutScrollpane");
                 stockistBoxLayoutScrollpane.setContent(stockistArticleGridPane);
                 getArticleLayoutScrollpane().setContent(shareArticleGridpane);
             }
             else if (Objects.equals(getArticleLayoutScrollpane().getId(),"pannierLayoutScrollpane")){
                 Collection<ArticleTypeEntity> articles = FileIO.readArticleFromFile("sales.dat");
-                articles.remove(article);
+                articles.remove(articleType);
                 FileIO.writeTo("sales.dat",articles);
-                GridPane pannierGridpane  = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("sales.dat"),2);
-                GridPane sellerArticleGridPane = new SellerArticleTypeGridPane().getGridPane(new ArticleTypeService().getAll(),4);
+                GridPane pannierGridpane  = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("sales.dat"),1);
+                GridPane sellerArticleGridPane = new SellerArticleTypeGridPane().getGridPane(new ArticleTypeService().getById(articleType.getId()).getArticle().getArticleTypeEntities(), 4);
                 ScrollPane sellerArticleScrollpane = (ScrollPane) getArticleLayoutScrollpane().getParent().getParent().lookup("#sellerArticleScrollpane");
                 Label priceTotal = (Label) getArticleLayoutScrollpane().getParent().getParent().lookup("#priceTotal");
                 priceTotal.setText("Prix total : " + FileIO.getPriceTotal("sales.dat") +"Ar");

@@ -45,7 +45,7 @@ public class PannierLayoutController implements Initializable {
         this.priceTotal.setText("Prix total : " + price +"Ar");
     }
     private void setArticles(){
-        GridPane gridPane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("sales.dat"),2);
+        GridPane gridPane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("sales.dat"),1);
         pannierLayoutScrollpane.setContent(gridPane);
     }
     private void setExit(){

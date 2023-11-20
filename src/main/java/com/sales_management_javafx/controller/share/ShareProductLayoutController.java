@@ -4,6 +4,7 @@ import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.composent.ArticleInfoGridPane;
 import com.sales_management_javafx.composent.share.ShareGridPane;
+import com.sales_management_javafx.composent.stockist.StockistArticleGridPane;
 import com.sales_management_javafx.composent.stockist.StockistShopGridPane;
 import com.sales_management_javafx.composent.stockist.StockistArticleTypeGridPane;
 import javafx.fxml.FXML;
@@ -20,6 +21,7 @@ import org.sales_management.entity.ArticleTypeEntity;
 import org.sales_management.entity.ShareEntity;
 import org.sales_management.entity.ShopEntity;
 import org.sales_management.entity.UserEntity;
+import org.sales_management.service.ArticleService;
 import org.sales_management.service.ArticleTypeService;
 import org.sales_management.service.ShareService;
 import org.sales_management.service.ShopService;
@@ -85,7 +87,7 @@ public class ShareProductLayoutController implements Initializable {
         });
     }
     public void setProducts(){
-        GridPane articleInfoGridPane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("shares.dat"),2);
+        GridPane articleInfoGridPane = new ArticleInfoGridPane().getGridPane(FileIO.readArticleFromFile("shares.dat"),1);
         shareArticleLayoutScrollpane.setContent(articleInfoGridPane);
     }
     public void putIcons(){
@@ -118,7 +120,7 @@ public class ShareProductLayoutController implements Initializable {
             if (shareService.toShareArticles(share , articles) != null){
                 articles.clear();
                 FileIO.writeTo("shares.dat",articles);
-                GridPane gridPane = new StockistArticleTypeGridPane().getGridPane(new ArticleTypeService().getAll(),4);
+                GridPane gridPane = new StockistArticleGridPane().getGridPane(new ArticleService().getAll(),4);
                 ScrollPane stockistBoxLayoutScrollpane = (ScrollPane) shareArticleLayoutStackpane.getParent().getParent().lookup("#stockistBoxLayoutScrollpane");
                 stockistBoxLayoutScrollpane.setContent(gridPane);
                 this.setCloseShareListButton();
