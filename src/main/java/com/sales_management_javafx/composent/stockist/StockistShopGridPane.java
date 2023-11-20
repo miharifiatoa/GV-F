@@ -30,11 +30,13 @@ public class StockistShopGridPane {
         int col = 0;
         int row = 0;
         for (ShopEntity shop : shops) {
-            gridPane.add(this.getShopBox(shop), col, row);
-            col++;
-            if (col == colSize) {
-                col = 0;
-                row++;
+            if (shop.getId() != 1){
+                gridPane.add(this.getShopBox(shop), col, row);
+                col++;
+                if (col == colSize) {
+                    col = 0;
+                    row++;
+                }
             }
         }
         gridPane.getStyleClass().add("gridpane");

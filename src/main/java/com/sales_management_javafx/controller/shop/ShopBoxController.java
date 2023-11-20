@@ -65,6 +65,9 @@ public class ShopBoxController implements Initializable {
         this.setDelete();
         this.setExit();
         this.deleteText.setText("Voulez vous vraiment supprimer ce boutique : " + shop.getName());
+        if (shop.getId() == 1){
+            delete.setDisable(true);
+        }
     }
     public void initializeForStockist(ShopEntity shop){
         this.shopHBox.setVisible(false);
