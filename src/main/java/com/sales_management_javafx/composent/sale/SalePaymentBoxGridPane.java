@@ -38,7 +38,6 @@ public class SalePaymentBoxGridPane {
                     row++;
                 }
         }
-        gridPane.getStyleClass().add("gridpane");
         return gridPane;
     }
     private StackPane getSalePaymentBox(PaymentEntity payment){

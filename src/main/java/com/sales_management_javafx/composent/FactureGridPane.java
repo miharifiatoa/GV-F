@@ -41,7 +41,6 @@ public class FactureGridPane {
         row++;
         gridPane.add(this.getFactureFooter(sale),col,row);
         gridPane.getStyleClass().add("box");
-        gridPane.setId("product-type-grid-pane");
         return gridPane;
     }
     private StackPane getFactureBox(SaleArticleEntity saleArticle){

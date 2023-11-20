@@ -2,6 +2,7 @@ package com.sales_management_javafx.controller.shop;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.NumberTextField;
+import com.sales_management_javafx.composent.admin.AdminShopGridPane;
 import com.sales_management_javafx.composent.stockist.StockistShopGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -95,7 +96,7 @@ public class ShopEditFormController implements Initializable {
             ShopEntity newShop = this.shopService.update(shop);
            if(newShop.getId()>0){
             ScrollPane shopLayoutScrollpane = (ScrollPane) shopEditFormVBox.getParent().getParent().getParent();
-            GridPane shopGridPane = new StockistShopGridPane().getGridPane(new ShopService().getAll(),4);
+            GridPane shopGridPane = new AdminShopGridPane().getGridPane(new ShopService().getAll(),4);
             shopLayoutScrollpane.setContent(shopGridPane);
             }
         });

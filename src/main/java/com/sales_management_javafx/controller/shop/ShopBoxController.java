@@ -40,7 +40,7 @@ public class ShopBoxController implements Initializable {
     @FXML private Button delete;
     @FXML private Button exit;
     @FXML private Button del;
-    private ShopService shopService;
+    private final ShopService shopService;
     public ShopBoxController(){
         this.shopService = new ShopService();
     }
@@ -65,7 +65,7 @@ public class ShopBoxController implements Initializable {
         this.setDelete();
         this.setExit();
         this.deleteText.setText("Voulez vous vraiment supprimer ce boutique : " + shop.getName());
-        if (shop.getId() == 1){
+        if (shop.getId() == 1 || !shop.getShares().isEmpty()){
             delete.setDisable(true);
         }
     }
@@ -98,16 +98,12 @@ public class ShopBoxController implements Initializable {
     }
     public void onDeleteShop(ShopEntity shop){
         this.del.setOnAction(event->{
-            
-            if(shop.getId()>0){
-                ShopEntity dropedSop = this.shopService.deleteById(shop.getId());
-                if(dropedSop!=null){
+            ShopEntity droppedShop = this.shopService.deleteById(shop.getId());
+            if(droppedShop!=null){
                 ScrollPane shopLayoutScrollpane = (ScrollPane) this.shopBoxStackpane.getParent().getParent().getParent().getParent();
                 GridPane shopGridPane = new AdminShopGridPane().getGridPane(shopService.getAll(),4);
                 shopLayoutScrollpane.setContent(shopGridPane);
-                }
             }
-            
         });
     }
     public VBox getEditShopForm(ShopEntity shop){
