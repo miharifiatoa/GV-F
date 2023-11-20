@@ -2,6 +2,7 @@ package com.sales_management_javafx.controller.shop;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.NumberTextField;
+import com.sales_management_javafx.composent.admin.AdminShopGridPane;
 import com.sales_management_javafx.composent.stockist.StockistShopGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -65,20 +66,10 @@ public class ShopFormController implements Initializable {
                 shop.setEmail(this.shopEmailTextfield.getText());
                 if (this.shopService.create(shop)!=null){
                     ScrollPane shopLayoutScrollpane = (ScrollPane) shopFormVBox.getParent().getParent().getParent();
-                    GridPane shopGridPane = new StockistShopGridPane().getGridPane(new ShopService().getAll(),4);
+                    GridPane shopGridPane = new AdminShopGridPane().getGridPane(new ShopService().getAll(),4);
                     shopLayoutScrollpane.setContent(shopGridPane);
                 }
             }
         });
-    }
-    private BorderPane getDashboardToolbar(){
-        FXMLLoader shopLayotLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/shop/shopLayout.fxml"));
-        BorderPane shopLayout;
-        try {
-            shopLayout = shopLayotLoader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return shopLayout;
     }
 }

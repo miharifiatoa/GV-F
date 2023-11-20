@@ -47,14 +47,14 @@ public class ArticleTypeInfoController implements Initializable {
 
     }
     public void initialize(ArticleTypeEntity articleType){
-        productTypeNameLabel.setText(articleType.getArticle().getCode());
+        productTypeNameLabel.setText(articleType.getArticle().getProductTypeEntity().getName());
         articleQuantityLabel.setText(String.valueOf(articleType.getQuantity()));
         articlePriceLabel.setText(String.valueOf(articleType.getArticle().getPrice()));
         articleCodeLabel.setText(String.valueOf(articleType.getArticle().getCode()));
         articleSizeLabel.setText(articleType.getSize());
         articleColorLabel.setText(articleType.getColor());
         productTypeMarkLabel.setText(articleType.getArticle().getProductTypeEntity().getBrand());
-        productTypeReferenceLabel.setText(articleType.getArticle().getProductTypeEntity().getBrand());
+        productTypeReferenceLabel.setText(articleType.getArticle().getProductTypeEntity().getReference());
         this.setRemove(articleType);
     }
     private void setRemove(ArticleTypeEntity article){
