@@ -57,7 +57,10 @@ public class AccountEditFormController implements Initializable {
     public void initialize(AccountEntity account) {
         username.setText(account.getUsername());
         if(null != account.getUser().getRole())switch (account.getUser().getRole()) {
-//            case "ADMIN" -> admin.setText("***ADMINISTRATEUR***");
+            case "ADMIN" -> {
+                VendeurRole.setDisable(true);
+                StokisteRole.setDisable(true);
+            }
             case "SELLER" -> VendeurRole.setSelected(true);
             case "STOCKIST" -> StokisteRole.setSelected(true);
             default -> {

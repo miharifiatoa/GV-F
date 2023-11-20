@@ -9,7 +9,7 @@ import java.util.List;
 
 public class FileIO {
     public static <T> void writeTo(String filename, T o){
-        try(FileOutputStream fileOutputStream = new FileOutputStream("C:\\Users\\ASUS\\IdeaProjects\\Sales_management_javafx\\src\\main\\resources\\com\\sales_management_javafx\\data\\"+filename)) {
+        try(FileOutputStream fileOutputStream = new FileOutputStream("/home/miharifiatoa/Desktop/running/GVF/src/main/resources/com/sales_management_javafx/data/"+filename)) {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(o);
             System.out.println("object written to file... ");
@@ -38,7 +38,7 @@ public class FileIO {
     }
 
     public static Object readFrom(String filename) {
-        try (FileInputStream fileInputStream = new FileInputStream("C:\\Users\\ASUS\\IdeaProjects\\Sales_management_javafx\\src\\main\\resources\\com\\sales_management_javafx\\data\\"+filename);
+        try (FileInputStream fileInputStream = new FileInputStream("/home/miharifiatoa/Desktop/running/GVF/src/main/resources/com/sales_management_javafx/data/"+filename);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
             System.out.println("Object read from file... ");
             return objectInputStream.readObject();
