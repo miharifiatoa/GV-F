@@ -115,8 +115,8 @@ public class AccountBoxController implements Initializable {
     }
     public void onClickUpdate_button(AccountEntity account){
         edit.setOnAction(event->{
-            BorderPane user_borderpane = (BorderPane) this.accountBox.getParent().getParent().getParent().getParent().getParent().getParent();
-            user_borderpane.setBottom(getUserEditForm(account));
+            ScrollPane user_borderpane = (ScrollPane) this.accountBox.getParent().getParent().getParent().getParent();
+            user_borderpane.setContent(getUserEditForm(account));
         });
     }
     

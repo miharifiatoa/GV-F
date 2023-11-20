@@ -2,6 +2,7 @@ package com.sales_management_javafx.controller.account;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
+import com.sales_management_javafx.composent.AccountGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,6 +22,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.layout.GridPane;
 
 public class AccountEditFormController implements Initializable {
     @FXML
@@ -92,46 +94,35 @@ public class AccountEditFormController implements Initializable {
         
         confirm_button.setOnAction(actionEvent -> {
                 
-            UserEntity user = (UserEntity) FileIO.readFrom("editUser.dat");
-                System.out.println("User :" + user.getId());
                 account.setUsername(username.getText());
                 if(!password.getText().isEmpty()){
                 account.setPassword(DigestUtils.sha256Hex(password.getText()));
                 }
-                account.setUser(user);
-                
-    PersonEntity new_person = updatePerson(user.getPerson());
-    
-    if(new_person!=null){
-        user.setPerson(new_person);
-        UserEntity new_user = updateUser(user);
+                PersonEntity new_person = updatePerson(account.getUser().getPerson());
 
-            if(new_user!=null){
-            AccountEntity new_account = new AccountEntity();
-                new_account.setUser(user);
-                   new_account = this.accountService.update(account);    
-                if (new_account!=null){
-                    FXMLLoader accountLayoutLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountLayout.fxml"));
-                    BorderPane accountLayout;
-                    try {
-                        accountLayout = accountLayoutLoader.load();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    BorderPane dashboardLayout = (BorderPane) account_edit_form.getParent();
-                    dashboardLayout.setBottom(accountLayout);
-                    
-                } else {
-                System.out.println("new_account null " + new_account.getId());
-            }
-            } else {
-                System.out.println("new_user null " + new_user.getId());
-            }
-        } else {
-                System.out.println("new_person null " + new_person.getId());
-            }
-        });
-    }
+                if(new_person!=null){
+                    account.getUser().setPerson(new_person);
+                    UserEntity new_user = updateUser(account.getUser());
+
+                        if(new_user!=null){
+                        AccountEntity new_account;
+                               new_account = this.accountService.update(account);    
+                            if (new_account!=null){
+                                ScrollPane accountLayoutScrollpane = (ScrollPane) account_edit_form.getParent().getParent().getParent();
+                                GridPane gridPane = new AccountGridPane().getGridPane(accountService.getAll(),3);
+                                accountLayoutScrollpane.setContent(gridPane);
+
+                            } else {
+                            System.out.println("new_account null " + new_account.getId());
+                        }
+                        } else {
+                            System.out.println("new_user null " + new_user.getId());
+                        }
+                    } else {
+                            System.out.println("new_person null " + new_person.getId());
+                        }
+                    });
+                }
     public PersonEntity updatePerson(PersonEntity person){
         PersonEntity new_person = new PersonEntity();
         if(person.getId()==null){

@@ -51,8 +51,8 @@ public class ShopEditFormController implements Initializable {
         shopEmailTextfield.setText(shop.getEmail());
         } 
         
-        this.formValidation();
-        this.onUpdateShop(shop);
+        formValidation();
+        onUpdateShop(shop);
         NumberTextField.requireNumber(shopContactTextfield);
     }
     
@@ -87,27 +87,18 @@ public class ShopEditFormController implements Initializable {
     
     private void onUpdateShop(ShopEntity shop){
         editShopButton.setOnAction(actionEvent -> {
-            if(!shopNameTextfield.getText().isEmpty()) shop.setName(shopNameTextfield.getText());
-            if(!shopAddressTextfield.getText().isEmpty()) shop.setAddress(shopAddressTextfield.getText());
-            if(!shopContactTextfield.getText().isEmpty()) shop.setContact(shopContactTextfield.getText());
-            if(!shopEmailTextfield.getText().isEmpty()) shop.setEmail(shopEmailTextfield.getText());
+            if(shopNameTextfield.getText()!=null) shop.setName(shopNameTextfield.getText());
+            if(shopAddressTextfield.getText()!=null) shop.setAddress(shopAddressTextfield.getText());
+            if(shopContactTextfield.getText()!=null) shop.setContact(shopContactTextfield.getText());
+            if(shopEmailTextfield.getText()!=null) shop.setEmail(shopEmailTextfield.getText());
            
             ShopEntity newShop = this.shopService.update(shop);
-           if(newShop.getId()>0){
+           if(newShop!=null){
             ScrollPane shopLayoutScrollpane = (ScrollPane) shopEditFormVBox.getParent().getParent().getParent();
             GridPane shopGridPane = new StockistShopGridPane().getGridPane(new ShopService().getAll(),4);
             shopLayoutScrollpane.setContent(shopGridPane);
             }
         });
     }
-    private BorderPane getDashboardToolbar(){
-        FXMLLoader shopLayotLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/shop/shopLayout.fxml"));
-        BorderPane shopLayout;
-        try {
-            shopLayout = shopLayotLoader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return shopLayout;
-    }
+    
 }

@@ -1,7 +1,6 @@
 package com.sales_management_javafx.controller.user;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.classes.NumberTextField;
 import com.sales_management_javafx.controller.account.AccountEditFormController;
 import java.io.IOException;
@@ -15,9 +14,8 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import org.sales_management.entity.AccountEntity;
 import org.sales_management.entity.PersonEntity;
 import org.sales_management.entity.UserEntity;
@@ -141,17 +139,21 @@ public class UserEditFormController implements Initializable {
     }
     public void next(AccountEntity account){
         next_button.setOnAction(actionEvent -> {
-            FXMLLoader fxmlLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountEditForm.fxml"));
-            try {
-                VBox accountEditForm = fxmlLoader.load();
-                AccountEditFormController accountEditFormController = fxmlLoader.getController();
-                accountEditFormController.initialize(account);
-                BorderPane parent = (BorderPane) user_edit_form.getParent();
-                FileIO.writeTo("editUser.dat",account.getUser());
-                parent.setBottom(accountEditForm);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            ScrollPane scrollPane = (ScrollPane) user_edit_form.getParent().getParent().getParent();
+            scrollPane.setContent(getAccountForm(account));
+            
         });
+    }
+    private VBox getAccountForm(AccountEntity account){
+        FXMLLoader fxmlLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/account/accountEditForm.fxml"));
+        VBox accountForm;
+        try {
+            accountForm = fxmlLoader.load();
+            AccountEditFormController accountEditFormController = fxmlLoader.getController();
+            accountEditFormController.initialize(account);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return accountForm;
     }
 }
