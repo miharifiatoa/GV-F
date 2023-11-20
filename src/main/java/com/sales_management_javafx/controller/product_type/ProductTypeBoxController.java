@@ -33,6 +33,7 @@ public class ProductTypeBoxController implements Initializable {
     @FXML private Label productNameLabel;
     @FXML private Button exit;
     @FXML private Button delete;
+    @FXML private Button edit;
     @FXML private Label deleteText;
     @FXML private Label productTypeBrandLabel;
     @FXML private Label productTypeReferenceLabel;
@@ -54,6 +55,7 @@ public class ProductTypeBoxController implements Initializable {
         this.deleteVBox.setVisible(false);
         this.setExit();
         this.setDeleteProduct();
+        this.setEdit();
     }
     public void initialize(ProductTypeEntity productType){
         productNameLabel.setText(productType.getName());
@@ -70,10 +72,17 @@ public class ProductTypeBoxController implements Initializable {
         this.showArticles(productType);
         this.setDelete(productType.getId());
         this.setAdd(productType);
+        productBox.getChildren().add(this.getProductTypeEdit(productType));
     }
     private void putIcons(){
         this.editIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/EditIcon.png"))));
         this.deleteIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/DeleteIcon.png"))));
+    }
+    private void setEdit(){
+        edit.setOnAction(event->{
+            productInfoVBox.setVisible(false);
+            productBox.lookup("#productTypeEdit").setVisible(true);
+        });
     }
     private void setDeleteProduct(){
         delete.setOnAction(event->{
@@ -111,6 +120,12 @@ public class ProductTypeBoxController implements Initializable {
             modal.setVisible(true);
         });
     }
+    public StackPane getProductBoxLayout(){
+        return (StackPane) productBox.getParent().getParent().getParent().getParent().getParent().getParent().getParent();
+    }
+    private ScrollPane getProductBoxLayoutScrollpane(){
+        return (ScrollPane) productBox.getParent().getParent().getParent().getParent();
+    }
     private StackPane getProductTypeCreate(ProductTypeEntity product){
         FXMLLoader productTypeCreateLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/article/articleCreate.fxml"));
         StackPane productTypeCreate;
@@ -123,10 +138,16 @@ public class ProductTypeBoxController implements Initializable {
         }
         return productTypeCreate;
     }
-    public StackPane getProductBoxLayout(){
-        return (StackPane) productBox.getParent().getParent().getParent().getParent().getParent().getParent().getParent();
-    }
-    private ScrollPane getProductBoxLayoutScrollpane(){
-        return (ScrollPane) productBox.getParent().getParent().getParent().getParent();
+    private VBox getProductTypeEdit(ProductTypeEntity productType){
+        FXMLLoader productTypeCreateLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_type/productTypeEdit.fxml"));
+        VBox productTypeCreate;
+        try {
+            productTypeCreate = productTypeCreateLoader.load();
+            ProductTypeEditController productTypeEditController = productTypeCreateLoader.getController();
+            productTypeEditController.initialize(productType);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return productTypeCreate;
     }
 }
