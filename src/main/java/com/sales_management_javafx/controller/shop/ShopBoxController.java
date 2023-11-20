@@ -51,7 +51,7 @@ public class ShopBoxController implements Initializable {
     public void initialize(ShopEntity shop){
         this.shopNameLabel.setText(shop.getName());
         this.shopAddresslabel.setText(shop.getAddress());
-        if(shop.getContact()!=null) this.shopContactlabel.setText(shop.getContact().toString());
+        this.shopContactlabel.setText(shop.getContact());
         this.shopEmaillabel.setText(shop.getEmail());
     }
     public void initializeForAdmin(ShopEntity shop){
