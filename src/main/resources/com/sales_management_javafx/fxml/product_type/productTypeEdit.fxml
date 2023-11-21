@@ -49,7 +49,7 @@
       </GridPane>
       <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="no-border">
          <content>
-            <GridPane styleClass="box" vgap="10.0">
+            <GridPane styleClass="box" vgap="5.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" />
               </columnConstraints>
@@ -81,12 +81,12 @@
                         </GridPane>
                      </children>
                   </AnchorPane>
-                  <TextField fx:id="productTypeBrandTextfield" prefHeight="30.0" promptText="Marque" styleClass="textfield">
+                  <TextField fx:id="productTypeBrandTextfield" promptText="Marque" styleClass="textfield">
                      <font>
                         <Font name="System Italic" size="12.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="productTypeReferenceTextfield" prefHeight="30.0" promptText="Reference" styleClass="textfield" GridPane.rowIndex="1">
+                  <TextField fx:id="productTypeReferenceTextfield" promptText="Reference" styleClass="textfield" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Italic" size="12.0" />
                      </font>

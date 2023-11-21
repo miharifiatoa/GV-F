@@ -70,6 +70,9 @@ public class ArticleTypeBoxController implements Initializable {
         if (FileIO.readArticleFromFile("arrivals.dat").contains(articleType)){
             articleBox.setDisable(true);
         }
+        if (!articleType.getSaleArticles().isEmpty() || !articleType.getArrivalArticles().isEmpty() || !articleType.getShareArticles().isEmpty() || !articleType.getStockHistories().isEmpty()){
+            delete.setDisable(true);
+        }
     }
     private void setDelete(){
         this.delete.setOnAction(event->{
@@ -81,7 +84,7 @@ public class ArticleTypeBoxController implements Initializable {
         confirmDelete.setOnAction(event->{
             if (this.articleTypeService.deleteById(articleType.getId()) != null){
                 ScrollPane productBoxLayoutScrollpane = (ScrollPane) articleBox.getParent().getParent().getParent().getParent();
-                GridPane gridPane = new ArticleTypeGridPane().getGridPane(new ArticleTypeService().getById(articleType.getId()).getArticle().getArticleTypeEntities(), 4,false);
+                GridPane gridPane = new ArticleTypeGridPane().getGridPane(new ArticleService().getById(articleType.getArticle().getId()).getArticleTypeEntities(), 4,false);
                 productBoxLayoutScrollpane.setContent(gridPane);
             }
         });
