@@ -1,20 +1,15 @@
 package com.sales_management_javafx.controller.shop;
 
-import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.NumberTextField;
 import com.sales_management_javafx.composent.admin.AdminShopGridPane;
-import com.sales_management_javafx.composent.stockist.StockistShopGridPane;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import org.sales_management.entity.ShopEntity;
 import org.sales_management.service.ShopService;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.scene.control.ScrollPane;
@@ -59,31 +54,16 @@ public class ShopEditFormController implements Initializable {
     
     private void formValidation(){
         if (this.shopNameTextfield.getText().isEmpty() 
-                || this.shopAddressTextfield.getText().isEmpty()
-                || this.shopContactTextfield.getText().isEmpty()
-                || this.shopEmailTextfield.getText().isEmpty()){
+                || this.shopContactTextfield.getText().isEmpty()){
             editShopButton.setDisable(true);
         }
+        
         shopNameTextfield.textProperty().addListener((observableValue, s, t1) -> editShopButton.setDisable(
                 this.shopNameTextfield.getText().isEmpty()
-                || this.shopAddressTextfield.getText().isEmpty()
-                || this.shopContactTextfield.getText().isEmpty()
-                || this.shopEmailTextfield.getText().isEmpty()));
-        shopAddressTextfield.textProperty().addListener((observableValue, s, t1) -> editShopButton.setDisable(
-                this.shopNameTextfield.getText().isEmpty()
-                || this.shopAddressTextfield.getText().isEmpty()
-                || this.shopContactTextfield.getText().isEmpty()
-                || this.shopEmailTextfield.getText().isEmpty()));
+                || this.shopContactTextfield.getText().isEmpty()));
         shopContactTextfield.textProperty().addListener((observableValue, s, t1) -> editShopButton.setDisable(
                 this.shopNameTextfield.getText().isEmpty()
-                || this.shopAddressTextfield.getText().isEmpty()
-                || this.shopContactTextfield.getText().isEmpty()
-                || this.shopEmailTextfield.getText().isEmpty()));
-        shopEmailTextfield.textProperty().addListener((observableValue, s, t1) -> editShopButton.setDisable(
-                this.shopNameTextfield.getText().isEmpty()
-                || this.shopAddressTextfield.getText().isEmpty()
-                || this.shopContactTextfield.getText().isEmpty()
-                || this.shopEmailTextfield.getText().isEmpty()));
+                || this.shopContactTextfield.getText().isEmpty()));
     }
     
     private void onUpdateShop(ShopEntity shop){
