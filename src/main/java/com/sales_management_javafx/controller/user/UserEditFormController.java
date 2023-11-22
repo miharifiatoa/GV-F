@@ -49,6 +49,7 @@ public class UserEditFormController implements Initializable {
     }
     
     public void initialize(AccountEntity account){
+       this.updateNextButtonState();
         setDataOnForm(account);
     if(account.getUser().getPerson().getFirstname()==null){
             System.out.println("ADMINISTRATEUR");
@@ -57,8 +58,7 @@ public class UserEditFormController implements Initializable {
     NumberTextField.requireNumber(user_phone);
     NumberTextField.requireNumber(user_cin);
 
-    user_lastname.textProperty().addListener((observable, oldValue, newValue) -> { 
-         
+    user_lastname.textProperty().addListener((observable, oldValue, newValue) -> {
         updatePerson(account.getUser().getPerson());
         loadData(account);
     });
@@ -107,10 +107,9 @@ public class UserEditFormController implements Initializable {
     }
     
     private void updateNextButtonState() {
-    boolean isUserLastnameFilled = !user_lastname.getText().isEmpty();
-    boolean isUserCinFilled = !user_cin.getText().isEmpty();
-    
-    next_button.setDisable( !isUserLastnameFilled || !isUserCinFilled);
+        boolean isUserLastnameFilled = !user_lastname.getText().isEmpty();
+        boolean isUserCinFilled = !user_cin.getText().isEmpty();
+        next_button.setDisable( !isUserLastnameFilled || !isUserCinFilled);
 }
         
     public PersonEntity updatePerson(PersonEntity person){

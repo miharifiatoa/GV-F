@@ -70,7 +70,7 @@ public class ProductTypeBoxController implements Initializable {
             productNameLabel.setDisable(true);
         }
         this.showArticles(productType);
-        this.setDelete(productType.getId());
+        this.setDelete(productType);
         this.setAdd(productType);
         productBox.getChildren().add(this.getProductTypeEdit(productType));
     }
@@ -96,11 +96,10 @@ public class ProductTypeBoxController implements Initializable {
             productInfoVBox.setVisible(true);
         });
     }
-    private void setDelete(Long id){
+    private void setDelete(ProductTypeEntity productType){
         save.setOnAction(event->{
-            ProductTypeEntity product = productTypeService.deleteById(id);
-            if (product != null){
-                GridPane productGridpane = new ProductTypeGridPane().getGridPane(productService.getById(product.getProduct().getId()).getProductTypes(),4,false);
+            if (productTypeService.deleteById(productType.getId()) != null){
+                GridPane productGridpane = new ProductTypeGridPane().getGridPane(productService.getById(productType.getProduct().getId()).getProductTypes(),4,false);
                 getProductBoxLayoutScrollpane().setContent(productGridpane);
             }
         });

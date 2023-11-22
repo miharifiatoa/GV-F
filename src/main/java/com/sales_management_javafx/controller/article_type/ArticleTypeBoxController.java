@@ -15,7 +15,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.sales_management.entity.ArticleTypeEntity;
-import org.sales_management.entity.ArticleEntity;
 import org.sales_management.service.ArticleTypeService;
 import org.sales_management.service.ArticleService;
 
@@ -62,12 +61,15 @@ public class ArticleTypeBoxController implements Initializable {
         this.articleTypeQuantityLabel.setText(String.valueOf(articleType.getQuantity()));
         this.articleBox.getChildren().add(this.getArticleEdit(articleType));
         this.deleteText.setText("Voulez vous vraiment supprimer cet type dans la liste d'article " + articleType.getArticle().getCode() + " ?");
-        this.setConfirmDelete(articleType.getId());
+        this.setConfirmDelete(articleType);
         if (FileIO.readArticleFromFile("shares.dat").contains(articleType)){
             articleBox.setDisable(true);
         }
         if (FileIO.readArticleFromFile("arrivals.dat").contains(articleType)){
             articleBox.setDisable(true);
+        }
+        if (!articleType.getSaleArticles().isEmpty() || !articleType.getArrivalArticles().isEmpty() || !articleType.getShareArticles().isEmpty() || !articleType.getStockHistories().isEmpty()){
+            delete.setDisable(true);
         }
     }
     private void setDelete(){
@@ -76,17 +78,12 @@ public class ArticleTypeBoxController implements Initializable {
             this.deleteVBox.setVisible(true);
         });
     }
-    private void setConfirmDelete(Long id){
+    private void setConfirmDelete(ArticleTypeEntity articleType){
         confirmDelete.setOnAction(event->{
-            if (this.articleTypeService.deleteById(id) != null){
-                Collection<ArticleEntity> productType = (Collection<ArticleEntity>) FileIO.readFrom("product-type.dat");
+            if (this.articleTypeService.deleteById(articleType.getId()) != null){
                 ScrollPane productBoxLayoutScrollpane = (ScrollPane) articleBox.getParent().getParent().getParent().getParent();
-                GridPane gridPane;
-                for(ArticleEntity article : productType){
-                gridPane = new ArticleTypeGridPane().getGridPane(this.articleTypeService.getAll(), 4,false);
+                GridPane gridPane = new ArticleTypeGridPane().getGridPane(new ArticleService().getById(articleType.getArticle().getId()).getArticleTypeEntities(), 4,false);
                 productBoxLayoutScrollpane.setContent(gridPane);
-                System.out.println(id);
-                }
             }
         });
     }

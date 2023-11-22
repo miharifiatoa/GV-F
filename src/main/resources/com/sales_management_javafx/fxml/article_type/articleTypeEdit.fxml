@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="articleEditVBox" spacing="5.0" styleClass="box-layout" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.article_type.ArticleTypeEditController">
+<VBox fx:id="articleEditVBox" prefHeight="163.0" prefWidth="381.0" spacing="5.0" styleClass="box-layout" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.article_type.ArticleTypeEditController">
    <children>
       <GridPane styleClass="box">
          <columnConstraints>

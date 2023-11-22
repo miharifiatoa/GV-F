@@ -1,7 +1,6 @@
 package com.sales_management_javafx.composent;
 
 import com.sales_management_javafx.SalesApplication;
-import com.sales_management_javafx.controller.product.ProductBoxController;
 import com.sales_management_javafx.controller.product_category.ProductCategoryBoxController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.ColumnConstraints;
@@ -9,7 +8,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import org.sales_management.entity.ProductCategoryEntity;
-import org.sales_management.entity.ProductEntity;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -30,6 +28,7 @@ public class ProductCategoryGridPane {
         }
         int col = 0;
         int row = 0;
+        if(productCategoryEntities!=null){
         for (ProductCategoryEntity productCategory : productCategoryEntities) {
             gridPane.add(this.getProductCategoryBox(productCategory), col, row);
             col++;
@@ -37,8 +36,9 @@ public class ProductCategoryGridPane {
                 col = 0;
                 row++;
             }
-        }
+        }}
         gridPane.getStyleClass().add("gridpane");
+     
         return gridPane;
     }
     private StackPane getProductCategoryBox(ProductCategoryEntity productCategory){
