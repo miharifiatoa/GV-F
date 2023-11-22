@@ -79,11 +79,14 @@ public class ArticleTypeBoxController implements Initializable {
     private void setConfirmDelete(Long id){
         confirmDelete.setOnAction(event->{
             if (this.articleTypeService.deleteById(id) != null){
-                ArticleEntity productType = (ArticleEntity) FileIO.readFrom("product-type.dat");
+                Collection<ArticleEntity> productType = (Collection<ArticleEntity>) FileIO.readFrom("product-type.dat");
                 ScrollPane productBoxLayoutScrollpane = (ScrollPane) articleBox.getParent().getParent().getParent().getParent();
-                GridPane gridPane = new ArticleTypeGridPane().getGridPane(new ArticleService().getById(productType.getId()).getArticleTypeEntities(), 4,false);
+                GridPane gridPane;
+                for(ArticleEntity article : productType){
+                gridPane = new ArticleTypeGridPane().getGridPane(this.articleTypeService.getAll(), 4,false);
                 productBoxLayoutScrollpane.setContent(gridPane);
                 System.out.println(id);
+                }
             }
         });
     }
