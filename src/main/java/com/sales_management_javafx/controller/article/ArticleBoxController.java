@@ -17,7 +17,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import org.sales_management.entity.ProductTypeEntity;
 import org.sales_management.entity.ArticleEntity;
 import org.sales_management.service.ProductTypeService;
 import org.sales_management.service.ArticleService;

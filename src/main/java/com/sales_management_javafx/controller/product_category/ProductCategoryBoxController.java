@@ -2,6 +2,7 @@ package com.sales_management_javafx.controller.product_category;
 
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.FileIO;
+import com.sales_management_javafx.composent.ProductCategoryGridPane;
 import com.sales_management_javafx.composent.ProductGridPane;
 import com.sales_management_javafx.controller.product.ProductCreateController;
 import javafx.fxml.FXML;
@@ -21,8 +22,8 @@ import org.sales_management.service.ProductService;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Collection;
 import java.util.ResourceBundle;
-import javafx.scene.layout.VBox;
 
 public class ProductCategoryBoxController implements Initializable {
     @FXML private StackPane productCategoryBox;
@@ -73,10 +74,21 @@ public class ProductCategoryBoxController implements Initializable {
         productCategoryNameLabel.setText(productCategory.getName());
         this.onShowProducts(productCategory);
         this.onCreateProduct(productCategory);
-
+        this.setDelete(productCategory);
     }
     public StackPane getProductBoxLayout(){
         return (StackPane) productCategoryBox.getParent().getParent().getParent().getParent().getParent().getParent().getParent();
+    }
+    private ScrollPane getProductBoxLayoutScrollpane(){
+        return (ScrollPane) productCategoryBox.getParent().getParent().getParent().getParent();
+    }
+    private void setDelete(ProductCategoryEntity productCategory){
+        save.setOnMouseClicked(event->{
+            if (productCategoryService.deleteById(productCategory.getId()) != null){
+                GridPane productCategoryGridpane = new ProductCategoryGridPane().getGridPane((Collection<ProductCategoryEntity>) productCategoryService.getById(productCategory.getId()),4);
+                getProductBoxLayoutScrollpane().setContent(productCategoryGridpane);
+            }
+        });
     }
     private void onShowProducts(ProductCategoryEntity productCategory){
         productCategoryNameLabel.setOnMouseClicked(event->{

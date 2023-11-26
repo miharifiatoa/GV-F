@@ -22,6 +22,7 @@ import org.sales_management.service.ProductService;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import org.sales_management.service.ProductCategoryService;
 
 public class ProductBoxController implements Initializable {
     @FXML private StackPane productBox;
@@ -34,10 +35,12 @@ public class ProductBoxController implements Initializable {
     @FXML private Label save;
     @FXML private Label exit;
     private final ProductService productService;
+    private final ProductCategoryService productCategoryService;
     private final ProductGridPane productGridPane;
 
     public ProductBoxController() {
         this.productGridPane = new ProductGridPane();
+        this.productCategoryService = new ProductCategoryService();
         this.productService = new ProductService();
     }
     @Override
@@ -70,10 +73,22 @@ public class ProductBoxController implements Initializable {
         productNameLabel.setText(product.getName());
         this.onShowProductTypes(product);
         this.onCreateProduct(product);
+        setDelete(product);
 
     }
     public StackPane getProductBoxLayout(){
         return (StackPane) productBox.getParent().getParent().getParent().getParent().getParent().getParent().getParent();
+    }
+    private ScrollPane getProductBoxLayoutScrollpane(){
+        return (ScrollPane) productBox.getParent().getParent().getParent().getParent();
+    }
+    private void setDelete(ProductEntity product){
+        save.setOnMouseClicked(event->{
+            if (productService.deleteById(product.getId()) != null){
+                GridPane productGridpane = new ProductGridPane().getGridPane(productCategoryService.getById(product.getProductCategory().getId()).getProducts(),4);
+                getProductBoxLayoutScrollpane().setContent(productGridpane);
+            }
+        });
     }
     private void onShowProductTypes(ProductEntity product){
         productNameLabel.setOnMouseClicked(event->{
