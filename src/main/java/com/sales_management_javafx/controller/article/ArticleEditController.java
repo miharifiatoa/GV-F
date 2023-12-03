@@ -4,6 +4,7 @@ import com.sales_management_javafx.composent.ArticleGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -17,8 +18,8 @@ import java.util.ResourceBundle;
 public class ArticleEditController implements Initializable {
     @FXML private VBox productTypeEditVBox;
     @FXML private TextField articlePrice;
-    @FXML private Button exit;
-    @FXML private Button save;
+    @FXML private Label exit;
+    @FXML private Label save;
     private final ArticleService articleService;
 
     public ArticleEditController() {
@@ -35,12 +36,13 @@ public class ArticleEditController implements Initializable {
         this.setSave(article);
     }
     private void setExit(){
-        exit.setOnAction(event->{
+        exit.setOnMouseClicked(event->{
             productTypeEditVBox.setVisible(false);
+            productTypeEditVBox.getParent().lookup("#articleVBox").setVisible(true);
         });
     }
     private void setSave(ArticleEntity article){
-        save.setOnAction(event->{
+        save.setOnMouseClicked(event->{
             ArticleEntity articleEntity = articleService.getById(article.getId());
             if (articleEntity != null){
                 articleEntity.setPrice(Double.valueOf(articlePrice.getText()));

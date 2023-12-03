@@ -5,11 +5,7 @@ import com.sales_management_javafx.composent.MenuGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
-import org.sales_management.entity.AccountEntity;
-import org.sales_management.entity.InventoryEntity;
-import org.sales_management.entity.UserEntity;
 import org.sales_management.service.AccountService;
-import org.sales_management.service.InventoryService;
 import org.sales_management.service.UserService;
 
 import java.net.URL;
@@ -20,7 +16,6 @@ public class InventoryLayoutController implements Initializable {
     private BorderPane inventoryLayoutBorderpane;
     private final MenuGridPane menuGridPane;
     private final MenuIcon menuIcon;
-    private final InventoryService inventoryService;
     private final AccountService accountService;
     private final UserService userService;
 
@@ -29,7 +24,6 @@ public class InventoryLayoutController implements Initializable {
         this.accountService = new AccountService();
         this.menuIcon = new MenuIcon();
         this.menuGridPane = new MenuGridPane();
-        this.inventoryService = new InventoryService();
     }
 
     @Override

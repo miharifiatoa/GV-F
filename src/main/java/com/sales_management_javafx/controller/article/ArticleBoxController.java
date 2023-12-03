@@ -36,8 +36,8 @@ public class ArticleBoxController implements Initializable {
     @FXML private Label deleteText;
     @FXML private Button edit;
     @FXML private Button delete;
-    @FXML private Button confirmDelete;
-    @FXML private Button exit;
+    @FXML private Label save;
+    @FXML private Label exit;
     @FXML private Label add;
     @FXML private ImageView editIcon;
     @FXML private ImageView deleteIcon;
@@ -68,7 +68,7 @@ public class ArticleBoxController implements Initializable {
         articleNameLabel.setText(article.getCode());
         articlePrice.setText(article.getPrice() + "Ar");
         productTypeName.setText(article.getProductTypeEntity().getName());
-        articleQuantityLabel.setText(article.getArticleTypeEntities().size() + " types d' article");
+        articleQuantityLabel.setText(article.getArticleTypeEntities().size() + " type(s)");
         this.setProductTypeNameLabel(article);
         this.setAdd(article);
         this.setConfirmDelete(article);
@@ -80,7 +80,6 @@ public class ArticleBoxController implements Initializable {
     }
     private void setProductTypeNameLabel(ArticleEntity productType){
         articleNameLabel.setOnMouseClicked(event->{
-            FileIO.writeTo("article.dat",productType);
             GridPane articleGridpane = new ArticleTypeGridPane().getGridPane(productType.getArticleTypeEntities(),4,false);
             getProductBoxLayoutScrollpane().setContent(articleGridpane);
         });
@@ -100,7 +99,7 @@ public class ArticleBoxController implements Initializable {
         });
     }
     private void setConfirmDelete(ArticleEntity article) {
-        confirmDelete.setOnAction(event -> {
+        save.setOnMouseClicked(event -> {
             if (articleService.deleteById(article.getId()) != null){
                 GridPane gridPane = new ArticleGridPane().getGridPane(new ProductTypeService().getById(article.getProductTypeEntity().getId()).getArticles(),4);
                 getProductBoxLayoutScrollpane().setContent(gridPane);
@@ -109,7 +108,7 @@ public class ArticleBoxController implements Initializable {
     }
 
     private void setExit(){
-        exit.setOnAction(event->{
+        exit.setOnMouseClicked(event->{
             articleVBox.setVisible(true);
             deleteVBox.setVisible(false);
         });
@@ -117,6 +116,7 @@ public class ArticleBoxController implements Initializable {
     private void setEdit(ArticleEntity productType){
         edit.setOnAction(event->{
             articleBox.getChildren().add(this.getProductTypeEdit(productType));
+            articleVBox.setVisible(false);
         });
     }
     public StackPane getProductBoxLayout(){

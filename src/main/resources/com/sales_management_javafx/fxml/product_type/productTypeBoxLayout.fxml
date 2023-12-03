@@ -21,15 +21,18 @@
    <children>
       <BorderPane fx:id="product">
          <center>
-            <BorderPane fx:id="productBoxLayoutBorderpane" styleClass="box">
+            <BorderPane fx:id="productBoxLayoutBorderpane">
                <BorderPane.margin>
                   <Insets />
                </BorderPane.margin>
                <center>
-                  <ScrollPane fx:id="productBoxLayoutScrollpane" fitToHeight="true" fitToWidth="true" prefHeight="286.0" prefWidth="409.0" styleClass="box">
+                  <ScrollPane fx:id="productBoxLayoutScrollpane" fitToHeight="true" fitToWidth="true" styleClass="box">
                      <BorderPane.margin>
                         <Insets />
                      </BorderPane.margin>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
                   </ScrollPane>
                </center>
                <top>
@@ -100,9 +103,6 @@
                      </padding>
                   </GridPane>
                </top>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
             </BorderPane>
          </center>
          <top>

@@ -79,7 +79,7 @@ public class ProductTypeBoxLayoutController implements Initializable {
     
     private void initializeSearchTextField(){
             this.searchProductTextfield.setPromptText("Recherche");
-        searchProductTextfield.textProperty().addListener((observableValue, s, t1) -> {
+            searchProductTextfield.textProperty().addListener((observableValue, s, t1) -> {
             System.out.println("id = "+searchProductTextfield.getId());
             if (!searchProductTextfield.getText().isEmpty()){
                 

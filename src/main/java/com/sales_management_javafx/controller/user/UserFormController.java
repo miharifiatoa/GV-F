@@ -87,10 +87,10 @@ public class UserFormController implements Initializable {
     public UserEntity createUser(){
         UserEntity user = new UserEntity();
         if (!user_phone.getText().isEmpty()){
-            user.setNumber(Long.valueOf(user_phone.getText()));
+            user.setNumber(user_phone.getText());
         }
         if (!user_cin.getText().isEmpty()){
-            user.setCin(Long.valueOf(user_cin.getText()));
+            user.setCin(user_cin.getText());
         }
         user.setEmail(user_email.getText());
 

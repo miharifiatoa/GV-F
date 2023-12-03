@@ -31,14 +31,14 @@ public class ProductTypeBoxController implements Initializable {
     @FXML private ImageView editIcon;
     @FXML private ImageView deleteIcon;
     @FXML private Label productNameLabel;
-    @FXML private Button exit;
     @FXML private Button delete;
     @FXML private Button edit;
     @FXML private Label deleteText;
     @FXML private Label productTypeBrandLabel;
     @FXML private Label productTypeReferenceLabel;
     @FXML private Label articleQuantityLabel;
-    @FXML private Button save;
+        @FXML private Label exit;
+    @FXML private Label save;
     @FXML private Label add;
     private final ProductTypeService productTypeService;
     private final ProductService productService;
@@ -74,10 +74,6 @@ public class ProductTypeBoxController implements Initializable {
         this.setAdd(productType);
         productBox.getChildren().add(this.getProductTypeEdit(productType));
     }
-    private void putIcons(){
-        this.editIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/EditIcon.png"))));
-        this.deleteIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/DeleteIcon.png"))));
-    }
     private void setEdit(){
         edit.setOnAction(event->{
             productInfoVBox.setVisible(false);
@@ -97,7 +93,7 @@ public class ProductTypeBoxController implements Initializable {
         });
     }
     private void setDelete(ProductTypeEntity productType){
-        save.setOnAction(event->{
+        save.setOnMouseClicked(event->{
             if (productTypeService.deleteById(productType.getId()) != null){
                 GridPane productGridpane = new ProductTypeGridPane().getGridPane(productService.getById(productType.getProduct().getId()).getProductTypes(),4,false);
                 getProductBoxLayoutScrollpane().setContent(productGridpane);
@@ -106,7 +102,6 @@ public class ProductTypeBoxController implements Initializable {
     }
     private void showArticles(ProductTypeEntity productType){
         productNameLabel.setOnMouseClicked(event->{
-            FileIO.writeTo("product_type.dat",productType);
             GridPane gridPane = new ArticleGridPane().getGridPane(productType.getArticles(),4);
             getProductBoxLayoutScrollpane().setContent(gridPane);
         });
@@ -148,5 +143,9 @@ public class ProductTypeBoxController implements Initializable {
             throw new RuntimeException(e);
         }
         return productTypeCreate;
+    }
+    private void putIcons(){
+        this.editIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/EditIcon.png"))));
+        this.deleteIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/DeleteIcon.png"))));
     }
 }

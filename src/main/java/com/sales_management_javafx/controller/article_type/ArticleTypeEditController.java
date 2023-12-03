@@ -5,6 +5,7 @@ import com.sales_management_javafx.composent.ArticleTypeGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -23,11 +24,9 @@ public class ArticleTypeEditController implements Initializable {
     @FXML
     private TextField articleColorTextfield;
     @FXML
-    private Button save;
+    private Label save;
     @FXML
-    private Button exit;
-    @FXML
-    private ScrollPane articleEditScrollpane;
+    private Label exit;
     @FXML
     private VBox articleEditVBox;
     @FXML
@@ -54,7 +53,7 @@ public class ArticleTypeEditController implements Initializable {
         this.setSave(article.getId());
     }
     public void setSave(Long article_id){
-        save.setOnAction(actionEvent -> {
+        save.setOnMouseClicked(actionEvent -> {
             if (this.articleTypeService.update(this.getNewArticle(article_id))!=null){
                 GridPane gridPane = new ArticleTypeGridPane().getGridPane(new ArticleTypeService().getById(article_id).getArticle().getArticleTypeEntities(), 4,false);
                 ScrollPane productBoxLayoutScrollpane = (ScrollPane) articleEditVBox.getParent().getParent().getParent().getParent().getParent();
@@ -69,7 +68,7 @@ public class ArticleTypeEditController implements Initializable {
         return article;
     }
     public void setExit(){
-        exit.setOnAction(actionEvent -> {
+        exit.setOnMouseClicked(actionEvent -> {
             VBox articleVBox = (VBox) articleEditVBox.getParent().lookup("#articleVBox");
             articleEditVBox.setVisible(false);
             articleVBox.setVisible(true);

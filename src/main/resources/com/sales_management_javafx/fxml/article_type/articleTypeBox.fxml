@@ -15,22 +15,22 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="articleBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.article_type.ArticleTypeBoxController">
+<StackPane fx:id="articleBox" styleClass="box" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.article_type.ArticleTypeBoxController">
    <children>
-      <VBox fx:id="articleVBox" spacing="5.0" styleClass="box-layout">
+      <VBox fx:id="articleVBox" spacing="5.0">
          <children>
             <GridPane styleClass="box">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" prefWidth="150.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" prefWidth="150.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" />
+                  <ColumnConstraints hgrow="SOMETIMES" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints maxHeight="25.0" minHeight="25.0" vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
                   <HBox alignment="CENTER_RIGHT" spacing="5.0" GridPane.columnIndex="1">
                      <children>
-                      <Button fx:id="edit" alignment="CENTER" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="67.2" styleClass="buttons" textFill="WHITE">
+                      <Button fx:id="edit" alignment="CENTER" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" styleClass="buttons" textFill="WHITE">
                            <font>
                               <Font name="System Bold Italic" size="12.0" />
                            </font>
@@ -41,7 +41,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="delete" alignment="CENTER" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="147.2" styleClass="buttons" textFill="WHITE">
+                        <Button fx:id="delete" alignment="CENTER" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" styleClass="buttons" textFill="WHITE">
                            <font>
                               <Font name="System Bold Italic" size="12.0" />
                            </font>
@@ -54,22 +54,29 @@
                         </Button>
                      </children>
                   </HBox>
-                  <Label fx:id="articleCodeLabel" text="Code" textFill="#8e8e8e">
-                     <font>
-                        <Font name="System Bold Italic" size="12.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Label>
+                  <AnchorPane>
+                     <children>
+                        <Label fx:id="articleCodeLabel" text="Code" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font name="System Italic" size="13.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </AnchorPane>
                </children>
                <padding>
-                  <Insets bottom="5.0" left="5.0" right="2.0" top="5.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </GridPane>
-            <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="80.0" minHeight="80.0" styleClass="no-border">
+            <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="60.0" minHeight="60.0" styleClass="box">
                <content>
-                  <GridPane styleClass="box">
+                  <GridPane styleClass="gridpane">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" prefWidth="150.0" />
                         <ColumnConstraints hgrow="SOMETIMES" />
@@ -146,15 +153,18 @@
                   <ColumnConstraints hgrow="SOMETIMES" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
                   <AnchorPane>
                      <children>
-                        <Label fx:id="articleTypeQuantityLabel" alignment="CENTER" text="Quantity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Label fx:id="articleTypeQuantityLabel" alignment="CENTER" text="Quantity" textFill="#a4a4a4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <font>
-                              <Font name="System Bold Italic" size="12.0" />
+                              <Font name="System Italic" size="13.0" />
                            </font>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
                         </Label>
                      </children>
                   </AnchorPane>
@@ -164,85 +174,34 @@
                </padding>
             </GridPane>
          </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
       </VBox>
-      <VBox fx:id="deleteVBox" alignment="TOP_CENTER" spacing="5.0" styleClass="box-layout" visible="false">
+      <VBox fx:id="deleteVBox" alignment="TOP_CENTER" spacing="5.0" visible="false">
          <children>
-            <VBox alignment="TOP_CENTER" spacing="5.0">
+            <Label fx:id="deleteText" text="Label" textAlignment="CENTER" textFill="#a4a4a4" wrapText="true">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_RIGHT" spacing="5.0">
                <children>
-                  <GridPane styleClass="box">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <AnchorPane>
-                           <children>
-                              <Label prefHeight="25.6" prefWidth="186.4" text="Suppression" textFill="#7e7e7e" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="12.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
-                           <children>
-                              <AnchorPane>
-                                 <children>
-                                  <Button fx:id="exitDelete" alignment="CENTER" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #acacac;" text="x" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <font>
-                                          <Font name="System Bold" size="11.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </AnchorPane>
-                           </children>
-                        </HBox>
-                     </children>
+                  <Label fx:id="save" style="-fx-background-color: #ff0000;" text="Oui" textFill="WHITE">
                      <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
                      </padding>
-                  </GridPane>
-                  <Label fx:id="deleteText" alignment="CENTER" contentDisplay="CENTER" text="dans la liste du produit" textAlignment="CENTER" textFill="#a6a6a6" textOverrun="CENTER_ELLIPSIS" wrapText="true">
                      <font>
-                        <Font name="System Italic" size="12.0" />
+                        <Font name="System Bold Italic" size="12.0" />
                      </font>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
                   </Label>
-                  <GridPane styleClass="box">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <AnchorPane>
-                           <children>
-                              <Button fx:id="confirmDelete" mnemonicParsing="false" prefHeight="24.0" prefWidth="371.2" style="-fx-background-color: #ff0000;" text="Supprimer" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="11.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </AnchorPane>
-                     </children>
+                  <Label fx:id="exit" layoutX="87.0" layoutY="20.0" style="-fx-background-color: #acacac;" text="Non" textFill="WHITE">
                      <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
                      </padding>
-                  </GridPane>
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
                </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </VBox>
+            </HBox>
          </children>
       </VBox>
    </children>

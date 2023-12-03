@@ -51,19 +51,10 @@ public class ProductCategoryCreateController implements Initializable {
         if (this.productCategoryNameTextfield.getText().isEmpty()){
             save.setDisable(true);
         }
-        productCategoryNameTextfield.textProperty().addListener((observable, oldValue, newValue) -> {
-            String productName = newValue.trim().toLowerCase();
-
-            if (!productName.isEmpty()) {
-                ProductCategoryEntity existingCategory = productCategoryService.isUniqueValue(productName);
-
-                if (existingCategory != null) {
-                    nameWarning.setText(productName + " existe déjà dans la catégorie " + existingCategory.getName());
-                    save.setDisable(true);
-                } else {
-                    nameWarning.setText(null);
-                    save.setDisable(false);
-                }
+        productCategoryNameTextfield.textProperty().addListener(observable -> {
+            if (!productCategoryNameTextfield.getText().isEmpty()) {
+                nameWarning.setText(null);
+                save.setDisable(false);
             } else {
                 nameWarning.setText("Champ obligatoire");
                 save.setDisable(true);

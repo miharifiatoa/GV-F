@@ -8,7 +8,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import org.sales_management.entity.*;
 import org.sales_management.service.AccountService;
-import org.sales_management.service.InventoryService;
 import org.sales_management.service.ShopService;
 import org.sales_management.service.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -21,7 +20,6 @@ import java.util.ResourceBundle;
 public class SalesController implements Initializable {
     @FXML
     private BorderPane salesManagementBorderpane;
-    private final InventoryService inventoryService;
     private final AccountService accountService;
     private final UserService userService;
     private final ShopService shopService;
@@ -30,7 +28,6 @@ public class SalesController implements Initializable {
         this.shopService = new ShopService();
         this.accountService = new AccountService();
         this.userService = new UserService();
-        this.inventoryService = new InventoryService();
     }
 
     @Override
@@ -41,11 +38,6 @@ public class SalesController implements Initializable {
             this.salesManagementBorderpane.setCenter(loginGridpane);
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-        if (this.inventoryService.getAll().isEmpty() || this.inventoryService.getAll().size()==0){
-            InventoryEntity inventory = new InventoryEntity();
-            inventory.setCode(100);
-            inventoryService.create(inventory);
         }
         if (this.accountService.getAll().isEmpty() || this.accountService.getAll().size()==0){
             AccountEntity account = new AccountEntity();

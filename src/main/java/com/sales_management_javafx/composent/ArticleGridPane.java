@@ -38,6 +38,8 @@ public class ArticleGridPane {
             }
         }
         gridPane.getStyleClass().add("gridpane");
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
         return gridPane;
     }
     private StackPane getProductTypeBox(ArticleEntity productType){

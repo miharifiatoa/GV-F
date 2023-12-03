@@ -3,22 +3,18 @@ package com.sales_management_javafx.controller.user;
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.classes.NumberTextField;
 import com.sales_management_javafx.controller.account.AccountEditFormController;
-import java.io.IOException;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-import java.net.URL;
-import java.util.Objects;
-import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ToggleGroup;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import org.sales_management.entity.AccountEntity;
 import org.sales_management.entity.PersonEntity;
 import org.sales_management.entity.UserEntity;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class UserEditFormController implements Initializable {
     @FXML
@@ -39,60 +35,59 @@ public class UserEditFormController implements Initializable {
     private RadioButton womenSexType;
     @FXML
     private Button next_button;
-    private ToggleGroup sexeToggleGroup = new ToggleGroup();
+    private final ToggleGroup sexeToggleGroup = new ToggleGroup();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         updateNextButtonState();
         manSexType.setToggleGroup(sexeToggleGroup);
         womenSexType.setToggleGroup(sexeToggleGroup);
-        
     }
     
     public void initialize(AccountEntity account){
-       this.updateNextButtonState();
+        this.updateNextButtonState();
         setDataOnForm(account);
-    if(account.getUser().getPerson().getFirstname()==null){
+        if(account.getUser().getPerson().getFirstname()==null){
             System.out.println("ADMINISTRATEUR");
             manSexType.setSelected(true);
         }
-    NumberTextField.requireNumber(user_phone);
-    NumberTextField.requireNumber(user_cin);
+        NumberTextField.requireNumber(user_phone);
+        NumberTextField.requireNumber(user_cin);
 
-    user_lastname.textProperty().addListener((observable, oldValue, newValue) -> {
-        updatePerson(account.getUser().getPerson());
-        loadData(account);
-    });
-    user_address.textProperty().addListener((observable, oldValue, newValue) -> { 
-        loadData(account);
-    });
-    user_phone.textProperty().addListener((observable, oldValue, newValue) -> { 
-        loadData(account);
-    });
-    user_email.textProperty().addListener((observable, oldValue, newValue) -> { 
-        loadData(account);
-    });
-    user_cin.textProperty().addListener((observable, oldValue, newValue) -> { 
-        updateNextButtonState();
-        loadData(account);
-    });
-    this.updateUser(account.getUser());
-    this.next(loadData(account));
+        user_lastname.textProperty().addListener((observable, oldValue, newValue) -> {
+            updatePerson(account.getUser().getPerson());
+            loadData(account);
+        });
+        user_address.textProperty().addListener((observable, oldValue, newValue) -> {
+            loadData(account);
+        });
+        user_phone.textProperty().addListener((observable, oldValue, newValue) -> {
+            loadData(account);
+        });
+        user_email.textProperty().addListener((observable, oldValue, newValue) -> {
+            loadData(account);
+        });
+        user_cin.textProperty().addListener((observable, oldValue, newValue) -> {
+            updateNextButtonState();
+            loadData(account);
+        });
+        this.updateUser(account.getUser());
+        this.next(loadData(account));
     }
     
     public void setDataOnForm(AccountEntity account){
         if(account.getUser() != null){
-        user_lastname.setText(account.getUser().getPerson().getLastname());
-        user_address.setText(account.getUser().getPerson().getAddress());
-        user_email.setText(account.getUser().getEmail());
-        if(account.getUser().getCin()!=null) { user_cin.setText(account.getUser().getCin().toString()); }
-        if(account.getUser().getNumber()!=null) { user_phone.setText(account.getUser().getNumber().toString()); }
-        if(account.getUser().getPerson().getGender()=='M'){
-            manSexType.setSelected(true);
-        } else if(account.getUser().getPerson().getGender()=='F'){
-            womenSexType.setSelected(true);
+            user_lastname.setText(account.getUser().getPerson().getLastname());
+            user_address.setText(account.getUser().getPerson().getAddress());
+            user_email.setText(account.getUser().getEmail());
+            user_cin.setText(String.valueOf(account.getUser().getCin()));
+            user_phone.setText(account.getUser().getNumber());
+            if(account.getUser().getPerson().getGender()=='M'){
+                manSexType.setSelected(true);
+            }
+            else{
+                womenSexType.setSelected(true);
+            }
         }
-    }        manSexType.setSelected(true);
-
     }
     
     private AccountEntity loadData(AccountEntity account){
@@ -113,27 +108,20 @@ public class UserEditFormController implements Initializable {
 }
         
     public PersonEntity updatePerson(PersonEntity person){
-            
-            person.setLastname(user_lastname.getText());
-            person.setAddress(user_address.getText());
-        
-        if( Objects.equals(manSexType.selectedProperty().getValue(), "true")){
+        person.setLastname(user_lastname.getText());
+        person.setAddress(user_address.getText());
+        if(manSexType.selectedProperty().getValue()){
             person.setGender('M');
-            } else if(Objects.equals(womenSexType.selectedProperty().getValue(), "true")){
+        }
+        else{
             person.setGender('F');
-            }
-            
+        }
         return person;
     }
     public UserEntity updateUser(UserEntity user){
-        if(user.getRole().equals("ADMIN")){
-            user.setId(Long.valueOf("1"));
-            user.setRole("ADMIN");
-            }
-            user.setEmail(user_email.getText());
-            if(!user_phone.getText().isEmpty()) { user.setNumber(Long.valueOf(user_phone.getText())); }
-            if(!user_cin.getText().isEmpty()) { user.setCin(Long.valueOf(user_cin.getText())); }
-        
+        user.setEmail(user_email.getText());
+        user.setNumber(user_phone.getText());
+        user.setCin(user_cin.getText());
         return user;
     }
     public void next(AccountEntity account){

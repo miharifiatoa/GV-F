@@ -16,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import org.sales_management.entity.ProductEntity;
 import org.sales_management.service.ProductService;
 
@@ -26,42 +27,33 @@ import org.sales_management.service.ProductCategoryService;
 
 public class ProductBoxController implements Initializable {
     @FXML private StackPane productBox;
-    @FXML private GridPane productBoxGridpane;
-    @FXML private GridPane deleteBoxGridpane;
+    @FXML private VBox productVBox;
+    @FXML private VBox deleteVBox;
     @FXML private Label productNameLabel;
     @FXML private Label createProductTypeLabel;
     @FXML private ImageView deleteIcon;
+    @FXML private ImageView editIcon;
     @FXML private Button delete;
+    @FXML private Button edit;
     @FXML private Label save;
     @FXML private Label exit;
+    @FXML private Label quantityLabel;
+    @FXML private Label deleteText;
     private final ProductService productService;
     private final ProductCategoryService productCategoryService;
-    private final ProductGridPane productGridPane;
 
     public ProductBoxController() {
-        this.productGridPane = new ProductGridPane();
         this.productCategoryService = new ProductCategoryService();
         this.productService = new ProductService();
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.putIcons();
-        productBoxGridpane.setVisible(true);
-        deleteBoxGridpane.setVisible(false);
+        productVBox.setVisible(true);
+        deleteVBox.setVisible(false);
         this.setDelete();
         this.setExit();
-    }
-    private void setDelete(){
-        delete.setOnAction(event->{
-            productBoxGridpane.setVisible(false);
-            deleteBoxGridpane.setVisible(true);
-        });
-    }
-    private void setExit(){
-        exit.setOnMouseClicked(event->{
-            productBoxGridpane.setVisible(true);
-            deleteBoxGridpane.setVisible(false);
-        });
+        this.setEdit();
     }
     public void initialize(ProductEntity product){
         if (!product.getProductTypes().isEmpty()){
@@ -73,8 +65,28 @@ public class ProductBoxController implements Initializable {
         productNameLabel.setText(product.getName());
         this.onShowProductTypes(product);
         this.onCreateProduct(product);
-        setDelete(product);
-
+        this.setSave(product);
+        this.quantityLabel.setText(product.getProductTypes().size() + " type(s)");
+        this.deleteText.setText("Voulez vous vraiment supprimer ce produit : " + product.getName() + " ?");
+        this.productBox.getChildren().add(this.getProductEdit(product));
+    }
+    private void setEdit(){
+        edit.setOnAction(event->{
+            productVBox.setVisible(false);
+            productBox.lookup("#editVBox").setVisible(true);
+        });
+    }
+    private void setDelete(){
+        delete.setOnAction(event->{
+            productVBox.setVisible(false);
+            deleteVBox.setVisible(true);
+        });
+    }
+    private void setExit(){
+        exit.setOnMouseClicked(event->{
+            productVBox.setVisible(true);
+            deleteVBox.setVisible(false);
+        });
     }
     public StackPane getProductBoxLayout(){
         return (StackPane) productBox.getParent().getParent().getParent().getParent().getParent().getParent().getParent();
@@ -82,7 +94,7 @@ public class ProductBoxController implements Initializable {
     private ScrollPane getProductBoxLayoutScrollpane(){
         return (ScrollPane) productBox.getParent().getParent().getParent().getParent();
     }
-    private void setDelete(ProductEntity product){
+    private void setSave(ProductEntity product){
         save.setOnMouseClicked(event->{
             if (productService.deleteById(product.getId()) != null){
                 GridPane productGridpane = new ProductGridPane().getGridPane(productCategoryService.getById(product.getProductCategory().getId()).getProducts(),4);
@@ -96,7 +108,6 @@ public class ProductBoxController implements Initializable {
             BorderPane productBoxLayoutBorderpane = (BorderPane) productLayout.lookup("#productBoxLayoutBorderpane");
             ScrollPane productBoxLayoutScrollpane = (ScrollPane) productLayout.lookup("#productBoxLayoutScrollpane");
             GridPane productGridPane = new ProductTypeGridPane().getGridPane(this.productService.getById(product.getId()).getProductTypes(),4,false);
-            FileIO.writeTo("product.dat",product);
             productBoxLayoutScrollpane.setContent(productGridPane);
             productBoxLayoutBorderpane.setCenter(productBoxLayoutScrollpane);
         });
@@ -112,6 +123,7 @@ public class ProductBoxController implements Initializable {
     }
     private void putIcons(){
         this.deleteIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/DeleteIcon.png"))));
+        this.editIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/EditIcon.png"))));
     }
     private StackPane getProductTypeCreateBox(ProductEntity product){
         FXMLLoader createProductBoxLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product_type/productTypeCreate.fxml"));
@@ -124,5 +136,17 @@ public class ProductBoxController implements Initializable {
             throw new RuntimeException(e);
         }
         return createProductBox;
+    }
+    private VBox getProductEdit(ProductEntity product){
+        FXMLLoader fxmlLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/product/productEdit.fxml"));
+        VBox vBox;
+        try {
+            vBox = fxmlLoader.load();
+            ProductEditController productEditController = fxmlLoader.getController();
+            productEditController.initialize(product);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return vBox;
     }
 }

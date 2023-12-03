@@ -15,7 +15,7 @@ public class ProductTypeGridPane {
     public ProductTypeGridPane() {
         this.gridPane = new GridPane();
     }
-    public GridPane getGridPane(Collection<ProductTypeEntity> products, int colSize, boolean isShowCreateBox){
+    public GridPane getGridPane(Collection<ProductTypeEntity> productTypes, int colSize, boolean isShowCreateBox){
         for (int i = 0 ; i < colSize ; i++){
             ColumnConstraints constraints = new ColumnConstraints();
             constraints.setHgrow(Priority.ALWAYS);
@@ -23,24 +23,19 @@ public class ProductTypeGridPane {
             constraints.setPercentWidth((double) 100 /colSize);
             gridPane.getColumnConstraints().add(constraints);
         }
-        int col = 1;
+        int col = 0;
         int row = 0;
-        if (isShowCreateBox){
-//            gridPane.add(this.getProductCreateFormBox(), 0, row);
-        }
-        else col = 0;
-        for (ProductTypeEntity product : products) {
-//            if (!ProductFile.readProductsFromFile().contains(product)){
-                gridPane.add(this.getProductBox(product), col, row);
-                col++;
-                if (col == colSize) {
-                    col = 0;
-                    row++;
-                }
-//            }
+        for (ProductTypeEntity productType : productTypes) {
+            gridPane.add(this.getProductBox(productType), col, row);
+            col++;
+            if (col == colSize) {
+                col = 0;
+                row++;
+            }
         }
         gridPane.getStyleClass().add("gridpane");
-        gridPane.setId("productGridPane");
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
         return gridPane;
     }
     private StackPane getProductBox(ProductTypeEntity product){

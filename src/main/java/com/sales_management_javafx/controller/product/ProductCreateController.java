@@ -40,10 +40,10 @@ public class ProductCreateController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.setExit();
+        this.formValidation();
     }
     public void initialize(ProductCategoryEntity productCategory){
         productCategoryLabel.setText("Nouveau " + productCategory.getName());
-        this.formValidation(productCategory);
         this.setSave(productCategory);
     }
     private void setExit(){
@@ -53,23 +53,14 @@ public class ProductCreateController implements Initializable {
         });
     }
 
-    public void formValidation(ProductCategoryEntity productCategory){
+    public void formValidation(){
         if (this.productNameTextfield.getText().isEmpty()){
             save.setDisable(true);
         }
-        productNameTextfield.textProperty().addListener((observable, oldValue, newValue) -> {
-            String productName = newValue.trim().toLowerCase();
-
-            if (!productName.isEmpty()) {
-                ProductEntity existingProduct = productService.isUniqueValue(productName);
-
-                if (existingProduct != null) {
-                    nameWarning.setText(productName + " existe déjà dans la catégorie " + productCategory.getName());
-                    save.setDisable(true);
-                } else {
-                    nameWarning.setText(null);
-                    save.setDisable(false);
-                }
+        productNameTextfield.textProperty().addListener(observable -> {
+            if (!productNameTextfield.getText().isEmpty()) {
+                nameWarning.setText(null);
+                save.setDisable(false);
             } else {
                 nameWarning.setText("Champ obligatoire");
                 save.setDisable(true);

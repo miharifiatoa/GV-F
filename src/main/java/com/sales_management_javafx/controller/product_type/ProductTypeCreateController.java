@@ -9,10 +9,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import org.sales_management.entity.InventoryEntity;
 import org.sales_management.entity.ProductEntity;
 import org.sales_management.entity.ProductTypeEntity;
-import org.sales_management.service.InventoryService;
 import org.sales_management.service.ProductService;
 import org.sales_management.service.ProductTypeService;
 
@@ -33,18 +31,14 @@ public class ProductTypeCreateController implements Initializable {
     @FXML
     private TextField productTypeBrandTextfield;
     @FXML
-    private Label identifyWarning;
-    @FXML
     private Label nameWarning;
     @FXML
     private Label productCategoryNameLabel;
 
-    private final InventoryService inventoryService;
     private final ProductTypeService productTypeService;
     private final ProductService productService;
 
     public ProductTypeCreateController() {
-        this.inventoryService = new InventoryService();
         this.productTypeService = new ProductTypeService();
         this.productService = new ProductService();
     }
@@ -62,20 +56,13 @@ public class ProductTypeCreateController implements Initializable {
         if (productTypeNameTextfield.getText().isEmpty()){
             save.setDisable(true);
         }
-        productTypeNameTextfield.textProperty().addListener((observable, oldValue, newValue) -> {
-            String productName = newValue.trim().toLowerCase();
+        productTypeNameTextfield.textProperty().addListener(observable -> {
             if (!productTypeNameTextfield.getText().isEmpty()) {
-                ProductTypeEntity existingProduct = productTypeService.isProductNameExists(productName);
-                if (existingProduct != null) {
-                    nameWarning.setText(productName + " existe déjà dans la liste de " + existingProduct.getProduct().getName());
-                    save.setDisable(true);
-                } else {
-                    nameWarning.setText(null);
-                    save.setDisable(false);
-                }
+                nameWarning.setText(null);
+                save.setDisable(false);
             } else {
                 save.setDisable(true);
-                nameWarning.setText(null);
+                nameWarning.setText("Champ obligatoire");
             }
         });
 
@@ -99,12 +86,10 @@ public class ProductTypeCreateController implements Initializable {
     }
     private ProductTypeEntity getProduct(ProductEntity product){
         ProductTypeEntity productType = new ProductTypeEntity();
-        InventoryEntity inventory = inventoryService.getById(1L);
         ProductEntity productCategoryPersisted = productService.getById(product.getId());
         productType.setName(productTypeNameTextfield.getText());
         productType.setReference(productTypeReferenceTextfield.getText());
         productType.setBrand(productTypeBrandTextfield.getText());
-        productType.setInventory(inventory);
         productType.setProduct(productCategoryPersisted);
         return productType;
     }

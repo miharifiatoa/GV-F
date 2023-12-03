@@ -47,7 +47,7 @@ public class ArticleCreateController implements Initializable {
             if (this.articleService.create(getProductType(productType)) != null){
                 StackPane productBoxLayout = (StackPane) productTypeCreate.getParent().getParent();
                 ScrollPane productBoxLayoutScrollpane = (ScrollPane) productBoxLayout.lookup("#productBoxLayoutScrollpane");
-                GridPane productGridPane = new ProductTypeGridPane().getGridPane(new ProductTypeService().getById(productType.getId()).getProduct().getProductTypes(), 4,false);
+                GridPane productGridPane = new ProductTypeGridPane().getGridPane(new ProductTypeService().getAll(), 4,false);
                 productBoxLayoutScrollpane.setContent(productGridPane);
                 productTypeCreate.getParent().setVisible(false);
             }

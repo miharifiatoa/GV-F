@@ -30,9 +30,9 @@ public class ArticleTypeBoxController implements Initializable {
     @FXML private Label articleTypeQuantityLabel;
     @FXML private Label deleteText;
     @FXML private Button delete;
-    @FXML private Button confirmDelete;
+    @FXML private Label save;
+    @FXML private Label exit;
     @FXML private Button edit;
-    @FXML private Button exitDelete;
     @FXML private VBox articleVBox;
     @FXML private VBox deleteVBox;
     @FXML private ImageView DeleteIcon;
@@ -79,7 +79,7 @@ public class ArticleTypeBoxController implements Initializable {
         });
     }
     private void setConfirmDelete(ArticleTypeEntity articleType){
-        confirmDelete.setOnAction(event->{
+        save.setOnMouseClicked(event->{
             if (this.articleTypeService.deleteById(articleType.getId()) != null){
                 ScrollPane productBoxLayoutScrollpane = (ScrollPane) articleBox.getParent().getParent().getParent().getParent();
                 GridPane gridPane = new ArticleTypeGridPane().getGridPane(new ArticleService().getById(articleType.getArticle().getId()).getArticleTypeEntities(), 4,false);
@@ -88,7 +88,7 @@ public class ArticleTypeBoxController implements Initializable {
         });
     }
     private void setExitDelete(){
-        this.exitDelete.setOnAction(event->{
+        this.exit.setOnMouseClicked(event->{
             this.articleVBox.setVisible(true);
             this.deleteVBox.setVisible(false);
         });
