@@ -128,7 +128,6 @@ public class UserEditFormController implements Initializable {
         next_button.setOnAction(actionEvent -> {
             ScrollPane scrollPane = (ScrollPane) user_edit_form.getParent().getParent().getParent();
             scrollPane.setContent(getAccountForm(account));
-            
         });
     }
     private VBox getAccountForm(AccountEntity account){

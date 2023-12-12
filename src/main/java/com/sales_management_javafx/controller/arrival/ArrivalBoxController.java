@@ -79,11 +79,6 @@ public class ArrivalBoxController implements Initializable {
         this.arrivalHBox.getChildren().remove(cancel);
         this.initialize(arrival);
         this.text.setText(arrival.getUser().getAccount().getUsername() + " a ajouté " + sum(arrival) + " produits au stock le : ");
-        this.text.setOnMouseClicked(event->{
-            GridPane arrivalInfoGridPane = new AdminArrivalInfoGridPane().getGridPane(arrival,1);
-            ScrollPane dashboardLayoutScrollpane = (ScrollPane) arrivalBox.getParent().getParent().getParent().getParent();
-            dashboardLayoutScrollpane.setContent(arrivalInfoGridPane);
-        });
     }
     private int sum(ArrivalEntity arrival){
         int sum = 0;

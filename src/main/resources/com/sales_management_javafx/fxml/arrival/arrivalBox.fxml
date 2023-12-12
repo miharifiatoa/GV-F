@@ -15,9 +15,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="arrivalBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.arrival.ArrivalBoxController">
+<StackPane fx:id="arrivalBox" styleClass="box" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.arrival.ArrivalBoxController">
    <children>
-      <VBox fx:id="arrivalVBox" spacing="5.0" styleClass="box" visible="false">
+      <VBox fx:id="arrivalVBox" spacing="5.0" visible="false">
          <children>
             <Label fx:id="text" text="Nombre" wrapText="true">
                <font>
@@ -69,7 +69,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </VBox>
-      <VBox fx:id="cancelArrivalVBox" alignment="TOP_CENTER" styleClass="box" visible="false">
+      <VBox fx:id="cancelArrivalVBox" alignment="TOP_CENTER" visible="false">
          <children>
             <GridPane styleClass="box">
                <columnConstraints>
@@ -143,7 +143,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </VBox>
-      <VBox fx:id="infoVBox" spacing="5.0" styleClass="box">
+      <VBox fx:id="infoVBox" spacing="5.0">
          <children>
             <GridPane prefHeight="40.0" prefWidth="274.0" styleClass="box">
                <columnConstraints>
@@ -185,7 +185,4 @@
          </padding>
       </VBox>
    </children>
-   <padding>
-      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-   </padding>
 </StackPane>

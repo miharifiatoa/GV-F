@@ -37,8 +37,7 @@ public class ProductTypeBoxLayoutController implements Initializable {
     @FXML private Label articleTypes;
     @FXML private Label articles;
     @FXML private Label categories;
-    @FXML private Label newCategoryLabel;
-    @FXML private ImageView articleIcon;
+    @FXML private Button newCategory;
     @FXML private Button exit;
     private final ProductTypeService productTypeService;
     private final ProductService productService;
@@ -65,7 +64,6 @@ public class ProductTypeBoxLayoutController implements Initializable {
         this.initializeSearchTextField();
         this.product.setVisible(true);
         this.modal.setVisible(false);
-        this.putIcons();
         this.setProductCategories();
         this.setProducts();
         this.setProductTypes();
@@ -166,13 +164,8 @@ public class ProductTypeBoxLayoutController implements Initializable {
         BorderPane stockistLayout = (BorderPane) productBoxLayout.getParent().getParent().getParent();
         stockistLayout.setBottom(getToolbar());
     }
-    private void putIcons(){
-        this.articleIcon.setImage(new Image(String.valueOf(SalesApplication.class.getResource("icon/ArticleIcon.png"))));
-    }
-    
-    
     private void onCreateProductCategory(){
-        newCategoryLabel.setOnMouseClicked(event->{
+        newCategory.setOnMouseClicked(event->{
             BorderPane modal = (BorderPane) productBoxLayout.lookup("#modal");
             modal.setCenter(this.getProductCategoryCreateBox());
             modal.setVisible(true);

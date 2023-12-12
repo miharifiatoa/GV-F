@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="articleBox" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" prefWidth="408.0" styleClass="box" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.admin.AdminArticleBoxController">
+<StackPane fx:id="articleTypeBox" styleClass="box" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.admin.AdminArticleTypeBoxController">
    <children>
       <GridPane>
          <columnConstraints>
@@ -32,7 +32,7 @@
             </AnchorPane>
             <AnchorPane GridPane.columnIndex="1">
                <children>
-                  <Label fx:id="priceLabel" alignment="CENTER" text="prix" textFill="#666666" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Label fx:id="sizeLabel" alignment="CENTER" text="Size" textFill="#666666" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font name="System Italic" size="12.0" />
                      </font>
@@ -41,7 +41,7 @@
             </AnchorPane>
             <AnchorPane>
                <children>
-                  <Label fx:id="codeLabel" alignment="CENTER" text="Code" textFill="#666666" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Label fx:id="colorLabel" alignment="CENTER" text="Color" textFill="#666666" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font name="System Italic" size="12.0" />
                      </font>

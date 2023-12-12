@@ -77,11 +77,6 @@ public class ShareBoxController implements Initializable {
         this.shareHBox.getChildren().remove(cancel);
         this.initialize(share);
         this.text.setText(share.getUser().getAccount().getUsername() + " a partagé " + sum(share) + " produit(s) vers le boutique : " + share.getShop().getName() + " à " + share.getShop().getAddress() + " le : ");
-        this.text.setOnMouseClicked(event->{
-            GridPane adminShareInfoGridPane = new AdminShareInfoGridPane().getGridPane(share,1);
-            ScrollPane dashboardLayoutScrollpane = (ScrollPane) shareBox.getParent().getParent().getParent().getParent();
-            dashboardLayoutScrollpane.setContent(adminShareInfoGridPane);
-        });
     }
     private int sum(ShareEntity share){
         int sum = 0;

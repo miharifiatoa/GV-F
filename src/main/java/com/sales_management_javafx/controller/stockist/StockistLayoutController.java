@@ -5,6 +5,7 @@ import com.sales_management_javafx.composent.stockist.StockistArticleGridPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -24,6 +25,7 @@ public class StockistLayoutController implements Initializable {
     @FXML private BorderPane stockistLayout;
     @FXML private BorderPane modal;
     @FXML private TextField searchArticleTextfield;
+    @FXML private Label articleCodeLabel;
     private final ArticleTypeService articleTypeService;
     private final ArticleService articleService;
 
@@ -38,10 +40,17 @@ public class StockistLayoutController implements Initializable {
         stockistLayout.setBottom(this.getToolbar());
         this.setArticles();
         this.setSearchArticleTextfield();
+        this.setCodeLabel();
     }
     private void setArticles(){
         GridPane articleGridpane = new StockistArticleGridPane().getGridPane(articleService.getAll(),4);
         stockistBoxLayoutScrollpane.setContent(articleGridpane);
+    }
+    private void setCodeLabel(){
+        articleCodeLabel.setOnMouseClicked(event->{
+            articleCodeLabel.setText("Articles");
+            this.setArticles();
+        });
     }
     private StackPane getToolbar(){
         FXMLLoader toolbarLoader = new FXMLLoader(SalesApplication.class.getResource("fxml/stockist/stockistToolbar.fxml"));

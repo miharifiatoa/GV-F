@@ -34,7 +34,8 @@ public class AdminArrivalGridPane {
             }
         }
         gridPane.getStyleClass().add("gridpane");
-        gridPane.setId("arrival");
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
         return gridPane;
     }
     private StackPane getArrivalBox(ArrivalEntity arrival){

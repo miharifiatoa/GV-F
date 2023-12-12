@@ -20,7 +20,6 @@ public class SellerArticleBoxController implements Initializable {
     @FXML private StackPane articleBox;
     @FXML private VBox articleVBox;
     @FXML private Label articlePrice;
-    @FXML private Label productTypeNameLabel;
     @FXML private Label codeLabel;
     @FXML private Label articleQuantityLabel;
     private final ArticleService articleService;
@@ -41,8 +40,7 @@ public class SellerArticleBoxController implements Initializable {
         }
         codeLabel.setText(article.getCode());
         articlePrice.setText(article.getPrice() + "Ar");
-        productTypeNameLabel.setText(article.getProductTypeEntity().getName());
-        articleQuantityLabel.setText(article.getArticleTypeEntities().size() + " types d' article");
+        articleQuantityLabel.setText(article.getArticleTypeEntities().size() + " caracteristique(s)");
     }
     public void initializeForSeller(ArticleEntity article){
         this.initialize(article);
@@ -54,6 +52,8 @@ public class SellerArticleBoxController implements Initializable {
     public void initializeForStockist(ArticleEntity article){
         this.initialize(article);
         codeLabel.setOnMouseClicked(event->{
+            Label articleCodeLabel = (Label) articleBox.getParent().getParent().getParent().getParent().getParent().lookup("#articleCodeLabel");
+            articleCodeLabel.setText(article.getCode());
             GridPane stockistArticleTypeGridPane = new StockistArticleTypeGridPane().getGridPane(article.getArticleTypeEntities(),4);
             getProductBoxLayoutScrollpane().setContent(stockistArticleTypeGridPane);
         });

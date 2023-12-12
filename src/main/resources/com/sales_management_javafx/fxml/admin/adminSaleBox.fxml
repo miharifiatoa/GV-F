@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="saleBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.admin.AdminSaleBoxController">
+<StackPane fx:id="saleBox" styleClass="box" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sales_management_javafx.controller.admin.AdminSaleBoxController">
    <children>
-      <VBox fx:id="saleVBox" spacing="5.0" styleClass="box">
+      <VBox fx:id="saleVBox" spacing="5.0">
          <children>
             <Label fx:id="articleNumbersLabel" text="Nombre" textAlignment="CENTER" wrapText="true">
                <font>
@@ -62,7 +62,4 @@
          </padding>
       </VBox>
    </children>
-   <padding>
-      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-   </padding>
 </StackPane>

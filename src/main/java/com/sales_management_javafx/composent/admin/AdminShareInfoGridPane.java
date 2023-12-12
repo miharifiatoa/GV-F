@@ -37,6 +37,8 @@ public class AdminShareInfoGridPane {
             }
         }
         gridPane.getStyleClass().add("gridpane");
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
         return gridPane;
     }
     private VBox getAdminArticleInfo(ShareArticleEntity shareArticle){

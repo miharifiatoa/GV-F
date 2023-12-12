@@ -37,7 +37,8 @@ public class AdminSaleGridPane {
             }
         }
         gridPane.getStyleClass().add("gridpane");
-        gridPane.setId("sale");
+        gridPane.setHgap(5);
+        gridPane.setVgap(5);
         return gridPane;
     }
     private StackPane getSaleBox(SaleEntity sale){

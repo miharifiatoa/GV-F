@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -48,8 +49,9 @@ public class DashboardMenuBoxController implements Initializable {
         menuLabel.setOnMouseClicked(this::handleClickMenuItems);
     }
     public void handleClickMenuItems(MouseEvent event){
-        BorderPane dashboardLayout = (BorderPane) dashboardMenuBox.getParent().getParent();
-        ScrollPane dashboardLayoutScrollpane = (ScrollPane) dashboardLayout.lookup("#dashboardLayoutScrollpane");
+        BorderPane dashboardLayoutBorderpane = (BorderPane) dashboardMenuBox.getParent().getParent();
+        ScrollPane dashboardLayoutScrollpane = (ScrollPane) dashboardLayoutBorderpane.lookup("#dashboardLayoutScrollpane");
+        DatePicker datePicker = (DatePicker) dashboardLayoutBorderpane.getParent().getParent().lookup("#datePicker");
         switch (menuLabel.getId()) {
             case "ACCOUNT" ->{
                 GridPane accountGridPane = new AccountGridPane().getGridPane(new AccountService().getAll(),4);
@@ -60,19 +62,22 @@ public class DashboardMenuBoxController implements Initializable {
                 dashboardLayoutScrollpane.setContent(adminShopGridPane);
             }
             case "SHARE" -> {
+                datePicker.setId("SHARE");
                 GridPane shareGridPane = new AdminShareGridPane().getGridPane(new ShareService().getAll(),4);
                 dashboardLayoutScrollpane.setContent(shareGridPane);
             }
             case "SALE" ->{
+                datePicker.setId("SALE");
                 GridPane adminSaleGridPane = new AdminSaleGridPane().getGridPane(new SaleService().getAll(),4);
                 dashboardLayoutScrollpane.setContent(adminSaleGridPane);
             }
             case "ARRIVAL" -> {
+                datePicker.setId("ARRIVAL");
                 GridPane arrivalGridPane = new AdminArrivalGridPane().getGridPane(new ArrivalService().getAll(),4);
                 dashboardLayoutScrollpane.setContent(arrivalGridPane);
             }
             case "STOCK" -> {
-                GridPane adminArticleGridPane = new AdminArticleGridPane().getGridPane(new ArticleTypeService().getAll(),4);
+                GridPane adminArticleGridPane = new AdminArticleGridPane().getGridPane(new ArticleService().getAll(),4);
                 dashboardLayoutScrollpane.setContent(adminArticleGridPane);
             }
         }

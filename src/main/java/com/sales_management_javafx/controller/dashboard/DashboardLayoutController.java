@@ -3,6 +3,7 @@ package com.sales_management_javafx.controller.dashboard;
 import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.actions.Payment;
 import com.sales_management_javafx.classes.DecimalFormat;
+import com.sales_management_javafx.classes.FileIO;
 import com.sales_management_javafx.classes.MenuIcon;
 import com.sales_management_javafx.classes.Printer;
 import com.sales_management_javafx.composent.MenuGridPane;
@@ -42,10 +43,7 @@ public class DashboardLayoutController implements Initializable {
     private final ArrivalService arrivalService;
     private final SaleService saleService;
     private final ShareService shareService;
-    private final PaymentService paymentService;
-
     public DashboardLayoutController() {
-        this.paymentService = new PaymentService();
         this.saleService = new SaleService();
         this.shareService = new ShareService();
         this.arrivalService = new ArrivalService();
@@ -90,19 +88,21 @@ public class DashboardLayoutController implements Initializable {
     private void setDatePicker(){
         datePicker.setOnAction(event->{
             LocalDate date = datePicker.getValue();
-            Node node = dashboardLayoutScrollpane.getContent();
-            if (node != null){
-                if(Objects.equals(node.getId(), "arrival")){
-                    GridPane adminArrivalGridPane = new AdminArrivalGridPane().getGridPane(arrivalService.getAllArrivalsByDate(date),4);
-                    dashboardLayoutScrollpane.setContent(adminArrivalGridPane);
-                }
-                else if(Objects.equals(node.getId(), "sale")){
-                    GridPane adminSaleGridPane = new AdminSaleGridPane().getGridPane(saleService.getAllSalesByDate(date),4);
-                    dashboardLayoutScrollpane.setContent(adminSaleGridPane);
-                }
-                else if(Objects.equals(node.getId(), "share")){
-                    GridPane adminShareGridPane = new AdminShareGridPane().getGridPane(shareService.getAllSharesByDate(date),4);
-                    dashboardLayoutScrollpane.setContent(adminShareGridPane);
+            String id = datePicker.getId();
+            if (id != null){
+                switch (id) {
+                    case "ARRIVAL" -> {
+                        GridPane adminArrivalGridPane = new AdminArrivalGridPane().getGridPane(arrivalService.getAllArrivalsByDate(date), 4);
+                        dashboardLayoutScrollpane.setContent(adminArrivalGridPane);
+                    }
+                    case "SALE" -> {
+                        GridPane adminSaleGridPane = new AdminSaleGridPane().getGridPane(saleService.getAllSalesByDate(date), 4);
+                        dashboardLayoutScrollpane.setContent(adminSaleGridPane);
+                    }
+                    case "SHARE" -> {
+                        GridPane adminShareGridPane = new AdminShareGridPane().getGridPane(shareService.getAllSharesByDate(date), 4);
+                        dashboardLayoutScrollpane.setContent(adminShareGridPane);
+                    }
                 }
             }
             initialize(date);
@@ -114,15 +114,15 @@ public class DashboardLayoutController implements Initializable {
                     @Override
                     public void updateItem(LocalDate item, boolean empty) {
                         super.updateItem(item, empty);
-                        Node node = dashboardLayoutScrollpane.getContent();
-                        if (node != null){
-                            if(Objects.equals(node.getId(), "arrival")){
+                        String id = datePicker.getId();
+                        if (id != null){
+                            if(Objects.equals(id, "ARRIVAL")){
                                 if (getArrivalsDate().contains(item)) {
                                     setStyle("-fx-background-color: lightgreen;");
                                     System.out.println("arrival");
                                 }
                             }
-                            else if(Objects.equals(node.getId(), "share")){
+                            else if(Objects.equals(id, "SHARE")){
                                 if (getSharesDate().contains(item)) {
                                     setStyle("-fx-background-color: #ff2ceabc;");
                                     System.out.println("arrival");

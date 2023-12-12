@@ -7,6 +7,9 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
+import org.sales_management.entity.ArticleEntity;
+import org.sales_management.entity.ArticleTypeEntity;
+import org.sales_management.entity.SaleArticleEntity;
 import org.sales_management.entity.ShareArticleEntity;
 
 import java.io.IOException;

@@ -37,7 +37,8 @@ public class AdminShareGridPane {
             }
         }
         gridPane.getStyleClass().add("gridpane");
-        gridPane.setId("share");
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
         return gridPane;
     }
     private StackPane getShareBox(ShareEntity share){

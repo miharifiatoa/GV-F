@@ -171,9 +171,6 @@
                            <font>
                               <Font name="System Italic" size="13.0" />
                            </font>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
                         </Label>
                      </children>
                   </AnchorPane>

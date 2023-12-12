@@ -40,6 +40,8 @@ public class AdminSaleInfoGridPane {
             }
         }
         gridPane.getStyleClass().add("gridpane");
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
         return gridPane;
     }
     private VBox getAdminArticleInfo(SaleArticleEntity saleArticle){

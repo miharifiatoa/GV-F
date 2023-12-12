@@ -35,6 +35,8 @@ public class AdminArrivalInfoGridPane {
             }
         }
         gridPane.getStyleClass().add("gridpane");
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
         return gridPane;
     }
     private VBox getAdminArticleInfo(ArrivalArticleEntity arrivalArticle){

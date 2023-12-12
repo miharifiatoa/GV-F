@@ -66,11 +66,6 @@ public class SaleBoxController implements Initializable {
         }
     }
     public void initializeForAdmin(SaleEntity sale){
-        saleText.setOnMouseClicked(event->{
-            GridPane adminSaleInfoGridPane = new AdminSaleInfoGridPane().getGridPane(sale,1);
-            ScrollPane dashboardLayoutScrollpane = (ScrollPane) saleBox.getParent().getParent().getParent().getParent();
-            dashboardLayoutScrollpane.setContent(adminSaleInfoGridPane);
-        });
         saleHBox.getChildren().remove(cancel);
         addPaymentHBox.getChildren().remove(addPayment);
         initialize(sale);

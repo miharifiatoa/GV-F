@@ -4,6 +4,8 @@ import com.sales_management_javafx.SalesApplication;
 import com.sales_management_javafx.controller.admin.AdminArticleStoryBoxController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.*;
+import org.sales_management.entity.ArticleEntity;
+import org.sales_management.entity.ArticleTypeEntity;
 import org.sales_management.entity.SaleArticleEntity;
 
 import java.io.IOException;
